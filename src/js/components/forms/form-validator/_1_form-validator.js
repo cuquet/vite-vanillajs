@@ -6,10 +6,10 @@ Descr:
 Usage: https://codyhouse.co/ds/components/info/form-validator
 Dependencies
 
--------------------------------- */
+ -------------------------------- */
 import { tools as Util } from '@modules';
 
-class FormValidator {
+export class FormValidator {
     constructor(options) {
         this.options = Util.extend(FormValidator.defaults, options);
         this.element = this.options.element;
@@ -19,6 +19,13 @@ class FormValidator {
         this.errorFields = [];
         this.errorFieldListeners = [];
     }
+
+    static defaults = {
+        element: '',
+        inputErrorClass: 'form-control--error',
+        inputWrapperErrorClass: 'form-validate__input-wrapper--error',
+        customValidate: {},
+    };
 
     validate(callback) {
         this.resetErrors();
@@ -90,12 +97,8 @@ class FormValidator {
 
 }
 
-FormValidator.defaults = {
-    element: '',
-    inputErrorClass: 'form-control--error',
-    inputWrapperErrorClass: 'form-validate__input-wrapper--error',
-    customValidate: {},
-};
+// expose to global scope (optional)
+if (typeof window !== 'undefined') {
+    window.FormValidator = FormValidator;
+}
 
-window.FormValidator = FormValidator;
-export default FormValidator; 

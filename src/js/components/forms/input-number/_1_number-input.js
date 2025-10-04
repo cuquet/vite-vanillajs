@@ -1,11 +1,11 @@
-/*
+/* -------------------------------- 
 File#: _1_input-number
 Title: Number input
 Descr: Number input field with custom increment buttons
 Usage: https://codyhouse.co/ds/components/info/number-input
-*/
+ -------------------------------- */
 
-class NumberInput {
+export class NumberInput {
     constructor(element) {
         this.element = element;
         this.input = this.element.querySelector('.js-number-input__value');
@@ -53,14 +53,15 @@ class NumberInput {
     }
 }
 
-window.NumberInput = NumberInput;
-export default NumberInput;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const inputNumbers = Array.from(document.getElementsByClassName('js-number-input'));
-    inputNumbers.forEach((el) => {
-        new NumberInput(el);
+export function initNumberInput(context = document) {
+    const elements = context.querySelectorAll('.js-number-input');
+    elements.forEach(el => {
+        if (!el.dataset.numberInitialized) {
+            new NumberInput(el);
+            el.dataset.numberInitialized = 'true';
+        }
     });
-});
+}
+
 
 

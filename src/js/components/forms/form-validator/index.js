@@ -1,3 +1,2 @@
-import FormValidator from "./_1_form-validator";
-export { FormValidator };
-export default FormValidator;
+// src/js/components/forms/form-validator/index.js
+export * from "./_1_form-validator";

@@ -1,5 +1,6 @@
 // src/js/modules/initComponents.js
 import {
+    initNumberInput,
     initListFilter,
     initCustomSelect,
     initMultipleCustomSelect,
@@ -17,6 +18,7 @@ import {
 import { LanguagePicker } from '@components/forms/picker-language';
 
 export function initComponents(context = document) {
+    initNumberInput(context);
     initListFilter(context);
     initCustomSelect(context);
     initMultipleCustomSelect(context);

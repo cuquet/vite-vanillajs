@@ -1,3 +1,2 @@
-import NumberInput from './_1_number-input';
-export { NumberInput };
-export default NumberInput;
+// src/js/components/forms/input-number/index.js
+export * from './_1_number-input';
