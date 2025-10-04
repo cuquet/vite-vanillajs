@@ -1,0 +1,40 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_note
+Title: Note
+Descr: A brief piece of information given to the user.
+default
+--warning
+--error
+--success
+
+Usage: https://codyhouse.co/ds/components/info/note
+
+-------------------------------- */
+.note {
+    background-color: var(--color-bg-light);
+    border-left: 3px solid var(--color-primary);
+    padding: var(--space-sm);
+    box-shadow:var(--shadow-sm);
+    &--warning {
+        border-left-color:var(--color-warning);
+    }
+    &--error {
+        border-left-color:var(--color-error);
+    }
+    &--success {
+        border-left-color:var(--color-success);
+    }
+}
+
+.text-component {
+    .note__content > * :last-child {
+        margin-bottom:0;
+    }
+    .note__title {
+        margin-bottom: 0;
+    }
+}

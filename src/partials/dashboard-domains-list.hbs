@@ -1,0 +1,657 @@
+<div class="padding-sm padding-md@lg"></div>
+<div class="container max-width-adaptive-lg">
+    <form id="form_list" class="form-template-v3" method="post">
+        <input type="hidden" name="csrf_token" value="K8LjG3jZLLSj38N3u5Q7x22Dz3VF4SDv">
+        <div class="tabs-nav-v3">
+            <ul id="tabs-v3__controls" class="tabs-v3__controls js-tabs__controls" aria-label="Tabs Interface">
+                <li>
+                    <a class="tabs-v3__control  items-center" aria-selected="true" href="#">All domains under your control
+                        <spam class="text-sm color-contrast-low margin-left-2xs">(1-1/1)</spam>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="tabs-v3__control  items-center" href="/iredadmin/create/domain">
+                    <svg class="icon icon--sm margin-right-2xs">
+                            <use href="#node-plus"></use>
+                    </svg>Add domain</a>
+                </li>
+            </ul>
+            <section class="tabs-nav-v3__section">
+                <div class="padding-x-0@md padding-x-md@lg">
+                    {{!-- <h2>All domains under your control.
+                        <spam class="text-md color-contrast-low">
+                            (1-1/1)
+                        </spam>
+                    </h2> --}}
+                    <div class="int-table-actions padding-bottom-sm border-bottom border-contrast-lower" data-table-controls="list_table">
+                        <ul class="flex flex-column gap-2xs flex-row@sm items-center@sm">
+                            <li class="padding-right-sm@md hide js-int-table-actions__items-selected">
+                                <div class="flex flex-column gap-2xs flex-row@sm items-center@sm">
+                                    <div class="select inline-block js-select" data-trigger-class="reset color-contrast-high text-underline inline-flex items-center cursor-pointer ">
+                                        <select class="select__input " name="action" id="action">
+                                            <optgroup label="Group 1">
+                                                <option value="none" selected="">Choose Action</option>
+                                            </optgroup>
+                                            <optgroup label="Group 2">
+                                                <option value="enable">Enable</option>
+                                                <option value="disable">Disable</option>
+                                                <option value="delete">Delete</option>
+                                            </optgroup>
+
+                                        </select>
+                                        <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true">
+                                            <use href="#caret-fill"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="select inline-block js-select" data-trigger-class="reset color-contrast-high text-underline inline-flex items-center cursor-pointer ">
+                                        <select class="select__input" name="keep_mailbox_days"
+                                            id="keep_mailbox_days">
+
+                                            <option value="(0, '\n        Keep mailbox forever\n    \n')">
+                                                Keep mailbox forever
+
+                                            </option>
+                                            <option value="1">
+                                                Keep mailbox for 1 day
+
+                                            </option>
+                                            <option value="7">
+
+                                                Keep mailbox for 1 week
+
+
+                                            </option>
+                                            <option value="14">
+
+
+
+                                                Keep mailbox for 2 weeks
+
+
+
+                                            </option>
+                                            <option value="21">
+
+
+
+                                                Keep mailbox for 3 weeks
+
+
+
+                                            </option>
+                                            <option value="30">
+                                                Keep mailbox for 1 month
+
+                                            </option>
+                                            <option value="60">
+
+
+                                                Keep mailbox for 2 months
+
+
+                                            </option>
+                                            <option value="90">
+
+
+                                                Keep mailbox for 3 months
+
+
+                                            </option>
+                                            <option value="180">
+
+
+                                                Keep mailbox for 6 months
+
+
+                                            </option>
+                                            <option value="365">
+                                                Keep mailbox for 1 year
+
+                                            </option>
+                                            <option value="730">
+
+
+
+                                                Keep mailbox for 2 years
+
+
+                                            </option>
+                                            <option value="1095">
+
+
+
+                                                Keep mailbox for 3 years
+
+
+                                            </option>
+
+                                        </select>
+                                        <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true">
+                                            <use href="#caret-fill"></use>
+                                        </svg>
+                                    </div>
+                                    <button type="button" class="btn btn--primary" id="submit_btn">Apply</button>
+                                </div>
+                            </li>
+                            <li>
+                                <ul class="btns inline-flex flex-wrap">
+                                    <li class="btns__btn">
+                                        <a  href="#0">
+                                            <span class="tooltip-trigger js-tooltip-trigger"
+                                        data-tooltip-title="Filter domains by first character in mail domain name ">
+                                                <svg class="icon color-contrast-low" aria-hidden="true">
+                                                    <use href="#filter"></use>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="btns__btn btns__btn--selected ">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">M</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">O</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">P</a>
+                                    </li >
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">Q</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">R</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">S</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">T</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">U</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">W</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">X</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">Y</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">Z</a>
+                                    </li>
+                                    <li class="btns__btn">
+                                        <a class="" href="/iredadmin/domains">
+                                            <span class="tooltip-trigger js-tooltip-trigger"
+                                                data-tooltip-title="#CAT netejar filtre ">
+
+                                                <svg class="icon"
+                                                    aria-hidden="true">
+                                                    <use href="#filter-remove"></use>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+{{!--                             <li>
+                                <ul class="inline-flex flex-wrap gap-xs items-center">
+                                    <li >
+                                        <a class="" href="#0">
+                                            <span class="tooltip-trigger js-tooltip-trigger"
+                                        data-tooltip-title="Filter domains by first character in mail domain name ">
+                                                <svg class="icon color-contrast-low" aria-hidden="true">
+                                                    <use href="#filter"></use>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">M</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">O</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">P</a>
+                                    </li >
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">Q</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">R</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">S</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">T</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">U</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">W</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">X</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">Y</a>
+                                    </li>
+                                    <li >
+                                        <a class="text-bg-fx text-bg-fx--underline text-decoration-none" href="/iredadmin/domains?starts_with=M">Z</a>
+                                    </li>
+                                    <li >
+                                        <a class="btn btn--subtle" href="/iredadmin/domains">
+                                            <span class="tooltip-trigger js-tooltip-trigger"
+                                                data-tooltip-title="#CAT netejar filtre ">
+
+                                                <svg class="icon"
+                                                    aria-hidden="true">
+                                                    <use href="#filter-remove"></use>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li> --}}
+                        </ul>
+                    </div>
+                    <div id="list_table" class="text-component int-table js-int-table ">
+                        <div class="int-table__inner">
+                            <table class="int-table__table" aria-label="Interactive table">
+                                <thead class="int-table__header js-int-table__header">
+                                    <tr class="int-table__row">
+                                        <th class="int-table__cell">
+                                            <div class="custom-checkbox int-table__checkbox">
+                                                <input class="custom-checkbox__input js-int-table__select-all"
+                                                    type="checkbox" aria-label="Select all rows">
+                                                <div class="custom-checkbox__control" aria-hidden="true"></div>
+                                            </div>
+                                        </th>
+
+                                        <th
+                                            class="int-table__cell int-table__cell--th int-table__cell--sort js-int-table__cell--sort">
+                                            <div class="flex items-center">
+                                                <span>Domain</span>
+                                                <svg class="icon icon--2xs margin-left-3xs int-table__sort-icon"
+                                                    aria-hidden="true" viewBox="0 0 12 12">
+                                                    <polygon class="arrow-up" points="6 0 10 5 2 5 6 0"></polygon>
+                                                    <polygon class="arrow-down" points="6 12 2 7 10 7 6 12"></polygon>
+                                                </svg>
+                                            </div>
+                                            <ul class="sr-only js-int-table__sort-list">
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-none"
+                                                        value="none" checked="checked">
+                                                    <label for="sorting-title-none">No sorting</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-asc"
+                                                        value="asc">
+                                                    <label for="sorting-title-asc">Sort in ascending order</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-des"
+                                                        value="desc">
+                                                    <label for="sorting-title-des">Sort in descending order</label>
+                                                </li>
+                                            </ul>
+                                        </th>
+
+                                        <th
+                                            class="int-table__cell int-table__cell--th int-table__cell--sort js-int-table__cell--sort">
+                                            <div class="flex items-center">
+                                                <span>Display Name</span>
+                                                <svg class="icon icon--2xs margin-left-3xs int-table__sort-icon"
+                                                    aria-hidden="true" viewBox="0 0 12 12">
+                                                    <polygon class="arrow-up" points="6 0 10 5 2 5 6 0"></polygon>
+                                                    <polygon class="arrow-down" points="6 12 2 7 10 7 6 12"></polygon>
+                                                </svg>
+                                            </div>
+                                            <ul class="sr-only js-int-table__sort-list">
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-none"
+                                                        value="none" checked="checked">
+                                                    <label for="sorting-title-none">No sorting</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-asc"
+                                                        value="asc">
+                                                    <label for="sorting-title-asc">Sort in ascending order</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-des"
+                                                        value="desc">
+                                                    <label for="sorting-title-des">Sort in descending order</label>
+                                                </li>
+                                            </ul>
+                                        </th>
+
+                                        <th
+                                            class="int-table__cell int-table__cell--th int-table__cell--sort js-int-table__cell--sort">
+                                            <div class="flex items-center">
+                                                <span>Quota</span>
+                                                <svg class="icon icon--2xs margin-left-3xs int-table__sort-icon"
+                                                    aria-hidden="true" viewBox="0 0 12 12">
+                                                    <polygon class="arrow-up" points="6 0 10 5 2 5 6 0"></polygon>
+                                                    <polygon class="arrow-down" points="6 12 2 7 10 7 6 12"></polygon>
+                                                </svg>
+                                            </div>
+                                            <ul class="sr-only js-int-table__sort-list">
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-none"
+                                                        value="none" checked="checked">
+                                                    <label for="sorting-title-none">No sorting</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-asc"
+                                                        value="asc">
+                                                    <label for="sorting-title-asc">Sort in ascending order</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-des"
+                                                        value="desc">
+                                                    <label for="sorting-title-des">Sort in descending order</label>
+                                                </li>
+                                            </ul>
+                                        </th>
+                                        <th
+                                            class="int-table__cell int-table__cell--th int-table__cell--sort js-int-table__cell--sort">
+                                            <div class="flex items-center">
+                                                <span>Users</span>
+                                                <svg class="icon icon--2xs margin-left-3xs int-table__sort-icon"
+                                                    aria-hidden="true" viewBox="0 0 12 12">
+                                                    <polygon class="arrow-up" points="6 0 10 5 2 5 6 0"></polygon>
+                                                    <polygon class="arrow-down" points="6 12 2 7 10 7 6 12"></polygon>
+                                                </svg>
+                                            </div>
+                                            <ul class="sr-only js-int-table__sort-list">
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-none"
+                                                        value="none" checked="checked">
+                                                    <label for="sorting-title-none">No sorting</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-asc"
+                                                        value="asc">
+                                                    <label for="sorting-title-asc">Sort in ascending order</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="sorting-title" id="sorting-title-des"
+                                                        value="desc">
+                                                    <label for="sorting-title-des">Sort in descending order</label>
+                                                </li>
+                                            </ul>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="int-table__body js-int-table__body">
+                                    <tr class="int-table__row" data-order="0">
+                                        <td class="int-table__cell" scope="row">
+                                            <div class="custom-checkbox int-table__checkbox">
+                                                <input class="custom-checkbox__input js-int-table__select-row"
+                                                    type="checkbox" name="domainName" value="melindro.org"
+                                                    aria-label="Select this row">
+                                                <div class="custom-checkbox__control" aria-hidden="true"></div>
+                                            </div>
+                                        </td>
+                                        <td class="int-table__cell">
+                                            <ul class="flex gap-2xs margin-0 padding-0"
+                                                style="list-style: none !important;">
+                                                <li>
+                                                    <a href="/iredadmin/profile/domain/general/melindro.org">
+                                                        <span class="tooltip-trigger js-tooltip-trigger"
+                                                            data-tooltip-title="Edit account profile " tabindex="0">
+
+                                                            <svg class="icon icon--xs margin-x-3xs color-primary"
+                                                                aria-hidden="true">
+                                                                <use href="#wrench-adjustable"></use>
+                                                            </svg><span>melindro.org</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td class="int-table__cell">['']</td>
+                                        <td class="int-table__cell">
+                                        </td>
+                                        <td class="int-table__cell" data-sort-value="0">
+                                            <a class="tooltip-trigger js-tooltip-trigger flex flex-column items-center"
+                                                href="/iredadmin/users/melindro.org" title="List all mail users."
+                                                tabindex="0">0</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="int-table__row" data-order="0">
+                                        <td class="int-table__cell" scope="row">
+                                            <div class="custom-checkbox int-table__checkbox">
+                                                <input class="custom-checkbox__input js-int-table__select-row"
+                                                    type="checkbox" name="domainName" value="melindro.org"
+                                                    aria-label="Select this row">
+                                                <div class="custom-checkbox__control" aria-hidden="true"></div>
+                                            </div>
+                                        </td>
+                                        <td class="int-table__cell">
+                                            <ul class="flex gap-2xs margin-0 padding-0"
+                                                style="list-style: none !important;">
+                                                <li>
+                                                    <a href="/iredadmin/profile/domain/general/melindro.org">
+                                                        <span class="tooltip-trigger js-tooltip-trigger"
+                                                            data-tooltip-title="Edit account profile " tabindex="0">
+
+                                                            <svg class="icon icon--xs margin-x-3xs color-primary"
+                                                                aria-hidden="true">
+                                                                <use href="#wrench-adjustable"></use>
+                                                            </svg><span>pelindro.org</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td class="int-table__cell">['']</td>
+                                        <td class="int-table__cell">
+                                        </td>
+                                        <td class="int-table__cell" data-sort-value="0">
+                                            <a class="tooltip-trigger js-tooltip-trigger flex flex-column items-center"
+                                                href="/iredadmin/users/melindro.org" title="List all mail users."
+                                                tabindex="0">0</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="flex justify-end padding-top-sm">
+{{!--                         <div class="hide@md int-table-actions" data-table-controls="list_table">
+                            <div class="hide js-int-table-actions__items-selected flex flex-column gap-2xs">
+                                <div class="select inline-block js-select" data-trigger-class="reset color-contrast-high text-underline inline-flex items-center cursor-pointer ">
+                                    <select class="select__input " name="action" id="action">
+                                        <optgroup label="Group 1">
+                                            <option value="none" selected="">Choose Action</option>
+                                        </optgroup>
+                                        <optgroup label="Group 2">
+                                            <option value="enable">Enable</option>
+                                            <option value="disable">Disable</option>
+                                            <option value="delete">Delete</option>
+                                        </optgroup>
+
+                                    </select>
+                                    <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true">
+                                        <use href="#caret-fill"></use>
+                                    </svg>
+                                </div>
+                                <div class="select inline-block js-select" data-trigger-class="reset color-contrast-high text-underline inline-flex items-center cursor-pointer ">
+                                    <select class="select__input" name="keep_mailbox_days"
+                                        id="keep_mailbox_days">
+
+                                        <option value="(0, '\n        Keep mailbox forever\n    \n')">
+                                            Keep mailbox forever
+
+                                        </option>
+                                        <option value="1">
+                                            Keep mailbox for 1 day
+
+                                        </option>
+                                        <option value="7">
+
+                                            Keep mailbox for 1 week
+
+
+                                        </option>
+                                        <option value="14">
+
+
+
+                                            Keep mailbox for 2 weeks
+
+
+
+                                        </option>
+                                        <option value="21">
+
+
+
+                                            Keep mailbox for 3 weeks
+
+
+
+                                        </option>
+                                        <option value="30">
+                                            Keep mailbox for 1 month
+
+                                        </option>
+                                        <option value="60">
+
+
+                                            Keep mailbox for 2 months
+
+
+                                        </option>
+                                        <option value="90">
+
+
+                                            Keep mailbox for 3 months
+
+
+                                        </option>
+                                        <option value="180">
+
+
+                                            Keep mailbox for 6 months
+
+
+                                        </option>
+                                        <option value="365">
+                                            Keep mailbox for 1 year
+
+                                        </option>
+                                        <option value="730">
+
+
+
+                                            Keep mailbox for 2 years
+
+
+                                        </option>
+                                        <option value="1095">
+
+
+
+                                            Keep mailbox for 3 years
+
+
+                                        </option>
+
+                                    </select>
+                                    <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true">
+                                        <use href="#caret-fill"></use>
+                                    </svg>
+                                </div>
+                                <button type="button" class="btn btn--primary" id="submit_btn">Apply</button>
+                            </div>
+                        </div> --}}
+                        <nav class="pagination text-sm" aria-label="Pagination">
+                            <ol class="pagination__list flex flex-wrap gap-3xs">
+
+                                <li>
+
+
+
+                                </li>
+
+                                <li class="display@sm">
+
+
+
+
+
+
+
+
+
+
+                                    <a href="#" class="pagination__item pagination__item--selected" aria-current="page"
+                                        aria-label="Current Page, page 1">1</a>
+
+
+
+                                    <a href="/iredadmin/activities/admins?domain=all&amp;event=all&amp;admin=all&amp;page=2"
+                                        class="pagination__item" aria-label="Go to page 2">2</a>
+
+
+
+
+
+                                    <span class="pagination__item pagination__item--ellipsis">...</span>
+
+                                    <a href="/iredadmin/activities/admins?domain=all&amp;event=all&amp;admin=all&amp;page=19"
+                                        class="pagination__item" aria-label="Go to page 19">19</a>
+
+
+                                </li>
+
+
+
+                                <li>
+
+                                    <a href="/iredadmin/activities/admins?domain=all&amp;event=all&amp;admin=all&amp;page=2"
+                                        class="pagination__item" aria-label="Next Page">
+                                        <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Next Page " tabindex="0">
+
+                                            <svg class="icon icon--xs flip-x color-primary" aria-hidden="true">
+                                                <use href="#chevron"></use>
+                                            </svg>
+                                        </span>
+
+                                    </a>
+
+
+
+                                    <a href="/iredadmin/activities/admins?domain=all&amp;event=all&amp;admin=all&amp;page=19"
+                                        class="pagination__item" aria-label="Last Page">
+                                        <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Last Page " tabindex="0">
+
+                                            <svg class="icon icon--xs flip-x color-primary" aria-hidden="true">
+                                                <use href="#chevron-double"></use>
+                                            </svg>
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </form>
+</div>

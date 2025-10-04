@@ -1,0 +1,34 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_flash-message
+Title: Flash Message
+Descr: Modeless, non-interactive message to alert the user of a status change.
+Usage: https://codyhouse.co/ds/components/info/flash-messages
+
+-------------------------------- */
+
+.flash-message {
+    position: fixed;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: var(--z-index-fixed-element);
+    background-color: var(--color-bg-light);
+    padding: var(--space-xs);
+    box-shadow: var(--inner-glow), var(--shadow-ring), var(--shadow-sm);
+    border-radius: var(--radius-md);
+    color: var(--color-contrast-high);
+    font-size: var(--text-sm);
+    transition: .2s;
+    transform: translateY(-16px);
+    transform-origin: top right;
+    opacity: 0;
+    visibility:hidden;
+    &--is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}

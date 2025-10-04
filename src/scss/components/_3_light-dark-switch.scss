@@ -1,0 +1,102 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _3_light-dark-switch
+Title: Light Dark Switch
+Descr: A color theme switcher based on the user system preferences.
+Usage: https://codyhouse.co/ds/components/info/light-dark-switch
+
+Dependencies
+    _1_popover
+    _2_adv-custom-select
+-------------------------------- */
+
+.ld-switch {
+    &-btn {
+        --size:24px;
+        //position: relative;
+        width: var(--size);
+        height: var(--size);
+        overflow: hidden;
+        display: inline-block;
+        transition:opacity .2s, color .2s;
+        &:hover {
+            cursor: pointer;
+            opacity:.8;
+        }
+        &:focus {
+            outline: none;
+            color:var(--color-primary);
+        }
+        &.popover-control--active {
+            color:var(--color-primary);
+        }
+        &__icon-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform:translateY(100%) rotate(35deg) scale(.5);
+            &--in {
+                opacity: 1;
+                transform:translateY(0) rotate(0) scale(1);
+            }
+            &--out {
+                opacity: 0;
+                transform:translateY(-100%) rotate(-35deg) scale(.5);
+            }
+            &--in,
+            &--out {
+                transition:transform .3s var(--ease-in-out), opacity .3s;
+            }
+        }
+        &__icon {
+            margin: auto;
+            --size:20px; /* icon size */
+        }
+    }
+    &-popover{
+        &.popover {
+            --popover-width:250px;
+        }
+        &__option {
+            -webkit-user-select: none;
+            user-select: none;
+            transition:opacity .2s;
+            &:hover {
+                cursor: pointer;
+                opacity:.85;
+            }
+            &:focus {
+                outline:none;
+                figure {
+                    box-shadow:0 0 0 1px var(--color-bg-light), 0 0 0 3px var(--color-contrast-higher);
+                }
+            }
+            &[aria-selected=true] {
+                color:var(--color-primary);
+                figure {
+                    box-shadow: 0 0 0 1px var(--color-bg-light), 0 0 0 3px currentColor;
+                }
+            }
+        }
+    }
+}
+
+[data-theme="dark"] {
+    .light{
+        display:none;
+    }
+}
+[data-theme="light"], [data-theme="default"] {
+    .dark{
+        display:none;
+    }
+}

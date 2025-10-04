@@ -1,0 +1,59 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_alert
+Title: Alert
+Descr: Feedback message
+Usage: https://codyhouse.co/ds/components/info/alert
+
+-------------------------------- */
+
+.alert {
+    background-color: alpha(var(--color-primary), 0.2);
+    color: var(--color-contrast-higher);
+    // hide element
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    &__icon {
+        color: var(--color-primary);
+    }
+    &__close-btn {
+        display: inline-flex;
+        flex-shrink: 0;
+        transition: 0.3s var(--ease-out);
+        .icon {
+            display: block;
+        }
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+    // themes
+    &--success {
+        background-color: alpha(var(--color-success), 0.2);
+    }
+    &--success &__icon{
+        color: var(--color-success);
+    }
+    &--error {
+        background-color: alpha(var(--color-error), 0.2);
+    }
+    &--error &__icon {
+        color: var(--color-error);
+    }
+    &--warning {
+        background-color: alpha(var(--color-warning), 0.2);
+    }
+    &--warning &__icon {
+        color: var(--color-warning);
+    }
+    // toggle visibility
+    &--is-visible {
+        position: static;
+        clip: auto;
+        clip-path: none;
+    }
+}

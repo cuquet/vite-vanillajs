@@ -1,0 +1,771 @@
+<div class="padding-sm padding-md@lg">
+    <ul class="grid justify-between">
+        <li class="col-11">
+            <div class="subnav subnav--expanded@sm js-subnav">
+                <button class="btn btn--subtle margin-y-sm subnav__control js-subnav__control">
+                    <span>Mostra Categories</span>
+                    <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true" viewBox="0 0 12 12">
+                        <polyline points="0.5 3.5 6 9.5 11.5 3.5" fill="none" stroke-width="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                    </svg>
+                </button>
+                <div class="subnav__wrapper js-subnav__wrapper">
+                    <nav class="subnav__nav justify-center">
+                        <button class="subnav__close-btn js-subnav__close-btn" aria-label="Close navigation">
+                            <svg class="icon "><use href="#close"></use></svg>
+                        </button>
+                        <ul class="subnav__list">
+                            <li class="subnav__item">
+                                <a class="subnav__link" href="/iredadmin/system/settings" >
+                                    <span class="">System Settings</span>
+                                </a>
+                            </li>
+                            <li class="subnav__item">
+                                <a class="subnav__link" href="/iredadmin/system/spampolicy">
+                                    <span class="">Global Spam Policy</span>
+                                </a>
+                            </li>
+                            <li class="subnav__item">
+                                <a class="subnav__link" aria-current="page" href="/iredadmin/system/wblist">
+                                    <span class="color-contrast-high font-italic font-bold ">Whitelists & Blacklists</span>
+                                </a>
+                            </li>
+                            <li class="subnav__item">
+                                <a class="subnav__link" href="/iredadmin/system/greylisting">
+                                    <span class="">Greylisting</span>
+                                </a>
+                            </li>
+                            <li class="subnav__item">
+                                <a class="subnav__link" href="/iredadmin/system/throttle">
+                                    {{!-- <span class="color-contrast-high font-italic">Profile of user:</span> --}}
+                                    <span class="">Throttling</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </li>
+        <li class="col-1 content-center">
+            <div class="app-ui__fix-menu ">
+                <menu class="menu-bar menu-bar--expanded@sm js-menu-bar">
+                    <li class="menu-bar__item menu-bar__item--trigger js-menu-bar__trigger" role="menuitem" aria-label="More options">
+                        <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
+                            <circle cx="8" cy="7.5" r="1.5"/>
+                            <circle cx="1.5" cy="7.5" r="1.5"/>
+                            <circle cx="14.5" cy="7.5" r="1.5"/>
+                        </svg>
+                    </li>
+                    <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
+                        <a class="js-modal" data-content="/iredadmin/view/ldif/user/postmaster@melindro.org">
+                            <svg class="icon menu-bar__icon" aria-hidden="true">
+                                <use href="#file-code-filled"></use>
+                            </svg>
+                            
+                        </a>
+                        <span class="menu-bar__label">LDIF view</span>
+                    </li>
+                    <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
+                        <a class="text-decoration-none" href="/iredadmin/download/ldif/user/postmaster@melindro.org">
+                            <svg class="icon menu-bar__icon" aria-hidden="true" >
+                                <use href="#file-download-filled"></use>
+                            </svg>
+                        </a>
+                        <span class="menu-bar__label">LDIF download</span>
+
+
+                    </li>
+                    <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
+                        <a class="text-decoration-none" href="/iredadmin/activities/sent/user/postmaster@melindro.org">
+                        <svg class="icon menu-bar__icon" aria-hidden="true">
+                            <use href="#file-analytics-filled"></use>
+                        </svg>
+                        </a>
+                        <span class="menu-bar__label">Activities</span>
+                    </li>
+                </menu> 
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="container padding-top-sm">
+    <div class="tabs-v3 js-tabs">
+        <ul class="tabs-v3__controls js-tabs__controls" aria-label="Tabs Interface">
+            <li>
+                <a href="#wblist" class="tabs-v3__control" aria-selected="true">
+                    {{!-- <svg class="icon icon--xs  margin-right-2xs"><use href="#plane"></use></svg> --}}
+                    <span>Sender Addresses</span>
+                </a>
+            </li>
+            <li>
+                <a href="#wblist_rdns" class="tabs-v3__control" >
+                    {{!-- <svg class="icon icon--xs  margin-right-2xs"><use href="#envelope"></use></svg> --}}
+                    <span>Reverse DNS Name</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tabs-v3__panels js-tabs__panels">
+            <section id="wblist" class="tabs-v3__panel js-tabs__panel" role="tabpanel" aria-labelledby="tab-wblist">
+                    <div class="grid gap-md items-center@md padding-top-xs ">
+                        <div class="col-8@md">
+        <h3 class="title col-12">For Inbound Mails</h3>
+        <div class="grid gap-xs">
+            <div class="col-6@md">
+                <fieldset class="margin-top-sm ">
+                    <legend class="form-legend margin-bottom-2xs">Whitelisted senders<br></legend>
+        
+                    <div class="list-filter js-list-filter">
+                        <div class="list-filter__form space-unit-rem bg-light radius-md shadow-sm inner-glow">
+                            <div class="position-relative border-bottom border-contrast-lower no-js:hide">
+                                <input autocomplete="off"
+                                    class="reset list-filter__search padding-sm text-sm js-list-filter__search" type="search"
+                                    name="list-filter-whitelistSender" id="list-filter-whitelistSender" placeholder="Search">
+                                <span class="list-filter__focus-marker" aria-hidden="true"></span>
+                                <button class="list-filter__search-cancel-btn js-list-filter__search-cancel-btn right-sm"
+                                    type="button">
+                                    <svg class="block icon icon--xs">
+                                        <use href="#reset"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="list-filter__list-wrapper">
+                                <ul class="list-filter__list js-list-filter__list">
+        
+                                </ul>
+                            </div>
+                        </div>
+                        <footer class="margin-top-2xs text-sm flex justify-between">
+                            <a class="js-modal" href="#0" data-content="#modal-form-whitelistSenders">
+                                <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Add ">
+        
+                                    <svg class="icon icon--sm margin-x-2xs color-primary" aria-hidden="true">
+                                        <use href="#plus-circle"></use>
+                                    </svg>
+                                </span>
+        
+                            </a>
+                            <p class="color-contrast-medium " aria-live="polite" aria-atomic="true">
+                                <span class="js-list-filter__results-nr">0</span>
+                                in total.
+                            </p>
+                        </footer>
+                    </div>
+        
+                </fieldset>
+            </div>
+            <div class="col-6@md">
+                <fieldset class="margin-top-sm ">
+                    <legend class="form-legend margin-bottom-2xs">Blacklisted senders<br></legend>
+        
+                    <div class="list-filter js-list-filter">
+                        <div class="list-filter__form space-unit-rem bg-light radius-md shadow-sm inner-glow">
+                            <div class="position-relative border-bottom border-contrast-lower no-js:hide">
+                                <input autocomplete="off"
+                                    class="reset list-filter__search padding-sm text-sm js-list-filter__search" type="search"
+                                    name="list-filter-blacklistSender" id="list-filter-blacklistSender" placeholder="Search">
+                                <span class="list-filter__focus-marker" aria-hidden="true"></span>
+                                <button class="list-filter__search-cancel-btn js-list-filter__search-cancel-btn right-sm"
+                                    type="button">
+                                    <svg class="block icon icon--xs">
+                                        <use href="#reset"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="list-filter__list-wrapper">
+                                <ul class="list-filter__list js-list-filter__list">
+        
+                                </ul>
+                            </div>
+                        </div>
+                        <footer class="margin-top-2xs text-sm flex justify-between">
+                            <a class="js-modal" data-content="#modal-form-blacklistSenders" href="#0" >
+                                <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Add " tabindex="0">
+        
+                                    <svg class="icon icon--sm margin-x-2xs color-primary" aria-hidden="true">
+                                        <use href="#plus-circle"></use>
+                                    </svg>
+                                </span>
+        
+                            </a>
+                            <p class="color-contrast-medium " aria-live="polite" aria-atomic="true">
+                                <span class="js-list-filter__results-nr">0</span>
+                                in total.
+                            </p>
+                        </footer>
+                    </div>
+        
+                </fieldset>
+            </div>
+        </div>
+        <div class="text-divider"></div>
+        <h3 class="title col-12">For Outbound Mails</h3>
+        <div class="grid gap-xs">
+            <div class="col-6@md">
+                <fieldset class="margin-top-sm ">
+                    <legend class="form-legend margin-bottom-2xs">Whitelisted recipients<br></legend>
+        
+                    <div class="list-filter js-list-filter">
+                        <div class="list-filter__form space-unit-rem bg-light radius-md shadow-sm inner-glow">
+                            <div class="position-relative border-bottom border-contrast-lower no-js:hide">
+                                <input autocomplete="off"
+                                    class="reset list-filter__search padding-sm text-sm js-list-filter__search" type="search"
+                                    name="list-filter-whitelistRecipient" id="list-filter-whitelistRecipient"
+                                    placeholder="Search">
+                                <span class="list-filter__focus-marker" aria-hidden="true"></span>
+                                <button class="list-filter__search-cancel-btn js-list-filter__search-cancel-btn right-sm"
+                                    type="button">
+                                    <svg class="block icon icon--xs">
+                                        <use href="#reset"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="list-filter__list-wrapper">
+                                <ul class="list-filter__list js-list-filter__list">
+        
+                                </ul>
+                            </div>
+                        </div>
+                        <footer class="margin-top-2xs text-sm flex justify-between">
+                            <a href="#0" aria-controls="modal-form-whitelistRecipients">
+                                <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Add " tabindex="0">
+        
+                                    <svg class="icon icon--sm margin-x-2xs color-primary" aria-hidden="true">
+                                        <use href="#plus-circle"></use>
+                                    </svg>
+                                </span>
+        
+                            </a>
+                            <p class="color-contrast-medium " aria-live="polite" aria-atomic="true">
+                                <span class="js-list-filter__results-nr">0</span>
+                                in total.
+                            </p>
+                        </footer>
+                    </div>
+        
+                </fieldset>
+            </div>
+            <div class="col-6@md">
+                <fieldset class="margin-top-sm ">
+                    <legend class="form-legend margin-bottom-2xs">Blacklisted recipients<br></legend>
+        
+                    <div class="list-filter js-list-filter">
+                        <div class="list-filter__form space-unit-rem bg-light radius-md shadow-sm inner-glow">
+                            <div class="position-relative border-bottom border-contrast-lower no-js:hide">
+                                <input autocomplete="off"
+                                    class="reset list-filter__search padding-sm text-sm js-list-filter__search" type="search"
+                                    name="list-filter-blacklistRecipient" id="list-filter-blacklistRecipient"
+                                    placeholder="Search">
+                                <span class="list-filter__focus-marker" aria-hidden="true"></span>
+                                <button class="list-filter__search-cancel-btn js-list-filter__search-cancel-btn right-sm"
+                                    type="button">
+                                    <svg class="block icon icon--xs">
+                                        <use href="#reset"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="list-filter__list-wrapper">
+                                <ul class="list-filter__list js-list-filter__list">
+        
+                                </ul>
+                            </div>
+                        </div>
+                        <footer class="margin-top-2xs text-sm flex justify-between">
+                            <a class="js-modal" data-content="#modal-form-blacklistRecipients" href="#0" >
+                                <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Add " tabindex="0">
+        
+                                    <svg class="icon icon--sm margin-x-2xs color-primary" aria-hidden="true">
+                                        <use href="#plus-circle"></use>
+                                    </svg>
+                                </span>
+        
+                            </a>
+                            <p class="color-contrast-medium " aria-live="polite" aria-atomic="true">
+                                <span class="js-list-filter__results-nr">0</span>
+                                in total.
+                            </p>
+                        </footer>
+                    </div>
+        
+                </fieldset>
+            </div>
+        </div>
+        </div>
+        <div class="col-4@md">
+        
+            <aside class="text-component__block padding-y-xs">
+                <div class="note ">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg class="icon icon--md margin-right-sm" aria-hidden="true">
+                                <use href="#info"></use>
+                            </svg>
+        
+                            <div class="note__content text-component">
+        
+                                <p class="text-sm">Whitelist has higher priority than blacklist.</p>
+                                <p class="text-sm">Per-user whitelists &amp; blacklists has highest priority, then per-domain
+                                    setting, then global setting.</p>
+                                <p class="text-sm">Mails sent from blacklisted senders will be quarantined by default.</p>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        
+            <aside class="text-component__block padding-y-xs">
+                <div class="note ">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg class="icon icon--md margin-right-sm" aria-hidden="true">
+                                <use href="#info"></use>
+                            </svg>
+                            <p class="note__title color-contrast-higher"><strong>Valid record formats</strong></p>
+                        </div>
+                    </div>
+                    <div class="margin-top-3xs">
+                        <div class="note__content text-component">
+        
+                            <ul class="list list--ul text-sm">
+                                <li><strong>IP Address</strong>
+                                    <ul class="list list--ul">
+                                        <li>Single IP Address: <em><u>192.168.2.10</u></em></li>
+                                        <li>IP address with wildcard: <em><u>192.168.2.*</u></em></li>
+                                    </ul>
+                                </li>
+                                <li><strong>Single user</strong>: <u>user@domain.ltd</u></li>
+                                <li><strong>User with wildcard</strong>: <u>user@*</u></li>
+                                <li><strong>Entire domain</strong>: <u>@domain.ltd</u></li>
+                                <li><strong>Domain and its sub-domains</strong>: <u>@.domain.ltd</u></li>
+                                <li><strong>All accounts</strong>: <u class="color-error-dark">@.</u></li>
+                            </ul>
+        
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        
+            <aside class="text-component__block padding-y-xs">
+                <div class="note note--warning">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg class="icon icon--md margin-right-sm" aria-hidden="true">
+                                <use href="#warning"></use>
+                            </svg>
+        
+                            <div class="note__content text-component">
+        
+                                <p class="text-sm">This feature requires iRedAPD plugin 'amavisd_wblist', please make sure it's
+                                    enabled in file /opt/iredapd/settings.py.</p>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        </div>
+            </section>
+
+            <section id="wblist_rdns" class="tabs-v3__panel js-tabs__panel hide" role="tabpanel" aria-labelledby="tab-wblist_rdns">
+                <div class="grid gap-md items-center@md padding-top-xs ">
+                    <div class="col-8@md">
+                        <div class="grid gap-xs">
+                            <div class="col-6@md">
+                                <fieldset class="margin-top-sm ">
+                                    <legend class="form-legend margin-bottom-2xs">Whitelists</legend>
+            
+                                    <div class="list-filter js-list-filter">
+                                        <div class="list-filter__form space-unit-rem bg-light radius-md shadow-sm inner-glow">
+                                            <div class="position-relative border-bottom border-contrast-lower no-js:hide">
+                                                <input autocomplete="off"
+                                                    class="reset list-filter__search padding-sm text-sm js-list-filter__search"
+                                                    type="search" name="list-filter-rdns_whitelist" id="list-filter-rdns_whitelist"
+                                                    placeholder="Search">
+                                                <span class="list-filter__focus-marker" aria-hidden="true"></span>
+                                                <button
+                                                    class="list-filter__search-cancel-btn js-list-filter__search-cancel-btn right-sm"
+                                                    type="button">
+                                                    <svg class="block icon icon--xs">
+                                                        <use href="#reset"></use>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="list-filter__list-wrapper">
+                                                <ul class="list-filter__list js-list-filter__list">
+            
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <footer class="margin-top-2xs text-sm flex justify-between">
+                                            <a class="js-modal" data-content="#modal-form-rdns_whitelists" href="#0" >
+                                                <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Add "
+                                                    tabindex="0">
+            
+                                                    <svg class="icon icon--sm margin-x-2xs color-primary" aria-hidden="true">
+                                                        <use href="#plus-circle"></use>
+                                                    </svg>
+                                                </span>
+            
+                                            </a>
+                                            <p class="color-contrast-medium " aria-live="polite" aria-atomic="true">
+                                                <span class="js-list-filter__results-nr">0</span>
+                                                in total.
+                                            </p>
+                                        </footer>
+                                    </div>
+            
+                                </fieldset>
+                            </div>
+                            <div class="col-6@md">
+                                <fieldset class="margin-top-sm ">
+                                    <legend class="form-legend margin-bottom-2xs">Blacklists</legend>
+            
+                                    <div class="list-filter js-list-filter">
+                                        <div class="list-filter__form space-unit-rem bg-light radius-md shadow-sm inner-glow">
+                                            <div class="position-relative border-bottom border-contrast-lower no-js:hide">
+                                                <input autocomplete="off"
+                                                    class="reset list-filter__search padding-sm text-sm js-list-filter__search"
+                                                    type="search" name="list-filter-rdns_blacklist" id="list-filter-rdns_blacklist"
+                                                    placeholder="Search">
+                                                <span class="list-filter__focus-marker" aria-hidden="true"></span>
+                                                <button
+                                                    class="list-filter__search-cancel-btn js-list-filter__search-cancel-btn right-sm"
+                                                    type="button">
+                                                    <svg class="block icon icon--xs">
+                                                        <use href="#reset"></use>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="list-filter__list-wrapper">
+                                                <ul class="list-filter__list js-list-filter__list">
+            
+                                                    <input name="old_rdns_blacklist" type="hidden"
+                                                        value=".cable.dyn.cableonline.com.mx">
+                                                    <li
+                                                        class="list-filter__item list-filter__item--user-active padding-xs js-list-filter__item">
+                                                        <div class="list-filter__status margin-right-xs"></div>
+                                                        <p class="text-sm text-truncate padding-y-4xs js-list-filter__label"><input
+                                                                name="rdns_blacklist" type="hidden"
+                                                                value=".cable.dyn.cableonline.com.mx">.cable.dyn.cableonline.com.mx
+                                                        </p>
+                                                        <div class="margin-left-auto">
+                                                            <button
+                                                                class="list-filter__action-btn js-list-filter__action-btn--remove">
+                                                                <svg class="icon icon--2xs" viewBox="0 0 12 12">
+                                                                    <title>#CAT Remove item</title>
+                                                                    <line x1="1" y1="6" x2="11" y2="6" fill="none"
+                                                                        stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"></line>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+            
+                                                    <input name="old_rdns_blacklist" type="hidden" value=".castelecom.com.br">
+                                                    <li
+                                                        class="list-filter__item list-filter__item--user-active padding-xs js-list-filter__item">
+                                                        <div class="list-filter__status margin-right-xs"></div>
+                                                        <p class="text-sm text-truncate padding-y-4xs js-list-filter__label"><input
+                                                                name="rdns_blacklist" type="hidden"
+                                                                value=".castelecom.com.br">.castelecom.com.br</p>
+                                                        <div class="margin-left-auto">
+                                                            <button
+                                                                class="list-filter__action-btn js-list-filter__action-btn--remove">
+                                                                <svg class="icon icon--2xs" viewBox="0 0 12 12">
+                                                                    <title>#CAT Remove item</title>
+                                                                    <line x1="1" y1="6" x2="11" y2="6" fill="none"
+                                                                        stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"></line>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+            
+                                                    <input name="old_rdns_blacklist" type="hidden" value=".clients.your-server.de">
+                                                    <li
+                                                        class="list-filter__item list-filter__item--user-active padding-xs js-list-filter__item">
+                                                        <div class="list-filter__status margin-right-xs"></div>
+                                                        <p class="text-sm text-truncate padding-y-4xs js-list-filter__label"><input
+                                                                name="rdns_blacklist" type="hidden"
+                                                                value=".clients.your-server.de">.clients.your-server.de</p>
+                                                        <div class="margin-left-auto">
+                                                            <button
+                                                                class="list-filter__action-btn js-list-filter__action-btn--remove">
+                                                                <svg class="icon icon--2xs" viewBox="0 0 12 12">
+                                                                    <title>#CAT Remove item</title>
+                                                                    <line x1="1" y1="6" x2="11" y2="6" fill="none"
+                                                                        stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"></line>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+            
+                                                    <input name="old_rdns_blacklist" type="hidden" value=".dyn.user.ono.com">
+                                                    <li
+                                                        class="list-filter__item list-filter__item--user-active padding-xs js-list-filter__item">
+                                                        <div class="list-filter__status margin-right-xs"></div>
+                                                        <p class="text-sm text-truncate padding-y-4xs js-list-filter__label"><input
+                                                                name="rdns_blacklist" type="hidden"
+                                                                value=".dyn.user.ono.com">.dyn.user.ono.com</p>
+                                                        <div class="margin-left-auto">
+                                                            <button
+                                                                class="list-filter__action-btn js-list-filter__action-btn--remove">
+                                                                <svg class="icon icon--2xs" viewBox="0 0 12 12">
+                                                                    <title>#CAT Remove item</title>
+                                                                    <line x1="1" y1="6" x2="11" y2="6" fill="none"
+                                                                        stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"></line>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+            
+                                                    <input name="old_rdns_blacklist" type="hidden" value=".dynamic.163data.com.cn">
+                                                    <li
+                                                        class="list-filter__item list-filter__item--user-active padding-xs js-list-filter__item">
+                                                        <div class="list-filter__status margin-right-xs"></div>
+                                                        <p class="text-sm text-truncate padding-y-4xs js-list-filter__label"><input
+                                                                name="rdns_blacklist" type="hidden"
+                                                                value=".dynamic.163data.com.cn">.dynamic.163data.com.cn</p>
+                                                        <div class="margin-left-auto">
+                                                            <button
+                                                                class="list-filter__action-btn js-list-filter__action-btn--remove">
+                                                                <svg class="icon icon--2xs" viewBox="0 0 12 12">
+                                                                    <title>#CAT Remove item</title>
+                                                                    <line x1="1" y1="6" x2="11" y2="6" fill="none"
+                                                                        stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"></line>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+            
+                                                    <input name="old_rdns_blacklist" type="hidden" value=".static.skysever.com.br">
+                                                    <li
+                                                        class="list-filter__item list-filter__item--user-active padding-xs js-list-filter__item">
+                                                        <div class="list-filter__status margin-right-xs"></div>
+                                                        <p class="text-sm text-truncate padding-y-4xs js-list-filter__label"><input
+                                                                name="rdns_blacklist" type="hidden"
+                                                                value=".static.skysever.com.br">.static.skysever.com.br</p>
+                                                        <div class="margin-left-auto">
+                                                            <button
+                                                                class="list-filter__action-btn js-list-filter__action-btn--remove">
+                                                                <svg class="icon icon--2xs" viewBox="0 0 12 12">
+                                                                    <title>#CAT Remove item</title>
+                                                                    <line x1="1" y1="6" x2="11" y2="6" fill="none"
+                                                                        stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"></line>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+            
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <footer class="margin-top-2xs text-sm flex justify-between">
+                                            <a class="js-modal" data-content="#modal-form-rdns_blacklists" href="#0" >
+                                                <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Add "
+                                                    tabindex="0">
+            
+                                                    <svg class="icon icon--sm margin-x-2xs color-primary" aria-hidden="true">
+                                                        <use href="#plus-circle"></use>
+                                                    </svg>
+                                                </span>
+            
+                                            </a>
+                                            <p class="color-contrast-medium " aria-live="polite" aria-atomic="true">
+                                                <span class="js-list-filter__results-nr">6</span>
+                                                in total.
+                                            </p>
+                                        </footer>
+                                    </div>
+            
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4@md">
+            
+                        <aside class="text-component__block padding-y-xs">
+                            <div class="note ">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <svg class="icon icon--md margin-right-sm" aria-hidden="true">
+                                            <use href="#info"></use>
+                                        </svg>
+            
+                                        <div class="note__content text-component">
+            
+                                            <p>Whitelist has higher priority than blacklist.</p>
+                                            <h5>Valid record formats</h5>
+                                            <ul class="list list--ul text-sm">
+                                                <li><strong>Entire domain</strong>: <u>domain.ltd</u></li>
+                                                <li><strong>Domain and its sub-domains</strong>: <u>.domain.ltd</u></li>
+                                            </ul>
+            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+            
+                        <aside class="text-component__block padding-y-xs">
+                            <div class="note note--warning">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <svg class="icon icon--md margin-right-sm" aria-hidden="true">
+                                            <use href="#warning"></use>
+                                        </svg>
+            
+                                        <div class="note__content text-component">
+            
+                                            <p class="">This feature requires iRedAPD plugin 'wblist_rdns', please make sure it's
+                                                enabled in file /opt/iredapd/settings.py.</p>
+            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+        <div class="padding-md  margin-top-md border-top">
+            <div class="flex justify-between">
+                <p class="text-xs color-contrast-low">(<span class="" style="color:var(--color-error);">&nbsp;<sup><svg
+                                class="icon icon--3xs ">
+                                <use href="#asterisk"></use>
+                            </svg></sup>&nbsp;</span>) #CAT Són camps obligatoris</p>
+        
+                <button type="button" class="btn btn--primary" id="submit_btn">
+                    Save changes
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-form-rdns_whitelists" class="hide" >
+    <form id="modal-form-103" name="form-rdns_whitelists" action="/iredadmin/system/wblist" method="post">
+
+        <input type="hidden" name="csrf_token" value="Zbw6WYS69QXL8PUd6An58U89x69grkY5">
+
+        <fieldset class="margin-bottom-md padding-bottom-md border-bottom">
+
+
+            <textarea name="add_rdns_whitelist" id="add_rdns_whitelist" rows="6"
+                class="form-control width-100% "></textarea>
+            <span class="text-xs color-contrast-medium"><small>One record per line.</small></span>
+        </fieldset>
+        <div class="text-right">
+            <input type="submit" class="btn btn--primary" value="Add">
+        </div>
+    </form>
+</div>
+<div id="modal-form-rdns_blacklists" class="hide">
+    <form id="modal-form-15" name="form-rdns_blacklists" action="/iredadmin/system/wblist" method="post">
+
+        <input type="hidden" name="csrf_token" value="Zbw6WYS69QXL8PUd6An58U89x69grkY5">
+
+        <input name="old_rdns_blacklist" type="hidden" value=".cable.dyn.cableonline.com.mx">
+
+        <input name="old_rdns_blacklist" type="hidden" value=".castelecom.com.br">
+
+        <input name="old_rdns_blacklist" type="hidden" value=".clients.your-server.de">
+
+        <input name="old_rdns_blacklist" type="hidden" value=".dyn.user.ono.com">
+
+        <input name="old_rdns_blacklist" type="hidden" value=".dynamic.163data.com.cn">
+
+        <input name="old_rdns_blacklist" type="hidden" value=".static.skysever.com.br">
+
+        <fieldset class="margin-bottom-md padding-bottom-md border-bottom">
+
+
+            <textarea name="add_rdns_blacklist" id="add_rdns_blacklist" rows="6"
+                class="form-control width-100% "></textarea>
+            <span class="text-xs color-contrast-medium"><small>One record per line.</small></span>
+        </fieldset>
+        <div class="text-right">
+            <input type="submit" class="btn btn--primary" value="Add">
+        </div>
+    </form>
+</div>
+
+<div id="modal-form-whitelistSenders" class="hide">
+    <form id="modal-form-175" name="form-whitelistSenders" action="/iredadmin/system/wblist" method="post">
+
+        <input type="hidden" name="csrf_token" value="Zbw6WYS69QXL8PUd6An58U89x69grkY5">
+
+        <fieldset class="margin-bottom-md padding-bottom-md border-bottom">
+
+
+            <textarea name="add_whitelistSender" id="add_whitelistSender" rows="6"
+                class="form-control width-100% "></textarea>
+            <span class="text-xs color-contrast-medium"><small>One record per line.</small></span>
+        </fieldset>
+        <div class="text-right">
+            <input type="submit" class="btn btn--primary" value="Add">
+        </div>
+    </form>
+</div>
+<div id="modal-form-blacklistSenders" class="hide">
+    <form id="modal-form-171" name="form-blacklistSenders" action="/iredadmin/system/wblist" method="post">
+
+        <input type="hidden" name="csrf_token" value="Zbw6WYS69QXL8PUd6An58U89x69grkY5">
+
+        <fieldset class="margin-bottom-md padding-bottom-md border-bottom">
+
+
+            <textarea name="add_blacklistSender" id="add_blacklistSender" rows="6"
+                class="form-control width-100% "></textarea>
+            <span class="text-xs color-contrast-medium"><small>One record per line.</small></span>
+        </fieldset>
+        <div class="text-right">
+            <input type="submit" class="btn btn--primary" value="Add">
+        </div>
+    </form>
+</div>
+
+<div id="modal-form-whitelistRecipients" class="hide">
+    <form id="modal-form-28" name="form-whitelistRecipients" action="/iredadmin/system/wblist"
+        method="post">
+
+        <input type="hidden" name="csrf_token" value="Zbw6WYS69QXL8PUd6An58U89x69grkY5">
+
+        <fieldset class="margin-bottom-md padding-bottom-md border-bottom">
+
+
+            <textarea name="add_whitelistRecipient" id="add_whitelistRecipient" rows="6"
+                class="form-control width-100% "></textarea>
+            <span class="text-xs color-contrast-medium"><small>One record per line.</small></span>
+        </fieldset>
+        <div class="text-right">
+            <input type="submit" class="btn btn--primary" value="Add">
+        </div>
+    </form>
+</div>
+
+<div id="modal-form-blacklistRecipients" class="hide">
+    <form id="modal-form-138" name="form-blacklistRecipients" action="/iredadmin/system/wblist"
+        method="post">
+
+        <input type="hidden" name="csrf_token" value="Zbw6WYS69QXL8PUd6An58U89x69grkY5">
+
+        <fieldset class="margin-bottom-md padding-bottom-md border-bottom">
+
+
+            <textarea name="add_blacklistRecipient" id="add_blacklistRecipient" rows="6"
+                class="form-control width-100% "></textarea>
+            <span class="text-xs color-contrast-medium"><small>One record per line.</small></span>
+        </fieldset>
+        <div class="text-right">
+            <input type="submit" class="btn btn--primary" value="Add">
+        </div>
+    </form>
+</div>

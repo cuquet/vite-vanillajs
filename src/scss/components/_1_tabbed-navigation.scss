@@ -1,0 +1,65 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_tabbed-navigation
+Title: Tabbed Navigation
+Descr: Tabbed secondary navigation
+Usage: https://codyhouse.co/ds/components/info/scrollable-tabs
+
+-------------------------------- */
+
+:root {
+    --tabs-nav-border-bottom-width: 1px;
+    --tabs-nav-selected-item-border-bottom-width: 1px;
+}
+
+.tabs-nav {
+    position: relative;
+    /* gradient - truncate text */
+    &::after {
+        content: '';
+        position: absolute;
+        right: -1px;
+        top: 0;
+        height: calc(100% - var(--tabs-nav-border-bottom-width));
+        width: 2em;
+        background: linear-gradient(90deg, alpha(var(--color-bg), 0), var(--color-bg));
+        pointer-events: none;
+        z-index: 1;
+    }
+    &__list {
+        display: flex;
+        overflow: auto;
+        -webkit-overflow-scrolling: auto;
+        /* border bottom */
+        &::after { 
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: var(--tabs-nav-border-bottom-width);
+            left: 0;
+            bottom: 0;
+            background-color: var(--color-contrast-lower);
+        }
+    }
+    &__link {
+        color: var(--color-contrast-medium);
+        text-decoration: none;
+        display: inline-block;
+        padding: var(--space-xs) var(--space-sm);
+        white-space: nowrap;
+        border-bottom: var(--tabs-nav-selected-item-border-bottom-width) solid transparent;
+        z-index: 1;
+        transition: .2s;
+        &:hover:not(&--current) {
+            color: var(--color-contrast-high);
+        }
+        &--current {
+            position: relative;
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+    }
+}

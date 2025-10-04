@@ -1,0 +1,20 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_breadcrumbs
+Title: Breadcrumbs
+Descr: List of links to help the user move within website structure
+Usage: https://codyhouse.co/ds/components/info/breadcrumbs
+
+-------------------------------- */
+
+.breadcrumbs {
+    &__item {
+        display: inline-block; // flex fallback
+        display: inline-flex;
+        align-items: center;
+    }
+}
+

@@ -1,0 +1,145 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_menu-bar
+Title: Menu Bar
+Descr: Application menu with a list of common actions that users can perform.
+Usage: https://codyhouse.co/ds/components/info/menu-bar
+Dependencies
+_1_menu
+
+-------------------------------- */
+
+:root {
+    --menu-bar-button-size: 2.5em;
+    --menu-bar-icon-size: 1em;
+    --menu-bar-horizontal-gap: var(--space-2xs);
+    --menu-bar-vertical-gap: 4px;
+    --menu-bar-label-size:var(--text-xs);
+}
+
+.menu-bar {
+    list-style: none;
+    display: inline-flex;
+    align-items:center;
+    &__item {
+        position: relative;
+        display: inline-block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--menu-bar-button-size);
+        width: var(--menu-bar-button-size);
+        border-radius: 50%;
+        cursor: pointer;
+        transition:background-color .2s;
+        &:not(:last-child) {
+            margin-right:var(--menu-bar-horizontal-gap);
+        }
+        &:hover,
+        &.menu-control--active {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        }
+    }
+    &__item:hover > &__icon, 
+    &__item.menu-control--active > &__icon {
+        color:var(--color-contrast-higher);
+    }
+    &__item:hover > &__label,
+    &__item.menu-control--active > &__label {
+        clip: auto;
+        -webkit-clip-path: none;
+        clip-path: none;
+        height: auto;
+        width:auto;
+    }
+    &__item{
+        &:focus {
+            outline: none;
+            background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.1);
+        }
+        &:active {
+            background-color:var(--color-contrast-low);
+        }
+        &:focus:active {
+            background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2);
+        }
+        &--trigger {
+            display:none;
+        }
+    }
+    &__icon {
+        display: block;
+        color: var(--color-contrast-high);
+        font-size: var(--menu-bar-icon-size);
+        transition:color .2s;
+    }
+    &__label {
+        position: absolute;
+        z-index: var(--z-index-popover, 5);
+        clip: rect(1px, 1px, 1px, 1px);
+        -webkit-clip-path: inset(50%);
+        clip-path: inset(50%);
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        white-space: nowrap;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(var(--menu-bar-vertical-gap));
+        padding: var(--space-2xs) var(--space-xs);
+        color: var(--color-bg);
+        background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.95);
+        border-radius: var(--radius-md);
+        font-size: var(--menu-bar-label-size);
+        pointer-events: none;
+        -webkit-user-select: none;
+        user-select:none;
+    }
+    &--collapsed &__item--hide {
+        display:none;
+    }
+    &--collapsed &__item--trigger {
+        display: inline-block;
+        display:flex;
+    }
+    & {
+        opacity:0;
+    }
+    &::before {
+        display: none;
+        content: "collapsed";
+    }
+    &--loaded {
+        opacity:1;
+    }
+    @include min-width(xs)  {
+        &--expanded\@xs::before {
+            content: "expanded";
+        }
+    }
+    @include min-width(sm)  {
+        &--expanded\@sm::before {
+            content: "expanded";
+        }
+    }
+    @include min-width(md)  {
+        &--expanded\@md::before {
+            content: "expanded";
+        }
+    }
+    
+    @include min-width(lg)  {
+        &--expanded\@lg::before {
+            content: "expanded";
+        }
+    }
+    
+    @include min-width(xl) {
+        &--expanded\@xl::before {
+            content: "expanded";
+        }
+    }
+}

@@ -1,0 +1,128 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_tabs-v3
+Title: Tabs
+Descr: Content panels accessible one at a time using control labels.
+Usage: https://codyhouse.co/ds/components/info/tabs-v3
+Dependencies
+    Tabs
+
+-------------------------------- */
+
+:root {
+    --tabs-v3-border-width: 1px;
+    --tabs-v3-radius: var(--radius-md);
+    --tabs-v3-control-gap: var(--tabs-v3-border-width);
+    --tabs-v3-control-radius:0
+}
+
+.tabs-v3 {
+    border: var(--tabs-v3-border-width) solid var(--color-contrast-low);
+    padding: var(--space-md);
+    border-radius: var(--tabs-v3-radius);
+    background-color:var(--color-bg);
+    &__controls {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom:var(--space-xs);
+        li {
+            display: inline-block;
+            margin:0 var(--space-xs) var(--space-xs) 0
+        }
+    }
+    &__control {
+        display: inline-flex;
+        background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        padding: var(--space-xs) var(--space-sm);
+        white-space: nowrap;
+        color: inherit;
+        border-radius:var(--tabs-v3-control-radius);
+        &:hover {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+        }
+    }
+    &__panel {
+        margin-bottom:var(--space-md);
+    }
+    &__control {
+        text-decoration:none;
+        &[aria-selected=true] {
+            background-color: var(--color-primary);
+            color:var(--color-white);
+            &:hover {
+                background-color:var(--color-primary-light);
+            }
+        }
+    }
+    &__panel {
+        margin-bottom:0;
+    }
+    @include min-width(md) {
+        & {
+            padding: 0;
+            border: none;
+            background-color:transparent;
+            &__controls {
+                margin-bottom:0;
+                li {
+                    margin-top: 0;
+                    margin-left: calc(-1 * var(--tabs-v3-border-width));
+                    margin-right: var(--tabs-v3-control-gap);
+                    margin-bottom:0;
+                    &:first-child {
+                        margin-left:0;
+                        a {
+                            border-radius:var(--tabs-v3-radius) var(--tabs-v3-control-radius) 0 0;
+                        }
+                    }
+                    &:last-child {
+                        a {
+                            border-radius:var(--tabs-v3-control-radius) var(--tabs-v3-radius) 0 0;
+                        }
+                    }
+                    &:first-child:last-child, &:only-child {
+                        a {
+                            border-radius:var(--tabs-v3-radius) var(--tabs-v3-radius) 0 0;
+                        }
+                    }
+                }
+            }
+            &__control {
+                height: 100%;
+                border: var(--tabs-v3-border-width) solid transparent;
+                border-bottom-width: 0;
+                border-radius:var(--tabs-v3-control-radius) var(--tabs-v3-control-radius) 0 0;
+                &[aria-selected=true] {
+                    background-color: var(--color-bg);
+                    color: var(--color-primary);
+                    position: relative;
+                    border-color:var(--color-contrast-lower);
+                    &:hover {
+                        background-color:inherit;
+                    }
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        bottom: calc(-1 * var(--tabs-v3-border-width));
+                        width: 100%;
+                        height: var(--tabs-v3-border-width);
+                        background-color: var(--color-bg);
+                        z-index:1;
+                    }
+                }
+            }
+            &__panels {
+                border: var(--tabs-v3-border-width) solid var(--color-contrast-lower);
+                border-radius: 0 var(--tabs-v3-radius) var(--tabs-v3-radius) var(--tabs-v3-radius);
+                background-color:var(--color-bg);
+            }
+            &__panel {
+                padding: var(--space-sm);
+            }
+        }
+    }
+}

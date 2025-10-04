@@ -1,0 +1,165 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_expandable-side-navigation
+Title: Expandable Side Navigation
+Descr: A side navigation with expandable sub-lists and popular links
+Usage: https://codyhouse.co/ds/components/info/expandable-side-navigation
+
+-------------------------------- */
+.exsidenav__pop-nav {
+    margin-bottom:var(--space-md);
+}
+
+.exsidenav__pop-link,
+.exsidenav__link, 
+.exsidenav__control {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: var(--color-contrast-high);
+    text-decoration: none;
+    line-height: 1;
+    padding: var(--space-2xs);
+    cursor: pointer;
+    transition:0.2s;
+    &:hover {
+        color:var(--color-primary);
+    }
+}
+
+/* popular links */
+.exsidenav__pop-link {
+    .icon {
+        --size: 16px;
+        margin-right: var(--space-2xs);
+        opacity: 0.5;
+        transition:opacity 0.2s;
+    }
+    &:hover {
+        .icon {
+            opacity:1;
+        }
+    }
+    &[aria-current=page] {
+        color: var(--color-primary);
+        background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.15);
+        border-radius:var(--radius-md);
+        .icon {
+            opacity:1;
+        }
+    }
+} 
+
+/* main links */
+
+.exsidenav__link {
+    position:relative;
+}
+
+.exsidenav__list .exsidenav__list .exsidenav__link::before {
+    /* left mark */
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0;
+    height: 100%;
+    width:1px;
+}
+
+.exsidenav__link[aria-current=page] {
+    color:var(--color-primary);
+}
+
+.exsidenav__link[aria-current=page]::before {
+    background-color:var(--color-primary);
+}
+/* list label */
+
+.exsidenav__label-wrapper {
+    margin:var(--space-md) 0 var(--space-2xs) var(--space-2xs);
+}
+
+.exsidenav__list .exsidenav__list .exsidenav__label-wrapper {
+    margin:var(--space-xs) 0 var(--space-3xs) var(--space-2xs);
+}
+
+.exsidenav__label {
+    color: var(--color-contrast-low);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing:0.1em;
+}
+/* button controlling sub navigations */
+
+.exsidenav__control {
+    font-weight:600;
+}
+
+.exsidenav__control .icon {
+    --size: 16px;
+    display: block;
+    margin-left:auto;
+    .icon__group {
+        will-change: transform;
+        transform-origin: 8px 8px;
+        transition:transform 0.3s var(--ease-out);
+        > * {
+            transform-origin: 8px 8px;
+            stroke-dasharray: 17;
+            transform: translateY(3px);
+            transition: transform 0.3s, stroke-dashoffset 0.3s;
+            transition-timing-function:var(--ease-out);
+            &:first-child {
+                stroke-dashoffset:10;
+            }
+            &:last-child {
+                stroke-dashoffset:10;
+            }
+        }
+    }
+}
+
+.exsidenav__control[aria-expanded=true] + .exsidenav__list {
+    display:block; /* show the subnavigation */
+}
+
+.exsidenav__control[aria-expanded=true] + .exsidenav__list > * {
+    animation:exsidenav-entry-animation 0.4s var(--ease-out); /* animate list items */
+}
+
+.exsidenav__control[aria-expanded=true] .icon__group {
+    transform:rotate(-90deg);
+}
+
+.exsidenav__control[aria-expanded=true] .icon__group > *:first-child, 
+.exsidenav__control[aria-expanded=true] .icon__group *:last-child {
+    stroke-dashoffset: 0;
+    transform:translateY(0px);
+}
+
+.exsidenav__list .exsidenav__list {
+    display: none;
+    border-left: 1px solid var(--color-contrast-lower);
+    margin:var(--space-4xs) 0 0 var(--space-2xs);
+}
+
+@keyframes exsidenav-entry-animation {
+    from {
+        opacity: 0;
+        transform:translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform:translateY(0px);
+    }
+}
+
+@include min-width(md) {
+    .exsidenav__pop-link, .exsidenav__link, .exsidenav__control {
+        font-size: var(--text-sm);
+    }
+}

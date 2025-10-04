@@ -1,0 +1,117 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_tabbed-navigation-v3
+Title: Tabbed Navigation
+Descr: Tabbed navigation
+Usage: 
+
+-------------------------------- */
+:root {
+    --tabs-nav-v3-border-width: 1px;
+    --tabs-nav-v3-radius: var(--radius-md);
+    --tabs-nav-v3-control-gap: var(--tabs-nav-v3-border-width);
+}
+
+.tabs-nav-v3 {
+    border:var(--tabs-nav-v3-border-width) solid var(--color-contrast-lower);
+    padding: var(--space-sm);
+    border-radius: var(--tabs-nav-v3-radius);
+    background-color:var(--color-bg);
+    nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+            display: inline-block;
+            margin:0 var(--space-xs) var(--space-xs) 0
+        }
+    }
+    &__item {
+        display: inline-flex;
+        background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        padding: var(--space-xs) var(--space-sm);
+        white-space: nowrap;
+        color: inherit;
+        border-radius:var(--tabs-nav-v3-radius);
+        text-decoration:none;
+        &:hover {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+        }
+    }            
+    &__section {
+        margin-bottom:var(--space-md);
+    }
+    &__item {
+        text-decoration:none;
+        &--selected, &[aria-selected=true] {
+            background-color: var(--color-primary);
+            color:var(--color-white);
+        }
+        &--selected:hover, &[aria-selected=true]:hover{
+            background-color:var(--color-primary-light);
+        }
+    }
+    &__section {
+        margin-bottom:0;
+    }    
+
+    @include min-width(md) {
+        & {
+            padding: 0;
+            border: none;
+            background-color:transparent;
+            nav ul {
+                li {
+                    margin-top: 0;
+                    margin-left: calc(-1 * var(--tabs-nav-v3-border-width));
+                    margin-right: var(--tabs-nav-v3-control-gap);
+                    margin-bottom:0;
+                    &:first-child {
+                        margin-left:0;
+                        a {
+                            border-radius:var(--tabs-nav-v3-radius) var(--tabs-nav-v3-radius) 0 0;
+                        }
+                    }
+                    &:last-child {
+                        a {
+                            border-radius:var(--tabs-nav-v3-radius) var(--tabs-nav-v3-radius) 0 0;
+                        }
+                    }
+                }
+            }
+            &__item {
+                height: 100%;
+                border: var(--tabs-nav-v3-border-width) solid transparent;
+                border-bottom-width: 0;
+                border-radius:var(--tabs-nav-v3-radius) var(--tabs-nav-v3-radius) 0 0;
+                &--selected, &[aria-selected=true] {
+                    background-color: var(--color-bg);
+                    color: var(--color-primary);
+                    position: relative;
+                    border-color:var(--color-contrast-lower);
+                }
+                &--selected:hover, &[aria-selected=true]:hover {
+                    background-color:inherit;
+                }
+                &--selected::after, &[aria-selected=true]::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: calc(-1 * var(--tabs-nav-v3-border-width));
+                    width: 100%;
+                    height: var(--tabs-nav-v3-border-width);
+                    background-color: var(--color-bg);
+                    z-index:1;
+                }
+            }
+            &__section {
+                border: var(--tabs-nav-v3-border-width) solid var(--color-contrast-lower);
+                border-radius: 0 var(--tabs-nav-v3-radius) var(--tabs-nav-v3-radius) var(--tabs-nav-v3-radius);
+                background-color:var(--color-bg);
+                padding: var(--space-sm);
+            }
+        }
+    }
+}

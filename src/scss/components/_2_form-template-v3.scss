@@ -1,0 +1,18 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_form-template-v3
+Title: Form Template v3
+Descr: Form template example.
+Usage: https://codyhouse.co/ds/components/info/form-template-v3
+Dependencies: 
+    _1_radios-checkboxes
+-------------------------------- */
+
+@include min-width(md) {
+    .form-template-v3 .form-label {
+        font-size: 1em;
+    }
+}

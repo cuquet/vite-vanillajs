@@ -1,0 +1,43 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_code-snippet
+Title: Code Snippet
+Descr: A block of preformatted text, containing computer code
+Usage: https://codyhouse.co/ds/components/info/code-snippet
+
+-------------------------------- */
+
+code,
+code.hljs {
+    background-color: var(--color-bg-dark);
+    font-family: monospace;
+    padding: var(--space-4xs) var(--space-3xs);
+    border-radius: var(--radius-md);
+
+    &::selection {
+        background-color: var(--color-contrast-high);
+        color: var(--color-bg);
+    }
+}
+
+.code-snippet {
+    background-color: var(--color-bg-dark);
+    border-radius: var(--radius-md);
+    white-space-collapse: collapse;
+    code,
+    code.hljs {
+        position: relative;
+        //top: -30px; //copy2clip size
+        background-color: transparent;
+        line-height: 1.45;
+        font-size: var(--text-sm);
+        display: block;
+        overflow-wrap: anywhere;
+        overflow-x: auto;
+        padding: var(--space-sm);
+        white-space: pre-wrap;
+    }
+}

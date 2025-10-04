@@ -1,0 +1,204 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_language-picker
+Title: Language Picker
+Descr: A custom selector allowing users to choose their preferred language on a page
+Usage: https://codyhouse.co/ds/components/info/language-picker
+
+-------------------------------- */
+:root {
+    --picker-vertical-gap: 1px;
+}
+
+.language-picker {
+    //display: inline-block;
+    position: relative;
+
+    &__form {
+        // replace the default form with a custom dropdown
+        display: none;
+    }
+
+    &__button {
+        // created in js - dropdown trigger. Pass custom classes using the data-trigger-class attribute of the .language-picker element
+        padding: var(--space-2xs);
+        border-radius: var(--radius-md);
+        .icon {
+            // dropdown arrow (edit inline SVG in JS file of component)
+            height: 16px;
+            width: 16px;
+            &:first-of-type {
+                margin-right: var(--space-3xs);
+            }
+            &:last-of-type {
+                margin-left: var(--space-3xs);
+            }
+        }
+        &:hover {
+            background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+            
+        }
+    }
+    &__dropdown { // created in js - dropdown element with list of languages 
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width:200px;
+        background-color: var(--color-bg-light);
+        box-shadow: var(--inner-glow), var(--shadow-md);
+        padding: var(--space-3xs) 0;
+        border-radius: var(--radius-md);
+        z-index: var(--z-index-popover, 5); 
+        margin-top: var(--picker-vertical-gap);
+        margin-bottom: var(--picker-vertical-gap);
+        font-size: 1rem;
+
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s .2s, opacity .2s;
+        &--right { // change dropdown position based on the available space
+            right: 0;
+            left: auto;
+        }
+        &--up {
+            bottom: 100%;
+            top: auto;
+        }
+    }
+    &__button[aria-expanded="true"] + &__dropdown {
+        width:200px;
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0s, opacity .2s;
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: var(--space-2xs) var(--space-sm);
+        color: var(--color-contrast-high);
+        transition: background .2s;
+
+        span { // truncate text
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        &:hover {
+            background-color: alpha(var(--color-contrast-higher), 0.075);
+        }
+        &:focus {
+            outline: none;
+            background-color: alpha(var(--color-primary), 0.1);
+        }
+        &[aria-selected=true] { // selected language
+            position: relative;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+
+            &:focus {
+                outline: 2px solid alpha(var(--color-primary), 0.2);
+            }
+
+            &::after { // check icon next to the selected language
+                content: '';
+                height: 16px;
+                width: 16px;
+                background-color: currentColor;
+                mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolyline stroke-width='2' stroke='%23ffffff' fill='none' stroke-linecap='round' stroke-linejoin='round' points='1,9 5,13 15,3 '/%3E%3C/svg%3E");
+                margin-left: auto;
+            }
+        }
+    }
+    &__flag { // create the icon flag element
+        display: flex;
+        align-items: center;
+
+        &::before { // flag icon - hide on default version
+            display: none;
+            flex-shrink: 0;
+            content: '';
+            height: 16px;
+            width: 16px;
+            margin-right: var(--space-2xs);
+            // set flag as bg image
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+    &__dropdown &__flag::before{
+        margin-right: var(--space-xs);
+    }
+
+    // --flags
+    &--flags &__flag::before { // show flag
+        display: inline-block; // flex fallback
+        display: inline-flex;
+    }
+    &--flags &__button .icon:first-of-type { // hide globe icon
+        display: none; 
+    }
+    // set the proper flag image
+    &__flag-- {
+        /*&deutsch::before,
+        &de_DE::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M48,18H0V8c0-1.105,0.895-2,2-2h44c1.105,0,2,0.895,2,2V18z'/%3E%3Crect y='18' fill='%23EE0000' width='48' height='12'/%3E%3Cpath fill='%23FDCF00' d='M48,40c0,1.105-0.895,2-2,2H2c-1.105,0-2-0.895-2-2V30h48V40z'/%3E%3C/svg%3E");
+            background-image: url();
+        }
+        &english::before,
+        &en_US::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23002781' d='M46,6H2C0.896,6,0,6.896,0,8v32c0,1.104,0.896,2,2,2h44c1.104,0,2-0.896,2-2V8C48,6.896,47.104,6,46,6z'/%3E%3Cpath fill='%23E6E6E6' d='M48,8c0-1.104-0.896-2-2-2h-5.161L28,15.876V6h-8v9.876L7.161,6H2C0.896,6,0,6.896,0,8v2.586L12.239,20H0v8 h12.239L0,37.415V40c0,1.104,0.896,2,2,2h5.161L20,32.124V42h8v-9.876L40.839,42H46c1.104,0,2-0.896,2-2v-2.585L35.761,28H48v-8 H35.761L48,10.586V8z'/%3E%3Cpolygon fill='%23D10D24' points='48,22 26,22 26,6 22,6 22,22 0,22 0,26 22,26 22,42 26,42 26,26 48,26 '/%3E%3Cpath fill='%23D10D24' d='M47.001,6.307L29.2,20h3.28L48,8.062V8C48,7.268,47.587,6.656,47.001,6.307z'/%3E%3Cpath fill='%23D10D24' d='M32.48,28H29.2l17.801,13.693C47.587,41.344,48,40.732,48,40v-0.062L32.48,28z'/%3E%3Cpath fill='%23D10D24' d='M15.52,28L0,39.938V40c0,0.732,0.413,1.344,0.999,1.693L18.8,28H15.52z'/%3E%3Cpath fill='%23D10D24' d='M15.52,20h3.28L0.999,6.307C0.413,6.656,0,7.268,0,8v0.062L15.52,20z'/%3E%3C/svg%3E");
+        }
+        &fr_FR::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%2301209F' d='M16,42H2c-1.105,0-2-0.895-2-2V8c0-1.105,0.895-2,2-2h14V42z'/%3E%3Cpath fill='%23EF4234' d='M48,40c0,1.105-0.895,2-2,2H32V6h14c1.105,0,2,0.895,2,2V40z'/%3E%3Crect x='16' y='6' fill='%23E6E6E6' width='16' height='36'/%3E%3C/svg%3E");
+        }
+        &it_IT::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23009345' d='M16,42H2c-1.105,0-2-0.895-2-2V8c0-1.105,0.895-2,2-2h14V42z'/%3E%3Cpath fill='%23CF2B36' d='M48,40c0,1.105-0.895,2-2,2H32V6h14c1.105,0,2,0.895,2,2V40z'/%3E%3Crect x='16' y='6' fill='%23E6E6E6' width='16' height='36'/%3E%3C/svg%3E");
+        }*/
+
+        /*
+        https://github.com/AnandChowdhary/language-icons 
+        http://www.flagsarenotlanguages.com/blog/
+        https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
+        */
+        
+        @mixin flag($lang, $ext: "svg") {
+            &#{$lang}::before {
+            /*background-image: url("/assets/img/flags/#{$lang}.#{$ext}");*/
+            background-image: url("https://unpkg.com/language-icons@0.3.0/icons/#{$lang}.#{$ext}");
+            }
+        }
+        $langs: (aa, ab, ae, af, ak, am, an, ar, as, av, ay, az, ba, be, bg, bh, bi, bm, bn, bo, br, bs, ca, ce, ch, co, cr, cs, cu, cv, cy, da, de, dv, dz, ee, el, en, eo, es, et, eu, fa, ff, fi, fj, fo, fr, fy, ga, gd, gl, gn, gu, gv, ha, he, hi, ho, hr, ht, hu, hy, hz, ia, id, ie, ig, ii, ik, io, is, it, iu, ja, jv, ka, kg, ki, kj, kk, kl, km, kn, ko, kr, ks, ku, kv, kw, ky, la, lb, lg, li, ln, lo, lt, lu, lv, mg, mh, mi, mk, ml, mn, mr, ms, mt, my, na, nb, nd, ne, ng, nl, nn, no, nr, nv, ny, oc, oj, om, or, os, pa, pi, pl, ps, pt, qu, rm, rn, ro, ru, rw, sa, sc, sd, se, sg, si, sk, sl, sm, sn, so, sq, sr, ss, st, su, sv, sw, ta, te, tg, th, ti, tk, tl, tn, to, tr, ts, tt, tw, ty, ug, uk, ur, uz, ve, vi, vo, wa, wo, xh, yi, yo, za, zh, zu);
+
+        @each $language in $langs {
+            @include flag($language);
+        }
+    }
+
+    // --hide-label
+    &--hide-label &__button {// hide language label in custom button -> show only flag and arrow icon
+        .icon {
+            margin-left: 0;
+            &:first-of-type {
+                display: none;
+            }
+        }
+        em {// label
+            display: none;
+        }
+    }
+    &--hide-label &__button &__flag::before {
+        margin-right: var(--space-3xs);
+    }
+    &--hide-label &__flag::before {
+        // show flag
+        display: inline-block; // flex fallback
+        display: inline-flex;
+    }
+
+}
+

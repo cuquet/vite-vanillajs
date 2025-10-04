@@ -1,0 +1,17 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_smooth-scrolling
+Title: Smooth Scrolling
+Descr: Replace the default browser behaviour (jump) with a smooth scrolling transition
+Usage: https://codyhouse.co/ds/components/info/smooth-scrolling
+
+-------------------------------- */
+
+html {
+  // you can apply this to the container of your scrolling section
+  scroll-behavior: smooth;
+  //scroll-padding: var(--f-header-height);
+}

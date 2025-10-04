@@ -1,0 +1,121 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_toast
+Title: Toast
+Descr: Notification message
+Usage: https://codyhouse.co/ds/components/info/toast
+
+-------------------------------- */
+
+:root {
+    --toast-width: 400px;
+    --toast-gap: var(--space-xs);
+    --toast-transition-duration: .3s;
+}
+
+/* element created in JS - used to wrap toasts with same position (e.g., top-right) */
+.toast-wrapper {
+    width: var(--toast-width);
+    max-width: 80%;
+    padding: var(--space-sm);
+    z-index: var(--z-index-overlay);
+    pointer-events: none;
+}
+
+.toast {
+    background-color: alpha(var(--color-contrast-higher), 0.98);
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-md);
+    // padding: var(--space-sm);
+    color: var(--color-bg);
+    // color: var(--color-contrast-higher);
+    position: fixed;
+    pointer-events: auto;
+    will-change: transform;
+    transition: opacity var(--toast-transition-duration), visibility 0s, transform var(--toast-transition-duration) var(--ease-out);
+    > div {
+        padding: var(--space-sm); 
+        border-radius: var(--radius-md);
+    }
+    &--hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.9);
+      transition: opacity var(--toast-transition-duration), visibility 0s var(--toast-transition-duration), transform var(--toast-transition-duration) var(--ease-out);
+    }
+    &--top-right, 
+    &--top-center,
+    &--top-left {
+        margin-bottom: var(--toast-gap);
+    }
+    &--bottom-right, 
+    &--bottom-center,
+    &--bottom-left {
+        margin-top: var(--toast-gap);
+    }
+    &__title, &__p {
+        color: var(--color-bg);
+    }
+    &__p {
+        opacity: 0.9;
+    }
+    &__close-btn {
+        --size: 24px;
+        width: var(--size);
+        height: var(--size);
+        display: flex;
+        background-color: alpha(var(--color-bg), 0.15);
+        border-radius: 50%;
+        flex-shrink: 0;
+        transition: background .2s;
+        .icon {
+            --size: 12px;
+            margin: auto;
+            color: var(--color-bg);
+        }
+        &:hover {
+            background-color: alpha(var(--color-bg), 0.8);
+        }
+    }
+    &__icon-wrapper {
+        --size: 40px;
+        width: var(--size);
+        height: var(--size);
+        display: flex;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1px solid alpha(var(--color-bg), 0.2);
+        .icon {
+            --size: 40px;
+            margin: auto;
+        }
+    }
+    &--warning > div {
+        background-color: alpha(var(--color-warning), 0.2);
+        .icon {
+            color: var(--color-warning);
+        }
+    }
+    &--success &__icon-wrapper{
+        background-color: alpha(var(--color-success), 0.2);
+        .icon {
+            color: var(--color-success);
+        }
+    }
+    &--error &__icon-wrapper {
+        background-color: alpha(var(--color-error), 0.2);
+        .icon {
+            color: var(--color-error);
+        }
+    }
+    &--info &__icon-wrapper{
+        background-color: alpha(var(--color-primary), 0.2);
+        .icon {
+            color: var(--color-primary);
+        }
+    }
+}
+

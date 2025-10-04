@@ -1,0 +1,29 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_tabs
+Title: Tabs
+Descr: A list of content sections (panels), accessible one at a time using control labels
+Usage: https://codyhouse.co/ds/components/info/tabs
+
+-------------------------------- */
+
+.tabs {
+    &__control {
+        text-decoration: none;
+        color: var(--color-contrast-medium);
+        &:focus {
+            outline: 2px solid alpha(var(--color-primary), 0.2);
+            outline-offset: 2px;
+        }
+        &:hover {
+            color: var(--color-contrast-high);
+        }
+        &[aria-selected="true"] {
+            color: var(--color-contrast-high);
+            text-decoration: underline;
+        }
+    } 
+}

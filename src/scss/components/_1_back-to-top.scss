@@ -1,0 +1,41 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_back-to-top
+Title: Back to top
+Descr: Component that triggers scroll-y to the top of the page
+Usage: https://codyhouse.co/ds/components/info/back-to-top
+
+-------------------------------- */
+
+.back-to-top {
+    --size: 50px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    position: fixed;
+    //right: var(--space-md);
+    left: calc(85vw - var(--size) / 2 );
+    bottom: var(--space-md);
+    z-index: var(--z-index-popover, 5); 
+    border-radius: 50%;
+    background-color: alpha(var(--color-contrast-higher), 0.9);
+    transition: .2s;
+    visibility: hidden;
+    opacity: 0;
+    &:hover {
+        background-color: var(--color-contrast-higher);
+    }
+    .icon {
+        --size: 30px;
+        display: block;
+        margin: auto;
+        color: var(--color-bg);
+    }
+    &--is-visible { // show button
+        visibility: visible;
+        opacity: 1;
+    }
+}

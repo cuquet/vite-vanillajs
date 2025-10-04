@@ -1,0 +1,11 @@
+<a class="back-to-top js-back-to-top" href="#" data-offset="50" >
+    <svg class="icon rotate-90">
+        <use href="#chevron"></use>
+    </svg>
+</a>
+<script>
+    if ('{{data-element}}'.length > 0) {
+        document.querySelector('.back-to-top').setAttribute("data-element", '{{data-element}}');
+    }
+    //data-element=".main-el" data-offset-in="100" data-offset-out="100"
+</script>

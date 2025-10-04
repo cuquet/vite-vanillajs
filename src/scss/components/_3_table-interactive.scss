@@ -1,0 +1,137 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _3_interactive-table
+Title: Interactive Table
+Descr: Table with the option of sorting data and selecting rows to perform specific actions.
+
+Usage: https://codyhouse.co/ds/components/info/interactive-table
+Dependencies
+_1_custom-checkbox
+_1_menu
+_2_menu-bar
+-------------------------------- */
+
+.int-table {
+    overflow: hidden;
+    border-bottom:2px solid var(--color-contrast-lower);
+    &__inner {
+        position: relative;
+        overflow:auto;
+        &::-webkit-scrollbar {
+            height: 8px;
+            width:8px;
+        }
+        &::-webkit-scrollbar-track {
+            background-color:var(--color-contrast-lower);
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.9);
+            border-radius:50em;
+            &:hover {
+                background-color:var(--color-contrast-higher);
+            }
+        }
+    }
+    &__table {
+        width:100%;
+    }
+    &__header &__cell {
+        background-color: var(--color-bg);
+        box-shadow:0 2px 0 var(--color-contrast-lower);
+    }
+    &__body &__row {
+        border-bottom:1px solid var(--color-contrast-lower);
+        &:last-child {
+            border-bottom:none;
+        }
+    }
+    &__body &__row--checked {
+        background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.1);
+        border-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.25);
+    }
+   
+    &__cell {
+        padding:var(--space-xs);
+        &--th {
+            font-weight:600;
+        }
+        &--sort {
+            -webkit-user-select: none;
+            user-select:none;
+            &:hover, 
+            &:focus-within {
+                background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+            }
+            &:hover {
+                cursor:pointer;
+            }
+        }
+        &--focus {
+            background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.15);
+        }
+    }
+    &__sort-icon .arrow-up, 
+    &__sort-icon .arrow-down {
+        fill:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.3);
+    }
+    &__cell--asc &__sort-icon .arrow-up, 
+    &__cell--desc &__sort-icon .arrow-down {
+        fill:var(--color-contrast-higher);
+    }
+    &__checkbox {
+        --custom-checkbox-size: 18px;
+        --custom-checkbox-marker-size: 16px;
+        display: block;
+        width: var(--custom-checkbox-size);
+        height:var(--custom-checkbox-size);
+    }
+    &__menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2em;
+        height: 2em;
+        border-radius:50%;
+        & .icon {
+            display: block;
+            width: 16px;
+            height:16px;
+        }
+        &:hover,
+        &.menu-control--active {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        }
+        &:active {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+        }
+    }
+    &--sticky-header {
+        position: relative;
+        z-index:1;
+    }
+    &--sticky-header &__inner {
+        max-height:480px;
+    }
+    &--sticky-header &__header &__cell {
+        position: sticky;
+        top: 0;
+        z-index:2;
+    }
+    &-actions {
+        display:flex;
+        justify-content: flex-start;
+        .menu-bar {
+            --menu-bar-button-size: 38px;
+            --menu-bar-icon-size: 16px;
+            --menu-bar-horizontal-gap: var(--space-4xs);
+            --menu-bar-vertical-gap: 4px;
+            --menu-bar-label-size:var(--text-xs);
+            &__icon {
+                color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.5);
+            }
+        }
+    }
+}

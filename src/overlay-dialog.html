@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+    <link rel="stylesheet" href="/scss/style.scss" />
+    <title>Modal | CodyFrame</title>
+</head>
+
+<body>
+    {{> header activepage='overlay-dialog'}}
+    <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
+        <div class="container max-width-adaptive-xl">
+            <div class="grid gap-md flex-row-reverse@md">
+                <div class="col-3@md">
+                    <div class="toc toc--static@md js-toc"></div>
+                </div>
+                <div class="col-9@md bg padding-md ">
+                    <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
+                        <div class="text-divider"><span><h1>Diàlegs Estàtics</h1></span></div>
+                        <section class="border-top padding-y-md">
+                            <h2 class="padding-bottom-md">Per defecte</h2>
+                            <button class="btn btn--primary" aria-controls="dialog-1">Open dialog</button>
+                            <div id="dialog-1" class="dialog js-dialog" data-animation="on">
+                            <div class="dialog__content max-width-xs" role="alertdialog" aria-labelledby="dialog-title-1" aria-describedby="dialog-description-1">
+                                <h4 id="dialog-title-1" class="text-md margin-bottom-2xs toc-skip">Are you sure you want to permanently delete this file?</h4>
+                                <p id="dialog-description-1" class="text-sm color-contrast-medium">This action cannot be undone.</p>
+
+                                <footer class="margin-top-md">
+                                <div class="flex justify-end gap-xs flex-wrap">
+                                    <button class="btn btn--subtle js-dialog__close">Cancel</button>
+                                    <button class="btn btn--accent">Delete</button>
+                                </div>
+                                </footer>
+                            </div>
+                            </div>
+                        </section>
+                        <div class="text-divider"><span><h1>Diàlegs Dinàmics</h1></span></div>
+                        <section class="border-top padding-y-md">
+                            <h2 class="padding-bottom-md">Diàleg Confirm</h2>
+                            <button id="confirm-btn" class="btn btn--primary js-dialog" data-animation="on" data-sticky="off">Confirm</button>
+                        </section>
+                        <section class="border-top padding-y-md">
+                            <h2 class="padding-bottom-md">Diàleg Confirm Sticky</h2>
+                            <button id="confirm-btn-sticky" class="btn btn--primary js-dialog" data-animation="on" data-sticky="on">Confirm</button>
+                        </section>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+    {{> totop }}
+    {{> footer }}
+    {{> svg }}
+</body>
+<script type="module" src="/js/main.js"></script>
+<script type="module" >// INICI======exemple per obrir estàticament mitjançant botons
+    const dialogs = Array.from(document.querySelectorAll('.js-dialog.dialog'));
+    if (dialogs.length > 0 ) {
+        dialogs.forEach(dialog => {
+            const isSticky = dialog.getAttribute('data-sticky') &&
+                dialog.getAttribute('data-sticky') == 'on' ? true : false;
+            const isAnimated = dialog.getAttribute('data-animation') &&
+                dialog.getAttribute('data-animation') == 'off' ? false : true;
+            new Dialog({
+                element: dialog,
+                isSticky: isSticky,
+                isAnimated: isAnimated,
+                onAccept: () => {
+                    console.log("onAccept=>resolve: Acceptat");
+                },
+                onReject: () => {
+                    console.log("onReject=>resolve: Cancel·lat");
+                }, 
+            });
+        });
+    }
+    // FINAL======exemple per obrir estàticament mitjançant botons
+
+    // INICI======exemple per obrir mitjançant events
+    function openDialog(element) {
+        var event = new CustomEvent('openDialog');
+        element.dispatchEvent(event);
+    };
+    function closeDialog(element) {
+        var event = new CustomEvent('closeDialog');
+        element.dispatchEvent(event);
+    };
+    
+    var mydialog = document.getElementById('dialog-1');
+
+    setTimeout(() => { openDialog(mydialog); }, 3000);
+    setTimeout(() => { closeDialog(mydialog); }, 5000);
+    // FINAL======exemple per obrir mitjançant events
+
+    // INICI======exemple per obrir dimàmicament mitjançant botons 
+    const dialogBtns = document.querySelectorAll('.js-dialog:not(.dialog)');
+    if (dialogBtns.length > 0) {
+        var dialogArray = [];
+        Array.prototype.forEach.call(dialogBtns, function (dialogBtn) {
+            dialogBtn.addEventListener("click", async (e) => {
+                const isSticky = dialogBtn.getAttribute('data-sticky') &&
+                dialogBtn.getAttribute('data-sticky') == 'on' ? true : false;
+                const isAnimated = dialogBtn.getAttribute('data-animation') &&
+                dialogBtn.getAttribute('data-animation') == 'off' ? false : true;
+                const dialog = new Dialog({
+                    element: e.target,
+                    title: 'Estàs segur que vols tancar finestra?',
+                    description: 'Les dades que no s\'hagin guardat es perdran.',
+                    accept: 'Acceptar',
+                    cancel: 'Cancel·lar',
+                    isSticky: isSticky,
+                    isAnimated: isAnimated,
+                    onAccept: () => {
+                        console.log("onAccept=>resolve: Acceptat");
+                    },
+                    onReject: () => {
+                        console.log("onReject=>resolve: Cancel·lat");
+                    },
+    
+                });
+            });
+        });
+    }
+    // FINAL======exemple per obrir dimàmicament mitjançant botons 
+</script>
+</html>

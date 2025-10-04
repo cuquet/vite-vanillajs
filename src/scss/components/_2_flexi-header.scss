@@ -1,0 +1,366 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_flexi-header
+Title: Flexi Header
+Descr: Customizable header template.
+Usage: https://codyhouse.co/ds/components/info/flexi-header
+Dependencies: 
+    _1_anim-menu-btn
+    Search Input
+-------------------------------- */
+
+
+:root {
+    --f-header-height: 50px;
+    //* --f-header-logo-width:104px;
+    @include min-width(md) {
+        --f-header-height:70px;
+    }
+}
+.f-header {
+    $this: &;
+    height: var(--f-header-height);
+    width: 100%;
+    z-index:var(--z-index-header, 3);
+    background-color: var(--color-bg);
+    border-bottom:1px solid var(--color-contrast-lower);
+    &::before {
+        display: none;
+        content: "mobile";
+    }
+    &--expanded {
+        #{$this}__mobile-content {
+            z-index: var(--z-index-fixed-element, 10);
+            padding: 0 var(--container-margin-x);
+            width: 100%;
+            background-color: var(--color-bg);
+            overflow:auto;
+        }
+    }
+    &__mobile-content {
+        position: relative;
+        display: flex;
+        height: 100%;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+    }
+    &__logo {
+        display: inline-flex;
+        //* display: block;
+        //* width: var(--f-header-logo-width);
+        flex-shrink: 0;
+        align-items: center;
+        text-decoration:none;
+        svg, img {
+            display:block;
+            height: calc(var(--f-header-height) / 1.5);
+        }
+    }
+    &__nav-control{
+        --anim-menu-btn-size: 40px;
+        --anim-menu-btn-icon-size: 28px;
+        --anim-menu-btn-icon-stroke:2px;
+        border-radius: 50%;
+        color:var(--color-contrast-high);
+        background-color: var(--color-bg-light);
+        transition: transform .3s var(--ease-in-out);
+        /*position: fixed;
+        right: var(--space-sm);
+        z-index: var(--z-index-fixed-element, 10);
+        border-radius: 50%;
+        transition: transform .3s var(--ease-in-out);
+        color:var(--color-contrast-high);
+        #{$this}-control__bg { 
+            display: block;
+            fill: var(--color-bg-light);
+            stroke-width: 1.5;
+            stroke: var(--color-contrast-lower);
+            position: absolute;
+            width: 100%;
+            height:100%;
+            circle {
+                transition:stroke-dashoffset .3s 0s;
+            }
+        }
+        &.anim-menu-btn--state-b {
+            //transform:rotate(180deg);
+            circle {
+                stroke-dashoffset: 0;
+                transition-delay:.3s;
+            }
+        }*/
+    }
+    &__nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-height: calc(100vh - var(--f-header-offset, 0px));
+        height: calc(100vh - var(--f-header-offset, 0px));
+        overflow:auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding: 0 0 var(--space-md);
+        background-color: var(--color-bg);
+        box-shadow: var(--shadow-md);
+        z-index: 1;
+        visibility: hidden;
+        opacity: 0;
+        //transform: translateX(-100%); //right
+        transform: translateY(-100%); //down
+        //transition:visibility 1s, opacity 1s, transform .4s;
+        transition:visibility .4s, opacity .4s, box-shadow .3s, transform .3s ease-in-out;
+
+        &::before {
+            content: "";
+            display: block;
+            position: sticky;
+            top: 0;
+            height: var(--f-header-height);
+            background-color: inherit;
+            border-bottom:1px solid var(--color-contrast-lower);
+        }
+        &-grid, #{$this}__list {
+            display: flex;
+            flex-direction:column; 
+            flex-wrap: nowrap;
+            justify-content: space-between; 
+            align-items:flex-start;
+            align-content:center; 
+        }
+        &-grid {
+            //height: calc(100vh - var(--f-header-height)*2);
+            #{$this}__list {
+                align-self: stretch;
+                #{$this}__item {
+                    align-self: stretch;
+                }
+            }
+        }
+        &--is-visible {
+            visibility: visible;
+            opacity: 1;
+            //transform: translateX(0); //left
+            transform: translateY(0); //down
+            //transition:visibility 0s, opacity .4s, transform .4s;
+            transition: visibility 0s, opacity 0s, box-shadow .3s, transform .3s ease-in-out;
+        }
+        &-logo-wrapper {
+            display:none;
+        }
+    }
+    &__item {
+        flex-shrink: 0;
+        border-bottom:1px solid var(--color-contrast-lower);
+        &:last-of-type{
+            border-bottom:none;
+        }
+    }
+    &__list {
+        display: flex; 
+        align-items: flex-start; 
+        flex-direction: column;
+        &:last-of-type{
+            flex-direction: row;
+            justify-content:space-evenly;
+            align-items: center;
+            border-top:1px solid var(--color-contrast-lower);
+            li {
+                border-bottom:none;
+            }
+        }
+        &:first-of-type{
+            border-top:none;
+            padding: var(--space-md) 0;
+        }
+    }
+
+    &__dropdown{
+        animation: growDown .3s ease-in-out forwards;
+        transform-origin: top center;
+        &-icon {
+            --size: 16px;
+            flex-shrink: 0;
+            margin: 0 10px 0 auto;
+            display:none;
+        }
+        &-control &{
+            &-icon {
+                display:block;
+            }
+        }
+        &-control{
+            .icon {
+                margin:0 var(--space-3xs) 0 0 ;
+            }
+        }
+    }
+    &__link, 
+    &__dropdown-control, 
+    &__dropdown-link, 
+    &__btn, 
+    &__form-control {
+        font-size:var(--text-md);
+    }
+    &__link, 
+    &__dropdown-control, 
+    &__dropdown-link {
+        display: flex;
+        //flex-direction: row;
+        align-items: center;
+        color: var(--color-contrast-high);
+        text-decoration: none;
+        padding:var(--space-xs) 0;
+    }
+    &__link:hover, 
+    &__link[aria-current=page], 
+    &__dropdown-control:hover, 
+    &__dropdown-control[aria-current=page], 
+    &__dropdown-link:hover, 
+    &__dropdown-link[aria-current=page] {
+        color:var(--color-primary);
+    }
+    &__btn, 
+    &__form-control {
+        width: 100%;
+        margin:var(--space-xs) 0;
+    }
+    &__dropdown{
+        &-control {
+            width:100%;
+        }
+        /* padding-left:var(--space-md); */
+        & {
+            padding-left:var(--space-md);
+        }
+        &-control + #{$this}__dropdown {    
+            display:none;
+        }
+        &-control[aria-expanded=true] + #{$this}__dropdown {
+            display:block;
+        }
+    }
+    @include min-width(md) {
+        &::before {
+            content: "desktop";
+        }
+        &__mobile-content {
+            display:none;
+        }
+        &__nav {
+            position: static;
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            transition: none;
+            max-height: none;
+            overflow: visible;
+            overscroll-behavior: auto;
+            height:var(--f-header-height);
+            &::before {
+                display:none;
+            }
+            &-logo-wrapper {
+                display:block;
+            }
+            &-grid, #{$this}__list { 
+                display: flex;
+                flex-direction:row;
+                align-items:center;
+            }
+            &-grid {
+                height:100%;
+                #{$this}__list {
+                    align-self:center;
+                    border:none;
+                    justify-content: center;
+                    #{$this}__item{
+                        align-self:center;
+                    }
+                }
+            }
+        }
+        &__item {
+            position: relative;
+            border-bottom: none;
+            margin-right:var(--space-xs);
+            &:last-child {
+                margin-right:0;
+            }
+        }
+        &__dropdown-icon {
+            --size: 12px;
+            display: block;
+            margin:0 0 0 var(--space-4xs);
+        }
+        &__link, 
+        &__dropdown-control, 
+        &__dropdown-link, 
+        &__btn, 
+        &__form-control {
+            font-size:1rem;
+        }
+        &__link {
+            //flex-direction: column;
+            padding:var(--space-3xs) var(--space-2xs);
+            &--icon span {
+                display:none;
+            }
+        }
+        &__btn, &__form-control {
+            margin:0;
+        }
+        &__dropdown {
+            position: absolute;
+            top: 100%;
+            width: 220px;
+            left: calc(50% - 110px);
+            padding: var(--space-3xs) 0;
+            background-color: var(--color-bg-light);
+            border-radius: var(--radius-md);
+            box-shadow: var(--inner-glow), var(--shadow-md);
+            z-index: var(--z-index-popover, 5);
+            pointer-events: none;
+            visibility: hidden;
+            opacity: 0;
+            transition:visibility .2s .2s, opacity .2s 0s;
+        }
+        &__dropdown-control + &__dropdown {
+            display:block;
+        }
+        &__item:hover &__dropdown, 
+        &__dropdown-control[aria-expanded=true] + &__dropdown {
+            pointer-events: auto;
+            visibility: visible;
+            opacity: 1;
+            transition:visibility .2s 0s, opacity .2s 0s;
+        }
+        &__dropdown-link {
+            color: var(--color-contrast-high);
+            padding: var(--space-xs) var(--space-sm);
+            transition:.2s;
+            &:hover {
+                background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+                color: var(--color-contrast-higher);
+            }
+        }
+    }
+}
+@keyframes growDown {
+    0% {
+        transform: scaleY(0);
+    }
+    80% {
+        transform: scaleY(1.1);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}

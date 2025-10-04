@@ -1,0 +1,252 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_slider
+Title: Slider
+Descr: Slider element for choosing numbers between a min and a max value.
+Usage: https://codyhouse.co/ds/components/info/slider
+Dependencies: 
+
+-------------------------------- */
+
+:root {
+    --slider-width: 200px;
+    --slider-track-height: 8px;
+    --slide-thumb-size:20px;
+}
+
+.slider {
+    position: relative;
+    width:var(--slider-width);
+}
+
+.slider__range {
+    width: 100%;
+    --slider-fill-value: 0%;
+    --slider-empty-value:100%;
+}
+
+.slider__input {
+    display: block;
+    -webkit-appearance: none;
+    width: 100%;
+    background:0 0;
+}
+
+.slider__input:focus {
+    outline:none;
+}
+
+.slider__input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: var(--slide-thumb-size);
+    height: var(--slide-thumb-size);
+    border-radius: 50%;
+    border: none;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-xs), var(--shadow-sm);
+    cursor: grab;
+    margin-top:calc((var(--slider-track-height) - var(--slide-thumb-size)) * 0.5);
+}
+
+.slider__input:active::-webkit-slider-thumb {
+    cursor:grabbing
+}
+
+.slider__input::-moz-range-thumb {
+    width: var(--slide-thumb-size);
+    height: var(--slide-thumb-size);
+    border-radius: 50%;
+    border: none;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-xs), var(--shadow-sm);
+    cursor:grab;
+}
+
+.slider__input:active::-moz-range-thumb {
+    cursor:grabbing;
+}
+
+.slider__input:active::-ms-thumb {
+    cursor:grabbing;
+}
+
+.slider__input:focus::-webkit-slider-thumb {
+    box-shadow:var(--shadow-xs), var(--shadow-sm), 0 0 0 3px hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2), var(--shadow-md);
+}
+
+.slider__input:focus::-moz-range-thumb {
+    box-shadow:var(--shadow-xs), var(--shadow-sm), 0 0 0 3px hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2), var(--shadow-md);
+}
+
+.slider__input::-webkit-slider-runnable-track {
+    height: var(--slider-track-height);
+    border-radius: 50em;
+    background-image: linear-gradient(to right, var(--color-primary) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-empty-value));
+    margin-top:calc((var(--slide-thumb-size) - var(--slider-track-height)) * 0.5);
+}
+
+.slider__input::-moz-range-track {
+    height: var(--slider-track-height);
+    border-radius: 50em;
+    background-image:linear-gradient(to right, var(--color-primary) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-empty-value));
+}
+
+.slider__input::-moz-focus-outer {
+    border:0;
+}
+
+.slider__input::-ms-tooltip {
+    display:none;
+}
+
+.slider__input::-ms-thumb {
+    width: var(--slide-thumb-size);
+    height: var(--slide-thumb-size);
+    border-radius: 50%;
+    border: none;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-xs), var(--shadow-sm);
+    cursor: grab;
+    transform: translateY(0);
+    background-color: var(--color-white) !important;
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .1);
+    height: 20px;
+    width:20px;
+}
+
+.slider__input:focus::-ms-thumb {
+    box-shadow:inset 0 0 0 2px hsla(220deg, 90%, 56%, 0.2);
+}
+
+.slider__input::-ms-track {
+    height: var(--slider-track-height);
+    border-radius: 50em;
+    background-image: linear-gradient(to right, var(--color-primary) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-empty-value));
+    background-color: hsl(240deg, 1%, 60%);
+    color: transparent;
+    height:8px;
+}
+
+.slider--floating-value .slider__value {
+    position: absolute;
+    top: calc(0px - var(--space-md));
+    left: var(--slide-thumb-size);
+    transform: translateX(-50%);
+    font-size:var(--text-sm);
+}
+
+.slider--range-not-supported .slider__value {
+    display: none;
+}
+
+/*
+.slider {
+    position: relative;
+    width:var(--slider-width);
+    &__range {
+        width: 100%;
+        --slider-fill-value: 0%;
+        --slider-empty-value:100%;
+    }
+    &__input {
+        display: block;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 100%;
+        background:0 0;
+        &:focus {
+            outline:none;
+        }
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: var(--slide-thumb-size);
+            height: var(--slide-thumb-size);
+            border-radius: 50%;
+            border: none;
+            background-color: var(--color-white);
+            box-shadow: var(--shadow-xs), var(--shadow-sm);
+            cursor: grab;
+            margin-top:calc((var(--slider-track-height) - var(--slide-thumb-size)) * 0.5);
+            &:active {
+                cursor:grabbing;
+            }
+        }
+        &::-moz-range-thumb {
+            width: var(--slide-thumb-size);
+            height: var(--slide-thumb-size);
+            border-radius: 50%;
+            border: none;
+            background-color: var(--color-white);
+            box-shadow: var(--shadow-xs), var(--shadow-sm);
+            cursor:grab;
+        }
+        &:active { 
+            &::-moz-range-thumb,
+            &::-ms-thumb {
+                cursor:grabbing;
+            }
+        }
+
+        &:focus {
+            &::-webkit-slider-thumb,
+            &::-moz-range-thumb {
+                box-shadow: var(--shadow-xs), var(--shadow-sm), 0 0 0 3px hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2), var(--shadow-md);
+            }
+        }
+        &::-webkit-slider-runnable-track,
+        &::-moz-range-track {
+            height: var(--slider-track-height);
+            border-radius: 50em;
+            background-image: linear-gradient(to right, var(--color-primary) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-empty-value));
+        }
+        &::-webkit-slider-runnable-track {
+        	margin-top:calc((var(--slide-thumb-size) - var(--slider-track-height)) * 0.5);
+        }
+        &::-moz-focus-outer {
+            border:0;
+        }
+        &::-ms-tooltip {
+            display:none;
+        }
+        &::-ms-thumb {
+            width: var(--slide-thumb-size);
+            height: var(--slide-thumb-size);
+            border-radius: 50%;
+            border: none;
+            background-color: var(--color-white);
+            box-shadow: var(--shadow-xs), var(--shadow-sm);
+            cursor: grab;
+            transform: translateY(0);
+            background-color: #fff !important;
+            box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .1);
+            height: 20px;
+            width:20px;
+            &:focus {
+                box-shadow:inset 0 0 0 2px hsla(220deg, 90%, 56%, 0.2);
+            }
+        }
+
+        &::-ms-track {
+            height: var(--slider-track-height);
+            border-radius: 50em;
+            background-image: linear-gradient(to right, var(--color-primary) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-fill-value), var(--color-contrast-lower) var(--slider-empty-value));
+            background-color: hsl(240deg, 1%, 60%);
+            color: transparent;
+            height:8px;
+        }
+    }
+    &--floating-value &__value {
+        position: absolute;
+        top: calc(0px - var(--space-md));
+        left: var(--slide-thumb-size);
+        transform: translateX(-50%);
+        font-size:var(--text-sm);
+    }
+    &--range-not-supported &__value {
+        display: none;
+    }
+}
+*/

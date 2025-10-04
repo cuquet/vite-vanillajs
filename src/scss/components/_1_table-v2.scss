@@ -1,0 +1,49 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_table-v2
+Title: Table v2
+Descr: The Table v2 component is a basic table template, used to organize data in a two-dimensional grid.
+If the content of the table exceeds the viewport width, the user can scroll through the table.
+Usage: https://codyhouse.co/ds/components/info/table-v2
+Dependencies
+
+-------------------------------- */
+.tbl {
+    position: relative;
+    z-index: 1;
+    overflow: auto;
+    -webkit-overflow-scrolling:touch;
+    &::-webkit-scrollbar {
+        height: 8px;
+        width:8px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color:var(--color-contrast-lower);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.9);
+        border-radius:50em;
+        &:hover {
+            background-color:var(--color-contrast-higher);
+        }
+    }
+    &__table {
+        width:100%;
+    }
+    &__body &__row {
+        border-bottom: 1px solid var(--color-contrast-lower);
+        transition:.2s;
+        &:hover {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.05);
+        }
+        &:last-child {
+            border-bottom:none;
+        }
+    }
+    &__cell {
+        padding: var(--space-xs);
+    }
+}

@@ -1,0 +1,73 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_cirdular-progress-bar
+Title: Circular Progress Bar
+Descr: Display the current progress of a task using a circular SVG shape.
+
+Usage: https://codyhouse.co/ds/components/info/circular-progress-bar
+
+-------------------------------- */
+
+:root {
+    --c-progress-bar-size: 140px;
+    --c-progress-bar-stroke-width:6;
+}
+
+.c-progress-bar {
+    $this: &;
+    width:var(--c-progress-bar-size);
+    &__shape {
+        width: 100%;
+        position:relative;
+        svg {
+            display: block;
+            width: var(--c-progress-bar-size);
+            height: var(--c-progress-bar-size);
+            stroke-width:var(--c-progress-bar-stroke-width);
+        }
+    }
+    &__bg {
+        stroke: currentColor;
+        opacity:.125;
+    }
+    &__fill {
+        stroke:currentColor;
+    }
+    &__value {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translateX(-50%) translateY(-50%);
+        i {
+            font-size:.65em;
+        }
+    }
+    &:not(&--init) &__fill,
+    &:not(&--init) &__value {
+        visibility:hidden;
+    }
+    &--color-update {
+        --c-progress-bar-color-1: 50;
+        --c-progress-bar-color-2: 80;
+        --c-progress-bar-color-3:100;
+    }
+    &--color-update#{$this}--init &__fill {
+        transition:stroke .2s;
+    }
+    &--fill-color-1 &__fill {
+        stroke:var(--color-success);
+    }
+    &--fill-color-2 &__fill {
+        stroke:var(--color-warning);
+    }
+    &--fill-color-3 &__fill {
+        stroke: var(--color-error);
+    }
+    &-card & {
+        --c-progress-bar-size: 80px;
+        --c-progress-bar-stroke-width: 12;
+    }
+}

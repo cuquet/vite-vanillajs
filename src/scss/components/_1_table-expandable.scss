@@ -1,0 +1,154 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_expandable-table
+Title: Expandable Table
+Descr: A table whose rows expand to reveal additional information.
+Usage: https://codyhouse.co/ds/components/info/expandable-table
+
+-------------------------------- */
+
+.ex-table {
+    position: relative;
+    z-index: 1;
+    border-collapse: separate;
+    width:100%;
+    &__btn {
+        background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        &:active {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.05);
+        }
+        &-icon {
+            position: relative;
+            display: block;
+            margin:0 auto;
+            &::before, &::after {
+                content: "";
+                position: absolute;
+                width: 2px;
+                height: 80%;
+                border-radius: 5em;
+                background: currentColor;
+                top: 0;
+                transform-origin: 50% 100%;
+                will-change: transform;
+                transition:transform .2s;
+            }
+            &::before {
+                left: 50%;
+                transform:rotate(-45deg);
+            }
+            &::after {
+                left: calc(50% - 1px);
+                transform:rotate(45deg);
+            }
+        }
+    }
+    &__more-content {
+        display:none;
+    }
+    &__row--show-more-content &__more-content {
+        display:block;
+    }
+    &__row--show-more-content &__btn-icon {
+        &::before {
+            transform:translateY(-80%) rotate(-135deg);
+        }
+        &::after {
+            transform:translateY(-80%) rotate(135deg)
+        }
+    }
+}
+
+
+.ex-table__row--show-more-content .ex-table__btn-icon::after {
+    transform:translateY(-80%) rotate(135deg)
+}
+
+@media not all and (min-width: 48rem) {
+    .ex-table {
+        border-spacing: 0 var(--space-md);
+        margin-top:calc(-2 * var(--space-md));
+        &__header {
+            position: absolute;
+            clip: rect(1px, 1px, 1px, 1px);
+            -webkit-clip-path: inset(50%);
+            clip-path:inset(50%);
+        }
+        &__cell {
+            display: block;
+            padding: var(--space-sm);
+            width: 100%;
+            text-align: left;
+            border: 1px solid var(--color-contrast-lower);
+            border-bottom-width:0;
+        }
+        &__row &__cell:last-child {
+            border-bottom-width:1px;
+        }
+        &__label {
+            display: block;
+            font-weight: 700;
+            color: var(--color-contrast-higher);
+            margin-bottom:var(--space-2xs);
+        }
+        &__btn {
+            border-radius: var(--radius-md);
+            padding: var(--space-xs);
+            width:100%;
+            &-icon {
+                width: 1em;
+                height:1em;
+            }
+        }
+        &__more-content {
+            padding:var(--space-md) 0 0;
+        }
+    }
+
+
+}
+
+@media (min-width: 48rem) {
+    .ex-table{
+        &__header &__cell {
+            font-weight: 700;
+            text-align: left;
+            color:var(--color-contrast-higher);
+        }
+        &__cell {
+            padding: var(--space-xs) var(--space-sm) var(--space-xs) 0;
+            border-bottom:1px solid var(--color-contrast-lower);
+        }
+        &__row &__cell:last-child {
+            padding-right:0;
+        }
+        &__label {
+            display:none;
+        }
+        &__btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            float:right;
+            &-icon {
+                width: 16px;
+                height:16px;
+            }
+        }  
+        &__more-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--color-bg);
+            padding: var(--space-md) 0;
+            border-bottom:1px solid var(--color-contrast-lower);
+        }
+        &__row--show-more-content &__cell {
+            border-bottom-color: var(--color-bg);
+        }
+    }
+}

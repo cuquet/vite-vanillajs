@@ -1,0 +1,56 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_counter
+Title: Counter
+Descr: A label displaying numeric values.
+Dependencies: 
+Usage: https://codyhouse.co/ds/components/info/counter
+
+-------------------------------- */
+
+
+.counter {
+    background-color: var(--color-contrast-lower);
+    padding: var(--space-4xs) var(--space-2xs);
+    border-radius: 50em;
+    font-size: var(--text-xs);
+    line-height:1;
+    &--primary {
+        background-color: var(--color-primary);
+        color:var(--color-white);
+    }
+    
+    &--critical {
+        background-color: var(--color-error);
+        color:var(--color-white);
+    }
+    
+    &--light {
+        background-color: hsla(var(--color-white-h), var(--color-white-s), var(--color-white-l), 0.9);
+        color:hsla(var(--color-black-h), var(--color-black-s), var(--color-black-l), 0.85);
+    }
+    
+    &--dark {
+        background-color: hsla(var(--color-black-h), var(--color-black-s), var(--color-black-l), 0.8);
+        color:hsla(var(--color-white-h), var(--color-white-s), var(--color-white-l), 0.9);
+    }
+    
+    &--docked {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform:translate(50%, -50%);
+    }
+    
+    &-container {
+        height: 48px;
+        width: 48px;
+        background-color: var(--color-contrast-lower);
+        border-radius: var(--radius-md);
+        position: relative;
+    }
+}
+

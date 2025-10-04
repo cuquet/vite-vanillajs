@@ -1,0 +1,58 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_markdown-editor
+Title: 
+Descr: 
+Usage: https://codyhouse.co/ds/components/info/markdown-editor
+Dependencies
+    _1_tooltip
+-------------------------------- */
+
+.md-editor {
+    --md-editor-btn-size: 40px;
+    --md-editor-btn-icon-size:16px;
+    &__btn {
+        position: relative;
+        display: flex;
+        width: var(--md-editor-btn-size);
+        height: var(--md-editor-btn-size);
+        cursor: pointer;
+        transition:transform .2s;
+        &::before {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            background: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+            border-radius: var(--radius-sm);
+            transform: scale(.85);
+            opacity: 0;
+            transition:.2s;
+        }
+        &:hover::before {
+            transform: scale(1);
+            opacity:1;
+        }
+        &:active {
+            transform:translateY(2px);
+        }
+        &-separator {
+            height: calc(var(--md-editor-btn-size) /2);
+            width: 1px;
+            margin: 0 var(--space-2xs);
+            position: relative;
+            top: calc(var(--md-editor-btn-size) /4);
+            background-color:var(--color-contrast-lower);
+        }
+    }
+    &__icon {
+        position: relative;
+        z-index: 2;
+        display: block;
+        margin: auto;
+        --size: var(--md-editor-btn-icon-size);
+    }
+}

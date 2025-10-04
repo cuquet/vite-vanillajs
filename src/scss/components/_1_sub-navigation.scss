@@ -1,0 +1,276 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_sub-navigation
+Title: Sub Navigation
+Descr: Secondary navigation template.
+Usage: https://codyhouse.co/ds/components/info/sub-navigation
+
+-------------------------------- */
+
+.subnav {
+    $this: &;
+    &__nav {
+        position: relative;
+        display:flex;
+        &::after {
+            content: "";
+            width: 1em;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(to right, hsla(var(--color-bg-dark-h), var(--color-bg-dark-s), var(--color-bg-dark-l), 0), hsla(var(--color-bg-dark-h), var(--color-bg-dark-s), var(--color-bg-dark-l), 1));
+            pointer-events:none;
+        }
+    }
+    &__list {
+        display: flex;
+        overflow:auto;
+    }
+    &__item {
+        display: inline-block;
+        flex-shrink:0;
+    }
+    &__link {
+        display: block;
+        font-size: var(--text-sm);
+        padding: var(--space-xs) var(--space-sm);
+        text-decoration: none;
+        color: hsla(var(--color-contrast-high-h), var(--color-contrast-high-s), var(--color-contrast-high-l), 0.65);
+        border: 3px solid transparent;
+        border-right-width: 0;
+        border-left-width: 0;
+        transition:.2s;
+        border-bottom: 1px solid var(--color-contrast-lower);
+        &:hover {
+            color:var(--color-contrast-high);
+        }
+        &[aria-current=page] {
+            border-bottom-color: var(--color-primary);
+            color:var(--color-contrast-high);
+            span {
+                font-style: italic;
+                &:first-of-type{
+                    font-weight: 100;
+                }
+                &:last-of-type{
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+    &:not(&--collapsed) &__control, 
+    &:not(&--collapsed) &__close-btn {
+        display:none;
+    }
+    &--collapsed {
+        --v-steps-gap: var(--space-md);
+        --v-steps-vertical-line-width: 4px;
+        --v-steps-marker-size: 24px;
+        --v-steps-border-size: 2px;
+        --v-steps-title-line-height:1.2;
+        #{$this}__wrapper {
+            position: fixed;
+            display: block;
+            z-index: var(--z-index-overlay, 15);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: hsla(var(--color-black-h), var(--color-black-s), var(--color-black-l), 0.9);
+            visibility: hidden;
+            opacity:0;
+            &--is-visible {
+                visibility: visible;
+                opacity: 1;
+                transition:opacity .3s;
+                #{$this}__nav {
+                    transform: translateY(0);
+                    transition:transform .3s;
+                }
+            }
+        }
+        #{$this}__nav {
+            display: block;
+            background-color: var(--color-bg);
+            box-shadow: var(--shadow-md);
+            max-height: 100%;
+            overflow: auto;
+            transform:translateY(-1em);
+            &::after {
+                display:none;
+            }
+                    padding: var(--space-md);
+        }
+        #{$this}__control{
+            width:100%;
+            span {
+                //display: inline-block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: inherit;
+                overflow: hidden;
+            }
+        }
+        #{$this}__list {
+            flex-direction: column;
+            overflow: visible;
+            padding:0 var(--space-md) var(--space-md);
+
+            position: relative;
+            padding-left: calc(var(--v-steps-marker-size ) + var(--v-steps-border-size) * 2);
+            list-style: none;
+            &::before {
+                display: inline-block;
+                content: "";
+                position: absolute;
+                left: calc(var(--v-steps-marker-size) / 2 + var(--v-steps-border-size) * 2 - var(--v-steps-vertical-line-width) / 2 ); 
+                top: 0;
+                width: var(--v-steps-vertical-line-width);
+                height: 100%;
+                /*border-left: var(--v-steps-vertical-line-width) solid var(--color-contrast-lower);*/
+                /*background: var(--color-contrast-lower);*/
+            }
+        }
+        #{$this}__item {
+            position: relative;
+            counter-increment: list;
+            display: inline-block;
+            &:not(:last-child) {
+                padding-bottom: var(--v-steps-gap);
+                &::before{
+                /*border-left: var(--v-steps-vertical-line-width) solid var(--color-contrast-lower);*/
+                background: var(--color-contrast-lower);
+                }
+            }
+            &::before {
+                content: "";
+                display: inline-block;
+                position: absolute;
+                left: calc( (var(--v-steps-marker-size) - var(--v-steps-vertical-line-width)/ 2  )  * -1);
+                height: 100%;
+                width: var(--v-steps-vertical-line-width);
+            }
+            &::after {
+                content:"";
+                display: inline-block;
+                position: absolute;
+                width: var(--v-steps-marker-size);
+                height: var(--v-steps-marker-size);
+                top: 0;
+                left: calc((var(--v-steps-marker-size) + var(--v-steps-border-size) * 4 ) * -1); 
+                border-radius: 50%;
+                background-color: var(--color-bg);
+                border: 2px solid var(--color-contrast-lower);
+                /*border: 2px solid var(--color-bg);*/
+                margin: 0 0 var(--space-xs) 0;
+                box-shadow: inset 0 0 0 var(--v-steps-border-size) var(--color-contrast-lower), 0 0 0 var(--v-steps-border-size) var(--color-bg);
+                flex-shrink:0;
+            }
+            &.is-done {
+                &::before {
+                    background: var(--color-primary);
+                }
+                &::after {
+                    content: "";
+                    display:block;
+                    color: var(--color-bg);
+                    border: var(--v-steps-vertical-line-width) solid var(--color-primary);
+                    box-shadow:0 0 0 var(--v-steps-border-size) var(--color-bg);
+                    text-align: center;
+                    background-color: var(--color-primary);
+                }
+            }
+            &.current,
+            &:has(#{$this}__link[aria-current=page]) {
+                &::before {
+                    /*border-left: var(--v-steps-vertical-line-width) solid var(--color-primary);*/
+                }
+                &::after {
+                    content: ""; /*counter(list);*/
+                    text-align: center;
+                    color: var(--color-primary);
+                    width: var(--v-steps-marker-size);
+                    height: var(--v-steps-marker-size);
+                    font-size: var(--space-sm);
+                    box-shadow: inset 0 0 0 var(--v-steps-border-size) var(--color-primary), 0 0 0 var(--v-steps-border-size) var(--color-bg);
+                    border: var(--v-steps-border-size) solid var(--color-primary);
+                }
+            }
+        }
+        #{$this}__link {
+            border-width: 0;
+            font-size: var(--text-md);
+            padding:var(--space-xs) 0;
+            &[aria-current=page] {
+                span {
+                    color:var(--color-primary);
+                }
+            }
+            display:block;
+            padding:0;
+            span {
+                line-height: var(--v-steps-title-line-height);
+            }
+        }
+    }
+    &__close-btn {
+        --size: 2em;
+        width: var(--size);
+        height: var(--size);
+        display: flex;
+        margin: var(--space-xs) var(--space-xs) 0 auto;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: var(--color-bg-light);
+        box-shadow: var(--inner-glow), var(--shadow-sm);
+        transition:.2s;
+        &:hover {
+            background-color: var(--color-bg-lighter);
+            box-shadow:var(--inner-glow), var(--shadow-md);
+        }
+        .icon {
+            display: block;
+            color:var(--color-contrast-high);
+        }
+    }
+}
+
+[class *=subnav--expanded]::before {
+    display: none;
+    content: "collapsed";
+}
+.subnav {
+    @include min-width(xs)  {
+        &--expanded\@xs::before {
+            content: "expanded";
+        }
+    }
+    @include min-width(sm) {
+        &--expanded\@sm::before {
+            content: "expanded";
+        }
+    }
+    
+    @include min-width(md) {
+        &--expanded\@md::before {
+            content: "expanded";
+        }
+    }
+    
+    @include min-width(lg)  {
+        &--expanded\@lg::before {
+            content: "expanded";
+        }
+    }
+    
+    @include min-width(xl) {
+        &--expanded\@xl::before {
+            content: "expanded";
+        }
+    }
+}

@@ -1,0 +1,109 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_btns
+Title: Button groups
+Descr: A group of connected buttons.
+Usage: https://codyhouse.co/ds/components/info/button-group
+
+-------------------------------- */
+:root {
+    --btns-button-radius: var(--radius-md);
+    --btns-button-padding-x: var(--space-sm);
+    --btns-button-padding-y:var(--space-2xs);
+}
+
+.btns {
+    & > *:first-child,
+    & *:first-child &__btn {
+        border-radius:var(--btns-button-radius) 0 0 var(--btns-button-radius);
+    }
+    & > *:last-child,
+    & *:last-child &__btn {
+        border-radius:0 var(--btns-button-radius) var(--btns-button-radius) 0;
+    }
+    &[class *=gap-4xs] &__btn, 
+    &[class *=gap-3xs] &__btn, 
+    &[class *=gap-2xs] &__btn, 
+    &[class *=gap-xs] &__btn, 
+    &[class *=gap-sm] &__btn, 
+    &[class *=gap-md] &__btn, 
+    &[class *=gap-lg] &__btn, 
+    &[class *=gap-xl] &__btn, 
+    &[class *=gap-2xl] &__btn, 
+    &[class *=gap-3xl] &__btn, 
+    &[class *=gap-4xl] &__btn {
+        border-radius:var(--btns-button-radius) !important;
+    }
+    &__btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: var(--btns-button-padding-y) var(--btns-button-padding-x);
+        background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        transition: .2s;
+        cursor:pointer;
+    }
+    &__btn:hover:not(&__btn--selected) {
+        background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+    }
+    &__btn:focus {
+        z-index: 1;
+        outline: none;
+        box-shadow:0 0 0 2px hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.2);
+    }
+    &__btn--selected, 
+    &--radio input[type=radio]:checked + label, 
+    &--radio input[type=checkbox]:checked + label, 
+    &--checkbox input[type=radio]:checked + label, 
+    &--checkbox input[type=checkbox]:checked + label {
+        background-color: var(--color-contrast-higher);
+        color: var(--color-bg);
+        box-shadow:var(--shadow-sm);
+    }
+    &__btn--disabled {
+        opacity: .7;
+        cursor: not-allowed;
+        text-decoration:line-through;
+    }
+    &--radio > *, &--checkbox > * {
+        position:relative;
+    }
+    &--radio input[type=radio], 
+    &--radio input[type=checkbox], 
+    &--checkbox input[type=radio], 
+    &--checkbox input[type=checkbox] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        height: 0;
+        width: 0;
+        pointer-events:none;
+    }
+    &--radio input[type=radio] + label, 
+    &--radio input[type=checkbox] + label, 
+    &--checkbox input[type=radio] + label, 
+    &--checkbox input[type=checkbox] + label {
+        -webkit-user-select: none;
+        user-select:none;
+    }
+    &--radio input[type=radio]:focus + label, 
+    &--radio input[type=checkbox]:focus + label, 
+    &--checkbox input[type=radio]:focus + label, 
+    &--checkbox input[type=checkbox]:focus + label {
+        z-index: 1;
+        box-shadow:0 0 0 2px hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.2);
+    }
+    &__btn--icon {
+        padding:var(--btns-button-padding-y);
+        .icon {
+            display: block;
+        }
+    }
+}

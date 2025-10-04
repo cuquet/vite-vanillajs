@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+    <link rel="stylesheet" href="/scss/style.scss" />
+    <title>Modal | CodyFrame</title>
+</head>
+
+    <body>
+    {{> header activepage='overlay-modal'}}
+    <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
+        <div class="container max-width-adaptive-xl">
+            <div class="grid gap-md flex-row-reverse@md">
+                <div class="col-3@md">
+                    <div class="toc toc--static@md js-toc">
+                        <nav class="toc__nav"></nav>
+                    </div>
+                </div>
+                <div class="col-9@md bg padding-md ">
+                    <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
+                        <div class="text-divider"><span><h1>Modals Estàtics</h1></span></div>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Per defecte</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary" aria-controls="modal-name-1">Show modal window</button>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">amb formulari</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary" aria-controls="modal-name-1-form">Show modal window</button>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">--close-btn-in-header</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary" aria-controls="modal-name-2">Show modal window</button>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">--close-btn-sticky</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary" aria-controls="modal-name-3">Show modal window</button>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">--fixed-header-footer</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary" aria-controls="modal-name-4">Show modal window</button>
+                            </div>
+                        </section>
+                        <section class="padding-y-xs">
+                            <h2 class="padding-bottom-md">--image</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class=" modal-img-btn radius-md overflow-hidden"
+                                    aria-controls="modal-image-name" aria-label="Show larger image preview">
+                                    <img class="width-3xl" src="/assets/img/modal-window-img-1.jpg"
+                                        alt="Image description">
+
+                                    <span class="modal-img-btn__icon-wrapper" aria-hidden="true">
+                                        <svg class="icon icon--sm" viewBox="0 0 24 24">
+                                            <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                                                fill="none" stroke="currentColor" stroke-miterlimit="10">
+                                                <path
+                                                    d="M1.373,13.183a2.064,2.064,0,0,1,0-2.366C2.946,8.59,6.819,4,12,4s9.054,4.59,10.627,6.817a2.064,2.064,0,0,1,0,2.366C21.054,15.41,17.181,20,12,20S2.946,15.41,1.373,13.183Z">
+                                                </path>
+                                                <circle cx="12" cy="12" r="4"></circle>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Modal Video</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <a class="btn btn--primary" aria-controls="modal-video-1" href="#0" data-url="https://codyhouse.co/app/assets/video/video-1.mp4" role="button">Open Video Modal</a>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Modal Video Iframe</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <a class="btn btn--primary" aria-controls="modal-video-iframe" href="#0" data-url="https://player.vimeo.com/video/308876956" role="button">Open Video Modal</a>
+                            </div>
+                        </section>
+                        <div class="text-divider"><span><h1>Modals Dinàmics</h1></span></div>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Ajax Modal Dinàmic</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary js-modal" data-content="/ajax-example.html"
+                                    data-title="Això és el títol" data-fullscreen="off" data-confirm-close="on">Show dynamic ajax modal window</button>
+                                <br />
+                            </div>
+                        </section>
+
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Contingut a un node ocult</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary js-modal" data-content="#div-pel-dialog"
+                                    data-title="Això és el títol">Open modal 2</button>
+                                <div id="div-pel-dialog" class="hide">
+                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias dignissimos
+                                        ratione ducimus dolor illo itaque eveniet soluta, beatae, asperiores magnam
+                                        quaerat cumque, distinctio error voluptatum quidem cum numquam voluptate
+                                        commodi.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis vel
+                                        animi laborum nobis aut rerum voluptas quam ipsa soluta.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet accusantium
+                                        provident nulla minus velit, voluptas voluptatem in libero hic quaerat saepe
+                                        quae, labore, qui illo eum ullam ea. Repudiandae excepturi aut earum ipsa vitae
+                                        modi, non eos hic? Atque fugit ullam est ab nam numquam id pariatur, esse
+                                        voluptates, ipsa aperiam consequatur laboriosam perspiciatis. Nemo culpa
+                                        reprehenderit tenetur alias dolor veritatis ducimus, numquam ipsa incidunt harum
+                                        dolorem quod perspiciatis autem quis soluta, nobis assumenda aliquam perferendis
+                                        ut commodi inventore sunt.</p>
+                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias dignissimos
+                                        ratione ducimus dolor illo itaque eveniet soluta, beatae, asperiores magnam
+                                        quaerat cumque, distinctio error voluptatum quidem cum numquam voluptate
+                                        commodi.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis vel
+                                        animi laborum nobis aut rerum voluptas quam ipsa soluta.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet accusantium
+                                        provident nulla minus velit, voluptas voluptatem in libero hic quaerat saepe
+                                        quae, labore, qui illo eum ullam ea. Repudiandae excepturi aut earum ipsa vitae
+                                        modi, non eos hic? Atque fugit ullam est ab nam numquam id pariatur, esse
+                                        voluptates, ipsa aperiam consequatur laboriosam perspiciatis. Nemo culpa
+                                        reprehenderit tenetur alias dolor veritatis ducimus, numquam ipsa incidunt harum
+                                        dolorem quod perspiciatis autem quis soluta, nobis assumenda aliquam perferendis
+                                        ut commodi inventore sunt.</p>
+                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias dignissimos
+                                        ratione ducimus dolor illo itaque eveniet soluta, beatae, asperiores magnam
+                                        quaerat cumque, distinctio error voluptatum quidem cum numquam voluptate
+                                        commodi.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis vel
+                                        animi laborum nobis aut rerum voluptas quam ipsa soluta.</p>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet accusantium
+                                        provident nulla minus velit, voluptas voluptatem in libero hic quaerat saepe
+                                        quae, labore, qui illo eum ullam ea. Repudiandae excepturi aut earum ipsa vitae
+                                        modi, non eos hic? Atque fugit ullam est ab nam numquam id pariatur, esse
+                                        voluptates, ipsa aperiam consequatur laboriosam perspiciatis. Nemo culpa
+                                        reprehenderit tenetur alias dolor veritatis ducimus, numquam ipsa incidunt harum
+                                        dolorem quod perspiciatis autem quis soluta, nobis assumenda aliquam perferendis
+                                        ut commodi inventore sunt.</p>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Contingut HTML</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <a class="js-modal" data-content="<p>Hola món</p>" data-title="Title">
+                                    <svg class="icon icon--xs pe-none" viewBox="0 0 16 16" aria-hidden="true">
+                                        <g fill="currentColor">
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2" d="M8 1v10"></path>
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2" d="M4 7l4 4 4-4"></path>
+                                            <path fill="none" opacity=".4" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2" d="M15 15H1"></path>
+                                        </g>
+                                    </svg>
+                                </a> contingut HTML
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Imatge</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="modal-img-btn radius-md overflow-hidden js-modal"
+                                    data-content="/assets/img/modal-window-img-1.jpg"
+                                    aria-label="Show larger image preview">
+                                    <img class="width-3xl" src="/assets/img/modal-window-img-1.jpg"
+                                        alt="Image description">
+                                    <span class="modal-img-btn__icon-wrapper" aria-hidden="true">
+                                        <svg class="icon icon--sm " viewBox="0 0 24 24">
+                                            <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                                                fill="none" stroke="currentColor" stroke-miterlimit="10">
+                                                <path
+                                                    d="M1.373,13.183a2.064,2.064,0,0,1,0-2.366C2.946,8.59,6.819,4,12,4s9.054,4.59,10.627,6.817a2.064,2.064,0,0,1,0,2.366C21.054,15.41,17.181,20,12,20S2.946,15.41,1.373,13.183Z">
+                                                </path>
+                                                <circle cx="12" cy="12" r="4"></circle>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </section>
+                        <section class="padding-y-xs">
+                            <h2 class="padding-bottom-md">Formulari Modal</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary js-modal" data-content="#div-pel-modal-form"
+                                    data-title="Això és el títol">Mostra Formulari</button>
+                                <div id="div-pel-modal-form" class="hide">
+                                    <div class="text-component margin-bottom-md">
+                                        <h3 id="modal-form-title" class=" toc-skip">Join our Newsletter</h3>
+                                        <p id="modal-form-description">Lorem ipsum dolor, sit amet consectetur
+                                            adipisicing elit. Suscipit asperiores molestiae ex.</p>
+                                    </div>
+                                    <form id="form-1" class="margin-bottom-sm">
+                                        <div class="flex flex-column flex-row@xs gap-3xs">
+                                            <input id="input-1" aria-label="Email" class="form-control flex-grow" type="email"
+                                                placeholder="Email">
+                                            <button class="btn btn--primary">Subscribe</button>
+                                        </div>
+                                        <div class="flex flex-column items-start">
+                                            <label class="form-label margin-bottom-2xs" for="multi-select-id">Select one or multiple options:</label>
+                                            <div class="multi-select inline-block js-multi-select" data-trigger-class="btn btn--subtle justify-between" data-no-select-text="Select options" data-multi-select-text="{n} items selected" data-n-multi-select="2">
+                                                <select name="multi-select-name" id="multi-select-id" multiple="multiple">
+                                                    <optgroup label="Group 1">
+                                                        <option value="1">Option 1</option>
+                                                        <option value="2">Option 2</option>
+                                                        <option value="3">Option 3</option>
+                                                    </optgroup>
+                                                    <optgroup label="Group 2">
+                                                        <option value="4">Option 4</option>
+                                                        <option value="5">Option 5</option>
+                                                        <option value="6">Option 6</option>
+                                                    </optgroup>
+                                                </select>
+                                                <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true" viewBox="0 0 12 12">
+                                                    <path d="M10.947,3.276A.5.5,0,0,0,10.5,3h-9a.5.5,0,0,0-.4.8l4.5,6a.5.5,0,0,0,.8,0l4.5-6A.5.5,0,0,0,10.947,3.276Z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="text-component">
+                                        <p class="text-xs color-contrast-medium">
+                                            Lorem ipsum dolor sit, amet
+                                            <a href="#0" class="color-contrast-high">consectetur adipisicing</a>
+                                            elit. Nisi molestias hic voluptatibus.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Modal Video Dinàmic</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <a class="btn btn--primary js-modal" href="#0" data-url="https://codyhouse.co/app/assets/video/video-1.mp4" role="button">Open Video Modal dinàmic</a>
+                            </div>
+                        </section>
+                        <section class="padding-y-md">
+                            <h2 class="padding-bottom-md">Modal Video Iframe Dinàmic</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <a class="btn btn--primary js-modal" href="#0" data-url="https://player.vimeo.com/video/308876956" role="button">Open Video Modal dinàmic</a>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {{> totop }}
+    {{> footer }}
+
+    <div id="modal-name-1"
+        class="modal modal--animate-translate-up  flex flex-center bg-black bg-opacity-90% padding-md js-modal"
+        data-modal-prevent-scroll="body">
+        <div class="modal__content width-100% max-width-xs max-height-100% overflow-auto bg radius-md inner-glow shadow-md"
+            role="alertdialog" aria-labelledby="modal-title-1" aria-describedby="modal-description-1">
+            <header class="bg-contrast-lower bg-opacity-50% padding-y-sm padding-x-md flex items-center justify-between">
+                <h1 id="modal-title-1" class="text-truncate text-md">Modal title</h1>
+                <button class=" modal__close-btn modal__close-btn--inner hide@md js-modal__close ">
+                    <svg class="icon icon--xs" viewBox="0 0 16 16">
+                        <title>Close modal window</title>
+                        <g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-miterlimit="10">
+                            <line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line>
+                            <line x1="2.5" y1="2.5" x2="13.5" y2="13.5"></line>
+                        </g>
+                    </svg>
+                </button>
+            </header>
+    
+            <div class="padding-y-sm padding-x-md">
+                <div class="text-component">
+                    <p id="modal-description-1">Lorem ipsum dolor sit amet consectetur
+                        adipisicing elit. Vitae culpa, inventore alias ab atque similique
+                        quod ea reprehenderit.</p>
+                </div>
+            </div>
+    
+            <footer class="padding-md">
+                <div class="flex justify-end gap-xs">
+                    <button class="btn btn--subtle js-modal__close">Cancel</button>
+                    <button class="btn btn--primary">Install</button>
+                </div>
+            </footer>
+        </div>
+    
+        <button class=" modal__close-btn modal__close-btn--outer display@md js-modal__close ">
+            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                <title>Close modal window</title>
+                <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="3" y1="3" x2="21" y2="21" />
+                    <line x1="21" y1="3" x2="3" y2="21" />
+                </g>
+            </svg>
+        </button>
+    </div>
+    <div id="modal-name-1-form"
+        class="modal modal--animate-translate-up  flex flex-center bg-black bg-opacity-90% padding-md js-modal"
+        data-modal-prevent-scroll="body">
+        <div class="modal__content width-100% max-width-xs max-height-100% overflow-auto bg radius-md inner-glow shadow-md"
+            role="alertdialog" aria-labelledby="modal-title-1-form" aria-describedby="modal-description-1">
+            <header class="bg-contrast-lower bg-opacity-50% padding-y-sm padding-x-md flex items-center justify-between">
+                <h1 id="modal-title-1-form" class="text-truncate text-md  toc-skip">Join our Newsletter</h1>
+                <button class=" modal__close-btn modal__close-btn--inner hide@md js-modal__close ">
+                    <svg class="icon icon--xs" viewBox="0 0 16 16">
+                        <title>Close modal window</title>
+                        <g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-miterlimit="10">
+                            <line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line>
+                            <line x1="2.5" y1="2.5" x2="13.5" y2="13.5"></line>
+                        </g>
+                    </svg>
+                </button>
+            </header>
+    
+            <div class="padding-y-sm padding-x-md">
+                <div class="text-component">
+                    <div class="text-component margin-bottom-md">
+                        <h3 id="modal-form-title" class=""></h3>
+                        <p id="modal-form-description">Lorem ipsum dolor, sit amet consectetur
+                            adipisicing elit. Suscipit asperiores molestiae ex.</p>
+                    </div>
+                    <form id="form-1" class="margin-bottom-sm">
+                        <div class="flex flex-column flex-row@xs gap-3xs">
+                            <input id="input-1" aria-label="Email" class="form-control flex-grow" type="email"
+                                placeholder="Email">
+                            <button class="btn btn--primary">Subscribe</button>
+                        </div>
+                        <div class="flex flex-column items-start">
+                            <label class="form-label margin-bottom-2xs" for="multi-select-id">Select one or multiple options:</label>
+                            <div class="multi-select inline-block js-multi-select" data-trigger-class="btn btn--subtle justify-between" data-no-select-text="Select options" data-multi-select-text="{n} items selected" data-n-multi-select="2">
+                                <select name="multi-select-name" id="multi-select-id" multiple="multiple">
+                                    <optgroup label="Group 1">
+                                        <option value="1">Option 1</option>
+                                        <option value="2">Option 2</option>
+                                        <option value="3">Option 3</option>
+                                    </optgroup>
+                                    <optgroup label="Group 2">
+                                        <option value="4">Option 4</option>
+                                        <option value="5">Option 5</option>
+                                        <option value="6">Option 6</option>
+                                    </optgroup>
+                                </select>
+                                <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true" viewBox="0 0 12 12">
+                                    <path d="M10.947,3.276A.5.5,0,0,0,10.5,3h-9a.5.5,0,0,0-.4.8l4.5,6a.5.5,0,0,0,.8,0l4.5-6A.5.5,0,0,0,10.947,3.276Z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-component">
+                        <p class="text-xs color-contrast-medium">
+                            Lorem ipsum dolor sit, amet
+                            <a href="#0" class="color-contrast-high">consectetur adipisicing</a>
+                            elit. Nisi molestias hic voluptatibus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+    
+            <footer class="padding-md">
+                <div class="flex justify-end gap-xs">
+                    <button class="btn btn--subtle js-modal__close">Cancel</button>
+                    <button class="btn btn--primary">Install</button>
+                </div>
+            </footer>
+        </div>
+    
+        <button class=" modal__close-btn modal__close-btn--outer display@md js-modal__close ">
+            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                <title>Close modal window</title>
+                <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="3" y1="3" x2="21" y2="21" />
+                    <line x1="21" y1="3" x2="3" y2="21" />
+                </g>
+            </svg>
+        </button>
+    </div>
+    <!-- --close-btn-in-header -->
+    <div id="modal-name-2"
+        class="modal modal--animate-translate-up flex flex-center bg-black bg-opacity-90% padding-md js-modal"
+        data-modal-prevent-scroll="body">
+        <div class="modal__content width-100% max-width-xs max-height-100% overflow-auto bg radius-md inner-glow shadow-md"
+            role="alertdialog" aria-labelledby="modal-title-2" aria-describedby="modal-description-2">
+            <header
+                class="bg-contrast-lower bg-opacity-50% padding-y-sm padding-x-md flex items-center justify-between">
+                <h1 id="modal-title-2" class="text-truncate text-md">Modal title</h1>
+
+                <button class=" modal__close-btn modal__close-btn--inner js-modal__close ">
+                    <svg class="icon icon--xs" viewBox="0 0 16 16">
+                        <title>Close modal window</title>
+                        <g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-miterlimit="10">
+                            <line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line>
+                            <line x1="2.5" y1="2.5" x2="13.5" y2="13.5"></line>
+                        </g>
+                    </svg>
+                </button>
+            </header>
+            <div class="padding-y-sm padding-x-md">
+                <div class="text-component">
+                    <p id="modal-description-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae culpa,
+                        inventore alias ab atque similique quod ea reprehenderit.</p>
+                </div>
+            </div>
+            <footer class="padding-md">
+                <div class="flex justify-end gap-xs">
+                    <button class="btn btn--subtle js-modal__close">Cancel</button>
+                    <button class="btn btn--primary">Install</button>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+    <!-- --close-btn-sticky -->
+    <div id="modal-name-3"
+        class="modal modal--animate-scale flex flex-center bg-black bg-opacity-90% padding-md js-modal"
+        data-modal-prevent-scroll="body">
+        <div class="modal__content width-100% max-width-sm max-height-100% overflow-auto padding-md bg radius-md inner-glow shadow-md"
+            role="alertdialog" aria-labelledby="modal-title-3" aria-describedby="modal-description-3">
+            <button
+                class=" modal__close-btn modal__close-btn--inner float-right position-sticky top-0 js-modal__close ">
+                <svg class="icon icon--xs" viewBox="0 0 16 16">
+                    <title>Close modal window</title>
+                    <g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-miterlimit="10">
+                        <line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line>
+                        <line x1="2.5" y1="2.5" x2="13.5" y2="13.5"></line>
+                    </g>
+                </svg>
+            </button>
+            <div class="text-component">
+                <h1 id="modal-title-3" class="text-lg toc-skip">Modal Title</h1>
+                <p id="modal-description-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus natus
+                    nam, tenetur obcaecati porro repellendus aspernatur labore quos. Aliquam, excepturi.</p>
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam suscipit corrupti architecto animi
+                    ratione modi eligendi minus. Nobis, consectetur hic. Quidem, temporibus eaque. Facilis, totam
+                    quibusdam et fuga autem deleniti?</p>
+
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam eligendi iure tempora quam, ipsa
+                    officia quod doloremque expedita nam ut.</p>
+
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta non tempore maiores optio libero,
+                    sunt blanditiis provident, dolorem eius quae inventore obcaecati unde iusto dolores quasi culpa
+                    atque ad repellendus suscipit mollitia est eos? Explicabo omnis voluptate odit, nesciunt accusantium
+                    cum aliquam earum mollitia pariatur, assumenda architecto dolores animi. Molestiae, quidem quae
+                    earum, nesciunt ipsa expedita consectetur illo vel voluptas neque in officia nulla nemo ex? Itaque
+                    quas praesentium, ipsam ab, officiis pariatur totam, rem impedit amet suscipit veniam mollitia
+                    accusamus eum. Debitis molestiae ex eius ad dignissimos, minus cupiditate corrupti eveniet officia
+                    enim rem? Explicabo ad itaque dolores repudiandae.</p>
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam distinctio, aut numquam hic
+                    veritatis nostrum a fuga accusantium sit veniam atque facilis assumenda aperiam sed repudiandae
+                    praesentium voluptate adipisci et saepe ex tenetur facere. Corrupti repellat rem doloribus at
+                    dignissimos.</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- --fixed-header-footer -->
+    <div id="modal-name-4"
+        class="modal modal--animate-translate-down flex flex-center bg-black bg-opacity-90% padding-md js-modal"
+        data-modal-prevent-scroll="body">
+        <div class="modal__content width-100% max-width-xs max-height-100% overflow-auto bg radius-md inner-glow shadow-md flex flex-column"
+            role="alertdialog" aria-labelledby="modal-title-4" aria-describedby="modal-description-4">
+            <header
+                class="bg-contrast-lower bg-opacity-50% padding-y-sm padding-x-md flex items-center justify-between flex-shrink-0">
+                <h1 id="modal-title-4" class="text-truncate text-md">Modal title</h1>
+
+                <button class=" modal__close-btn modal__close-btn--inner js-modal__close ">
+                    <svg class="icon icon--xs" viewBox="0 0 16 16">
+                        <title>Close modal window</title>
+                        <g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-miterlimit="10">
+                            <line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line>
+                            <line x1="2.5" y1="2.5" x2="13.5" y2="13.5"></line>
+                        </g>
+                    </svg>
+                </button>
+            </header>
+
+            <div class="padding-y-sm padding-x-md flex-grow overflow-auto momentum-scrolling">
+                <div class="text-component">
+                    <p id="modal-description-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae culpa,
+                        inventore alias ab atque similique quod ea reprehenderit.</p>
+
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias dignissimos ratione ducimus dolor
+                        illo itaque eveniet soluta, beatae, asperiores magnam quaerat cumque, distinctio error
+                        voluptatum quidem cum numquam voluptate commodi.</p>
+
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis vel animi laborum nobis
+                        aut rerum voluptas quam ipsa soluta.</p>
+
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet accusantium provident nulla minus
+                        velit, voluptas voluptatem in libero hic quaerat saepe quae, labore, qui illo eum ullam ea.
+                        Repudiandae excepturi aut earum ipsa vitae modi, non eos hic? Atque fugit ullam est ab nam
+                        numquam id pariatur, esse voluptates, ipsa aperiam consequatur laboriosam perspiciatis. Nemo
+                        culpa reprehenderit tenetur alias dolor veritatis ducimus, numquam ipsa incidunt harum dolorem
+                        quod perspiciatis autem quis soluta, nobis assumenda aliquam perferendis ut commodi inventore
+                        sunt.</p>
+                </div>
+            </div>
+
+            <footer class="padding-y-sm padding-x-md bg inner-glow-top shadow-md flex-shrink-0">
+                <div class="flex justify-end gap-xs">
+                    <button class="btn btn--subtle js-modal__close">Cancel</button>
+                    <button class="btn btn--primary">Install</button>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+    <!-- --image -->
+    <div id="modal-image-name" class="modal modal--animate-scale bg-black bg-opacity-90% padding-md js-modal"
+        data-modal-prevent-scroll="body">
+        <div class="modal__content width-100% height-100% flex flex-center pointer-events-none" role="alertdialog"
+            aria-labelledby="" aria-describedby="" >
+            <img class="radius-md shadow-md max-height-100% max-width-100%" src="/assets/img/modal-window-img-1.jpg"
+                alt="Image description">
+        </div>
+
+        <button class=" modal__close-btn modal__close-btn--outer  js-modal__close ">
+            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                <title>Close modal window</title>
+                <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="3" y1="3" x2="21" y2="21" />
+                    <line x1="21" y1="3" x2="3" y2="21" />
+                </g>
+            </svg>
+        </button>
+    </div>
+    <!-- Modal Video -->
+    <div class="modal modal--is-loading flex flex-center bg-black bg-opacity-90% padding-x-md js-modal" id="modal-video-1">
+        <div class="modal__content width-100% max-width-md max-height-100% overflow-auto shadow-md" role="alertdialog" aria-labelledby="modal-video-title-1" aria-describedby="">
+            <p class="sr-only" id="modal-video-title-1">A video is being shown</p>
+            <figure class="media-wrapper-16:9">
+                <video class="js-modal-video__media" controls src=""></video>
+            </figure>
+        </div>
+        <div class="modal__loader" aria-hidden="true">
+            <svg class="icon icon--lg color-bg icon--is-spinning">
+                <path d="M24,48A24,24,0,1,1,48,24,24.027,24.027,0,0,1,24,48ZM24,4A20,20,0,1,0,44,24,20.023,20.023,0,0,0,24,4Z" opacity="0.4"></path>
+                <path d="M48,24H44A20.023,20.023,0,0,0,24,4V0A24.028,24.028,0,0,1,48,24Z"></path>
+            </svg>
+        </div>
+        <button class="modal__close-btn modal__close-btn--outer js-modal__close">
+            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                <title>Close modal window</title>
+                <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="3" x2="21" y2="21"/>
+                    <line x1="21" y1="3" x2="3" y2="21"/>
+                </g>
+            </svg>
+        </button>
+    </div>
+    <!-- Modal Video Iframe -->
+    <div class="modal modal--is-loading flex flex-center bg-black bg-opacity-90% padding-x-md js-modal" id="modal-video-iframe">
+        <div class="modal__content width-100% max-width-md max-height-100% overflow-auto shadow-md" role="alertdialog" aria-labelledby="modal-video-iframe-title" aria-describedby="">
+            <p class="sr-only" id="modal-video-iframe-title">A video is being shown</p>
+            <figure class="media-wrapper-16:9">
+                <iframe src="" class="js-modal-video__media" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </figure>
+        </div>
+        <div class="modal__loader" aria-hidden="true">
+            <svg class="icon icon--lg color-bg icon--is-spinning">
+                <path d="M24,48A24,24,0,1,1,48,24,24.027,24.027,0,0,1,24,48ZM24,4A20,20,0,1,0,44,24,20.023,20.023,0,0,0,24,4Z" opacity="0.4"></path>
+                <path d="M48,24H44A20.023,20.023,0,0,0,24,4V0A24.028,24.028,0,0,1,48,24Z"></path>
+            </svg>
+        </div>
+        <button class="modal__close-btn modal__close-btn--outer js-modal__close">
+            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                <title>Close modal window</title>
+                <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="3" x2="21" y2="21"/>
+                    <line x1="21" y1="3" x2="3" y2="21"/>
+                </g>
+            </svg>
+        </button>
+    </div>
+    {{> svg }}
+    </body>
+
+    <script type="module" src="/js/main.js"></script>
+
+    <script type="module">
+        //initialitze el Modal dinàmics
+        const modalButtons = Array.from(document.querySelectorAll('.js-modal:not(.modal)'));
+        if (modalButtons.length > 0) {
+            modalButtons.forEach((modalButton) => {
+                const fullscreen = modalButton.getAttribute('data-fullscreen') &&
+                modalButton.dataset.fullscreen == 'off' ? false : true;
+                const confirmClose = modalButton.getAttribute('data-confirm-close') &&
+                modalButton.dataset.confirmClose == 'on' ? true : false;
+                new Modal(modalButton, 
+                    {
+                        animateClass: 'modal--animate-translate-right',
+                        fullscreen: fullscreen,
+                        confirmClose: confirmClose,
+                        headerActions: [
+                            {
+                                ariaLabel: "Ajuda",
+                                icon: "#wrench-adjustable",
+                                onClick: () => {
+                                    console.log("Ajuda");
+                                },
+                            },
+                        ],
+                        footerActions: [
+                            {
+                                text: "Crear",
+                                type: "button",
+                                ariaLabel: "Crear presupuesto",
+                                classes: "btn btn--primary",
+                                loading: true,
+                                onClick: () => {
+                                    console.log("Crear");
+                                },
+                            },
+                        ],
+                        onOpen: () => {
+                            console.log("Obrir");
+                        },
+                        onClose: () => {
+                            console.log("Tancar");
+                        },
+                        onFullscreen: (isFullscreen) => {
+                            console.log(`Pantalla Complerta: ${isFullscreen}`);
+                        },
+                    }
+                );
+            });
+        }
+    </script>
+    <script>
+        /*document.addEventListener("DOMContentLoaded", (event) => {
+            const element = document.getElementsByClassName('modal--is-visible');
+            setTimeout(() => {
+                if (element.length > 0)
+                    element[0].dispatchEvent(new CustomEvent("closeModal"));
+            }, 8000);
+        });*/
+    </script>
+
+</html>

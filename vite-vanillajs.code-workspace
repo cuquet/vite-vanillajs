@@ -1,0 +1,32 @@
+{
+    "folders": [
+        {
+            "path": ".",
+        },
+    ],
+    "settings": {
+        "workbench.tree.enableStickyScroll": true,
+        "terminal.integrated.defaultLocation": "editor",
+        "workbench.tree.renderIndentGuides": "none",
+        "workbench.list.smoothScrolling": true,
+        "workbench.tree.expandMode": "singleClick",
+        "breadcrumbs.enabled": false,
+        "indentRainbow.colors": [
+            "rgba(0, 0, 0, 0.5)",
+            "rgba(0, 0, 0, 0.4)",
+            "rgba(0, 0, 0, 0.3)",
+            "rgba(0, 0, 0, 0.2)",
+            "rgba(0, 0, 0, 0.1)",
+        ],
+        "explorer.compactFolders": false,
+        "javascript.validate.enable": false,
+        "emmet.includeLanguages": {
+            "jsx": "html",
+            "vue": "html",
+            "html": "html",
+            "javascript": "html",
+        },
+        "explorer.fileNesting.expand": false,
+        "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    },
+}

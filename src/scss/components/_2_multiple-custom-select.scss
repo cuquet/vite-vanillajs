@@ -1,0 +1,103 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_multiple-custom-select
+Title: Multiple Custom Select
+Descr: Custom Select Input where multiple options can be selected.
+Dependences:
+    _1_radios-checkboxes
+Usage: https://codyhouse.co/ds/components/info/multiple-custom-select
+
+-------------------------------- */
+:root {
+    --multi-select-dropdown-gap:4px;
+}
+
+.multi-select {
+    position:relative;
+    &__button {
+        width:100%;
+    }
+    &__label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+    }
+    &__dropdown {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        min-width: 200px;
+        max-height: 1px;
+        background-color: var(--color-bg-light);
+        box-shadow: var(--inner-glow), var(--shadow-sm);
+        padding: var(--space-3xs) 0;
+        border-radius: var(--radius-md);
+        z-index: var(--z-index-popover, 5);
+        margin-top: var(--multi-select-dropdown-gap);
+        margin-bottom: var(--multi-select-dropdown-gap);
+        overflow: auto;
+        visibility: hidden;
+        opacity: 0;
+        transition:visibility 0s .2s, opacity .2s;
+        &--right {
+            right: 0;
+            left:auto;
+        }
+        &--up {
+            bottom: 100%;
+            top:auto;
+        }
+    }
+    &__button[aria-expanded=true] + &__dropdown {
+        visibility: visible;
+        opacity: 1;
+        transition:visibility 0s, opacity .2s;
+    }
+    &__list{
+        list-style-type:none;
+        padding-left:0;
+        &:not(:first-of-type) {
+            padding-top:var(--space-3xs);
+        }
+        &:not(:last-of-type) {
+            border-bottom: 1px solid var(--color-contrast-lower);
+            padding-bottom:var(--space-3xs);
+        }
+    }
+    &__item {
+        position: relative;
+        display: block;
+        padding: var(--space-3xs) var(--space-sm);
+        color: var(--color-contrast-high);
+        width: 100%;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        &--optgroup {
+            font-size: var(--text-sm);
+            color:var(--color-contrast-medium);
+        }
+    }
+    .checkbox + &__item--option {
+        --checkbox-radio-gap: var(--space-2xs);
+        display: block;
+        cursor: pointer;
+        transition: .2s;
+        padding-left:calc(var(--checkbox-radio-size) + var(--checkbox-radio-gap) + var(--space-sm));
+        &:hover {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+        }
+        span {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow:hidden;
+        }
+    }
+    &__term + &__details::before {
+        content: ": ";
+    }
+}

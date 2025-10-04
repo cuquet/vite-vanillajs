@@ -1,0 +1,252 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+File#: _3_lightbox
+Title: Lightbox
+Descr: A modal gallery used to display media assets and content.
+Usage: https://codyhouse.co/ds/components/info/lightbox
+Dependencies
+    _1_menu (Menu)
+    _2_menu-bar (Menu Bar)
+    _1_modal-window (Modal Window)
+    _1_swipe-content (Swipe Content)
+    _2_slideshow (Slideshow)
+-------------------------------- */
+
+:root {
+    --lightbox-thumbnail-size: 80px;
+    --lightbox-thumbnail-grid-gap:var(--space-2xs)
+}
+
+.lightbox .menu-bar {
+    --menu-bar-button-size: 2.2em;
+    --menu-bar-icon-size: 1.2em;
+    --menu-bar-horizontal-gap: var(--space-2xs);
+    --menu-bar-vertical-gap: 4px;
+    --menu-bar-label-size:var(--text-xs)
+}
+
+.lightbox .slideshow {
+    --slideshow-btn-width: 1.6em;
+    --slideshow-btn-height: 3.2em;
+    --slideshow-btn-icon-size: 1.6em;
+    --slideshow-btn-offset:var(--space-md)
+}
+
+.lightbox {
+    background-color:var(--color-bg)
+}
+
+.lightbox .slideshow__content {
+    position:relative
+}
+
+.lightbox__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height:100%
+}
+
+.lightbox__header, .lightbox__footer {
+    position: relative;
+    z-index: 2;
+    flex-shrink:0
+}
+
+.lightbox__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:var(--space-xs) var(--space-md) 0
+}
+
+.lightbox__footer {
+    padding:var(--space-sm) var(--space-md) var(--space-xs)
+}
+
+.lightbox__title {
+    font-size: var(--text-md);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right:var(--space-sm)
+}
+
+.lightbox__body {
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+    padding:var(--space-md)
+}
+
+@media (min-width: 64rem) {
+    .lightbox__body {
+        padding-top: var(--space-xs);
+        padding-bottom: var(--space-xs);
+        padding-right: calc(var(--space-xs) + var(--slideshow-btn-width) + var(--slideshow-btn-offset));
+        padding-left:calc(var(--space-xs) + var(--slideshow-btn-width) + var(--slideshow-btn-offset))
+    }
+}
+
+.lightbox {
+    --slideshow-height:100%
+}
+
+.lightbox .slideshow {
+    display: flex;
+    align-items:stretch
+}
+
+.lightbox .slideshow__content {
+    flex-grow:1
+}
+
+.lightbox--no-transition .slideshow__content * {
+    transition: none !important;
+    animation:none !important
+}
+
+.lightbox__media {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
+    max-width:100%
+}
+
+.lightbox__media-outer {
+    position: relative;
+    width: 100%;
+    flex-grow:1
+}
+
+.lightbox__media[data-media=video] .lightbox__media-outer, .lightbox__media[data-media=iframe] .lightbox__media-outer {
+    max-width: 100%;
+    max-height: 100%;
+    overflow:hidden
+}
+
+.lightbox__media-inner {
+    position: absolute;
+    width:100%
+}
+
+.lightbox__media[data-media=img] .lightbox__media-inner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center
+}
+
+.lightbox__media[data-media=img] .lightbox__media-inner img {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    max-height:100%
+}
+
+.lightbox__media[data-media=video] .lightbox__media-inner, .lightbox__media[data-media=iframe] .lightbox__media-inner {
+    top: 50%;
+    left: 50%;
+    transform:translateX(-50%) translateY(-50%)
+}
+
+.lightbox__caption {
+    flex-shrink: 0;
+    text-align: center;
+    max-width: 600px;
+    margin-top: var(--space-xs);
+    font-size:var(--text-sm)
+}
+
+.lightbox__text-outer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    overflow:hidden
+}
+
+.lightbox__text {
+    overflow:auto
+}
+
+.lightbox__media-outer {
+    min-height:200px
+}
+
+@supports (display: flex) {
+    .lightbox__media-outer {
+        min-height:0
+    }
+}
+
+.lightbox_thumb-nav {
+    display: flex;
+    width: 100%;
+    overflow:hidden
+}
+
+.lightbox_thumb-list {
+    display: inline-flex;
+    overflow: auto;
+    flex-wrap:nowrap
+}
+
+.lightbox_thumb-list:hover .lightbox__thumb {
+    opacity:.6
+}
+
+.lightbox__thumb {
+    display: inline-block;
+    width: var(--lightbox-thumbnail-size);
+    height: var(--lightbox-thumbnail-size);
+    border-radius: var(--radius-sm);
+    margin-right: var(--lightbox-thumbnail-grid-gap);
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+    transition:opacity .3s
+}
+
+.lightbox__thumb:hover {
+    opacity:1 !important
+}
+
+.lightbox__thumb img {
+    display: block;
+    border-radius:inherit
+}
+
+@supports (-o-object-fit: cover) or(object-fit: cover) {
+    .lightbox__thumb img {
+        -o-object-fit: cover;
+        object-fit: cover;
+        height: 100%;
+        width:100%
+    }
+}
+
+.lightbox__thumb--active {
+    position: relative;
+    opacity:1 !important
+}
+
+.lightbox__thumb--active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: hsla(var(--color-black-h), var(--color-black-s), var(--color-black-l), 0.7) url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cg stroke-width='1.5' stroke='%23ffffff'%3E%3Cpolyline fill='none' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' points='1,9 5,13 15,3 ' %3E%3C/polyline%3E%3C/g%3E%3C/svg%3E") no-repeat center center;
+    background-size: 1.25em;
+    border-radius: inherit;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px)
+}

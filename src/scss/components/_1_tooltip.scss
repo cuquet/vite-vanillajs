@@ -1,0 +1,109 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_tooltip
+Title: Tooltip
+Descr: A popup displaying additional text information
+Usage: https://codyhouse.co/ds/components/info/tooltip
+
+-------------------------------- */
+
+:root {
+  --tooltip-triangle-size: 12px;
+}
+.tooltip-trigger { /* style inline-text tooltip trigger */
+    white-space: nowrap;
+    border-bottom: 1px dotted var(--color-contrast-high);
+    cursor: help;
+    //display: block;
+    margin: auto;
+}
+/* tooltip element - created using js */
+.tooltip { 
+    position: absolute;
+    //z-index: var(--z-index-popover, 5);
+    z-index: var(--z-index-overlay, 15);  
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-xs);
+    border-radius: var(--radius-md);
+    max-width: 200px;
+    background-color: alpha(var(--color-contrast-higher), 0.98);
+    box-shadow: var(--shadow-md);
+    color: var(--color-bg);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    transition: opacity 0.2s, visibility 0.2s;
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
+    @supports (clip-path: inset(50%)) {
+        &::before { /* tooltip triangle  */
+            content: '';
+            position: absolute;
+            background-color: inherit;
+            border: inherit;
+            width: var(--tooltip-triangle-size);
+            height: var(--tooltip-triangle-size);
+            clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+        }
+    }
+    &:not(.tooltip--sticky) {
+        pointer-events: none;
+    }
+    /* size variations */
+    &--sm {
+        max-width: 150px;
+        font-size: var(--text-xs);
+        padding: var(--space-3xs) var(--space-2xs);
+    }
+    &--md {
+        max-width: 300px;
+        padding: var(--space-xs) var(--space-sm);
+    }
+    &--lg {
+        max-width: 350px;
+        font-size: var(--text-base-size);
+        padding: var(--space-xs) var(--space-sm);
+    }
+    /* variable used in JS to proper place tooltip triangle */
+    /* --tooltip-triangle-translate: 0px;*/
+    & {
+        --tooltip-triangle-translate: 0px;
+    }
+    /* tooltip position */
+    &--top::before,
+    &--bottom::before {
+        left: calc(50% - var(--tooltip-triangle-size) / 2);
+    }
+    &--top::before {
+        bottom: calc(var(--tooltip-triangle-size) * -0.5);
+        transform: translateX(var(--tooltip-triangle-translate)) rotate(-45deg);
+    }
+    &--bottom::before {
+        top: calc(var(--tooltip-triangle-size) * -0.5);
+        transform: translateX(var(--tooltip-triangle-translate)) rotate(135deg);
+    }
+    &--left::before,
+    &--right::before {
+        top: calc(50% - var(--tooltip-triangle-size) / 2);
+    }
+    &--left::before {
+        right: calc(var(--tooltip-triangle-size) * -0.5);
+        transform: translateX(var(--tooltip-triangle-translate)) rotate(-135deg);
+    }
+    &--right::before {
+        left: calc(var(--tooltip-triangle-size) * -0.5);
+        transform: translateX(var(--tooltip-triangle-translate)) rotate(45deg);
+    }
+    &--hide {
+        /* class used in JS to hide the tooltip element before its top/left positions are set */
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+
+

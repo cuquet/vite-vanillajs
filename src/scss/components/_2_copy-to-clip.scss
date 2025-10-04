@@ -1,0 +1,47 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_copy-to-clip
+Title: Copy To Clipboard
+Descr: A Vanilla JavaScript plugin to copy content to the clipboard.
+Dependencies
+    _1_tooltip
+Usage: https://codyhouse.co/ds/components/info/copy-to-clipboard
+
+-------------------------------- */
+
+
+.copy-to-clip {
+    // position: absolute;
+    right: 0.35em;
+    top: 0.35em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-md);
+    background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+    cursor: pointer;
+    transition:.2s;
+    z-index: var(--z-index-overlay);
+    &:hover {
+        background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.15);
+    }
+    &:focus {
+        outline: none;
+        box-shadow:0 0 0 2px hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.35);
+    }
+    &__icon-check {
+        stroke-dashoffset: 8.49;
+        stroke-dasharray: 8.49 8.49;
+        transition:stroke-dashoffset .3s;
+    }
+    &--copied {
+        .copy-to-clip__icon-check {
+            stroke-dashoffset: 0;
+        }
+    }
+}

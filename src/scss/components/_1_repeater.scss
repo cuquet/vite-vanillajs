@@ -1,0 +1,31 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_repeater
+Title: Repeater
+Descr: A plugin to repeat groups of elements.
+
+Usage: https://codyhouse.co/ds/components/info/repeater
+
+-------------------------------- */
+.js-repeater{
+    &__list {
+        padding-left:0;
+        list-style-type:none;
+    }
+    &__item{
+        .js-repeater__remove{
+            visibility:hidden;
+        }
+        &.show-remover{
+            .js-repeater__remove{
+                visibility: visible;
+                &:hover{
+                    cursor:pointer;
+                }
+            }
+        }
+    }
+}

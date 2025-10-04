@@ -1,0 +1,64 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_progress-bar
+Title: Progress Bar
+Descr: Display the current progress of a task
+
+Usage: https://codyhouse.co/ds/components/info/progress-bar
+
+-------------------------------- */
+:root {
+    --progress-bar-width: 200px;
+    --progress-bar-height: 8px;
+    --progress-bar-radius:50em;
+}
+
+.progress-bar{
+    $this: &;
+    &__bg {
+        position: relative;
+        width: var(--progress-bar-width);
+        height: var(--progress-bar-height);
+        border-radius: var(--progress-bar-radius);
+        background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        flex-grow: 1;
+        overflow:hidden;
+    }
+    &__fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0%;
+        background-color:currentColor;
+    }
+    &__value {
+        flex-shrink:0;
+    }
+    &[data-animation=on]:not(&--init) &__fill, 
+    &[data-animation=on]:not(&--init) &__value,
+    &--color-update:not(&--init) &__fill,
+    &--color-update:not(&--init) &__value {
+        opacity:0;
+    }
+    &--color-update {
+        --progress-bar-color-1: 50;
+        --progress-bar-color-2: 85;
+        --progress-bar-color-3:100;
+    }
+    &--color-update#{$this}--init &__fill {
+        transition:background-color .3s;
+    }
+    &--fill-color-1 &__fill {
+        background-color:var(--color-success);
+    }
+    &--fill-color-2 &__fill {
+        background-color:var(--color-warning);
+    }
+    &--fill-color-3 &__fill {
+        background-color: var(--color-error);
+    }
+}

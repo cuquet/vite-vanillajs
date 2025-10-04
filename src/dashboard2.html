@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+        <link rel="stylesheet" href="/scss/dashboard.scss" />
+        <title>Vite App</title>
+        <style>
+        </style>
+    </head>
+
+    <body>
+        <div class="app-ui js-app-ui">
+            <header class="app-ui__header padding-x-lg@sm">
+                <div class="app-ui__header-logo-wrapper">
+                    <a class="app-ui__header-logo" href="#0">
+                        <img title="iRedAdmin" src="/assets/img/logo.png">
+                        <div class="flex-column padding-left-sm">
+                            <h4 class="color-contrast-higher">iRedAdmin</h4>
+                            <p class="text-xs color-contrast-low">iRedMail Admin Panel</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="app-ui__fix-menu flex flex-grow flex-basis-0 justify-end">
+                    <!-- flex-grow flex-basis-0 justify-center@md -->
+                    <div class="flex gap-4xs">
+                    </div>
+                    <div class="flex gap-4xs">
+                        <a class="app-ui__btn-header" href="#0">
+                            <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Theme" tabindex="0">
+                                {{> switchtheme }}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <section>
+                <aside class="app-ui__nav sidebar sidebar--static@md js-sidebar js-app-ui__nav"
+                    data-static-class="sidenav-desktop" data-sidebar-prevent-scroll="body" id="app-ui-navigation"
+                    aria-labelledby="#CAT Menú lateral">
+                    <div class="sidebar__panel">
+                        <!-- <nav class="sidenav js-sidenav"></nav> -->
+                    </div>
+                </aside>
+                <main class="app-ui__body sidebar-loaded:show">
+                    <!-- start main content position-relative z-index-1 flex-grow height-100vh -->
+                    <!-- #{> dashboard-home }} #{> dashboard-domains-list }} #{> dashboard-users-profile }} dashboard-users-list dashboard-system-throttle  dashboard-system-wblist -->
+                    {{> dashboard-login }}
+                    {{> footer }}
+                </main>
+                {{> totop }}
+            </section>
+        </div>
+        {{> svg }}
+    </body>
+    <script type="module" src="/js/dashboard.js"></script>
+    <!-- <script type="module">//inicialitza el menú 
+        /*const navItems = [
+            { type: 'label', text: 'Main' },
+            { type: 'link', text: 'Dashboard', url: 'http://localhost:5173/index.html', icon: '#dashboard', current: true , sub: [
+                    { type: 'link', text: 'item 1', url: 'http://localhost:5173/index.html',
+                        //icon: '#campana',
+                    },
+                    { type: 'link', text: 'item 2', url: '#0', sub: [
+                            { type: 'link', text: 'item 4', url: '#0' },
+                            { type: 'link', text: 'item 5', url: '#0', sub: [
+                                { type: 'link', text: 'item 7', url: '#0' },
+                                { type: 'link', text: 'item 8', url: '#0' },
+                            ]},
+                            { type: 'link', text: 'item 6', url: '#0' },
+                    ]},
+                    { type: 'link', text: 'item 3', url: '#0' },
+            ]},
+            { type: 'link', text: 'Domains and Accounts', url: 'http://localhost:5173/index.html', icon: '#group', sub: [
+                    { type: 'label', text: 'Add...'},
+                    { type: 'link', text: 'Domain', url: '/iredadmin/create/domain'},
+                    { type: 'link', text: 'Admin', url: '/iredadmin/create/admin'},
+                    { type: 'link', text: 'User', url: '/iredadmin/create/user'},
+                    { type: 'link', text: 'Mailing List <span class="text-xs color-contrast-low">(Subscribable)</span>', url: '/iredadmin/create/ml'},
+            ]},
+            { type: 'link', text: 'Admins', url: '#0', icon: '#incognito', counter: '8' },
+            { type: 'divider' },
+            { type: 'link', text: 'Activities', url: '#0', icon: '#books-gear', sub: [
+                    { type: 'label', text: 'System Activities' },
+                    { type: 'link', text: 'Admin Log', url: '/iredadmin/system/log' },
+                    { type: 'link', text: 'Sent Mails', url: '/iredadmin/activities/sent' },
+                    { type: 'link', text: 'Received Mails', url: '/iredadmin/activities/received' },
+                    { type: 'link', text: 'Quarantined Mails', url: '/iredadmin/activities/quarantined', sub: [
+                            { type: 'link', text: 'Spam', url: '/iredadmin/activities/quarantined/spam' },
+                            { type: 'link', text: 'Virus', url: '/iredadmin/activities/quarantined/virus' },
+                            { type: 'link', text: 'Banned', url: '/iredadmin/activities/quarantined/banned' },
+                            { type: 'link', text: 'Bad Header', url: '/iredadmin/activities/quarantined/badheader' },
+                            { type: 'link', text: 'Clean', url: '/iredadmin/activities/quarantined/clean' },
+                        ]
+                    },
+                ]
+            },
+            { type: 'link', text: 'System', url: '#0', icon: '#gear', sub: [
+                { type: 'link', text: 'Admin Log', url: '/iredadmin/activities/admins' },
+                { type: 'link', text: 'Settings', url: '/iredadmin/system/settings' },
+                { type: 'link', text: 'Domain ownership verification', url: '/iredadmin/verify/domain_ownership' },
+                { type: 'link', text: 'Global Spam Policy', url: '/iredadmin/system/spampolicy' },
+                { type: 'link', text: 'Whitelists & Blacklists', url: '/iredadmin/system/wblist' },
+                { type: 'link', text: 'Greylisting', url: '/iredadmin/system/greylisting' },
+                { type: 'link', text: 'Throttle', url: '/iredadmin/system/throttle' },
+            ]},
+            { type: 'link', text: 'Assets', url: '#0', icon: '#imatge' },
+            { type: 'link', text: 'Users', url: '#0', icon: '#usuari' },
+            {
+                type: 'link',
+                text: 'Link',
+                url: '#0',
+                icon: '<svg class="icon sidenav__icon" viewBox="0 0 20 20"><g fill="currentColor"><path d="M11 16l-1.55 1.55a4.95 4.95 0 0 1-7 0 4.95 4.95 0 0 1 0-7l2.192-2.192a4.95 4.95 0 0 1 7 0A4.907 4.907 0 0 1 12.731 10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M9 4l1.55-1.55a4.95 4.95 0 0 1 7 0 4.95 4.95 0 0 1 0 7l-2.192 2.192a4.95 4.95 0 0 1-7 0A4.907 4.907 0 0 1 7.269 10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></g></svg>',
+            },
+        ];*/
+        //new DashboardNavigation();
+    </script> -->
+    <script type="module">//inicialitza el Modal dinàmics
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalButtons = Array.from(document.querySelectorAll('.js-modal:not(.modal)'));
+            if (modalButtons.length > 0) {
+                modalButtons.forEach((modalButton) => {
+                    const fullscreen = modalButton.getAttribute('data-fullscreen') &&
+                        modalButton.dataset.fullscreen == 'off' ? false : true;
+                    const confirmClose = modalButton.getAttribute('data-confirm-close') &&
+                        modalButton.dataset.confirmClose == 'on' ? true : false;
+                    new Modal(modalButton,
+                        {
+                            //animateClass: 'modal--animate-translate-right',
+                            fullscreen: fullscreen,
+                            confirmClose: confirmClose,
+                        }
+                    );
+                });
+            }
+        });
+    </script>
+    <script type="module">//inicialitza el menú de llengües
+        document.addEventListener('DOMContentLoaded', () => {
+            const languagePickerElements = Array.from(document.getElementsByClassName('js-language-picker'));
+            if (languagePickerElements.length > 0) {
+                languagePickerElements.forEach((element) => {
+                    new LanguagePicker(element, {
+                        onGetLangUrl: (option) => {
+                            return `#${option.value}`;
+                        },
+                    });
+                });
+            }
+        });
+    </script>
+    <script type="module">// Creació d'un toast al vol
+        const toastIcon = `<div class="toast__icon-wrapper margin-right-2xs"><svg class="icon"><title>error</title><use href="#error"></use></svg></div>`;
+        const toastContent = `<div class="text-component text-sm">
+        <h1 class="toast__title text-md
+        ">Error</h1>
+        <p class="toast__p">Empty password is not allowed.</p>
+        </div>`;
+        const toastClose =`<button class=" toast__close-btn margin-left-4xs js-toast__close-btn"><svg class="icon"><title>Close</title><use href="#close"></use></svg></button>`;
+        document.addEventListener('DOMContentLoaded', () => {
+            const toastObj = new Toasts();
+            const fragment = `<div data-toast-interval="3000" class="toast-001 toast toast--hidden toast--top-right js-toast" role="alert" aria-live="assertive" aria-atomic="true"><div class="flex items-start justify-between">${toastIcon}${toastContent}${toastClose}</div></div>`;
+            document.body.insertAdjacentHTML('beforeend', fragment);
+            const toast = document.getElementsByClassName("toast-001")[0];
+            toastObj.initToast(toast);
+            toast.dispatchEvent(new CustomEvent('openToast'));
+        });
+    </script>
+    <script type="module">
+        // @TODO
+        // Show options if account is marked as normal admin in user profile page.
+        document.addEventListener('DOMContentLoaded', function () {
+            const o = document.getElementById('domainadmin');
+            const d = document.getElementsByClassName('normal-admin-options');
+            const o2 = document.getElementById('domainGlobalAdmin');
+            const d2 = document.getElementsByClassName('global-admin-options');
+            const o3 = document.getElementById('create_new_domains');
+            const d3 = document.getElementsByClassName('normal-admin-options-details');
+            function toggleVisibility(val, elements) {
+                for (var e = 0; e < elements.length; e++) {
+                    elements[e].classList.toggle('is-hidden', !val);
+                }
+            }
+            if (o && o2 && o3) {
+                toggleVisibility(o.checked, d);
+                o.addEventListener('click', function handleClick() {
+                    toggleVisibility(o.checked, d);
+                });
+                toggleVisibility(!o2.checked, d2);
+                o2.addEventListener('click', function handleClick() {
+                    toggleVisibility(!o2.checked, d2);
+                });
+                toggleVisibility(o3.checked, d3);
+                o3.addEventListener('click', function handleClick() {
+                    toggleVisibility(o3.checked, d3);
+                });
+            }
+        });
+    </script>
+</html>

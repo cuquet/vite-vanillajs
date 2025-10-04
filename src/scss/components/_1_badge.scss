@@ -1,0 +1,74 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_badge
+Title: Badge
+Descr: A small label containing a text string
+Usage: https://codyhouse.co/ds/components/info/badge
+
+-------------------------------- */
+
+.badge {
+	/* reset - in case the class is applied to a <button> */
+	border: 0;
+	color: inherit;
+	line-height: 1;
+	appearance: none;
+
+	display: inline-flex;
+	align-items: center;
+	border-radius: var(--radius-md);
+	padding: var(--space-3xs) var(--space-2xs);
+
+	background-color: var(--color-contrast-lower);
+	&--outline {
+		background-color: transparent;
+		box-shadow: inset 0 0 0 1px var(--color-contrast-lower);
+	}
+	&--contrast-higher {
+		background-color: var(--color-contrast-higher);
+		color: var(--color-bg);
+	}
+	&--primary {
+		background-color: var(--color-primary);
+		color: var(--color-white);
+		&-light {
+			background-color: alpha(var(--color-primary), 0.2);
+			color: var(--color-contrast-higher);
+		}
+	}
+	&--accent {
+		background-color: var(--color-accent);
+		color: var(--color-white);
+		&-light {
+			background-color: alpha(var(--color-accent), 0.2);
+			color: var(--color-contrast-higher);
+		}
+	}
+	&--error {
+		background-color: var(--color-error);
+		color: var(--color-white);
+		&-light {
+			background-color: alpha(var(--color-error), 0.2);
+			color: var(--color-contrast-higher);
+		}
+	}
+	&--success {
+		background-color: var(--color-success);
+		color: var(--color-white);
+		&-light {
+			background-color: alpha(var(--color-success), 0.2);
+			color: var(--color-contrast-higher);
+		}
+	}
+	&--warning {
+		background-color: var(--color-warning);
+		color: var(--color-white);
+		&-light {
+			background-color: alpha(var(--color-warning), 0.2);
+			color: var(--color-contrast-higher);
+		}
+	}
+}

@@ -1,0 +1,144 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_list-filter
+Title: List Filter
+Descr: A list of filterable search items.
+Usage: https://codyhouse.co/ds/components/info/list-filter
+
+-------------------------------- */
+
+:root {
+    --list-filter-height:240px;
+}
+
+.list-filter{
+    .hide {
+        display: none;
+    }
+    &__form {
+        overflow:hidden;
+    }
+    &__search {
+        position: relative;
+        width: 100%;
+        z-index:1;
+        &::-webkit-search-decoration, 
+        &::-webkit-search-cancel-button, 
+        &::-webkit-search-results-button, 
+        &::-webkit-search-results-decoration {
+            -webkit-appearance:none;
+        }
+        &::-ms-clear,
+        &::-ms-reveal {
+            display: none;
+            width: 0;
+            height:0;
+        }
+        &:focus {
+            outline:none;
+        }
+    }
+    &__search:focus + &__focus-marker {
+        opacity:1;
+    }
+    &__search:placeholder-shown ~ &__search-cancel-btn {
+        display:none;
+    }
+    &__search-cancel-btn {
+        display: inline-block;
+        position: absolute;
+        z-index: 2;
+        color: var(--color-contrast-medium);
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        border-radius:50%;
+        &:hover {
+            opacity:.85;
+        }
+    }
+    &__focus-marker {
+        display: block;
+        height: 1em;
+        width: 3px;
+        background-color: var(--color-primary);
+        position: absolute;
+        left: 0;
+        top: calc(50% - 0.5em);
+        opacity: 0;
+        pointer-events: none;
+        transition:opacity .2s;
+    }
+    &__list-wrapper {
+        position: relative;
+        height:var(--list-filter-height);
+    }
+    &__list {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow:auto;
+        list-style: none !important;
+        padding-left: 0 !important;
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        cursor: default;
+        transition:background-color .2s;
+        &:hover {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+        }
+    }
+    &__status {
+        display: block;
+        flex-shrink: 0;
+        --size: 8px;
+        width: var(--size);
+        height: var(--size);
+        border-radius:50%;
+    }
+    &__item--user-active &__status {
+        background-color:var(--color-success);
+        &::after {
+            content: "user active";
+            position: absolute;
+            clip: rect(1px, 1px, 1px, 1px);
+            -webkit-clip-path: inset(50%);
+            clip-path:inset(50%);
+        }
+    }
+    &__item--user-pending &__status {
+        background-color:var(--color-warning);
+        &::after {
+            content: "user pending";
+            position: absolute;
+            clip: rect(1px, 1px, 1px, 1px);
+            -webkit-clip-path: inset(50%);
+            clip-path:inset(50%);
+        }
+    }
+    &__action-btn {
+        display: flex;
+        flex-shrink: 0;
+        background-color: var(--color-bg);
+        border: 1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.15);
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        transition:.2s;
+        & .icon {
+            margin:auto;
+        }
+        &:hover {
+            border-color: var(--color-error);
+            color: var(--color-error);
+        }
+    }
+}

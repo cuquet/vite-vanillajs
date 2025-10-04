@@ -1,0 +1,24 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_drop-cap
+Title: Drop Cap
+Descr: Make the first letter of a paragraph larger in size
+Usage: https://codyhouse.co/ds/components/info/drop-cap
+
+-------------------------------- */
+
+:root {
+  --drop-cap-lines: 3; // number of lines occupied by the first letter
+}
+
+.drop-cap::first-letter {
+  float: left;
+  line-height: 1;
+  font-size: calc(1em * var(--drop-cap-lines) * 1.4);
+  padding: 0 0.125em 0 0;
+  text-transform: uppercase;
+  color: var(--color-contrast-higher);
+}

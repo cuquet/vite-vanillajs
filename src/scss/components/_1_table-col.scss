@@ -1,0 +1,184 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_table-col
+Title: Column Oriented Table
+Descr: Data table for cases where each column is a meaningful unit.
+Usage: https://codyhouse.co/ds/components/info/column-oriented-table
+Dependencies
+
+-------------------------------- */
+.cl-table {
+    width: 100%;
+    position: relative;
+    z-index:1
+}
+
+.cl-table__cell {
+    padding:var(--space-sm)
+}
+
+.cl-table__cell--th {
+    font-weight: 600;
+    color:var(--color-contrast-higher)
+}
+
+.cl-table__header .cl-table__cell {
+    position: relative;
+    z-index:10
+}
+
+.cl-table__list {
+    display:none
+}
+
+@media not all and (min-width: 48rem) {
+    .cl-table__body {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+        -webkit-clip-path: inset(50%);
+        clip-path: inset(50%);
+        width: 1px;
+        height: 1px;
+        overflow:hidden
+    }
+
+    .cl-table__cell[aria-hidden=true] {
+        display:none
+    }
+
+    .cl-table__row {
+        display: flex;
+        flex-direction:column
+    }
+
+    .cl-table__cell {
+        position: relative;
+        background-color: var(--color-bg-light);
+        box-shadow: var(--inner-glow-top), var(--shadow-ring), var(--shadow-sm);
+        border-radius: var(--radius-md);
+        width: 100%;
+        margin-bottom:var(--space-2xs)
+    }
+
+    .cl-table__th-inner {
+        display: flex;
+        align-items: center;
+        justify-content:space-between
+    }
+
+    .cl-table__th-icon {
+        position: relative;
+        height: 24px;
+        width: 24px;
+        --col-table-arrow-width:2px
+    }
+
+    .cl-table__th-icon::before, .cl-table__th-icon::after {
+        content: "";
+        position: absolute;
+        top: calc(50% - 6px);
+        width: var(--col-table-arrow-width);
+        height: 12px;
+        border-radius: 10px;
+        background-color: currentColor;
+        transform-origin: 50% 100%;
+        transition:transform 0.3s
+    }
+
+    .cl-table__th-icon::before {
+        right: 50%;
+        transform:translateX(50%) rotate(-45deg)
+    }
+
+    .cl-table__th-icon::after {
+        right: calc(50% + var(--col-table-arrow-width) / 2);
+        transform:translateX(50%) rotate(45deg)
+    }
+
+    .cl-table__list {
+        margin-top: var(--space-sm);
+        line-height:1.4
+    }
+
+    .cl-table__item {
+        display: flex;
+        justify-content: space-between;
+        font-weight: normal;
+        border-top: 1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        text-align: right;
+        padding: var(--space-sm) 0;
+        font-size: var(--text-sm);
+        color:var(--color-contrast-medium)
+    }
+
+    .cl-table__label {
+        color: var(--color-contrast-higher);
+        font-weight: 600;
+        margin-right: var(--space-md);
+        text-align:left
+    }
+
+    .cl-table__cell--show-list .cl-table__th-icon::before {
+        transform:translateX(50%) translateY(-80%) rotate(-135deg)
+    }
+
+    .cl-table__cell--show-list .cl-table__th-icon::after {
+        transform:translateX(50%) translateY(-80%) rotate(135deg)
+    }
+
+    .cl-table__cell--show-list .cl-table__list {
+        display:block
+    }
+
+    .cl-table__input {
+        position: absolute;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+        opacity: 0;
+        padding: 0;
+        border:0
+    }
+
+    .cl-table__input:focus + .cl-table__th-inner {
+        color:var(--color-primary)
+    }
+}
+
+@media (min-width: 48rem) {
+    .cl-table {
+        font-size: var(--text-sm);
+        border-bottom:1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1)
+    }
+
+    .cl-table__header .cl-table__row {
+        background-color:var(--color-bg)
+    }
+
+    .cl-table__header .cl-table__cell {
+        border-bottom: 1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        position: relative;
+        background-color: inherit;
+        z-index:10
+    }
+
+    .cl-table__body .cl-table__row:nth-child(odd) {
+        background-color:hsla(var(--color-bg-dark-h), var(--color-bg-dark-s), var(--color-bg-dark-l), 0.85)
+    }
+
+    .cl-table__input {
+        display:none
+    }
+
+    .cl-table--sticky-header {
+        border-collapse:separate
+    }
+
+    .cl-table--sticky-header .cl-table__header .cl-table__cell {
+        position: sticky;
+        top: 0
+    }
+}

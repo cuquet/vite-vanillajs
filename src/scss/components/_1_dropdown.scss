@@ -1,0 +1,126 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_dropdown
+Title: Dropdown
+Descr: A hoverable link that toggles the visibility of a dropdown list.
+Usage: https://codyhouse.co/ds/components/info/dropdown
+Dependencies
+    _1_diagonal-movement
+-------------------------------- */
+
+:root {
+    --dropdown-item-padding:var(--space-2xs) var(--space-sm);
+}
+
+.dropdown {
+    position:relative;
+    &__menu {
+        width: 200px;
+        border-radius: var(--radius-md);
+        padding: var(--space-3xs) 0;
+        background-color: var(--color-bg-light);
+        box-shadow: var(--inner-glow), var(--shadow-sm);
+        z-index: var(--z-index-popover, 5);
+        position: absolute;
+        left: 0;
+        top: 100%;
+        font-size: 1rem;
+        opacity: 0;
+        visibility: hidden;
+        transition:opacity .2s, visibility 0s .2s;
+    }
+    @media (pointer: fine) {
+        &__wrapper:hover > &__menu, 
+        &__sub-wrapper:hover > &__menu {
+            opacity: 1;
+            visibility: visible;
+            transition:opacity .2s;
+        }
+        &__sub-wrapper:hover > &__menu {
+            left:100%;
+        }
+    }
+    @media not all and (pointer: fine) {
+        &__trigger-icon {
+            display:none;
+        }
+    }
+    &__item {
+        display: block;
+        text-decoration: none;
+        color: var(--color-contrast-high);
+        padding: var(--dropdown-item-padding);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition:.2s;
+        &--label {
+            display: flex;
+            flex-direction: column;
+            text-transform: uppercase;
+            font-size: .6rem;
+            letter-spacing: .1em;
+            color: var(--color-contrast-medium);
+            padding:var(--space-2xs) var(--space-sm);
+        }
+    }
+    &__item:hover, 
+    &__item.dropdown__item--hover {
+        background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+    }
+    &__separator {
+        height: 1px;
+        background-color: var(--color-contrast-lower);
+        margin:var(--dropdown-item-padding);
+    }
+    &__sub-wrapper {
+        position:relative;
+    }
+    &__sub-wrapper > &__item {
+        position: relative;
+        padding-right:calc(var(--space-sm) + 12px);
+        .icon {
+            position: absolute;
+            display: block;
+            width: 12px;
+            height: 12px;
+            right: var(--space-2xs);
+            top:calc(50% - 6px);
+        }
+    }
+    &__sub-wrapper > &__menu {
+        top: calc(var(--space-2xs) * -1);
+        box-shadow:var(--inner-glow), var(--shadow-md);
+    }
+    &__menu {
+        top:calc(100% + 4px);
+    }
+    &__sub-wrapper &__menu {
+        top:calc(var(--space-2xs) * -1);
+    }
+    @media (pointer: fine) {
+        &__menu--is-visible {
+            opacity: 1;
+            visibility: visible;
+            transition:opacity .2s;
+        }
+    }
+    &__menu--hide {
+        opacity: 0;
+        visibility: hidden;
+        transition:opacity .2s, visibility 0s .2s;
+    }
+    &__sub-wrapper > &__menu--is-visible,
+    &__sub-wrapper > &__menu--hide {
+        left:100%;
+    }
+    &__sub-wrapper > &__menu--is-visible.dropdown__menu--left, 
+    &__sub-wrapper > &__menu--hide.dropdown__menu--left {
+        left: -100%
+    }
+}
+
+

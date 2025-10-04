@@ -1,0 +1,181 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_row-table
+Title: Row Oriented Table
+Descr: Data tables used to organize information,
+       with a specific layout for cases where each row is a meaningful unit.
+
+Usage: https://codyhouse.co/ds/components/info/row-oriented-table
+Dependencies
+
+-------------------------------- */
+.row-table {
+    position: relative;
+    z-index: 1;
+    width:100%
+}
+
+.row-table__cell {
+    padding:var(--space-sm)
+}
+
+.row-table__cell--th {
+    font-weight: 600;
+    color:var(--color-contrast-higher)
+}
+
+.row-table__list {
+    display:none
+}
+
+@include max-width(md) {
+    .row-table__header, .row-table__cell:not(:first-child) {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+        -webkit-clip-path: inset(50%);
+        clip-path: inset(50%);
+        width: 1px;
+        height: 1px;
+        overflow:hidden
+    }
+
+    .row-table__cell[aria-hidden=true] {
+        display:none
+    }
+
+    .row-table__row {
+        display: flex;
+        flex-direction:column
+    }
+
+    .row-table__cell {
+        position: relative;
+        background-color: var(--color-bg-light);
+        box-shadow: var(--inner-glow-top), var(--shadow-ring), var(--shadow-sm);
+        border-radius: var(--radius-md);
+        width: 100%;
+        margin-bottom:var(--space-2xs)
+    }
+
+    .row-table__th-inner {
+        display: flex;
+        align-items: center;
+        justify-content:space-between
+    }
+
+    .row-table__th-icon {
+        position: relative;
+        height: 24px;
+        width: 24px;
+        --row-table-arrow-width:2px
+    }
+
+    .row-table__th-icon::before, .row-table__th-icon::after {
+        content: "";
+        position: absolute;
+        top: calc(50% - 6px);
+        width: var(--row-table-arrow-width);
+        height: 12px;
+        border-radius: 10px;
+        background-color: currentColor;
+        transform-origin: 50% 100%;
+        transition:transform .3s
+    }
+
+    .row-table__th-icon::before {
+        right: 50%;
+        transform:translateX(50%) rotate(-45deg)
+    }
+
+    .row-table__th-icon::after {
+        right: calc(50% + var(--row-table-arrow-width) /2);
+        transform:translateX(50%) rotate(45deg)
+    }
+
+    .row-table__list {
+        margin-top: var(--space-sm);
+        line-height:1.4
+    }
+
+    .row-table__item {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 400;
+        border-top: 1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        text-align: right;
+        padding: var(--space-sm) 0;
+        font-size: var(--text-sm);
+        color:var(--color-contrast-medium)
+    }
+
+    .row-table__label {
+        color: var(--color-contrast-higher);
+        font-weight: 600;
+        margin-right: var(--space-md);
+        text-align:left
+    }
+
+    .row-table__cell--show-list .row-table__th-icon::before {
+        transform:translateX(50%) translateY(-80%) rotate(-135deg)
+    }
+
+    .row-table__cell--show-list .row-table__th-icon::after {
+        transform:translateX(50%) translateY(-80%) rotate(135deg)
+    }
+
+    .row-table__cell--show-list .row-table__list {
+        display:block
+    }
+
+    .row-table__input {
+        position: absolute;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+        opacity: 0;
+        padding: 0;
+        border:0
+    }
+
+    .row-table__input:focus + .row-table__th-inner {
+        color:var(--color-primary)
+    }
+}
+
+@include min-width(md) {
+    .row-table {
+        font-size: var(--text-sm);
+        border-bottom:1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1)
+    }
+
+    .row-table__header .row-table__row {
+        background-color:var(--color-bg)
+    }
+
+    .row-table__header .row-table__cell {
+        border-bottom: 1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        position: relative;
+        background-color: inherit;
+        z-index:10
+    }
+
+    .row-table__body .row-table__row:nth-child(odd) {
+        background-color:hsla(var(--color-bg-dark-h), var(--color-bg-dark-s), var(--color-bg-dark-l), 0.85)
+    }
+
+    .row-table__input {
+        display:none
+    }
+
+    .row-table--sticky-header {
+        border-collapse:separate
+    }
+
+    .row-table--sticky-header .row-table__header .row-table__cell {
+        position: sticky;
+        top: 0
+    }
+}

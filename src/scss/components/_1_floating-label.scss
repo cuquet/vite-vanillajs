@@ -1,0 +1,66 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_floating-label
+Title: Floating Label
+Descr: Input element w/ placeholder that morphs into a label
+Usage: https://codyhouse.co/ds/components/info/floating-label
+
+-------------------------------- */
+
+.floating-label {
+    background: var(--color-bg);
+    padding: var(--space-4xs) var(--space-3xs);
+    border-radius: var(--radius-md);
+    
+    line-height: 1;
+    font-size: var(--text-sm);
+    color: var(--color-contrast-low);
+    
+    position: absolute;
+    top: 0;
+    left: calc(var(--space-sm) - var(--space-3xs)); /* calc((floating-label-control left padding) - (floating-label left padding)) */
+    transform: translateY(-50%);
+    
+    transition: transform 0.2s var(--ease-out), color 0.2s;
+    
+    clip: auto;
+    clip-path: none;
+    &-control {
+        background-color: var(--color-bg);
+        padding: var(--space-xs) calc(var(--space-sm) + 24px) var(--space-xs) var(--space-sm); /* 24px → icon size */
+        &:placeholder-shown { /* input with no content - placeholder is visible */
+            background-color: var(--color-bg-dark);
+            + .floating-label {
+                clip: rect(1px, 1px, 1px, 1px);
+                clip-path: inset(50%);
+                transform: translateY(-25%);
+            }
+        }
+        ~ {
+            .icon {
+                color: var(--color-contrast-medium);
+                pointer-events: none;
+            }
+            .password__btn .password__btn-label .icon {
+                color: var(--color-contrast-medium);
+                &:hover{
+                    color:var(--color-primary);
+                }
+            }
+        }
+        /* focus */
+        &:focus {
+            background-color: var(--color-bg);
+            ~ .icon, 
+            ~ .password__btn .password__btn-label .icon {
+                color: var(--color-primary);
+            }
+            + .floating-label {
+                color: var(--color-primary);
+            }
+        }
+    }
+}

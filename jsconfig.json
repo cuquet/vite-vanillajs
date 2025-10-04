@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "ES6",
+        "moduleResolution": "Bundler",
+        "target": "ES6",
+        "checkJs": true,
+        // "jsx": "react",
+        "allowImportingTsExtensions": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"], //https://lenguajejs.com/javascript/modulos/alias-import/
+            "@components" : ["src/js/components"],
+            "@modules": ["src/js/modules"],
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
+    ]
+}

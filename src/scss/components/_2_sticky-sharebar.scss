@@ -1,0 +1,80 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_sticky-sharebar
+Title: Sticky social sharing bar.
+Descr: 
+Usage: https://codyhouse.co/ds/components/info/sticky-sharebar
+Dependencies
+    https://codyhouse.co/ds/components/app/social-sharing
+
+-------------------------------- */
+
+.sticky-sharebar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    right: var(--space-md);
+    pointer-events: none;
+    z-index: var(--z-index-fixed-element, 10);
+    transition: visibility 0s .3s, opacity .3s, transform .3s var(--ease-in-out);
+    transform: translateX(10%);
+    opacity: 0;
+    visibility:hidden;
+    &--on-target {
+        transition: visibility 0s, opacity .3s, transform .3s var(--ease-in-out);
+        transform: translateX(0);
+        opacity: 1;
+        visibility:visible;
+    }
+    &__list {
+        pointer-events: auto;
+        background-color: hsla(var(--color-bg-light-h), var(--color-bg-light-s), var(--color-bg-light-l), 0.95);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        border-radius: 50em;
+        box-shadow: var(--inner-glow), var(--shadow-md);
+        padding:4px;
+    }
+    &__btn {
+        --size: 2.2em;
+        width: var(--size);
+        height: var(--size);
+        position: relative;
+        display: flex;
+        border-radius:50%;
+        .icon {
+            position: relative;
+            color: var(--color-contrast-medium);
+            display: block;
+            margin: auto;
+            //z-index: 2;
+            transition:color .2s;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            border-radius: inherit;
+            background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+            transform: scale(0);
+            transition:transform .2s var(--ease-out);
+        }
+        &:hover {
+            .icon {
+                color:var(--color-contrast-higher);
+            }
+            &::before {
+                transform: scale(1);
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_adv-custom-select
+Title: Advanced Custom Select
+Descr: Custom Select with advanced structure options.
+Usage: https://codyhouse.co/ds/components/info/advanced-custom-select
+Dependencies
+   Popover
+-------------------------------- */
+
+.adv-select-popover{
+    &.popover {
+        --popover-width: 250px;
+        --popover-control-gap: 4px;
+        --popover-viewport-gap: 20px;
+        --popover-transition-duration:0.2s;
+        @include min-width(md) {
+            & {
+                --popover-width:320px;
+            }
+        }
+    }
+    &__optgroup:not(:first-of-type) {
+        padding-top:var(--space-2xs);
+    }
+    &__optgroup:not(:last-of-type) {
+        border-bottom: 1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        padding-bottom:var(--space-2xs);
+    }
+    &__check {
+        display:none;
+    }
+    &__option {
+        position: relative;
+        cursor: pointer;
+        transition:.2s;
+        &:hover {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+        }
+        &:focus {
+            outline: none;
+            background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.15);
+        }
+        &[aria-selected=true] {
+            background-color: var(--color-primary);
+            color:var(--color-white);
+            .adv-select-popover__check {
+                display:block;
+            }
+            &:focus {
+                box-shadow: inset 0 0 0 2px var(--color-primary-dark);
+            }
+        }
+    }
+}

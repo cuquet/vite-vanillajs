@@ -1,0 +1,41 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_multiple-custom-select-v2
+Title: Multiple Custom Select v2
+Descr: A list of filterable checkbox inputs.
+Dependences:
+    _1_custom-checkbox
+    _1_list-filter
+Usage: https://codyhouse.co/ds/components/info/multiple-custom-select-v2
+
+-------------------------------- */
+
+
+.multi-select-v2{
+    $this: &;
+    &__label {
+        display: flex;
+        align-items: center;
+        -webkit-user-select: none;
+        user-select:none;
+        &:hover {
+            transition: background-color .2s;
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+        }
+        &#{$this}__label--checked {
+            background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.15);
+            &:hover {
+                background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2);
+            }
+        }
+    }
+    &__checkbox {
+        --custom-checkbox-size: 18px;
+        --custom-checkbox-marker-size: 16px;
+        width: var(--custom-checkbox-size);
+        height: var(--custom-checkbox-size);
+    }
+}

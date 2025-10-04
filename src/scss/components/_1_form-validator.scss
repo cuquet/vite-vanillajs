@@ -1,0 +1,22 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_form-validator
+Title: Form Validator
+Descr: 
+Usage: https://codyhouse.co/ds/components/info/form-validator
+Dependencies
+
+-------------------------------- */
+
+.form-validate {
+    &__error-msg {
+        display:none;
+    }
+    &__input-wrapper--error &__error-msg {
+        display: block;
+    }
+}
+

@@ -1,0 +1,3365 @@
+@use 'config' as *;
+@use 'sass:math';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+/*! purgecss end ignore */
+
+/* variables */
+:root {
+  /* spacing */
+  $responsive-spacing: map.get($spacing, "@all");
+  $fluid-responsive-spacing: map.get($spacing, "fluid");
+  @if $responsive-spacing {
+    @each $name, $value in $responsive-spacing {
+      --space-#{$name}: #{$value};
+    }
+  } @else if $fluid-responsive-spacing {
+    $list-breakpoints: ();
+    $list-values: ();
+    @each $breakpoint, $value in $fluid-responsive-spacing {
+      $breakpoint-value: map.get($breakpoints, string.slice($breakpoint, 2, -1));
+      $list-breakpoints: list.append($list-breakpoints, $breakpoint-value); 
+      $list-values: list.append($list-values, $value); 
+    }
+    $breakpoint-small: to-number(list.nth($list-breakpoints, 1));
+    $breakpoint-large: to-number(list.nth($list-breakpoints, 2));
+    @each $name, $value in list.nth($list-values, 1) {
+      $value-small: to-number($value);
+      $value-large: map.get(list.nth($list-values, 2), $name);
+      $value-large: to-number($value-large);
+      $y-int: math.div($value-large - $value-small, $breakpoint-large - $breakpoint-small);
+      $y: $y-int * 100vw;
+      $x: $value-small - $y-int * $breakpoint-small;
+      --space-#{$name}: clamp(#{$value-small}, calc(#{$x} + #{$y}), #{$value-large}); 
+    }
+  } @else {
+    @each $name, $value in $spacing {
+      --space-#{$name}: #{$value};
+    }
+  }
+
+  /* font-family */
+  @each $name, $value in $font-family {
+    --font-#{$name}: #{$value};
+  }
+
+  /* font-size */
+  $responsive-font-size: map.get($font-size, "@all");
+  $fluid-font-size: map.get($font-size, "fluid");
+  @if $responsive-font-size {
+    @each $name, $value in $responsive-font-size {
+      --text-#{$name}: #{$value};
+    }
+  } @else if $fluid-font-size {
+    $list-breakpoints: ();
+    $list-values: ();
+    @each $breakpoint, $value in $fluid-font-size {
+      $breakpoint-value: map.get($breakpoints, string.slice($breakpoint, 2, -1));
+      $list-breakpoints: list.append($list-breakpoints, $breakpoint-value); 
+      $list-values: list.append($list-values, $value); 
+    }
+    $breakpoint-small: to-number(list.nth($list-breakpoints, 1));
+    $breakpoint-large: to-number(list.nth($list-breakpoints, 2));
+    @each $name, $value in list.nth($list-values, 1) {
+      $value-small: to-number($value);
+      $value-large: map.get(list.nth($list-values, 2), $name);
+      $value-large: to-number($value-large);
+      $y-int: math.div($value-large - $value-small, $breakpoint-large - $breakpoint-small);
+      $y: $y-int * 100vw;
+      $x: $value-small - $y-int * $breakpoint-small;
+      --text-#{$name}: clamp(#{$value-small}, calc(#{$x} + #{$y}), #{$value-large}); 
+    }
+  } @else {
+    @each $name, $value in $font-size {
+      --text-#{$name}: #{$value};
+    }
+  }
+
+  /* line-height */
+  @each $name, $value in $line-height {
+    --line-height-#{$name}: #{$value};
+  }
+
+  /* max-width */
+  @each $name, $value in $max-width {
+    --max-width-#{$name}: #{$value};
+  }
+
+  --container-margin-x: #{$container-margin-x};
+
+  /* box-shadow */
+  @each $name, $value in $box-shadow {
+    --shadow-#{$name}: #{$value};
+  }
+
+  /* inner-glow */
+  @each $name, $value in $inner-glow {
+    --inner-#{$name}: #{$value};
+  }
+
+  /* border-radius */
+  @each $name, $value in $border-radius {
+    --radius-#{$name}: #{$value};
+  }
+
+  /* z-index */
+  @each $name, $value in $z-index {
+    --z-index-#{$name}: #{$value};
+  }
+
+  /* timing functions */
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* colors */
+@each $theme, $color-array in $colors {
+  $theme-selector: '[data-theme=#{$theme}]';
+  @if $theme == 'default' {
+    $theme-selector: ':root, [data-theme="default"]';
+  }
+
+  #{$theme-selector} {
+    // loop through colors and define variables
+    @each $main-color, $variation-array in $color-array {
+      @each $variation, $hsl in $variation-array {
+        $appendix: #{'-'+$variation};
+        @if $variation == 'base' {
+          $appendix: '';
+        }
+        $list: get-hsl-values($hsl);
+        --color-#{$main-color}#{$appendix}-h: #{list.nth($list, 1)};
+        --color-#{$main-color}#{$appendix}-s: #{list.nth($list, 2)};
+        --color-#{$main-color}#{$appendix}-l: #{list.nth($list, 3)};
+        // --color-#{$main-color}#{$appendix}: hsl(#{$hsl});
+        --color-#{$main-color}#{$appendix}: hsl(var(--color-#{$main-color}#{$appendix}-h), var(--color-#{$main-color}#{$appendix}-s), var(--color-#{$main-color}#{$appendix}-l));
+      }
+
+    }
+  }
+}
+
+@if map.get($gradients, "default") {
+  /* gradients */
+  @each $theme, $gradient-array in $gradients {
+    $theme-selector: '[data-theme=#{$theme}]';
+    @if $theme == 'default' {
+      $theme-selector: ':root, [data-theme="default"]';
+    }
+
+    #{$theme-selector} {
+      // loop through colors and define variables
+      @each $main-color, $variation-array in $gradient-array {
+        @each $variation, $hsl in $variation-array {
+          $appendix: #{'-'+$variation};
+          $list: get-hsl-values($hsl);
+          --gradient-#{$main-color}#{$appendix}-h: #{list.nth($list, 1)};
+          --gradient-#{$main-color}#{$appendix}-s: #{list.nth($list, 2)};
+          --gradient-#{$main-color}#{$appendix}-l: #{list.nth($list, 3)};
+          --gradient-#{$main-color}#{$appendix}: hsl(#{$hsl});
+        }
+      }
+    }
+  }
+}
+
+/* grid */
+$grid-columns: 12 !default;
+
+.#{$util-prefix}grid {
+  --grid-columns: #{$grid-columns};
+  --column-gap: 0px;
+  --row-gap: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--row-gap) var(--column-gap);
+}
+
+.#{$util-prefix}grid > * {
+  width: 100%;
+  min-width: 0;
+}
+
+$grid-col-class-list: '';
+@for $i from 1 through $grid-columns {
+  $grid-col-class-list: $grid-col-class-list + ".#{$util-prefix}col-#{$i}";
+  @if($i < $grid-columns) {
+    $grid-col-class-list: $grid-col-class-list + ', ';
+  }
+  .#{$util-prefix}grid-col-#{$i} { 
+    --grid-columns: #{$i};
+  }
+
+  .#{$util-prefix}col-#{$i} { 
+    --column-span: #{$i};
+  } 
+}
+
+#{$grid-col-class-list} {
+  width: calc(((100% - (var(--grid-columns) - 1) * var(--column-gap)) * var(--column-span) / var(--grid-columns)) + (var(--column-span) - 1) * var(--column-gap));
+  flex: initial;
+}
+
+.#{$util-prefix}col {
+  width: auto;
+  flex: 1 1 0;
+}
+
+.#{$util-prefix}col-content {
+  width: auto;
+  flex: 0 1 auto;
+}
+
+$grid-offset-class-list: '';
+@for $i from 1 through $grid-columns - 1 {
+  $grid-offset-class-list: $grid-offset-class-list + ".#{$util-prefix}offset-#{$i}";
+  @if($i < $grid-columns) {
+    $grid-offset-class-list: $grid-offset-class-list + ', ';
+  }
+  .#{$util-prefix}offset-#{$i} { 
+    --column-offset: #{$i};
+  }
+}
+
+#{$grid-offset-class-list} {
+  margin-left: calc(((100% - (var(--grid-columns) - 1) * var(--column-gap)) * var(--column-offset) / var(--grid-columns)) + var(--column-offset) * var(--column-gap));
+}
+
+/* gap */
+$responsive-spacing: map.get($spacing, "@all");
+$fluid-responsive-spacing: map.get($spacing, "fluid");
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {
+    .#{$util-prefix}gap-#{$name} {
+      --row-gap: var(--space-#{$name});
+      --column-gap: var(--space-#{$name});
+      gap: var(--row-gap) var(--column-gap);
+    }
+  
+    .#{$util-prefix}gap-x-#{$name} {
+      --column-gap: var(--space-#{$name});
+      column-gap: var(--column-gap);
+    }
+  
+    .#{$util-prefix}gap-y-#{$name} {
+      --row-gap: var(--space-#{$name});
+      row-gap: var(--row-gap);
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}gap-#{$name} {
+      --row-gap: var(--space-#{$name});
+      --column-gap: var(--space-#{$name});
+      gap: var(--row-gap) var(--column-gap);
+    }
+  
+    .#{$util-prefix}gap-x-#{$name} {
+      --column-gap: var(--space-#{$name});
+      column-gap: var(--column-gap);
+    }
+  
+    .#{$util-prefix}gap-y-#{$name} {
+      --row-gap: var(--space-#{$name});
+      row-gap: var(--row-gap);
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}gap-#{$name} {
+      --row-gap: var(--space-#{$name});
+      --column-gap: var(--space-#{$name});
+      gap: var(--row-gap) var(--column-gap);
+    }
+  
+    .#{$util-prefix}gap-x-#{$name} {
+      --column-gap: var(--space-#{$name});
+      column-gap: var(--column-gap);
+    }
+  
+    .#{$util-prefix}gap-y-#{$name} {
+      --row-gap: var(--space-#{$name});
+      row-gap: var(--row-gap);
+    }
+  }
+}
+
+.#{$util-prefix}gap-0 {
+  --row-gap: 0px;
+  --column-gap: 0px;
+  gap: 0px;
+}
+
+.#{$util-prefix}gap-x-0 {
+  --column-gap: 0px;
+  column-gap: 0px;
+}
+
+.#{$util-prefix}gap-y-0 {
+  --row-gap: 0px;
+  row-gap: 0px;
+}
+
+/* flexbox */
+.#{$util-prefix}flex {
+  display: flex;
+}
+
+.#{$util-prefix}inline-flex {
+  display: inline-flex;
+}
+
+.#{$util-prefix}flex-wrap {
+  flex-wrap: wrap;
+}
+
+.#{$util-prefix}flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.#{$util-prefix}flex-column {
+  flex-direction: column;
+}
+
+.#{$util-prefix}flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
+.#{$util-prefix}flex-row {
+  flex-direction: row;
+}
+
+.#{$util-prefix}flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.#{$util-prefix}flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.#{$util-prefix}flex-grow {
+  flex-grow: 1;
+}
+
+.#{$util-prefix}flex-grow-0 {
+  flex-grow: 0;
+}
+
+.#{$util-prefix}flex-shrink {
+  flex-shrink: 1;
+}
+
+.#{$util-prefix}flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.#{$util-prefix}flex-basis-0 {
+  flex-basis: 0;
+}
+
+/* justify-content */
+.#{$util-prefix}justify-start {
+  justify-content: start;
+}
+
+.#{$util-prefix}justify-end {
+  justify-content: end;
+}
+
+.#{$util-prefix}justify-center {
+  justify-content: center;
+}
+
+.#{$util-prefix}justify-between {
+  justify-content: space-between;
+}
+
+/* align-items */
+.#{$util-prefix}items-center {
+  align-items: center;
+}
+
+.#{$util-prefix}items-start {
+  align-items: start;
+}
+
+.#{$util-prefix}items-end {
+  align-items: end;
+}
+
+.#{$util-prefix}items-baseline {
+  align-items: baseline;
+}
+
+.#{$util-prefix}items-stretch {
+  align-items: stretch;
+}
+
+/* align-content */
+.#{$util-prefix}content-start {
+  align-content: start;
+}
+
+.#{$util-prefix}content-end {
+  align-content: end;
+}
+
+.#{$util-prefix}content-center {
+  align-content: center;
+}
+
+.#{$util-prefix}content-between {
+  align-content: space-between;
+}
+
+/* order */
+.#{$util-prefix}order-1 {
+  order: 1;
+}
+
+.#{$util-prefix}order-2 {
+  order: 2;
+}
+
+.#{$util-prefix}order-3 {
+  order: 3;
+}
+
+/* aspect-ratio */
+@each $width, $height in $aspect-ratio {
+  .#{$util-prefix}aspect-ratio-#{$width}\:#{$height} {
+    aspect-ratio: #{$width}/#{$height};
+  }
+}
+
+/* media wrapper */
+:where([class^="#{$util-prefix}media-wrapper"], [class*=" #{$util-prefix}media-wrapper"]) {
+  position: relative;
+}
+
+[class^="#{$util-prefix}media-wrapper"], [class*=" #{$util-prefix}media-wrapper"] {
+  height: 0;
+}
+
+[class^="#{$util-prefix}media-wrapper"] > *, 
+[class*=" #{$util-prefix}media-wrapper"] > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+[class^="#{$util-prefix}media-wrapper"] > *:not(iframe), 
+[class*=" #{$util-prefix}media-wrapper"] > *:not(iframe) {
+  object-fit: cover;
+}
+
+@each $width, $height in $media-wrapper {
+  .#{$util-prefix}media-wrapper-#{$width}\:#{$height} {
+    padding-bottom: math.div($height, $width)*100%;
+  }
+}
+
+/* display */
+.#{$util-prefix}block {
+  display: block;
+}
+
+.#{$util-prefix}inline-block {
+  display: inline-block;
+}
+
+.#{$util-prefix}inline {
+  display: inline;
+}
+
+.#{$util-prefix}contents {
+  display: contents;
+}
+
+.#{$util-prefix}css-grid {
+  display: grid;
+}
+
+.#{$util-prefix}css-inline-grid {
+  display: inline-grid;
+}
+
+.#{$util-prefix}hide {
+  display: none;
+}
+
+.#{$util-prefix}is-visible {
+  display: var(--display, block) !important;
+}
+
+.#{$util-prefix}is-hidden {
+  display: none !important;
+}
+
+/* margin */
+$responsive-spacing: map.get($spacing, "@all");
+$fluid-responsive-spacing: map.get($spacing, "fluid");
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {
+    .#{$util-prefix}margin-#{$name} {
+      margin: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}margin-#{$name} {
+      margin: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}margin-#{$name} {
+      margin: var(--space-#{$name});
+    }
+  }
+}
+
+.#{$util-prefix}margin-auto {
+  margin: auto;
+}
+
+.#{$util-prefix}margin-0 {
+  margin: 0;
+}
+
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {  
+    .#{$util-prefix}margin-y-#{$name} {
+      margin-top: var(--space-#{$name});
+      margin-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-x-#{$name} {
+      margin-right: var(--space-#{$name});
+      margin-left: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}margin-y-#{$name} {
+      margin-top: var(--space-#{$name});
+      margin-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-x-#{$name} {
+      margin-right: var(--space-#{$name});
+      margin-left: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}margin-y-#{$name} {
+      margin-top: var(--space-#{$name});
+      margin-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-x-#{$name} {
+      margin-right: var(--space-#{$name});
+      margin-left: var(--space-#{$name});
+    }
+  }
+}
+
+.#{$util-prefix}margin-y-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.#{$util-prefix}margin-y-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.#{$util-prefix}margin-x-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.#{$util-prefix}margin-x-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {
+    .#{$util-prefix}margin-top-#{$name} {
+      margin-top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-right-#{$name} {
+      margin-right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-bottom-#{$name} {
+      margin-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-left-#{$name} {
+      margin-left: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}margin-top-#{$name} {
+      margin-top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-right-#{$name} {
+      margin-right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-bottom-#{$name} {
+      margin-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-left-#{$name} {
+      margin-left: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}margin-top-#{$name} {
+      margin-top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-right-#{$name} {
+      margin-right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-bottom-#{$name} {
+      margin-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}margin-left-#{$name} {
+      margin-left: var(--space-#{$name});
+    }
+  }
+}
+
+.#{$util-prefix}margin-top-auto {
+  margin-top: auto;
+}
+
+.#{$util-prefix}margin-top-0 {
+  margin-top: 0;
+}
+
+.#{$util-prefix}margin-right-auto {
+  margin-right: auto;
+}
+
+.#{$util-prefix}margin-right-0 {
+  margin-right: 0;
+}
+
+.#{$util-prefix}margin-bottom-auto {
+  margin-bottom: auto;
+}
+
+.#{$util-prefix}margin-bottom-0 {
+  margin-bottom: 0;
+}
+
+.#{$util-prefix}margin-left-auto {
+  margin-left: auto;
+}
+
+.#{$util-prefix}margin-left-0 {
+  margin-left: 0;
+}
+
+/* padding */
+$responsive-spacing: map.get($spacing, "@all");
+$fluid-responsive-spacing: map.get($spacing, "fluid");
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {
+    .#{$util-prefix}padding-#{$name} {
+      padding: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}padding-#{$name} {
+      padding: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}padding-#{$name} {
+      padding: var(--space-#{$name});
+    }
+  }
+}
+
+.#{$util-prefix}padding-0 {
+  padding: 0;
+}
+
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {
+    .#{$util-prefix}padding-y-#{$name} {
+      padding-top: var(--space-#{$name});
+      padding-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-x-#{$name} {
+      padding-right: var(--space-#{$name});
+      padding-left: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}padding-y-#{$name} {
+      padding-top: var(--space-#{$name});
+      padding-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-x-#{$name} {
+      padding-right: var(--space-#{$name});
+      padding-left: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}padding-y-#{$name} {
+      padding-top: var(--space-#{$name});
+      padding-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-x-#{$name} {
+      padding-right: var(--space-#{$name});
+      padding-left: var(--space-#{$name});
+    }
+  }
+}
+
+.#{$util-prefix}padding-y-0 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.#{$util-prefix}padding-x-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {
+    .#{$util-prefix}padding-top-#{$name} {
+      padding-top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-right-#{$name} {
+      padding-right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-bottom-#{$name} {
+      padding-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-left-#{$name} {
+      padding-left: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}padding-top-#{$name} {
+      padding-top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-right-#{$name} {
+      padding-right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-bottom-#{$name} {
+      padding-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-left-#{$name} {
+      padding-left: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}padding-top-#{$name} {
+      padding-top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-right-#{$name} {
+      padding-right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-bottom-#{$name} {
+      padding-bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}padding-left-#{$name} {
+      padding-left: var(--space-#{$name});
+    }
+  }
+}
+
+.#{$util-prefix}padding-top-0 {
+  padding-top: 0;
+}
+
+.#{$util-prefix}padding-right-0 {
+  padding-right: 0;
+}
+
+.#{$util-prefix}padding-bottom-0 {
+  padding-bottom: 0;
+}
+
+.#{$util-prefix}padding-left-0 {
+  padding-left: 0;
+}
+
+/* vertical-align */
+.#{$util-prefix}align-baseline {
+  vertical-align: baseline;
+}
+
+.#{$util-prefix}align-sub {
+  vertical-align: sub;
+}
+
+.#{$util-prefix}align-super {
+  vertical-align: super;
+}
+
+.#{$util-prefix}align-text-top {
+  vertical-align: text-top;
+}
+
+.#{$util-prefix}align-text-bottom {
+  vertical-align: text-bottom;
+}
+
+.#{$util-prefix}align-top {
+  vertical-align: top;
+}
+
+.#{$util-prefix}align-middle {
+  vertical-align: middle;
+}
+
+.#{$util-prefix}align-bottom {
+  vertical-align: bottom;
+}
+
+/* typography */
+.#{$util-prefix}truncate, .#{$util-prefix}text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.#{$util-prefix}text-replace {
+  overflow: hidden;
+  color: transparent;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+.#{$util-prefix}break-word {
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+/* font-size */
+$responsive-font-size: map.get($font-size, "@all");
+$fluid-font-size: map.get($font-size, "fluid");
+@if $responsive-font-size {
+  @each $name, $value in $responsive-font-size {
+    .#{$util-prefix}text-#{$name} {
+      font-size: var(--text-#{$name});
+    }
+  }
+} @else if($fluid-font-size) {
+  $first: list.nth(list.nth($fluid-font-size, 1), 1);
+  $fluid-font-list: map.get($fluid-font-size, $first);
+  @each $name, $value in $fluid-font-list { 
+    .#{$util-prefix}text-#{$name} {
+      font-size: var(--text-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $font-size {
+    .#{$util-prefix}text-#{$name} {
+      font-size: var(--text-#{$name});
+    }
+  }
+}
+
+/* text-transform */
+.#{$util-prefix}text-uppercase {
+  text-transform: uppercase;
+}
+
+.#{$util-prefix}text-capitalize {
+  text-transform: capitalize;
+}
+
+/* letter-spacing */
+.#{$util-prefix}letter-spacing-xs {
+  letter-spacing: -0.1em;
+}
+
+.#{$util-prefix}letter-spacing-sm {
+  letter-spacing: -0.05em;
+}
+
+.#{$util-prefix}letter-spacing-md {
+  letter-spacing: 0.05em;
+}
+
+.#{$util-prefix}letter-spacing-lg {
+  letter-spacing: 0.1em;
+}
+
+.#{$util-prefix}letter-spacing-xl {
+  letter-spacing: 0.2em;
+}
+
+/* font-weight */
+.#{$util-prefix}font-thin {
+  font-weight: 100;
+}
+
+.#{$util-prefix}font-extralight {
+  font-weight: 200;
+}
+
+.#{$util-prefix}font-light {
+  font-weight: 300;
+}
+
+.#{$util-prefix}font-normal {
+  font-weight: 400;
+}
+
+.#{$util-prefix}font-medium {
+  font-weight: 500;
+}
+
+.#{$util-prefix}font-semibold {
+  font-weight: 600;
+}
+
+.#{$util-prefix}font-bold {
+  font-weight: 700;
+}
+
+.#{$util-prefix}font-extrabold {
+  font-weight: 800;
+}
+
+.#{$util-prefix}font-black {
+  font-weight: 900;
+}
+
+/* font-style */
+.#{$util-prefix}font-italic {
+  font-style: italic;
+}
+
+/* font-smooth */
+.#{$util-prefix}font-smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@each $name, $value in $font-family {
+  .#{$util-prefix}font-#{$name} {
+    font-family: var(--font-#{$name});
+  }
+}
+
+/* text-align */
+.#{$util-prefix}text-center {
+  text-align: center;
+}
+
+.#{$util-prefix}text-left {
+  text-align: left;
+}
+
+.#{$util-prefix}text-right {
+  text-align: right;
+}
+
+.#{$util-prefix}text-justify {
+  text-align: justify;
+}
+
+/* text-decoration */
+.#{$util-prefix}text-line-through {
+  text-decoration: line-through;
+}
+
+.#{$util-prefix}text-underline {
+  text-decoration: underline;
+}
+
+.#{$util-prefix}text-decoration-none {
+  text-decoration: none;
+}
+
+/* text-shadow */
+.#{$util-prefix}text-shadow-xs {
+  text-shadow: 0 1px 1px alpha(var(--color-black), 0.15);
+}
+
+.#{$util-prefix}text-shadow-sm {
+  text-shadow: 0 1px 2px alpha(var(--color-black), 0.25);
+}
+
+.#{$util-prefix}text-shadow-md {
+  text-shadow: 0 1px 2px alpha(var(--color-black), 0.1), 
+               0 2px 4px alpha(var(--color-black), 0.2);
+}
+
+.#{$util-prefix}text-shadow-lg {
+  text-shadow: 0 1px 4px alpha(var(--color-black), 0.1), 
+               0 2px 8px alpha(var(--color-black), 0.15), 
+               0 4px 16px alpha(var(--color-black), 0.2);
+}
+
+.#{$util-prefix}text-shadow-xl {
+  text-shadow: 0 1px 4px alpha(var(--color-black), 0.1), 
+               0 2px 8px alpha(var(--color-black), 0.15), 
+               0 4px 16px alpha(var(--color-black), 0.2), 
+               0 6px 24px alpha(var(--color-black), 0.25);
+}
+
+.#{$util-prefix}text-shadow-none {
+  text-shadow: none;
+}
+
+/* text-indent */
+.#{$util-prefix}text-indent-sm {
+  text-indent: 0.5em;
+}
+
+.#{$util-prefix}text-indent-md {
+  text-indent: 1em;
+}
+
+.#{$util-prefix}text-indent-lg {
+  text-indent: 1.5em;
+}
+
+/* line-height */
+.#{$util-prefix}line-height-normal {
+  line-height: normal;
+}
+
+.#{$util-prefix}line-height-1 {
+  line-height: 1;
+}
+
+@each $name, $value in $line-height {
+  .#{$util-prefix}line-height-#{$name} {
+    line-height: var(--line-height-#{$name});
+  }
+}
+
+/* line-clamp */
+.#{$util-prefix}line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.#{$util-prefix}line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.#{$util-prefix}line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.#{$util-prefix}line-clamp-4 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+/* white-space */
+.#{$util-prefix}ws-nowrap {
+  white-space: nowrap;
+}
+
+/* column-count */
+.#{$util-prefix}column-count-1 {
+  column-count: 1;
+}
+
+.#{$util-prefix}column-count-2 {
+  column-count: 2;
+}
+
+.#{$util-prefix}column-count-3 {
+  column-count: 3;
+}
+
+.#{$util-prefix}column-count-4 {
+  column-count: 4;
+}
+
+/* list-style */
+.#{$util-prefix}list-style-none {
+  list-style: none;
+}
+
+/* cursor */
+.#{$util-prefix}cursor-pointer {
+  cursor: pointer;
+}
+
+.#{$util-prefix}cursor-default {
+  cursor: default;
+}
+
+/* pointer-events */
+.#{$util-prefix}pointer-events-auto {
+  pointer-events: auto;
+}
+
+.#{$util-prefix}pointer-events-none {
+  pointer-events: none;
+}
+
+/* user-select */
+.#{$util-prefix}user-select-none {
+  user-select: none;
+}
+
+.#{$util-prefix}user-select-all {
+  user-select: all;
+}
+
+/* color */
+[class^="#{$util-prefix}color-"], [class*=" #{$util-prefix}color-"] { 
+  --color-opacity: 1;
+}
+
+.#{$util-prefix}color-inherit {
+  color: inherit;
+}
+
+$color-labels: map.get($colors, "default");
+@each $main-color, $variation-array in $color-labels {
+  @each $variation, $hsl in $variation-array {
+    $appendix: #{'-'+$variation};
+    @if $variation == 'base' {
+      $appendix: '';
+    }
+    .#{$util-prefix}color-#{$main-color}#{$appendix} {
+      color: hsla(var(--color-#{$main-color}#{$appendix}-h), var(--color-#{$main-color}#{$appendix}-s), var(--color-#{$main-color}#{$appendix}-l), var(--color-opacity, 1));
+    }
+  }
+}
+
+.#{$util-prefix}color-opacity-0 { 
+  --color-opacity: 0;
+}
+
+.#{$util-prefix}color-opacity-5\% { 
+  --color-opacity: 0.05;
+}
+
+.#{$util-prefix}color-opacity-10\% { 
+  --color-opacity: 0.1;
+}
+
+.#{$util-prefix}color-opacity-15\% { 
+  --color-opacity: 0.15;
+}
+
+.#{$util-prefix}color-opacity-20\% { 
+  --color-opacity: 0.2;
+}
+
+.#{$util-prefix}color-opacity-25\% { 
+  --color-opacity: 0.25;
+}
+
+.#{$util-prefix}color-opacity-30\% { 
+  --color-opacity: 0.3;
+}
+
+.#{$util-prefix}color-opacity-40\% { 
+  --color-opacity: 0.4;
+}
+
+.#{$util-prefix}color-opacity-50\% { 
+  --color-opacity: 0.5;
+}
+
+.#{$util-prefix}color-opacity-60\% { 
+  --color-opacity: 0.6;
+}
+
+.#{$util-prefix}color-opacity-70\% { 
+  --color-opacity: 0.7;
+}
+
+.#{$util-prefix}color-opacity-75\% { 
+  --color-opacity: 0.75;
+}
+
+.#{$util-prefix}color-opacity-80\% { 
+  --color-opacity: 0.8;
+}
+
+.#{$util-prefix}color-opacity-85\% { 
+  --color-opacity: 0.85;
+}
+
+.#{$util-prefix}color-opacity-90\% { 
+  --color-opacity: 0.9;
+}
+
+.#{$util-prefix}color-opacity-95\% { 
+  --color-opacity: 0.95;
+}
+
+/* gradient */
+[class^="#{$util-prefix}color-gradient"], [class*=" #{$util-prefix}color-gradient"] {
+  color: transparent !important;
+  background-clip: text;
+  opacity: var(--color-opacity);
+}
+
+$grad-labels: map.get($gradients, "default");
+@if $grad-labels {
+  @each $main-color, $variation-array in $grad-labels {
+    $list: ();
+    @each $variation, $hsl in $variation-array {
+      $list: list.append($list, #{$variation});
+    }
+    $linear-gradient-stops: '';
+    @for $i from 1 through length($list) {
+      $linear-gradient-stops: $linear-gradient-stops + var(--gradient-#{$main-color}-#{list.nth($list, $i)});
+      @if($i < length($list)) {
+        $linear-gradient-stops: $linear-gradient-stops + ', '
+      }
+    }
+
+    .#{$util-prefix}color-gradient-#{$main-color}-top-left {
+      background-image: linear-gradient(315deg, #{$linear-gradient-stops});
+    }
+    .#{$util-prefix}color-gradient-#{$main-color}-top {
+      background-image: linear-gradient(0deg, #{$linear-gradient-stops});
+    }
+    .#{$util-prefix}color-gradient-#{$main-color}-top-right {
+      background-image: linear-gradient(45deg, #{$linear-gradient-stops});
+    }
+    .#{$util-prefix}color-gradient-#{$main-color}-right {
+      background-image: linear-gradient(90deg, #{$linear-gradient-stops});
+    }
+    .#{$util-prefix}color-gradient-#{$main-color}-bottom-right {
+      background-image: linear-gradient(135deg, #{$linear-gradient-stops});
+    }
+    .#{$util-prefix}color-gradient-#{$main-color}-bottom {
+      background-image: linear-gradient(180deg, #{$linear-gradient-stops});
+    }
+    .#{$util-prefix}color-gradient-#{$main-color}-bottom-left {
+      background-image: linear-gradient(225deg, #{$linear-gradient-stops});
+    }
+    .#{$util-prefix}color-gradient-#{$main-color}-left {
+      background-image: linear-gradient(270deg, #{$linear-gradient-stops});
+    }
+  }
+}
+
+/* width */
+@each $name, $value in $width {
+  .#{$util-prefix}width-#{$name} {
+    width: #{$value};
+  }
+}
+
+.#{$util-prefix}width-100vw {
+  width: 100vw;
+}
+
+.#{$util-prefix}width-auto {
+  width: auto;
+}
+
+.#{$util-prefix}width-inherit {
+  width: inherit;
+}
+
+/* height */
+@each $name, $value in $height {
+  .#{$util-prefix}height-#{$name} {
+    height: #{$value};
+  }
+}
+
+.#{$util-prefix}height-100vh {
+  height: 100vh;
+}
+
+.#{$util-prefix}height-auto {
+  height: auto;
+}
+
+.#{$util-prefix}height-inherit {
+  height: inherit;
+}
+
+/* min-width */
+.#{$util-prefix}min-width-0 {
+  min-width: 0;
+}
+
+.#{$util-prefix}min-width-25\% {
+  min-width: 25%;
+}
+
+.#{$util-prefix}min-width-33\% {
+  min-width: calc(100% / 3);
+}
+
+.#{$util-prefix}min-width-50\% {
+  min-width: 50%;
+}
+
+.#{$util-prefix}min-width-66\% {
+  min-width: calc(100% / 1.5);
+}
+
+.#{$util-prefix}min-width-75\% {
+  min-width: 75%;
+}
+
+.#{$util-prefix}min-width-100\% {
+  min-width: 100%;
+}
+
+.#{$util-prefix}min-width-100vw {
+  min-width: 100vw;
+}
+
+/* min-height */
+.#{$util-prefix}min-height-0 {
+  min-height: 0;
+}
+
+.#{$util-prefix}min-height-100\% {
+  min-height: 100%;
+}
+
+.#{$util-prefix}min-height-100vh {
+  min-height: 100vh;
+}
+
+/* max-width */
+.#{$util-prefix}container {
+  width: calc(100% - 2 * var(--container-margin-x));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@each $name, $value in $max-width {
+  .#{$util-prefix}max-width-#{$name} {
+    max-width: var(--max-width-#{$name});
+  }
+}
+
+.#{$util-prefix}max-width-100\% {
+  max-width: 100%;
+}
+
+.#{$util-prefix}max-width-none {
+  max-width: none;
+}
+
+// alt approach - max-width is equal to current breakpoint
+$breakpoints-nr: length($breakpoints);
+@each $breakpoint, $value in $breakpoints {
+  $i: index($breakpoints, $breakpoint $value);
+  @if $i == 1 {
+    [class^="#{$util-prefix}max-width-adaptive"], [class*=" #{$util-prefix}max-width-adaptive"] {
+      max-width: string.unquote(map-get($map: $breakpoints, $key: #{$breakpoint}));
+    }
+  } @else {
+    $class-list : '';
+    @each $sub-breakpoint, $sub-value in $breakpoints {
+      $j: index($breakpoints, $sub-breakpoint $sub-value);
+      @if $j == $i {
+        $class-list: '.#{$util-prefix}max-width-adaptive-#{$sub-breakpoint}';
+      } @else if $j > $i {
+        $class-list: $class-list+', .#{$util-prefix}max-width-adaptive-#{$sub-breakpoint}';
+      }
+    }
+    @media (min-width: #{$value}) {
+      #{$class-list} {
+        max-width: string.unquote(map-get($map: $breakpoints, $key: #{$breakpoint}));
+      }
+    }
+  }
+}
+
+/* max-height */
+.#{$util-prefix}max-height-100\% {
+  max-height: 100%;
+}
+
+.#{$util-prefix}max-height-100vh {
+  max-height: 100vh;
+}
+
+/* box-shadow */
+@each $name, $value in $box-shadow {
+  .#{$util-prefix}shadow-#{$name} {
+    box-shadow: var(--shadow-#{$name});
+  }
+  
+  @if($name != 'ring') {
+    .#{$util-prefix}shadow-#{$name}.#{$util-prefix}shadow-ring {
+      box-shadow: var(--shadow-#{$name}), var(--shadow-ring);
+    }
+  }
+}
+
+.#{$util-prefix}shadow-none {
+  box-shadow: none;
+}
+
+/* inner-glow */
+$glow-selectors: '';
+$glow-selectors-after: '';
+@each $name, $value in $inner-glow {
+  $glow-selectors: '#{$glow-selectors}.#{$util-prefix}inner-#{$name},';
+  $glow-selectors-after: '#{$glow-selectors-after}.#{$util-prefix}inner-#{$name}::after,';
+}
+$glow-selectors: string.slice($glow-selectors, 1, string.length($glow-selectors) - 1);
+
+:where(#{$glow-selectors}) {
+  position: relative;
+}
+
+#{$glow-selectors-after} {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+@each $name, $value in $inner-glow {
+  .#{$util-prefix}inner-#{$name}::after {
+    box-shadow: var(--inner-#{$name});
+  }
+}
+
+/* position */
+.#{$util-prefix}position-relative {
+  position: relative;
+}
+
+.#{$util-prefix}position-absolute {
+  position: absolute;
+}
+
+.#{$util-prefix}position-fixed {
+  position: fixed;
+}
+
+.#{$util-prefix}position-sticky {
+  position: sticky;
+}
+
+.#{$util-prefix}position-static {
+  position: static;
+}
+
+.#{$util-prefix}inset-0 {
+  inset: 0;
+}
+
+$responsive-spacing: map.get($spacing, "@all");
+$fluid-responsive-spacing: map.get($spacing, "fluid");
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {  
+    .#{$util-prefix}top-#{$name} {
+      top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}right-#{$name} {
+      right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}bottom-#{$name} {
+      bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}left-#{$name} {
+      left: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}top-#{$name} {
+      top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}right-#{$name} {
+      right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}bottom-#{$name} {
+      bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}left-#{$name} {
+      left: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}top-#{$name} {
+      top: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}right-#{$name} {
+      right: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}bottom-#{$name} {
+      bottom: var(--space-#{$name});
+    }
+  
+    .#{$util-prefix}left-#{$name} {
+      left: var(--space-#{$name});
+    }
+  }
+}
+
+.#{$util-prefix}top-50\% {
+  top: 50%;
+}
+
+.#{$util-prefix}top-auto {
+  top: auto;
+}
+
+.#{$util-prefix}top-0 {
+  top: 0;
+}
+
+.#{$util-prefix}right-50\% {
+  right: 50%;
+}
+
+.#{$util-prefix}right-auto {
+  right: auto;
+}
+
+.#{$util-prefix}right-0 {
+  right: 0;
+}
+
+.#{$util-prefix}bottom-50\% {
+  bottom: 50%;
+}
+
+.#{$util-prefix}bottom-auto {
+  bottom: auto;
+}
+
+.#{$util-prefix}bottom-0 {
+  bottom: 0;
+}
+
+.#{$util-prefix}left-50\% {
+  left: 50%;
+}
+
+.#{$util-prefix}left-auto {
+  left: auto;
+}
+
+.#{$util-prefix}left-0 {
+  left: 0;
+}
+
+/* z-index */
+.#{$util-prefix}z-index-1 {
+  z-index: 1;
+}
+
+.#{$util-prefix}z-index-2 {
+  z-index: 2;
+}
+
+.#{$util-prefix}z-index-3 {
+  z-index: 3;
+}
+
+@each $name, $value in $z-index {
+  .#{$util-prefix}z-index-#{$name} {
+    z-index: var(--z-index-#{$name});
+  }
+}
+
+/* overflow */
+.#{$util-prefix}overflow-visible {
+  overflow: visible;
+}
+
+.#{$util-prefix}overflow-hidden {
+  overflow: hidden;
+}
+
+.#{$util-prefix}overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.#{$util-prefix}overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.#{$util-prefix}overflow-clip {
+  overflow: clip;
+}
+
+.#{$util-prefix}overflow-x-clip {
+  overflow-x: clip;
+}
+
+.#{$util-prefix}overflow-y-clip {
+  overflow-y: clip;
+}
+
+.#{$util-prefix}overflow-auto {
+  overflow: auto;
+}
+
+.#{$util-prefix}momentum-scrolling {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* overscroll-behavior */
+.#{$util-prefix}overscroll-contain {
+  overscroll-behavior: contain;
+}
+
+/* scroll behavior */
+.#{$util-prefix}scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+$responsive-spacing: map.get($spacing, "@all");
+$fluid-responsive-spacing: map.get($spacing, "fluid");
+@if $responsive-spacing {
+  @each $name, $value in $responsive-spacing {
+    .#{$util-prefix}scroll-padding-#{$name} {
+      scroll-padding: var(--space-#{$name});
+    }
+  }
+} @else if($fluid-responsive-spacing) {
+  $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+  @each $name, $value in $fluid-responsive-spacing-list {
+    .#{$util-prefix}scroll-padding-#{$name} {
+      scroll-padding: var(--space-#{$name});
+    }
+  }
+} @else {
+  @each $name, $value in $spacing {
+    .#{$util-prefix}scroll-padding-#{$name} {
+      scroll-padding: var(--space-#{$name});
+    }
+  }
+}
+
+/* accessibility */
+.#{$util-prefix}sr-only, .#{$util-prefix}sr-only-focusable:not(:focus):not(:focus-within) {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+/* opacity */
+.#{$util-prefix}opacity-0 {
+  opacity: 0;
+}
+
+.#{$util-prefix}opacity-5\% {
+  opacity: 0.05;
+}
+
+.#{$util-prefix}opacity-10\% {
+  opacity: 0.1;
+}
+
+.#{$util-prefix}opacity-15\% {
+  opacity: 0.15;
+}
+
+.#{$util-prefix}opacity-20\% {
+  opacity: 0.2;
+}
+
+.#{$util-prefix}opacity-25\% {
+  opacity: 0.25;
+}
+
+.#{$util-prefix}opacity-30\% {
+  opacity: 0.3;
+}
+
+.#{$util-prefix}opacity-40\% {
+  opacity: 0.4;
+}
+
+.#{$util-prefix}opacity-50\% {
+  opacity: 0.5;
+}
+
+.#{$util-prefix}opacity-60\% {
+  opacity: 0.6;
+}
+
+.#{$util-prefix}opacity-70\% {
+  opacity: 0.7;
+}
+
+.#{$util-prefix}opacity-75\% {
+  opacity: 0.75;
+}
+
+.#{$util-prefix}opacity-80\% {
+  opacity: 0.8;
+}
+
+.#{$util-prefix}opacity-85\% {
+  opacity: 0.85;
+}
+
+.#{$util-prefix}opacity-90\% {
+  opacity: 0.9;
+}
+
+.#{$util-prefix}opacity-95\% {
+  opacity: 0.95;
+}
+
+/* float */
+.#{$util-prefix}float-left {
+  float: left;
+}
+
+.#{$util-prefix}float-right {
+  float: right;
+}
+
+.#{$util-prefix}clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* border */
+[class^="#{$util-prefix}border-"], [class*=" #{$util-prefix}border-"] { 
+  --border-opacity: 1;
+  --border-width: 1px;
+  --border-style: solid;
+}
+
+.#{$util-prefix}border {
+  border: var(--border-width, 1px) var(--border-style, solid) hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), var(--border-opacity-base, 0.1));
+}
+
+.#{$util-prefix}border-top {
+  border-top: var(--border-width, 1px) var(--border-style, solid) hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), var(--border-opacity-base, 0.1));
+}
+
+.#{$util-prefix}border-bottom {
+  border-bottom: var(--border-width, 1px) var(--border-style, solid) hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), var(--border-opacity-base, 0.1));
+}
+
+.#{$util-prefix}border-left {
+  border-left: var(--border-width, 1px) var(--border-style, solid) hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), var(--border-opacity-base, 0.1));
+}
+
+.#{$util-prefix}border-right {
+  border-right: var(--border-width, 1px) var(--border-style, solid) hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), var(--border-opacity-base, 0.1));
+}
+
+.#{$util-prefix}border-2 {
+  --border-width: 2px;
+}
+
+.#{$util-prefix}border-3 {
+  --border-width: 3px;
+}
+
+.#{$util-prefix}border-4 {
+  --border-width: 4px;
+}
+
+.#{$util-prefix}border-dotted {
+  --border-style: dotted;
+}
+
+.#{$util-prefix}border-dashed {
+  --border-style: dashed;
+}
+
+$color-labels: map.get($colors, "default");
+@each $main-color, $variation-array in $color-labels {
+  @each $variation, $hsl in $variation-array {
+    $appendix: #{'-'+$variation};
+    @if $variation == 'base' {
+      $appendix: '';
+    }
+    .#{$util-prefix}border-#{$main-color}#{$appendix} {
+      border-color: hsla(var(--color-#{$main-color}#{$appendix}-h), var(--color-#{$main-color}#{$appendix}-s), var(--color-#{$main-color}#{$appendix}-l), var(--border-opacity, 1));
+    }
+  }
+}
+$grad-labels: map.get($gradients, "default");
+@if $grad-labels {
+  @property --border-gradient-angle {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
+
+  [class^=#{$util-prefix}border-gradient-], [class*=" #{$util-prefix}border-gradient-"] {
+    --border-gradient-angle: 0deg;
+    position: relative;
+    border-color: transparent;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      inset: calc(var(--border-width) * -1);
+      border: var(--border-width) solid transparent;
+      border-radius: inherit;
+      mask: linear-gradient(black, black) padding-box, linear-gradient(black, black);
+      mask-composite: exclude;
+      opacity: var(--border-opacity);
+      pointer-events: none;
+    }
+  }
+
+  @each $main-color, $variation-array in $grad-labels {
+    $list: ();
+    @each $variation, $hsl in $variation-array {
+      $list: list.append($list, #{$variation});
+    }
+    $gradient-stops: '';
+    @for $i from 1 through length($list) {
+      $gradient-stops: $gradient-stops + var(--gradient-#{$main-color}-#{list.nth($list, $i)});
+      @if($i < length($list)) {
+        $gradient-stops: $gradient-stops + ', '
+      }
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}::before {
+      background: radial-gradient(#{$gradient-stops}) border-box;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-top::before, .#{$util-prefix}border-gradient-#{$main-color}-top-right::before, .#{$util-prefix}border-gradient-#{$main-color}-right::before, .#{$util-prefix}border-gradient-#{$main-color}-bottom-right::before, .#{$util-prefix}border-gradient-#{$main-color}-bottom::before, .#{$util-prefix}border-gradient-#{$main-color}-bottom-left::before,  .#{$util-prefix}border-gradient-#{$main-color}-left::before, .#{$util-prefix}border-gradient-#{$main-color}-top-left::before {
+      background: linear-gradient(var(--border-gradient-angle), #{$gradient-stops}) border-box;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-top-right {
+      --border-gradient-angle: 45deg;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-right {
+      --border-gradient-angle: 90deg;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-bottom-right {
+      --border-gradient-angle: 135deg;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-bottom {
+      --border-gradient-angle: 180deg;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-bottom-left {
+      --border-gradient-angle: 225deg;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-left {
+      --border-gradient-angle: 270deg;
+    }
+    .#{$util-prefix}border-gradient-#{$main-color}-top-left {
+      --border-gradient-angle: 315deg;
+    }
+  }
+}
+
+.#{$util-prefix}border-opacity-0 {
+  --border-opacity: 0;
+}
+
+.#{$util-prefix}border-opacity-5\% {
+  --border-opacity: 0.05;
+}
+
+.#{$util-prefix}border-opacity-10\% {
+  --border-opacity: 0.1;
+}
+
+.#{$util-prefix}border-opacity-15\% {
+  --border-opacity: 0.15;
+}
+
+.#{$util-prefix}border-opacity-20\% {
+  --border-opacity: 0.2;
+}
+
+.#{$util-prefix}border-opacity-25\% {
+  --border-opacity: 0.25;
+}
+
+.#{$util-prefix}border-opacity-30\% {
+  --border-opacity: 0.3;
+}
+
+.#{$util-prefix}border-opacity-40\% {
+  --border-opacity: 0.4;
+}
+
+.#{$util-prefix}border-opacity-50\% {
+  --border-opacity: 0.5;
+}
+
+.#{$util-prefix}border-opacity-60\% {
+  --border-opacity: 0.6;
+}
+
+.#{$util-prefix}border-opacity-70\% {
+  --border-opacity: 0.7;
+}
+
+.#{$util-prefix}border-opacity-75\% {
+  --border-opacity: 0.75;
+}
+
+.#{$util-prefix}border-opacity-80\% {
+  --border-opacity: 0.8;
+}
+
+.#{$util-prefix}border-opacity-85\% {
+  --border-opacity: 0.85;
+}
+
+.#{$util-prefix}border-opacity-90\% {
+  --border-opacity: 0.9;
+}
+
+.#{$util-prefix}border-opacity-95\% {
+  --border-opacity: 0.95;
+}
+
+/* border-radius */
+@each $name, $value in $border-radius {
+  .#{$util-prefix}radius-#{$name} {
+    border-radius: var(--radius-#{$name});
+  }
+}
+
+.#{$util-prefix}radius-50\% {
+  border-radius: 50%;
+}
+
+.#{$util-prefix}radius-full {
+  border-radius: 50em;
+}
+
+.#{$util-prefix}radius-0 {
+  border-radius: 0;
+}
+
+.#{$util-prefix}radius-inherit {
+  border-radius: inherit;
+}
+
+.#{$util-prefix}radius-top-left-0 {
+  border-top-left-radius: 0;
+}
+
+.#{$util-prefix}radius-top-right-0 {
+  border-top-right-radius: 0;
+}
+
+.#{$util-prefix}radius-bottom-right-0 {
+  border-bottom-right-radius: 0;
+}
+
+.#{$util-prefix}radius-bottom-left-0 {
+  border-bottom-left-radius: 0;
+}
+
+/* background */
+.#{$util-prefix}bg, [class^="#{$util-prefix}bg-"], [class*=" #{$util-prefix}bg-"] {
+  --bg-opacity: 1;
+}
+
+.#{$util-prefix}bg-transparent {
+  background-color: transparent;
+}
+
+.#{$util-prefix}bg-inherit {
+  background-color: inherit;
+}
+
+$color-labels: map.get($colors, "default");
+@each $main-color, $variation-array in $color-labels {
+  $main-color-label: '-#{$main-color}';
+  @if $main-color == 'bg' {
+    $main-color-label: '';
+  }
+  @each $variation, $hsl in $variation-array {
+    $appendix: #{'-'+$variation};
+    @if $variation == 'base' {
+      $appendix: '';
+    }
+    .#{$util-prefix}bg#{$main-color-label}#{$appendix} {
+      background-color: hsla(var(--color-#{$main-color}#{$appendix}-h), var(--color-#{$main-color}#{$appendix}-s), var(--color-#{$main-color}#{$appendix}-l), var(--bg-opacity, 1));
+    }
+  }
+}
+
+$grad-labels: map.get($gradients, "default");
+@if $grad-labels {
+  @each $main-color, $variation-array in $grad-labels {
+    $list: ();
+    @each $variation, $hsl in $variation-array {
+      $list: list.append($list, #{$variation});
+    }
+    $gradient-stops: '';
+    @for $i from 1 through length($list) {
+      $gradient-stops: $gradient-stops + var(--gradient-#{$main-color}-#{list.nth($list, $i)});
+      @if($i < length($list)) {
+        $gradient-stops: $gradient-stops + ', '
+      }
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color} {
+      background-image: radial-gradient(#{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-top-left {
+      background-image: linear-gradient(315deg, #{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-top {
+      background-image: linear-gradient(0deg, #{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-top-right {
+      background-image: linear-gradient(45deg, #{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-right {
+      background-image: linear-gradient(90deg, #{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-bottom-right {
+      background-image: linear-gradient(135deg, #{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-bottom {
+      background-image: linear-gradient(180deg, #{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-bottom-left {
+      background-image: linear-gradient(225deg, #{$gradient-stops});
+    }
+    .#{$util-prefix}bg-gradient-#{$main-color}-left {
+      background-image: linear-gradient(270deg, #{$gradient-stops});
+    }
+  }
+}
+
+.#{$util-prefix}bg-opacity-0 {
+  --bg-opacity: 0;
+}
+
+.#{$util-prefix}bg-opacity-5\% {
+  --bg-opacity: 0.05;
+}
+
+.#{$util-prefix}bg-opacity-10\% {
+  --bg-opacity: 0.1;
+}
+
+.#{$util-prefix}bg-opacity-15\% {
+  --bg-opacity: 0.15;
+}
+
+.#{$util-prefix}bg-opacity-20\% {
+  --bg-opacity: 0.2;
+}
+
+.#{$util-prefix}bg-opacity-25\% {
+  --bg-opacity: 0.25;
+}
+
+.#{$util-prefix}bg-opacity-30\% {
+  --bg-opacity: 0.3;
+}
+
+.#{$util-prefix}bg-opacity-40\% {
+  --bg-opacity: 0.4;
+}
+
+.#{$util-prefix}bg-opacity-50\% {
+  --bg-opacity: 0.5;
+}
+
+.#{$util-prefix}bg-opacity-60\% {
+  --bg-opacity: 0.6;
+}
+
+.#{$util-prefix}bg-opacity-70\% {
+  --bg-opacity: 0.7;
+}
+
+.#{$util-prefix}bg-opacity-75\% {
+  --bg-opacity: 0.75;
+}
+
+.#{$util-prefix}bg-opacity-80\% {
+  --bg-opacity: 0.8;
+}
+
+.#{$util-prefix}bg-opacity-85\% {
+  --bg-opacity: 0.85;
+}
+
+.#{$util-prefix}bg-opacity-90\% {
+  --bg-opacity: 0.9;
+}
+
+.#{$util-prefix}bg-opacity-95\% {
+  --bg-opacity: 0.95;
+}
+
+.#{$util-prefix}bg-center {
+  background-position: center;
+}
+
+.#{$util-prefix}bg-top {
+  background-position: center top;
+}
+
+.#{$util-prefix}bg-right {
+  background-position: right center;
+}
+
+.#{$util-prefix}bg-bottom {
+  background-position: center bottom;
+}
+
+.#{$util-prefix}bg-left {
+  background-position: left center;
+}
+
+.#{$util-prefix}bg-top-left {
+  background-position: left top;
+}
+
+.#{$util-prefix}bg-top-right {
+  background-position: right top;
+}
+
+.#{$util-prefix}bg-bottom-left {
+  background-position: left bottom;
+}
+
+.#{$util-prefix}bg-bottom-right {
+  background-position: right bottom;
+}
+
+.#{$util-prefix}bg-cover {
+  background-size: cover;
+}
+
+.#{$util-prefix}bg-no-repeat {
+  background-repeat: no-repeat;
+}
+
+/* backdrop-filter */
+.#{$util-prefix}backdrop-blur-10 {
+  backdrop-filter: blur(10px);
+}
+
+.#{$util-prefix}backdrop-blur-20 {
+  backdrop-filter: blur(20px);
+}
+
+/* mix-blend-mode */
+.#{$util-prefix}isolate {
+  isolation: isolate;
+}
+
+.#{$util-prefix}blend-multiply {
+  mix-blend-mode: multiply;
+}
+
+.#{$util-prefix}blend-overlay {
+  mix-blend-mode: overlay;
+}
+
+.#{$util-prefix}blend-difference {
+  mix-blend-mode: difference;
+}
+
+/* object-fit */
+.#{$util-prefix}object-contain {
+  object-fit: contain;
+}
+
+.#{$util-prefix}object-cover {
+  object-fit: cover;
+}
+
+/* perspective */
+.#{$util-prefix}perspective-xs {
+  perspective: 250px;
+}
+
+.#{$util-prefix}perspective-sm {
+  perspective: 500px;
+}
+
+.#{$util-prefix}perspective-md {
+  perspective: 1000px;
+}
+
+.#{$util-prefix}perspective-lg {
+  perspective: 1500px;
+}
+
+.#{$util-prefix}perspective-xl {
+  perspective: 3000px;
+}
+
+/* transform */
+[class^="#{$util-prefix}flip"], [class*=" #{$util-prefix}flip"],
+[class^="#{$util-prefix}-rotate"], [class*=" #{$util-prefix}-rotate"],
+[class^="#{$util-prefix}rotate"], [class*=" #{$util-prefix}rotate"],
+[class^="#{$util-prefix}-translate"], [class*=" #{$util-prefix}-translate"],
+[class^="#{$util-prefix}translate"], [class*=" #{$util-prefix}translate"],
+[class^="#{$util-prefix}-scale"], [class*=" #{$util-prefix}-scale"],
+[class^="#{$util-prefix}scale"], [class*=" #{$util-prefix}scale"],
+[class^="#{$util-prefix}-skew"], [class*=" #{$util-prefix}-skew"] [class^="#{$util-prefix}skew"],
+[class*=" #{$util-prefix}skew"] {
+  --translate: 0;
+  --rotate: 0;
+  --skew: 0;
+  --scale: 1;
+  transform: translate3d(var(--translate-x, var(--translate)), var(--translate-y, var(--translate)), var(--translate-z, 0)) rotateX(var(--rotate-x, 0)) rotateY(var(--rotate-y, 0)) rotateZ(var(--rotate-z, var(--rotate))) skewX(var(--skew-x, var(--skew))) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, var(--scale))) scaleY(var(--scale-y, var(--scale)));
+}
+
+.#{$util-prefix}flip {
+  --scale: -1;
+}
+
+.#{$util-prefix}flip-x {
+  --scale-x: -1;
+}
+
+.#{$util-prefix}flip-y {
+  --scale-y: -1;
+}
+
+.#{$util-prefix}rotate-90 {
+  --rotate: 90deg;
+}
+
+.#{$util-prefix}rotate-180 {
+  --rotate: 180deg;
+}
+
+.#{$util-prefix}rotate-270 {
+  --rotate: 270deg;
+}
+
+.#{$util-prefix}-translate-50\% {
+  --translate: -50%;
+}
+
+.#{$util-prefix}-translate-x-50\% {
+  --translate-x: -50%;
+}
+
+.#{$util-prefix}-translate-y-50\% {
+  --translate-y: -50%;
+}
+
+.#{$util-prefix}-translate-y-slight {
+  --translate-y: -0.1em;
+}
+
+.#{$util-prefix}translate-50\% {
+  --translate: 50%;
+}
+
+.#{$util-prefix}translate-x-50\% {
+  --translate-x: 50%;
+}
+
+.#{$util-prefix}translate-y-50\% {
+  --translate-y: 50%;
+}
+
+/* transform-origin */
+.#{$util-prefix}origin-center {
+  transform-origin: center;
+}
+
+.#{$util-prefix}origin-top {
+  transform-origin: center top;
+}
+
+.#{$util-prefix}origin-right {
+  transform-origin: right center;
+}
+
+.#{$util-prefix}origin-bottom {
+  transform-origin: center bottom;
+}
+
+.#{$util-prefix}origin-left {
+  transform-origin: left center;
+}
+
+.#{$util-prefix}origin-top-left {
+  transform-origin: left top;
+}
+
+.#{$util-prefix}origin-top-right {
+  transform-origin: right top;
+}
+
+.#{$util-prefix}origin-bottom-left {
+  transform-origin: left bottom;
+}
+
+.#{$util-prefix}origin-bottom-right {
+  transform-origin: right bottom;
+}
+
+/* transition */
+.#{$util-prefix}transition {
+  transition-property: var(--transition-property, all);
+  transition-duration: var(--transition-duration, 0.2s);
+  transition-delay: var(--transition-delay, 0s);
+}
+
+/* SVG */
+.#{$util-prefix}fill-current {
+  fill: currentColor;
+}
+
+.#{$util-prefix}stroke-current {
+  stroke: currentColor;
+}
+
+.#{$util-prefix}stroke-1 {
+  stroke-width: 1px;
+}
+
+.#{$util-prefix}stroke-2 {
+  stroke-width: 2px;
+}
+
+.#{$util-prefix}stroke-3 {
+  stroke-width: 3px;
+}
+
+.#{$util-prefix}stroke-4 {
+  stroke-width: 4px;
+}
+
+/* visibility */
+.#{$util-prefix}visible {
+  visibility: visible;
+}
+
+.#{$util-prefix}invisible {
+  visibility: hidden;
+}
+
+/* print */
+@media print {
+  .#{$util-prefix}print\:hide, .#{$util-prefix}print\:is-hidden {
+    display: none !important;
+  }
+
+  .#{$util-prefix}print\:shadow-none {
+    box-shadow: none;
+  }
+}
+
+/* appearance */
+.#{$util-prefix}appearance-none {
+  appearance: none;
+}
+
+.#{$util-prefix}appearance-auto {
+  appearance: auto;
+}
+
+@each $breakpoint-name, $breakpoint-value in $breakpoints {
+  @media (min-width: #{$breakpoint-value}) {
+    :root {
+      // updated variables (e.g., spacing)
+      $spacing-is-responsive: map.get($spacing, "@#{$breakpoint-name}");
+      @if($spacing-is-responsive) {
+        /* spacing */
+        @each $name, $value in $spacing-is-responsive {
+          --space-#{$name}: #{$value};
+        }
+      }
+
+      $font-size-is-responsive: map.get($font-size, "@#{$breakpoint-name}");
+      @if($font-size-is-responsive) {
+        /* font-size */
+        @each $name, $value in $font-size-is-responsive {
+          --text-#{$name}: #{$value};
+        }
+      }
+    }
+
+    /* grid */
+    $grid-col-class-list: '';
+    @for $i from 1 through $grid-columns {
+      $grid-col-class-list: $grid-col-class-list + ".#{$util-prefix}col-#{$i}\\@#{$breakpoint-name}";
+      @if($i < $grid-columns) {
+        $grid-col-class-list: $grid-col-class-list + ', ';
+      }
+      .#{$util-prefix}grid-col-#{$i}\@#{$breakpoint-name} { 
+        --grid-columns: #{$i};
+      }
+      .#{$util-prefix}col-#{$i}\@#{$breakpoint-name} { 
+        --column-span: #{$i};
+      } 
+    }
+
+    #{$grid-col-class-list} {
+      width: calc(((100% - (var(--grid-columns) - 1) * var(--column-gap)) * var(--column-span) / var(--grid-columns)) + (var(--column-span) - 1) * var(--column-gap));
+      flex: initial;
+    }
+
+    .#{$util-prefix}col\@#{$breakpoint-name} {
+      width: auto;
+      flex: 1 1 0;
+    }
+
+    .#{$util-prefix}col-content\@#{$breakpoint-name} {
+      width: auto;
+      flex: 0 1 auto;
+    }
+
+    $grid-offset-class-list: '';
+    @for $i from 1 through $grid-columns - 1 {
+      $grid-offset-class-list: $grid-offset-class-list + ".#{$util-prefix}offset-#{$i}\\@#{$breakpoint-name}";
+      @if($i < $grid-columns) {
+        $grid-offset-class-list: $grid-offset-class-list + ', ';
+      }
+      .#{$util-prefix}offset-#{$i}\@#{$breakpoint-name} {
+        --column-offset: #{$i};
+      }
+    }
+
+    #{$grid-offset-class-list} {
+      margin-left: calc(((100% - (var(--grid-columns) - 1) * var(--column-gap)) * var(--column-offset) / var(--grid-columns)) + var(--column-offset) * var(--column-gap));
+    }
+
+    .#{$util-prefix}offset-0\@#{$breakpoint-name} {
+      margin-left: 0;
+    }
+
+    /* gap */
+    $responsive-spacing: map.get($spacing, "@all");
+    $fluid-responsive-spacing: map.get($spacing, "fluid");
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {
+        .#{$util-prefix}gap-#{$name}\@#{$breakpoint-name} {
+          --row-gap: var(--space-#{$name});
+          --column-gap: var(--space-#{$name});
+          gap: var(--row-gap) var(--column-gap);
+        }
+      
+        .#{$util-prefix}gap-x-#{$name}\@#{$breakpoint-name} {
+          --column-gap: var(--space-#{$name});
+          column-gap: var(--column-gap);
+        }
+      
+        .#{$util-prefix}gap-y-#{$name}\@#{$breakpoint-name} {
+          --row-gap: var(--space-#{$name});
+          row-gap: var(--row-gap);
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}gap-#{$name}\@#{$breakpoint-name} {
+          --row-gap: var(--space-#{$name});
+          --column-gap: var(--space-#{$name});
+          gap: var(--row-gap) var(--column-gap);
+        }
+      
+        .#{$util-prefix}gap-x-#{$name}\@#{$breakpoint-name} {
+          --column-gap: var(--space-#{$name});
+          column-gap: var(--column-gap);
+        }
+      
+        .#{$util-prefix}gap-y-#{$name}\@#{$breakpoint-name} {
+          --row-gap: var(--space-#{$name});
+          row-gap: var(--row-gap);
+        }
+      }
+    } @else {
+      @each $name, $value in $spacing {
+        .#{$util-prefix}gap-#{$name}\@#{$breakpoint-name} {
+          --row-gap: var(--space-#{$name});
+          --column-gap: var(--space-#{$name});
+          gap: var(--row-gap) var(--column-gap);
+        }
+      
+        .#{$util-prefix}gap-x-#{$name}\@#{$breakpoint-name} {
+          --column-gap: var(--space-#{$name});
+          column-gap: var(--column-gap);
+        }
+      
+        .#{$util-prefix}gap-y-#{$name}\@#{$breakpoint-name} {
+          --row-gap: var(--space-#{$name});
+          row-gap: var(--row-gap);
+        }
+      }
+    }
+
+    .#{$util-prefix}gap-0\@#{$breakpoint-name} {
+      --row-gap: 0px;
+      --column-gap: 0px;
+      gap: 0px;
+    }
+    
+    .#{$util-prefix}gap-x-0\@#{$breakpoint-name} {
+      --column-gap: 0px;
+      column-gap: 0px;
+    }
+    
+    .#{$util-prefix}gap-y-0\@#{$breakpoint-name} {
+      --row-gap: 0px;
+      row-gap: 0px;
+    }
+
+    /* flexbox */
+    .#{$util-prefix}flex\@#{$breakpoint-name} {
+      display: flex;
+    }
+
+    .#{$util-prefix}inline-flex\@#{$breakpoint-name} {
+      display: inline-flex;
+    }
+
+    .#{$util-prefix}flex-wrap\@#{$breakpoint-name} {
+      flex-wrap: wrap;
+    }
+
+    .#{$util-prefix}flex-nowrap\@#{$breakpoint-name} {
+      flex-wrap: nowrap;
+    }
+
+    .#{$util-prefix}flex-column\@#{$breakpoint-name} {
+      flex-direction: column;
+    }
+
+    .#{$util-prefix}flex-column-reverse\@#{$breakpoint-name} {
+      flex-direction: column-reverse;
+    }
+
+    .#{$util-prefix}flex-row\@#{$breakpoint-name} {
+      flex-direction: row;
+    }
+
+    .#{$util-prefix}flex-row-reverse\@#{$breakpoint-name} {
+      flex-direction: row-reverse;
+    }
+
+    .#{$util-prefix}flex-center\@#{$breakpoint-name} {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .#{$util-prefix}flex-grow\@#{$breakpoint-name} {
+      flex-grow: 1;
+    }
+
+    .#{$util-prefix}flex-grow-0\@#{$breakpoint-name} {
+      flex-grow: 0;
+    }
+
+    .#{$util-prefix}flex-shrink\@#{$breakpoint-name} {
+      flex-shrink: 1;
+    }
+
+    .#{$util-prefix}flex-shrink-0\@#{$breakpoint-name} {
+      flex-shrink: 0;
+    }
+
+    .#{$util-prefix}flex-basis-0\@#{$breakpoint-name} {
+      flex-basis: 0;
+    }
+
+    /* justify-content */
+    .#{$util-prefix}justify-start\@#{$breakpoint-name} {
+      justify-content: start;
+    }
+
+    .#{$util-prefix}justify-end\@#{$breakpoint-name} {
+      justify-content: end;
+    }
+
+    .#{$util-prefix}justify-center\@#{$breakpoint-name} {
+      justify-content: center;
+    }
+
+    .#{$util-prefix}justify-between\@#{$breakpoint-name} {
+      justify-content: space-between;
+    }
+
+    /* align-items */
+    .#{$util-prefix}items-center\@#{$breakpoint-name} {
+      align-items: center;
+    }
+
+    .#{$util-prefix}items-start\@#{$breakpoint-name} {
+      align-items: start;
+    }
+
+    .#{$util-prefix}items-end\@#{$breakpoint-name} {
+      align-items: end;
+    }
+
+    .#{$util-prefix}items-baseline\@#{$breakpoint-name} {
+      align-items: baseline;
+    }
+
+    .#{$util-prefix}items-stretch\@#{$breakpoint-name} {
+      align-items: stretch;
+    }
+
+    /* align-content */
+    .#{$util-prefix}content-start\@#{$breakpoint-name} {
+      align-content: start;
+    }
+
+    .#{$util-prefix}content-end\@#{$breakpoint-name} {
+      align-content: end;
+    }
+
+    .#{$util-prefix}content-center\@#{$breakpoint-name} {
+      align-content: center;
+    }
+
+    .#{$util-prefix}content-between\@#{$breakpoint-name} {
+      align-content: space-between;
+    }
+
+    /* order */
+    .#{$util-prefix}order-1\@#{$breakpoint-name} {
+      order: 1;
+    }
+
+    .#{$util-prefix}order-2\@#{$breakpoint-name} {
+      order: 2;
+    }
+
+    .#{$util-prefix}order-3\@#{$breakpoint-name} {
+      order: 3;
+    }
+
+    /* display */
+    .#{$util-prefix}block\@#{$breakpoint-name} {
+      display: block;
+    }
+
+    .#{$util-prefix}inline-block\@#{$breakpoint-name} {
+      display: inline-block;
+    }
+
+    .#{$util-prefix}inline\@#{$breakpoint-name} {
+      display: inline;
+    }
+
+    .#{$util-prefix}contents\@#{$breakpoint-name} {
+      display: contents;
+    }
+
+    .#{$util-prefix}css-grid\@#{$breakpoint-name} {
+      display: grid;
+    }
+
+    .#{$util-prefix}css-inline-grid\@#{$breakpoint-name} {
+      display: inline-grid;
+    }
+
+    .#{$util-prefix}hide\@#{$breakpoint-name} {
+      display: none;
+    }
+
+    /* margin */
+    $responsive-spacing: map.get($spacing, "@all");
+    $fluid-responsive-spacing: map.get($spacing, "fluid");
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {
+        .#{$util-prefix}margin-#{$name}\@#{$breakpoint-name} {
+          margin: var(--space-#{$name});
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}margin-#{$name}\@#{$breakpoint-name} {
+          margin: var(--space-#{$name});
+        }
+      }
+    } @else {
+      @each $name, $value in $spacing {
+        .#{$util-prefix}margin-#{$name}\@#{$breakpoint-name} {
+          margin: var(--space-#{$name});
+        }
+      }
+    }
+
+    .#{$util-prefix}margin-auto\@#{$breakpoint-name} {
+      margin: auto;
+    }
+
+    .#{$util-prefix}margin-0\@#{$breakpoint-name} {
+      margin: 0;
+    }
+
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {
+        .#{$util-prefix}margin-y-#{$name}\@#{$breakpoint-name} {
+          margin-top: var(--space-#{$name});
+          margin-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-x-#{$name}\@#{$breakpoint-name} {
+          margin-right: var(--space-#{$name});
+          margin-left: var(--space-#{$name});
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}margin-y-#{$name}\@#{$breakpoint-name} {
+          margin-top: var(--space-#{$name});
+          margin-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-x-#{$name}\@#{$breakpoint-name} {
+          margin-right: var(--space-#{$name});
+          margin-left: var(--space-#{$name});
+        }
+      }
+    } @else {
+      @each $name, $value in $spacing {
+        .#{$util-prefix}margin-y-#{$name}\@#{$breakpoint-name} {
+          margin-top: var(--space-#{$name});
+          margin-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-x-#{$name}\@#{$breakpoint-name} {
+          margin-right: var(--space-#{$name});
+          margin-left: var(--space-#{$name});
+        }
+      }
+    }
+
+    .#{$util-prefix}margin-y-auto\@#{$breakpoint-name} {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .#{$util-prefix}margin-y-0\@#{$breakpoint-name} {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .#{$util-prefix}margin-x-auto\@#{$breakpoint-name} {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .#{$util-prefix}margin-x-0\@#{$breakpoint-name} {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {
+        .#{$util-prefix}margin-top-#{$name}\@#{$breakpoint-name} {
+          margin-top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-right-#{$name}\@#{$breakpoint-name} {
+          margin-right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-bottom-#{$name}\@#{$breakpoint-name} {
+          margin-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-left-#{$name}\@#{$breakpoint-name} {
+          margin-left: var(--space-#{$name});
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}margin-top-#{$name}\@#{$breakpoint-name} {
+          margin-top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-right-#{$name}\@#{$breakpoint-name} {
+          margin-right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-bottom-#{$name}\@#{$breakpoint-name} {
+          margin-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-left-#{$name}\@#{$breakpoint-name} {
+          margin-left: var(--space-#{$name});
+        }
+      }
+    } @else {
+      @each $name, $value in $spacing {
+        .#{$util-prefix}margin-top-#{$name}\@#{$breakpoint-name} {
+          margin-top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-right-#{$name}\@#{$breakpoint-name} {
+          margin-right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-bottom-#{$name}\@#{$breakpoint-name} {
+          margin-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}margin-left-#{$name}\@#{$breakpoint-name} {
+          margin-left: var(--space-#{$name});
+        }
+      }
+    }
+
+    .#{$util-prefix}margin-top-auto\@#{$breakpoint-name} {
+      margin-top: auto;
+    }
+
+    .#{$util-prefix}margin-top-0\@#{$breakpoint-name} {
+      margin-top: 0;
+    }
+
+    .#{$util-prefix}margin-right-auto\@#{$breakpoint-name} {
+      margin-right: auto;
+    }
+
+    .#{$util-prefix}margin-right-0\@#{$breakpoint-name} {
+      margin-right: 0;
+    }
+
+    .#{$util-prefix}margin-bottom-auto\@#{$breakpoint-name} {
+      margin-bottom: auto;
+    }
+
+    .#{$util-prefix}margin-bottom-0\@#{$breakpoint-name} {
+      margin-bottom: 0;
+    }
+
+    .#{$util-prefix}margin-left-auto\@#{$breakpoint-name} {
+      margin-left: auto;
+    }
+
+    .#{$util-prefix}margin-left-0\@#{$breakpoint-name} {
+      margin-left: 0;
+    }
+
+    /* padding */
+    $responsive-spacing: map.get($spacing, "@all");
+    $fluid-responsive-spacing: map.get($spacing, "fluid");
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {
+        .#{$util-prefix}padding-#{$name}\@#{$breakpoint-name} {
+          padding: var(--space-#{$name});
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}padding-#{$name}\@#{$breakpoint-name} {
+          padding: var(--space-#{$name});
+        }
+      }
+    } @else {
+      @each $name, $value in $spacing {
+        .#{$util-prefix}padding-#{$name}\@#{$breakpoint-name} {
+          padding: var(--space-#{$name});
+        }
+      }
+    }
+
+    .#{$util-prefix}padding-0\@#{$breakpoint-name} {
+      padding: 0;
+    }
+
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {
+        .#{$util-prefix}padding-y-#{$name}\@#{$breakpoint-name} {
+          padding-top: var(--space-#{$name});
+          padding-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-x-#{$name}\@#{$breakpoint-name} {
+          padding-right: var(--space-#{$name});
+          padding-left: var(--space-#{$name});
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}padding-y-#{$name}\@#{$breakpoint-name} {
+          padding-top: var(--space-#{$name});
+          padding-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-x-#{$name}\@#{$breakpoint-name} {
+          padding-right: var(--space-#{$name});
+          padding-left: var(--space-#{$name});
+        }
+      }
+    } @else {
+      @each $name, $value in $spacing {
+        .#{$util-prefix}padding-y-#{$name}\@#{$breakpoint-name} {
+          padding-top: var(--space-#{$name});
+          padding-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-x-#{$name}\@#{$breakpoint-name} {
+          padding-right: var(--space-#{$name});
+          padding-left: var(--space-#{$name});
+        }
+      }
+    }
+
+    .#{$util-prefix}padding-y-0\@#{$breakpoint-name} {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .#{$util-prefix}padding-x-0\@#{$breakpoint-name} {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {
+        .#{$util-prefix}padding-top-#{$name}\@#{$breakpoint-name} {
+          padding-top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-right-#{$name}\@#{$breakpoint-name} {
+          padding-right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-bottom-#{$name}\@#{$breakpoint-name} {
+          padding-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-left-#{$name}\@#{$breakpoint-name} {
+          padding-left: var(--space-#{$name});
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}padding-top-#{$name}\@#{$breakpoint-name} {
+          padding-top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-right-#{$name}\@#{$breakpoint-name} {
+          padding-right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-bottom-#{$name}\@#{$breakpoint-name} {
+          padding-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-left-#{$name}\@#{$breakpoint-name} {
+          padding-left: var(--space-#{$name});
+        }
+      }
+    } @else {
+      @each $name, $value in $spacing {
+        .#{$util-prefix}padding-top-#{$name}\@#{$breakpoint-name} {
+          padding-top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-right-#{$name}\@#{$breakpoint-name} {
+          padding-right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-bottom-#{$name}\@#{$breakpoint-name} {
+          padding-bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}padding-left-#{$name}\@#{$breakpoint-name} {
+          padding-left: var(--space-#{$name});
+        }
+      }
+    }
+
+    .#{$util-prefix}padding-top-0\@#{$breakpoint-name} {
+      padding-top: 0;
+    }
+
+    .#{$util-prefix}padding-right-0\@#{$breakpoint-name} {
+      padding-right: 0;
+    }
+
+    .#{$util-prefix}padding-bottom-0\@#{$breakpoint-name} {
+      padding-bottom: 0;
+    }
+
+    .#{$util-prefix}padding-left-0\@#{$breakpoint-name} {
+      padding-left: 0;
+    }
+
+    /* text-align */
+    .#{$util-prefix}text-center\@#{$breakpoint-name} {
+      text-align: center;
+    }
+
+    .#{$util-prefix}text-left\@#{$breakpoint-name} {
+      text-align: left;
+    }
+
+    .#{$util-prefix}text-right\@#{$breakpoint-name} {
+      text-align: right;
+    }
+
+    .#{$util-prefix}text-justify\@#{$breakpoint-name} {
+      text-align: justify;
+    }
+
+    /* font-size */
+    $responsive-font-size: map.get($font-size, "@all");
+    $fluid-font-size: map.get($font-size, "fluid");
+    @if $responsive-font-size {
+      @each $name, $value in $responsive-font-size {
+        .#{$util-prefix}text-#{$name}\@#{$breakpoint-name} {
+          font-size: var(--text-#{$name});
+        }
+      }
+    } @else if($fluid-font-size) {
+      $first: list.nth(list.nth($fluid-font-size, 1), 1);
+      $fluid-font-list: map.get($fluid-font-size, $first);
+      @each $name, $value in $fluid-font-list { 
+        .#{$util-prefix}text-#{$name}\@#{$breakpoint-name} {
+          font-size: var(--text-#{$name});
+        }
+      }
+    } @else {
+      @each $name, $value in $font-size {
+        .#{$util-prefix}text-#{$name}\@#{$breakpoint-name} {
+          font-size: var(--text-#{$name});
+        }
+      }
+    }
+
+    /* column-count */
+    .#{$util-prefix}column-count-1\@#{$breakpoint-name} {
+      column-count: 1;
+    }
+
+    .#{$util-prefix}column-count-2\@#{$breakpoint-name} {
+      column-count: 2;
+    }
+
+    .#{$util-prefix}column-count-3\@#{$breakpoint-name} {
+      column-count: 3;
+    }
+
+    .#{$util-prefix}column-count-4\@#{$breakpoint-name} {
+      column-count: 4;
+    }
+
+    /* width */
+    @each $name, $value in $width {
+      .#{$util-prefix}width-#{$name}\@#{$breakpoint-name} {
+        width: #{$value};
+      }
+    }
+
+    .#{$util-prefix}width-100\%\@#{$breakpoint-name} {
+      width: 100%;
+    }
+
+    .#{$util-prefix}width-100vw\@#{$breakpoint-name} {
+      width: 100vw;
+    }
+
+    .#{$util-prefix}width-auto\@#{$breakpoint-name} {
+      width: auto;
+    }
+
+    .#{$util-prefix}width-inherit\@#{$breakpoint-name} {
+      width: inherit;
+    }
+
+    .#{$util-prefix}width-0\@#{$breakpoint-name} {
+      width: 0;
+    }
+
+    /* height */
+    @each $name, $value in $height {
+      .#{$util-prefix}height-#{$name}\@#{$breakpoint-name} {
+        height: #{$value};
+      }
+    }
+
+    .#{$util-prefix}height-100\%\@#{$breakpoint-name} {
+      height: 100%;
+    }
+
+    .#{$util-prefix}height-100vh\@#{$breakpoint-name} {
+      height: 100vh;
+    }
+
+    .#{$util-prefix}height-auto\@#{$breakpoint-name} {
+      height: auto;
+    }
+
+    .#{$util-prefix}height-inherit\@#{$breakpoint-name} {
+      height: inherit;
+    }
+
+    .#{$util-prefix}height-0\@#{$breakpoint-name} {
+      height: 0;
+    }
+
+    /* max-width */
+    @each $name, $value in $max-width {
+      .#{$util-prefix}max-width-#{$name}\@#{$breakpoint-name} {
+        max-width: var(--max-width-#{$name});
+      }
+    }
+
+    .#{$util-prefix}max-width-100\%\@#{$breakpoint-name} {
+      max-width: 100%;
+    }
+
+    .#{$util-prefix}max-width-none\@#{$breakpoint-name} {
+      max-width: none;
+    }
+
+    /* position */
+    .#{$util-prefix}position-relative\@#{$breakpoint-name} {
+      position: relative;
+    }
+
+    .#{$util-prefix}position-absolute\@#{$breakpoint-name} {
+      position: absolute;
+    }
+
+    .#{$util-prefix}position-fixed\@#{$breakpoint-name} {
+      position: fixed;
+    }
+
+    .#{$util-prefix}position-sticky\@#{$breakpoint-name} {
+      position: sticky;
+    }
+
+    .#{$util-prefix}position-static\@#{$breakpoint-name} {
+      position: static;
+    }
+
+    .#{$util-prefix}inset-0\@#{$breakpoint-name} {
+      inset: 0;
+    }
+
+    $responsive-spacing: map.get($spacing, "@all");
+    $fluid-responsive-spacing: map.get($spacing, "fluid");
+    @if $responsive-spacing {
+      @each $name, $value in $responsive-spacing {  
+        .#{$util-prefix}top-#{$name}\@#{$breakpoint-name} {
+          top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}right-#{$name}\@#{$breakpoint-name} {
+          right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}bottom-#{$name}\@#{$breakpoint-name} {
+          bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}left-#{$name}\@#{$breakpoint-name} {
+          left: var(--space-#{$name});
+        }
+      }
+    } @else if($fluid-responsive-spacing) {
+      $fluid-responsive-spacing-list: map.get($fluid-responsive-spacing, list.nth(list.nth($fluid-responsive-spacing, 1), 1));
+      @each $name, $value in $fluid-responsive-spacing-list {
+        .#{$util-prefix}top-#{$name}\@#{$breakpoint-name} {
+          top: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}right-#{$name}\@#{$breakpoint-name} {
+          right: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}bottom-#{$name}\@#{$breakpoint-name} {
+          bottom: var(--space-#{$name});
+        }
+      
+        .#{$util-prefix}left-#{$name}\@#{$breakpoint-name} {
+          left: var(--space-#{$name});
+        }
+      }
+    } @else {
+      @each $space, $value in $spacing {
+        .#{$util-prefix}top-#{$space}\@#{$breakpoint-name} {
+          top: var(--space-#{$space});
+        }
+      
+        .#{$util-prefix}right-#{$space}\@#{$breakpoint-name} {
+          right: var(--space-#{$space});
+        }
+      
+        .#{$util-prefix}bottom-#{$space}\@#{$breakpoint-name} {
+          bottom: var(--space-#{$space});
+        }
+      
+        .#{$util-prefix}left-#{$space}\@#{$breakpoint-name} {
+          left: var(--space-#{$space});
+        }
+      }
+    }
+
+    .#{$util-prefix}top-50\%\@#{$breakpoint-name} {
+      top: 50%;
+    }
+
+    .#{$util-prefix}top-auto\@#{$breakpoint-name} {
+      top: auto;
+    }
+
+    .#{$util-prefix}top-0\@#{$breakpoint-name} {
+      top: 0;
+    }
+
+    .#{$util-prefix}right-50\%\@#{$breakpoint-name} {
+      right: 50%;
+    }
+
+    .#{$util-prefix}right-auto\@#{$breakpoint-name} {
+      right: auto;
+    }
+
+    .#{$util-prefix}right-0\@#{$breakpoint-name} {
+      right: 0;
+    }
+
+    .#{$util-prefix}bottom-50\%\@#{$breakpoint-name} {
+      bottom: 50%;
+    }
+
+    .#{$util-prefix}bottom-auto\@#{$breakpoint-name} {
+      bottom: auto;
+    }
+
+    .#{$util-prefix}bottom-0\@#{$breakpoint-name} {
+      bottom: 0;
+    }
+
+    .#{$util-prefix}left-50\%\@#{$breakpoint-name} {
+      left: 50%;
+    }
+
+    .#{$util-prefix}left-auto\@#{$breakpoint-name} {
+      left: auto;
+    }
+
+    .#{$util-prefix}left-0\@#{$breakpoint-name} {
+      left: 0;
+    }
+
+    /* overflow */
+    .#{$util-prefix}overflow-visible\@#{$breakpoint-name} {
+      overflow: visible;
+    }
+
+    .#{$util-prefix}overflow-hidden\@#{$breakpoint-name} {
+      overflow: hidden;
+    }
+
+    .#{$util-prefix}overflow-auto\@#{$breakpoint-name} {
+      overflow: auto;
+    }
+
+    .#{$util-prefix}momentum-scrolling\@#{$breakpoint-name} {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* visibility */
+    .#{$util-prefix}visible\@#{$breakpoint-name} {
+      visibility: visible;
+    }
+
+    .#{$util-prefix}invisible\@#{$breakpoint-name} {
+      visibility: hidden;
+    }
+  }
+
+  @media not all and (min-width: #{$breakpoint-value}) {
+    .display\@#{$breakpoint-name} {
+      display: none !important;
+    }
+  }
+}

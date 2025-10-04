@@ -1,0 +1,37 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_social-sharing
+Title: Social Sharing
+Descr: Social sharing plugin
+Usage: https://codyhouse.co/ds/components/app/social-sharing
+
+-------------------------------- */
+.sharebar{
+    &__btn {
+        --size: 60px;
+        width: var(--size);
+        height: var(--size);
+        display: flex;
+        background: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        border-radius: 50%;
+        transition:0.2s;
+        .icon {
+            --size: 24px;
+            display: block;
+            margin: auto;
+            color: var(--color-contrast-high);
+            transition:color 0.2s;
+        }
+        &:hover {
+            background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+            box-shadow:var(--shadow-sm);
+            .icon {
+                color: var(--color-contrast-higher);
+            }
+        }
+    }
+}
+

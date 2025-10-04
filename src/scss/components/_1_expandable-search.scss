@@ -1,0 +1,99 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_expandable-search
+Title: Expandable Search
+Descr: A search button that expands to reveal a search input element.
+Usage: https://codyhouse.co/ds/components/info/expandable-search
+
+-------------------------------- */
+:root {
+    --expandable-search-size-compact: 2.2em;
+    --expandable-search-size-expanded: 10em;
+    --expandable-search-radius: 50em;
+    --expandable-search-icon-size: 1.2em;
+    --expandable-search-btn-padding:2px; /* gap between button and input element */
+}
+
+.expandable-search {
+    $this: &;
+    position: relative;
+    display: inline-block;
+    -webkit-user-select: none;
+    user-select:none;
+    &__input {
+        width: var(--expandable-search-size-compact);
+        height: var(--expandable-search-size-compact);
+        color: transparent;
+        overflow: hidden;
+        border-radius: var(--expandable-search-radius);
+        transition:width .3s var(--ease-out), box-shadow .3s, background-color .3s;
+        &::placeholder {
+            opacity: 0;
+            color:transparent;
+        }
+        &:hover {
+            background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+            cursor:pointer;
+        }
+        &:not(:focus):not(&--has-content) {
+            padding:0px;
+        }
+        &:focus, 
+        &--has-content {
+            background-color: var(--color-bg);
+            width: var(--expandable-search-size-expanded);
+            padding-top: 0;
+            padding-right: calc(var(--expandable-search-btn-padding, 2px) + var(--expandable-search-size-compact));
+            padding-left: var(--space-sm);
+            padding-bottom: 0;
+            outline: none;
+            box-shadow: var(--shadow-md), 0 0 0 2px var(--color-primary);
+            color: var(--color-contrast-higher);
+            cursor: auto;
+            -webkit-user-select: auto;
+            user-select:auto;
+        }
+        &:focus::placeholder,
+        &--has-content::placeholder {
+            opacity: 1;
+            color:var(--color-contrast-low);
+        }
+        &:focus + #{$this}__btn {
+            pointer-events:auto;
+        }
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+            display:none;
+        }
+    }
+    &__btn {
+        position: absolute;
+        display: flex;
+        top: var(--expandable-search-btn-padding, 2px);
+        right: var(--expandable-search-btn-padding, 2px);
+        width: calc(var(--expandable-search-size-compact) - var(--expandable-search-btn-padding, 2px) * 2);
+        height: calc(var(--expandable-search-size-compact) - var(--expandable-search-btn-padding, 2px) * 2);
+        border-radius: var(--expandable-search-radius);
+        z-index: 1;
+        pointer-events: none;
+        transition:background-color .3s;
+        .icon {
+            display: block;
+            margin: auto;
+            height: var(--expandable-search-icon-size);
+            width:var(--expandable-search-icon-size);
+        }
+        &:hover {
+            background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        }
+        &:focus {
+            outline: none;
+            background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.15);
+        }
+    }
+}

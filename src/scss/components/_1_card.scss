@@ -1,0 +1,71 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_card
+Title: Card
+Descr: Container of information used as teaser for further content exploration
+Usage: https://codyhouse.co/ds/components/info/card
+
+-------------------------------- */
+.card {
+    background-color: var(--color-bg-light);
+    box-shadow: var(--inner-glow), var(--shadow-ring), var(--shadow-sm);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+
+    &__img-wrapper {
+        position: relative;
+        img {
+            display: block;
+            width: 100%;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: alpha(var(--color-black), 0.6);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+    }
+    &__link-icon-wrapper {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        width: 64px;
+        height: 64px;
+        background-color: alpha(var(--color-white), 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+        transition: transform 0.2s, opacity 0.2s;
+        .icon {
+            width: 32px;
+            height: 32px;
+            color: var(--color-black);
+        }
+    }
+    &--link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        &:hover {
+            background-color: var(--color-bg-lighter);
+            box-shadow: var(--inner-glow), var(--shadow-ring), var(--shadow-md);
+            .card__img-wrapper::after {
+                opacity: 1;
+            }
+            .card__link-icon-wrapper {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+    }
+}

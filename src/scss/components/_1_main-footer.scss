@@ -1,0 +1,45 @@
+@use '../config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_main-footer
+Title: Main Footer
+Descr: Footer navigation
+Usage: https://codyhouse.co/ds/components/info/main-footer
+
+-------------------------------- */
+
+.main-footer {
+    &__logo {
+        display: inline-block;
+    
+        svg, img {
+        display: block;
+        }
+    }
+    &__link {
+        color: var(--color-contrast-medium);
+        text-decoration: none;
+        &:hover {
+            color: var(--color-contrast-high);
+            text-decoration: underline;
+        }
+    }
+    &__social {
+        text-decoration: none;
+        display: inline-block;
+        color: var(--color-contrast-medium);
+            &:hover {
+            color: var(--color-contrast-high);
+        }
+        .icon {
+            font-size: 1.2em; // icon size
+        }
+        @include min-width(md) {
+            .icon {
+                font-size: 1em;
+            }
+        }
+    }
+}

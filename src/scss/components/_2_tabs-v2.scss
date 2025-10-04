@@ -1,0 +1,75 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_tabs-v2
+Title: Tabs
+Descr: A list of content sections (panels), accessible one at a time using control labels
+Usage: https://codyhouse.co/ds/components/info/tabs-v2
+Dependencies
+    Tabs
+
+-------------------------------- */
+
+
+.tabs-v2 {
+    --tabs-nav-border-width: 1px;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom:var(--tabs-nav-border-width) solid var(--color-contrast-lower);
+    li {
+        display: inline-block;
+        margin-right: var(--space-xs);
+        margin-bottom:var(--space-xs);
+    }
+    &__item {
+        display: inline-block;
+        padding: var(--space-xs) var(--space-sm);
+        border-radius: var(--radius-md);
+        background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+        color: inherit;
+        white-space: nowrap;
+        text-decoration:none;
+        &--selected, &[aria-selected=true] {
+            color: var(--color-bg);
+            background-color:var(--color-contrast-higher);
+        }
+    }
+    @include min-width(md) {
+        & {
+            li {
+                margin:0;
+            }
+            &__item {
+                border-radius: var(--radius-md) var(--radius-md) 0 0;
+                background-color: transparent;
+                border: var(--tabs-nav-border-width) solid transparent;
+                border-bottom-width: 0;
+                transition:.2s;
+                &:hover {
+                    background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+                }
+                &--selected, &[aria-selected=true] {
+                    position: relative;
+                    background-color: var(--color-bg);
+                    color: var(--color-primary);
+                    border-color:var(--color-contrast-lower);
+                }
+                &--selected::after, &[aria-selected=true]::after {
+                    content: "";
+                    position: absolute;
+                    bottom: calc(var(--tabs-nav-border-width) * -1);
+                    left: 0;
+                    width: 100%;
+                    height: var(--tabs-nav-border-width);
+                    background-color:var(--color-bg);
+                }
+                &--selected:hover, &[aria-selected=true]:hover {
+                    background-color:var(--color-bg);
+                }
+            }
+        }
+    }
+}
+

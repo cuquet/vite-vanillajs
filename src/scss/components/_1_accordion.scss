@@ -1,0 +1,185 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_accordion
+Title: Accordion
+Descr: Create stacked sections of content and allow the user to expand/collapse them
+Usage: https://codyhouse.co/ds/components/info/accordion
+
+-------------------------------- */ 
+:root {
+    /* general */
+    --accordion-border-width: 1px;
+    /* icon */
+    --accordion-icon-size: 20px;
+    --accordion-icon-stroke-width: 2px;
+}
+
+.accordion {
+    &__item {
+        border-style: solid;
+        border-color: var(--color-contrast-lower);
+        border-bottom-width: var(--accordion-border-width);
+
+        &:first-child {
+            border-top-width: var(--accordion-border-width);
+        }
+    }
+    &__header {
+        /* button */
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+        cursor: pointer;
+
+        .icon {
+            --size: var(--accordion-icon-size);
+
+            .icon__group {
+                stroke-width: var(--accordion-icon-stroke-width);
+            }
+        }
+    }
+    &__icon-arrow,
+    &__icon-arrow-v2,
+    &__icon-plus {
+        .icon__group {
+            will-change: transform;
+            transform-origin: 50% 50%;
+        }
+    }
+    &__icon-arrow {
+        .icon__group {
+            >* {
+                transform-origin: 10px 14px;
+            }
+        }
+    }
+    &__icon-arrow-v2 {
+        .icon__group {
+            >* {
+                transform-origin: 50% 50%;
+                stroke-dasharray: 20;
+                transform: translateY(4px);
+            }
+
+            >*:first-child {
+                stroke-dashoffset: 10.15;
+            }
+
+            >*:last-child {
+                stroke-dashoffset: 10.15;
+            }
+        }
+    }
+    &__icon-plus {
+        .icon__group {
+            transform: rotate(-90deg);
+
+            >* {
+                transform-origin: 50% 50%;
+            }
+
+            >*:first-child {
+                transform: rotate(-90deg);
+            }
+        }
+    }
+    &__item--is-open>&__header {
+        >.accordion__icon-arrow .icon__group {
+
+            /* animated arrow icon */
+            >*:first-child {
+                transform: translateY(-8px) rotate(-90deg);
+            }
+
+            >*:last-child {
+                transform: translateY(-8px) rotate(90deg);
+            }
+        }
+
+        >.accordion__icon-arrow-v2 .icon__group {
+            /* animated arrow icon v2 */
+            transform: rotate(-90deg);
+
+            >*:first-child,
+            *:last-child {
+                stroke-dashoffset: 0;
+                transform: translateY(0px);
+            }
+        }
+
+        >.accordion__icon-plus .icon__group {
+            /* animated plus icon */
+            transform: rotate(0);
+
+            >*:first-child {
+                transform: rotate(0);
+            }
+        }
+    }
+    &__panel {
+        display: none;
+        will-change: height;
+        transform: translateZ(0px);
+    }
+    &__item--is-open>&__panel {
+        display: block;
+    }
+    /* animations */
+    &[data-animation="on"] {
+        .accordion__item--is-open .accordion__panel>* {
+            animation: accordion-entry-animation .4s var(--ease-out);
+        }
+
+        .accordion__icon-arrow,
+        .accordion__icon-arrow-v2,
+        .accordion__icon-plus {
+            .icon__group {
+                transition: transform .3s var(--ease-out);
+
+                >* {
+                    transition: transform .3s, stroke-dashoffset .3s;
+                    transition-timing-function: var(--ease-out);
+                }
+            }
+        }
+    }
+}
+
+
+/* animations */
+.accordion[data-animation="on"] {
+    .accordion__item--is-open .accordion__panel>* {
+        animation: accordion-entry-animation .4s var(--ease-out);
+    }
+
+    .accordion__icon-arrow,
+    .accordion__icon-arrow-v2,
+    .accordion__icon-plus {
+        .icon__group {
+            transition: transform .3s var(--ease-out);
+
+            >* {
+                transition: transform .3s, stroke-dashoffset .3s;
+                transition-timing-function: var(--ease-out);
+            }
+        }
+    }
+}
+
+@keyframes accordion-entry-animation {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

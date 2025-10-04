@@ -1,0 +1,89 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_slider-multi-value
+Title: Multi Value Slider
+Descr: Slider element for choosing a minimum and maximum value in a specified range
+Usage: https://codyhouse.co/ds/components/info/multi-value-slider
+Dependencies
+    Slider
+-------------------------------- */
+
+.slider--multi-value {
+    position:relative;
+}
+
+.slider--multi-value .slider__range {
+    pointer-events:none;
+}
+
+.slider--multi-value .slider__range:nth-of-type(1) {
+    --slider-fill-value-start: 0%;
+    --slider-fill-value-end:100%;
+}
+
+.slider--multi-value .slider__range:nth-of-type(2) {
+    position: absolute;
+    top: 0;
+    left:0;
+}
+
+.slider--multi-value .slider__input::-webkit-slider-thumb {
+    position: relative;
+    z-index: 2;
+    pointer-events:auto;
+}
+
+.slider--multi-value .slider__input::-moz-range-thumb {
+    position: relative;
+    z-index: 2;
+    pointer-events:auto;
+}
+
+.slider--multi-value .slider__input::-webkit-slider-runnable-track {
+    pointer-events: none;
+    background-image:linear-gradient(to right, var(--color-contrast-lower) var(--slider-fill-value-start), var(--color-primary) var(--slider-fill-value-start), var(--color-primary) var(--slider-fill-value-end), var(--color-contrast-lower) var(--slider-fill-value-end));
+}
+
+.slider--multi-value .slider__input::-moz-range-track {
+    pointer-events: none;
+    background-image:linear-gradient(to right, var(--color-contrast-lower) var(--slider-fill-value-start), var(--color-primary) var(--slider-fill-value-start), var(--color-primary) var(--slider-fill-value-end), var(--color-contrast-lower) var(--slider-fill-value-end));
+}
+
+.slider--multi-value .slider__range:nth-of-type(2) .slider__input::-moz-range-track {
+    background-image:none;
+}
+
+:not( *)::-ms-track, .slider--multi-value.slider--ms-fallback {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+}
+
+:not( *)::-ms-track, .slider--multi-value.slider--ms-fallback .slider__range {
+    pointer-events: auto;
+    width:48%;
+}
+
+:not( *)::-ms-track, .slider--multi-value.slider--ms-fallback .slider__range:nth-of-type(2) {
+    position:relative;
+}
+
+.slider__separator {
+    margin:auto var(--space-xs);
+}
+
+.slider--multi-value.slider--range-not-supported .slider__range {
+    display: inline-block;
+    width:45%;
+}
+
+.slider--multi-value.slider--range-not-supported .slider__range:nth-of-type(2) {
+    position:relative;
+}
+
+.slider--range-not-supported .slider__separator {
+    display:none;
+}

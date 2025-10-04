@@ -1,0 +1,79 @@
+
+<div class="container padding-x-sm padding-top-sm flex justify-end">
+{{> switchlanguage mod="flags" classes="btn btn--primary-subtle"}}
+</div>
+
+<div class="grid gap-sm padding-xs padding-x-lg@md">
+    <div class="container max-width-adaptive-xs padding-y-sm ">
+        <section class="text-component text-center margin-y-sm">
+            <p>Login To Manage Your Mail Domains & Accounts</p>
+        </section>
+        <section class="padding-md radius-md shadow-sm " style="background: var(--color-bg); ">
+            <form class="padding-top-md ">
+                <fieldset>
+                    <div class="grid gap-md">
+                        <div class="margin-bottom-sm position-relative">
+                            <input class="floating-label-control form-control width-100%" type="email" name="input-email"
+                                id="input-email" placeholder="Email" autocomplete="username">
+                            <label class="floating-label" for="input-email">Email</label>
+                            <svg class="icon icon--sm position-absolute right-sm top-50% -translate-y-50%"
+                                viewBox="0 0 24 24" aria-hidden="true">
+                                <g fill="currentColor">
+                                    <rect x="1" y="3" width="22" height="18" rx="2" ry="2" opacity=".4"></rect>
+                                    <path
+                                        d="M12 14a.994.994 0 0 1-.515-.143l-10-6A1 1 0 0 1 1 7V5c0-1.103.897-2 2-2h18c1.103 0 2 .897 2 2v2a.999.999 0 0 1-.485.857l-10 6A1 1 0 0 1 12 14zm10-7z">
+                                    </path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class=" margin-bottom-sm ">
+                            <div class="password js-password">
+                                <input
+                                    class="floating-label-control password__input form-control width-100% js-password__input"
+                                    type="password" name="input-password" id="input-password" placeholder="Password"
+                                    autocomplete="current-password">
+                                <label class="floating-label" for="input-name">Password</label>
+                                <button class="password__btn flex flex-center js-password__btn">
+                                    <span class="password__btn-label" aria-label="Show password" title="Show password">
+                                        <svg class="icon block" viewBox="0 0 32 32">
+                                            <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                                                stroke="currentColor" fill="none">
+                                                <path
+                                                    d="M1.409,17.182a1.936,1.936,0,0,1-.008-2.37C3.422,12.162,8.886,6,16,6c7.02,0,12.536,6.158,14.585,8.81a1.937,1.937,0,0,1,0,2.38C28.536,19.842,23.02,26,16,26S3.453,19.828,1.409,17.182Z"
+                                                    stroke-miterlimit="10"></path>
+                                                <circle cx="16" cy="16" r="6" stroke-miterlimit="10"></circle>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                    <span class="password__btn-label" aria-label="Hide password" title="Hide password">
+                                        <svg class="icon block" viewBox="0 0 32 32">
+                                            <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                                                stroke="currentColor" fill="none">
+                                                <path data-cap="butt"
+                                                    d="M8.373,23.627a27.659,27.659,0,0,1-6.958-6.445,1.938,1.938,0,0,1-.008-2.37C3.428,12.162,8.892,6,16.006,6a14.545,14.545,0,0,1,7.626,2.368"
+                                                    stroke-miterlimit="10" stroke-linecap="butt"></path>
+                                                <path
+                                                    d="M27,10.923a30.256,30.256,0,0,1,3.591,3.887,1.937,1.937,0,0,1,0,2.38C28.542,19.842,23.026,26,16.006,26A12.843,12.843,0,0,1,12,25.341"
+                                                    stroke-miterlimit="10"></path>
+                                                <path data-cap="butt" d="M11.764,20.243a6,6,0,0,1,8.482-8.489"
+                                                    stroke-miterlimit="10" stroke-linecap="butt"></path>
+                                                <path d="M21.923,15a6.005,6.005,0,0,1-5.917,7A6.061,6.061,0,0,1,15,21.916"
+                                                    stroke-miterlimit="10"></path>
+                                                <line x1="2" y1="30" x2="30" y2="2" fill="none" stroke-miterlimit="10">
+                                                </line>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="margin-bottom-sm">
+                            <input type="submit" name="form_login" class="btn btn--primary text-md float-right"
+                                value="Login" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+    </div>
+</div>

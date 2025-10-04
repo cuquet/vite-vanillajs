@@ -1,0 +1,121 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _1_choice-tags
+Title: Choice tags
+Descr: Custom, "tag-looking" radio/checkbox buttons
+Usage: https://codyhouse.co/ds/components/info/choice-tags
+
+-------------------------------- */
+:root {
+    --choice-tag-icon-size:16px;
+}
+.choice-tag {
+    $this: &;
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 50em;
+    box-shadow: 0 0 0 1px var(--color-contrast-lower);
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    transition:0.2s;
+    &:hover {
+        box-shadow:0 0 0 1px hsl(var(--color-contrast-low-h), var(--color-contrast-low-s), calc(var(--color-contrast-low-l) * 0.85));
+    }
+    &:active, 
+    &:focus-within, 
+    &--checked#{$this} {
+        box-shadow:0 0 0 2px var(--color-primary);
+    }
+    &:active, 
+    &:focus-within {
+        box-shadow:0 0 0 2px var(--color-primary), 0 0 0 4px hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2)
+    }
+    &:focus-within:not(&--checked) {
+        box-shadow:0 0 0 1px var(--color-contrast-higher), 0 0 0 3px hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.2)
+    }
+    &--checked#{$this} {
+        background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.08)
+    }
+    &__icon {
+        font-size:var(--choice-tag-icon-size);
+        &-group * {
+            transform-origin:8px 8px;
+        }
+    }
+    &--checkbox &__icon {
+        color:var(--color-contrast-low);
+    }
+    &--checkbox &__icon-group {
+        stroke-width:2px;
+        * {
+            stroke-dasharray:16;
+        }
+    }
+    &--checkbox &__icon-group {
+        :nth-child(1), 
+        :nth-child(2) {
+            transition:transform 0.3s var(--ease-out-back), stroke-dashoffset 0.3s var(--ease-out-back);
+        }
+    }
+    
+    &--checkbox &__icon-group {
+        :nth-child(1) {
+            stroke-dashoffset:24;
+        }
+        :nth-child(2) {
+            stroke-dashoffset:10;
+        }
+        :nth-child(3) {
+            transition: stroke-dashoffset 0.3s;
+            stroke-dashoffset:0;
+        }
+    }
+
+    &--checkbox &__icon-group 
+    &--checkbox input:checked + &__icon {
+        color:var(--color-primary);
+    }
+    &--checkbox input:checked + &__icon &__icon-group {
+        :nth-child(1) {
+            stroke-dashoffset: 23;
+            transform:translateX(-2px) translateY(4px) rotate(45deg);
+        }
+        :nth-child(2) {
+            stroke-dashoffset: 5;
+            transform:translateX(-2px) translateY(4px) rotate(-45deg);
+        }
+        :nth-child(3) {
+            transition: none;
+            stroke-dashoffset: 16;
+            opacity:0;
+        }
+    }
+    &--radio &__icon {
+        color:var(--color-contrast-low);
+    }
+    &--radio &__icon-group{
+        :nth-child(1) {
+            fill: none;
+            stroke-width:1px;
+        }
+        :nth-child(2) {
+            fill: var(--color-white);
+            transform: scale(0);
+            transition: transform 0.3s var(--ease-out-back);
+        }
+    }
+    &--radio input:checked + &__icon &__icon-group {
+        :nth-child(1) {
+            stroke: var(--color-primary);
+            fill:var(--color-primary);
+        }
+        :nth-child(2) {
+            transform: scale(1);
+        }
+    }
+}

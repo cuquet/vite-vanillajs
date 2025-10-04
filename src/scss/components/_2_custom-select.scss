@@ -1,0 +1,149 @@
+@use '@/scss/config' as *;
+// --- ↑ update this path if you're importing CodyFrame as npm module
+
+/* -------------------------------- 
+
+File#: _2_custom-select
+Title: Custom Select
+Descr: Custom select form element.
+Usage: https://codyhouse.co/ds/components/info/custom-select
+
+Dependencies:
+    _1_popover
+    _1_inputgroup
+    _1_input-icon
+
+-------------------------------- */
+
+:root {
+    --select-icon-size: 16px;
+    --select-icon-right-margin: var(--space-sm);
+    --select-text-icon-gap:var(--space-3xs); /* gap between text and icon */
+    --select-dropdown-gap:4px; /* distance between select control and custom dropdown */
+}
+
+.select {
+    position:relative;
+    &__input {
+        width: 100%;
+        height: 100%;
+        padding-right: calc(var(--select-icon-size) + var(--select-icon-right-margin) + var(--select-text-icon-gap)) !important;
+        -webkit-user-select: none;
+        user-select:none;
+    }
+    &__icon {
+        width: var(--select-icon-size);
+        height: var(--select-icon-size);
+        pointer-events: none;
+        position: absolute;
+        right: var(--select-icon-right-margin);
+        top: 50%;
+        transform:translateY(-50%);
+    }
+    &__button {
+        //display: inline-block;
+        //max-width: inherit;
+        width:100%;
+        /*white-space: nowrap;
+        text-overflow:ellipsis;*/
+        span {
+            //display: inline-block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: inherit;
+            overflow: hidden;
+        }
+    }
+    &__dropdown {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        min-width: 200px;
+        max-height: 1px;
+        background-color: var(--color-bg-light);
+        box-shadow: var(--inner-glow), var(--shadow-md);
+        padding: var(--space-3xs) 0;
+        border-radius: var(--radius-md);
+        z-index: var(--z-index-popover, 5);
+        margin-top: var(--select-dropdown-gap);
+        margin-bottom: var(--select-dropdown-gap);
+        overflow-y: auto;
+        font-size: 1rem;
+        visibility: hidden;
+        opacity: 0;
+        transition:visibility 0s .2s, opacity .2s;
+        &--right {
+            right: 0;
+            left:auto;
+        }
+        &--up {
+            bottom: 100%;
+            top:auto;
+        }
+    }
+    &__button[aria-expanded=true] + &__dropdown {
+        visibility: visible;
+        opacity: 1;
+        transition:visibility 0s, opacity .2s;
+    }
+    &__list {
+        list-style:none !important;
+        padding-left: 0 !important;
+        &:not(:first-of-type) {
+            padding-top:var(--space-2xs);
+        }
+        &:not(:last-of-type) {
+            border-bottom: 1px solid hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
+            padding-bottom:var(--space-2xs);
+        }
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        padding: var(--space-2xs) var(--space-sm);
+        color: var(--color-contrast-high);
+        width: 100%;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        &--optgroup {
+            font-size: .8125rem;
+            color:var(--color-contrast-medium);
+        }
+        &--option {
+            display:inline-block;
+            cursor: pointer;
+            transition:.2s;
+            &:hover {
+                background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+            }
+            &:focus {
+                outline: none;
+                background-color:hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.15);
+            }
+            &[aria-selected=true] {
+                background-color: var(--color-primary);
+                color: var(--color-white);
+                position:relative;
+                &::after {
+                    content: "";
+                    display: inline-block;
+                    height: 1em;
+                    width: 1em;
+                    margin-left: var(--space-2xs);
+                    background-color: currentColor;
+                    -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxNiAxNic+PHBvbHlsaW5lIHN0cm9rZS13aWR0aD0nMicgc3Ryb2tlPScjZmZmZmZmJyBmaWxsPSdub25lJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIHBvaW50cz0nMSw5IDUsMTMgMTUsMyAnLz48L3N2Zz4=);
+                    mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxNiAxNic+PHBvbHlsaW5lIHN0cm9rZS13aWR0aD0nMicgc3Ryb2tlPScjZmZmZmZmJyBmaWxsPSdub25lJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIHBvaW50cz0nMSw5IDUsMTMgMTUsMyAnLz48L3N2Zz4=);
+                }
+                &:focus {
+                    box-shadow:inset 0 0 0 2px var(--color-primary-dark);
+                }
+            }
+            &[disabled] {
+                opacity: .5;
+                cursor:not-allowed;
+            }
+        }
+    }
+}
