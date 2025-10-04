@@ -10,7 +10,7 @@ Dependencies
 import { tools as Util } from '@modules';
 //import { Popover } from '@/js/components/controls';
 
-class AdvSelect {
+export class AdvSelect {
     constructor(element) {
         this.element = element;
         this.select = this.element.getElementsByTagName('select')[0];
@@ -205,11 +205,13 @@ class AdvSelect {
 }
 
 window.AdvSelect = AdvSelect;
-export default AdvSelect;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const advSelects = Array.from(document.getElementsByClassName('js-adv-select'));
-    advSelects.forEach((el) => {
-        new AdvSelect(el);
+export function initAdvSelect(context = document) {
+    const elements = context.querySelectorAll('.js-adv-select');
+    elements.forEach(el => {
+        if (!el.dataset.advSelectInitialized) {
+            new AdvSelect(el);
+            el.dataset.advSelectInitialized = 'true';
+        }
     });
-});
+}

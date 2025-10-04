@@ -11,7 +11,7 @@ Usage: https://codyhouse.co/ds/components/info/multiple-custom-select-v2
 -------------------------------- */
 import { ListFilter } from '@/js/components/forms/list-filter';
 
-class MultipleCustomSelectV2 extends ListFilter {
+export class MultipleCustomSelectV2 extends ListFilter {
     constructor(element) {
         super(element);
         //this.element = element;
@@ -84,11 +84,12 @@ class MultipleCustomSelectV2 extends ListFilter {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const multiSelectV2 = Array.from(document.getElementsByClassName('js-multi-select-v2'));
-    multiSelectV2.forEach((element) => {
-        new MultipleCustomSelectV2(element);
+export function initMultipleCustomSelectV2(context = document) {
+    const elements = context.querySelectorAll('.js-multi-select-v2');
+    elements.forEach(el => {
+        if (!el.dataset.mcs2Initialized) {
+            new MultipleCustomSelectV2(el);
+            el.dataset.mcs2Initialized = 'true';
+        }
     });
-});
-
-export default MultipleCustomSelectV2;
+}

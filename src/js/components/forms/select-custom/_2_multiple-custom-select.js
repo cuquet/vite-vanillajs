@@ -6,7 +6,7 @@ Usage: https://codyhouse.co/ds/components/info/multiple-custom-select
 Dependencies
     _1_radios-checkboxes Radio Checkbox Buttons
 */
-class MultipleCustomSelect {
+export class MultipleCustomSelect {
     constructor(element) {
         this.element = element;
         this.select = this.element.querySelector('select');
@@ -266,11 +266,3 @@ export function initMultipleCustomSelect(context = document) {
         }
     });
 }
-export default MultipleCustomSelect;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const multiSelectElements = Array.from(document.getElementsByClassName('js-multi-select'));
-    multiSelectElements.map(
-        (element) => new MultipleCustomSelect(element),
-    );
-});

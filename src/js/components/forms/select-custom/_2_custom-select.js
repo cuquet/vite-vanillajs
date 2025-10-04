@@ -10,7 +10,7 @@ Dependencies:
     _1_input-icon 
 */
 
-class CustomSelect {
+export class CustomSelect {
     constructor(element) {
         this.element = element;
         this.select = this.element.getElementsByTagName('select')[0];
@@ -258,11 +258,12 @@ class CustomSelect {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const customSelects = Array.from(document.getElementsByClassName('js-select'));
-    customSelects.forEach((select) => {
-        new CustomSelect(select);
+export function initCustomSelect(context = document) {
+    const elements = context.querySelectorAll('.js-select');
+    elements.forEach(el => {
+        if (!el.dataset.selectInitialized) {
+            new CustomSelect(el);
+            el.dataset.selectInitialized = 'true';
+        }
     });
-});
-
-export default CustomSelect;
+}
