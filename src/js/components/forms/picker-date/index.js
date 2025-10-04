@@ -1,4 +1,3 @@
-import DatePicker from './_1_date-picker.js';
-import DatePickerRange from './_3_date-range.js';
-export { DatePicker, DatePickerRange };
-export default DatePicker;
+// src/js/components/forms/picker-date/index.js
+export * from './_1_date-picker.js';
+export * from  './_3_date-range.js';

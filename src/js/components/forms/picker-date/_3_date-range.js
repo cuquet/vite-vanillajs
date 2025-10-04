@@ -10,9 +10,9 @@ Dependencies
 -------------------------------- */
 
 import { tools as Util } from '@modules';
-import DatePicker from './_1_date-picker';
+import { DatePicker } from './_1_date-picker';
 
-class DatePickerRange extends DatePicker {
+export class DatePickerRange extends DatePicker {
     constructor(options) {
         super(options);
         this.mouseMoving = false;
@@ -423,12 +423,12 @@ class DatePickerRange extends DatePicker {
 
 export default DatePickerRange;
 
-document.addEventListener('DOMContentLoaded', () => {
-    var dateRanges = Array.from(document.getElementsByClassName('js-date-range'));
+export function initDatePickerRange(context = document) {
+    const dateRanges = Array.from(context.getElementsByClassName('js-date-range'));
+
     dateRanges.forEach((dateRange) => {
-        let options = {
-            element: dateRange,
-        };
+        const options = { element: dateRange };
+
         if (dateRange.getAttribute('data-date-format')) {
             options.dateFormat = dateRange.getAttribute('data-date-format');
         }
@@ -439,8 +439,9 @@ document.addEventListener('DOMContentLoaded', () => {
             options.months = dateRange
                 .getAttribute('data-months')
                 .split(',')
-                .map((month) => month.trim());
+                .map((m) => m.trim());
         }
+
         new DatePickerRange(options);
     });
-});
+}

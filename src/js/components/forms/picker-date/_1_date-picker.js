@@ -4,14 +4,14 @@
 
 import { tools as Util } from '@modules';
 
-class DatePicker {
+export class DatePicker {
     constructor(element) {
         this.options = Util.extend(DatePicker.defaults, element);
         this.element = this.options.element;
-        this.datePicker = this.element.getElementsByClassName('js-date-picker')[0];
-        this.body = this.datePicker.getElementsByClassName('js-date-picker__dates')[0];
-        this.navigation = this.datePicker.getElementsByClassName('js-date-picker__month-nav')[0];
-        this.heading = this.datePicker.getElementsByClassName('js-date-picker__month-label')[0];
+        this.datePicker = this.element.querySelector('.js-date-picker');
+        this.body = this.datePicker.querySelector('.js-date-picker__dates');
+        this.navigation = this.datePicker.querySelector('.js-date-picker__month-nav');
+        this.heading = this.datePicker.querySelector('.js-date-picker__month-label');
         this.dateIndexes = this.getDateIndexes(this.options.dateFormat);
         this.pickerVisible = false;
         this.dateSelected = [];
@@ -22,15 +22,34 @@ class DatePicker {
         this.init();
     }
 
+    static defaults = {
+        element: '',
+        months: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ],
+        dateFormat: 'd-m-y',
+        dateSeparator: '/',
+    };
+
     getDateIndexes(dateFormat) {
         let format = dateFormat.toLowerCase().replace(/-/g, '');
         return [format.indexOf('d'), format.indexOf('m'), format.indexOf('y')];
     }
 
     init() {
-        this.input = this.element.getElementsByClassName('js-date-input__text')[0];
-
-        this.trigger = this.element.getElementsByClassName('js-date-input__trigger')[0];
+        this.input = this.element.querySelector('.js-date-input__text');
+        this.trigger = this.element.querySelector('.js-date-input__trigger');
         if (this.trigger) {
             this.triggerLabel = this.trigger.getAttribute('aria-label');
         }
@@ -413,51 +432,25 @@ class DatePicker {
     }
 }
 
-DatePicker.defaults = {
-    element: '',
-    months: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ],
-    dateFormat: 'd-m-y',
-    dateSeparator: '/',
-};
-
-export default DatePicker;
-
-document.addEventListener('DOMContentLoaded', () => {
-    let dateInputs = Array.from(document.getElementsByClassName('js-date-input'));
-    let supportsAlignItems = CSS.supports('align-items', 'stretch');
+export function initDatePicker(context = document) {
+    const dateInputs = Array.from(context.getElementsByClassName('js-date-input'));
+    const supportsAlignItems = CSS.supports('align-items', 'stretch');
     dateInputs.forEach((dateInput) => {
+        // Evita reinicialitzar si ja s’ha fet
+        if (dateInput.dataset.datePickerInit === 'true') return;
+
         if (supportsAlignItems) {
-                let options = { element: dateInput };
-                if (dateInput.getAttribute('data-date-format')) {
-                    options.dateFormat = dateInput.getAttribute('data-date-format');
-                }
-                if (dateInput.getAttribute('data-date-separator')) {
-                    options.dateSeparator =
-                        dateInput.getAttribute('data-date-separator');
-                }
-                if (dateInput.getAttribute('data-months')) {
-                    options.months = dateInput
-                        .getAttribute('data-months')
-                        .split(',')
-                        .map((month) => month.trim());
-                }
-                new DatePicker(options);
+            const options = { element: dateInput };
+            if (dateInput.dataset.dateFormat) options.dateFormat = dateInput.dataset.dateFormat;
+            if (dateInput.dataset.dateSeparator) options.dateSeparator = dateInput.dataset.dateSeparator;
+            if (dateInput.dataset.months) {
+                options.months = dateInput.dataset.months.split(',').map((m) => m.trim());
+            }
+            new DatePicker(options);
+            dateInput.dataset.datePickerInit = 'true';
         } else {
             dateInput.classList.add('date-input--hide-calendar');
         }
     });
-});
+}
 

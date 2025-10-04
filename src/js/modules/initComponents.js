@@ -3,8 +3,10 @@ import {
     initCustomSelect,
     initMultipleCustomSelect,
     initMultipleCustomSelectV2,
-    initAdvSelect
-} from '@components/forms/select-custom';
+    initAdvSelect,
+    initDatePicker,
+    initDatePickerRange,
+} from '@components/forms';
 
 import { LanguagePicker } from '@components/forms/picker-language';
 
@@ -14,6 +16,8 @@ export function initComponents(context = document) {
     initMultipleCustomSelect(context);
     initMultipleCustomSelectV2(context);
     initAdvSelect(context);
+    initDatePicker(context);
+    initDatePickerRange(context);
 
     // language picker
     const pickers = context.querySelectorAll('.js-language-picker');
