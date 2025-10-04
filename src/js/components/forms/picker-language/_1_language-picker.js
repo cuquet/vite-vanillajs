@@ -1,9 +1,9 @@
-/*
+/* -------------------------------- 
 File#: _1_language-picker
 Title: Language Picker
 Descr: A custom selector allowing users to choose their preferred language on a page
 Usage: https://codyhouse.co/ds/components/info/language-picker
-*/
+ -------------------------------- */
 import { tools as Util } from '@modules';
 
 export class LanguagePicker {
@@ -197,8 +197,11 @@ export class LanguagePicker {
     }
 }
 
-window.LanguagePicker= LanguagePicker;
-export default LanguagePicker;
+
+// expose to global scope (optional)
+if (typeof window !== 'undefined') {
+    window.LanguagePicker = LanguagePicker;
+}
 
 /*
 document.addEventListener('DOMContentLoaded', () => {

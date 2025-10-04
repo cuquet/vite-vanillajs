@@ -7,7 +7,7 @@ Usage: https://codyhouse.co/ds/components/info/choice-tags
 
 -------------------------------- */
 
-class ChoiceTags {
+export class ChoiceTags {
     constructor(element) {
         this.element = element;
         this.labels = this.element.getElementsByClassName('js-choice-tag');
@@ -52,11 +52,12 @@ class ChoiceTags {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const choiceTagElements = Array.from(document.getElementsByClassName('js-choice-tags'));
-    choiceTagElements.forEach((element) => {
-        new ChoiceTags(element);
+export function initChoiceTags(context = document) {
+    const elements = context.querySelectorAll('.js-choice-tag');
+    elements.forEach(el => {
+        if (!el.dataset.choiceTagsInitialized) {
+            new ChoiceTags(el);
+            el.dataset.choiceTagsInitialized = 'true';
+        }
     });
-});
-
-export default ChoiceTags;
+}

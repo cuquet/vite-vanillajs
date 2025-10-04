@@ -1,5 +1,6 @@
 // src/js/modules/initComponents.js
 import {
+    initChoiceTags,
     initNumberInput,
     initListFilter,
     initCustomSelect,
@@ -13,11 +14,13 @@ import {
     initTimePicker,
     initSlider,
     initSliderRange,
+    initExpandableSearch,
 } from '@components/forms';
 
 import { LanguagePicker } from '@components/forms/picker-language';
 
 export function initComponents(context = document) {
+    initChoiceTags(context);
     initNumberInput(context);
     initListFilter(context);
     initCustomSelect(context);
@@ -31,6 +34,7 @@ export function initComponents(context = document) {
     initTimePicker(context);
     initSlider(context);
     initSliderRange(context);
+    initExpandableSearch(context);
 
     // language picker
     const pickers = context.querySelectorAll('.js-language-picker');
