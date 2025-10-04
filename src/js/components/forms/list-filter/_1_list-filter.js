@@ -1,13 +1,13 @@
-/* 
+/* --------------------------------  
 File#: _1_list-filter
 Title: List Filter
 Descr: A list of filterable search items.
 Usage: https://codyhouse.co/ds/components/info/list-filter
 
 Dependencies:
-*/
+ -------------------------------- */
 
-class ListFilter {
+export class ListFilter {
     constructor(element) {
         this.element = element;
         this.search = this.element.querySelector('.js-list-filter__search') || false;
@@ -123,10 +123,12 @@ class ListFilter {
     }
 }
 
-// Inicialitza la classe per a cada element amb la classe 'js-list-filter'
-document.addEventListener('DOMContentLoaded', () => {
-    const listFilters =  Array.from(document.getElementsByClassName('js-list-filter'));
-    listFilters.forEach(element => { new ListFilter(element); });
-});
-
-export default ListFilter;
+export function initListFilter(context = document) {
+    const elements = context.querySelectorAll('.js-list-filter');
+    elements.forEach(el => {
+        if (!el.dataset.listFilterInitialized) {
+            new ListFilter(el);
+            el.dataset.listFilterInitialized = 'true';
+        }
+    });
+}

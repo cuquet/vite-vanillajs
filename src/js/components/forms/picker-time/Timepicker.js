@@ -4,13 +4,31 @@ import Time from './Time';
 import Picker from './Picker';
 import { tools as Util } from '@modules';
 
-class TimePicker {
+export class TimePicker {
     constructor(element, opts) {
         //Object.assign(this, data);
         Object.assign(this, Util.extend(TimePicker.defaults, opts));
         this.element = element;
         this.init();
     }
+
+    static defaults = {
+        values: {
+            // time: "2022-10-16 16:45:22",
+            // time: "16:42:44",
+            // time: "16:28",
+            // time: new Date("2022-10-16"),
+            // time: new Date("2022-10-16 16:19:10"),
+            //time: new Date(Date.now()),
+            time: '',
+        },
+        errors: {
+            time: '16:00',
+        },
+        label: {
+            text: "Sel·lecciona l'hora",
+        },
+    };
 
     init() {
         this.ID = Util.getNewId();
@@ -101,31 +119,14 @@ class TimePicker {
     }
 }
 
-TimePicker.defaults = {
-    values: {
-        // time: "2022-10-16 16:45:22",
-        // time: "16:42:44",
-        // time: "16:28",
-        // time: new Date("2022-10-16"),
-        // time: new Date("2022-10-16 16:19:10"),
-        //time: new Date(Date.now()),
-        time: '',
-    },
-    errors: {
-        time: '16:00',
-    },
-    label: {
-        text: "Sel·lecciona l'hora",
-    },
-};
-
-window.TimePicker = TimePicker;
-export default TimePicker;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const timepickers = Array.from(document.getElementsByClassName('js-timepicker'));
-    timepickers.forEach((el) => {
-        const timepicker = new TimePicker(el);
-        el.appendChild(timepicker.get());
+export function initTimePicker(context = document) {
+    const elements = context.querySelectorAll('.js-timepicker');
+    elements.forEach(el => {
+        if (!el.dataset.timePickerInitialized) {
+            const timepicker = new TimePicker(el);
+            el.dataset.timePickerInitialized = 'true';
+            el.appendChild(timepicker.get());
+        }
     });
-});
+}
+

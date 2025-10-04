@@ -1,4 +1,4 @@
-/* 
+/* --------------------------------  
 File#: _2_custom-select
 Title: Custom Select
 Descr: Custom select form element.
@@ -8,7 +8,7 @@ Dependencies:
     _1_popover
     _1_inputgroup
     _1_input-icon 
-*/
+ -------------------------------- */
 
 export class CustomSelect {
     constructor(element) {

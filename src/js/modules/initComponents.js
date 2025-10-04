@@ -1,5 +1,6 @@
 // src/js/modules/initComponents.js
 import {
+    initListFilter,
     initCustomSelect,
     initMultipleCustomSelect,
     initMultipleCustomSelectV2,
@@ -8,6 +9,7 @@ import {
     initPasswordStrength,
     initDatePicker,
     initDatePickerRange,
+    initTimePicker,
     initSlider,
     initSliderRange,
 } from '@components/forms';
@@ -15,6 +17,7 @@ import {
 import { LanguagePicker } from '@components/forms/picker-language';
 
 export function initComponents(context = document) {
+    initListFilter(context);
     initCustomSelect(context);
     initMultipleCustomSelect(context);
     initMultipleCustomSelectV2(context);
@@ -23,6 +26,7 @@ export function initComponents(context = document) {
     initPasswordStrength(context);
     initDatePicker(context);
     initDatePickerRange(context);
+    initTimePicker(context);
     initSlider(context);
     initSliderRange(context);
 

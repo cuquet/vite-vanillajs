@@ -1,3 +1,2 @@
-import ListFilter from './_1_list-filter';
-export { ListFilter };
-export default ListFilter;
+// src/js/components/forms/list-filter/index.js
+export * from './_1_list-filter';

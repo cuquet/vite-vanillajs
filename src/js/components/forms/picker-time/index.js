@@ -1,3 +1,2 @@
-import TimePicker from "./Timepicker";
-export { TimePicker };
-export default TimePicker;
+// src/js/components/forms/picker-time/index.js
+export * from "./Timepicker";
