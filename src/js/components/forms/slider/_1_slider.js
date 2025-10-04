@@ -6,7 +6,7 @@ Usage: https://codyhouse.co/ds/components/info/slider
 Dependencies: 
 -------------------------------- */
 
-class Slider {
+export class Slider {
     constructor(element) {
         this.element = element;
         this.rangeWrapper = this.element.querySelector('.slider__range');
@@ -103,12 +103,12 @@ class Slider {
     }
 }
 
-
-export default Slider;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const sliders = Array.from(document.querySelectorAll('.js-slider'));
-    sliders.forEach((element) => {
-        new Slider(element);
+export function initSlider(context = document) {
+    const elements = context.querySelectorAll('.js-slider');
+    elements.forEach(el => {
+        if (!el.dataset.sliderInitialized) {
+            new Slider(el);
+            el.dataset.sliderInitialized = 'true';
+        }
     });
-});
+}

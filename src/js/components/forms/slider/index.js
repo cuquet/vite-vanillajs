@@ -1,4 +1,3 @@
-import Slider from './_1_slider';
-import SliderRange from './_2_slider-multi-value';
-export { Slider, SliderRange };
-export default Slider;
+// src/js/components/forms/slider
+export * from './_1_slider';
+export * from './_2_slider-multi-value';

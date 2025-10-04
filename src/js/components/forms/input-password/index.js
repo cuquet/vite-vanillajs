@@ -1,4 +1,3 @@
-import PasswordVisibility from './_1_password.js';
-import PasswordStrength from './_2_password-strengh.js';
-export { PasswordVisibility, PasswordStrength };
-export default PasswordVisibility;
+// src/js/components/forms/input-password/index.js
+export * from './_1_password.js';
+export * from './_2_password-strengh.js';

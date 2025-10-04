@@ -1,4 +1,4 @@
-/* 
+/* --------------------------------  
 File#: _2_password-strengh
 Title: Password Strength Indicator
 Descr: Password requirements and strength indicator.
@@ -7,18 +7,18 @@ Usage: https://codyhouse.co/ds/components/info/password-strength-indicator
 Dependencies:
     _1_password Password Visibility Control https://codyhouse.co/ds/components/app/password-visibility-control
     zxcvbn - Password Strength Estimator https://github.com/dropbox/zxcvbn
-*/
+-------------------------------- */
 
 import { tools as Util } from '@modules';
-import PasswordVisibility from './_1_password';
+import { PasswordVisibility } from './_1_password';
 //import('https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js');
 
-class PasswordStrength extends PasswordVisibility {
+export class PasswordStrength extends PasswordVisibility {
     constructor(options) {
         super(options);
         this.options = Util.extend(PasswordStrength.defaults, options);
         //this.element = this.options.element;
-        this.input = this.element.getElementsByClassName('js-password-strength__input')[0] || false;
+        this.input = this.element.querySelector('.js-password-strength__input') || false;
         this.reqs = this.element.getElementsByClassName('js-password-strength__req');
         this.strengthSection = this.element.getElementsByClassName(
             'js-password-strength__meter-wrapper',
@@ -31,6 +31,13 @@ class PasswordStrength extends PasswordVisibility {
 
         this.init();
     }
+
+    static defaults = {
+        strengthLevel: (value) => {
+            // eslint-disable-next-line no-undef
+            return zxcvbn(value).score >= 3; // score can be between 0 and 4 (score 3 -> Good)
+        },
+    };
 
     init() {
         this.checkStrength = true;
@@ -175,23 +182,12 @@ class PasswordStrength extends PasswordVisibility {
     }
 }
 
-PasswordStrength.defaults = {
-    strengthLevel: (value) => {
-        // eslint-disable-next-line no-undef
-        return zxcvbn(value).score >= 3; // score can be between 0 and 4 (score 3 -> Good)
-    },
-};
-
-// window.PasswordStrength = PasswordStrength;
-export default PasswordStrength;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const passwordStrengthElements = Array.from(
-        document.getElementsByClassName('js-password-strength'),
-    );
-    passwordStrengthElements.forEach((el) => {
-        new PasswordStrength({ element: el });
+export function initPasswordStrength(context = document) {
+    const elements = context.querySelectorAll('.js-password-strength');
+    elements.forEach(el => {
+        if (!el.dataset.pwdsInitialized) {
+            new PasswordStrength({element: el});
+            el.dataset.pwdsInitialized = 'true';
+        }
     });
-});
-
-
+}

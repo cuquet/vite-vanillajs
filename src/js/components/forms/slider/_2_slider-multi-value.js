@@ -8,9 +8,9 @@ Dependencies
     Slider
 -------------------------------- */
 import { tools as Util } from '@modules';
-import Slider from './_1_slider.js';
+import { Slider } from './_1_slider.js';
 
-class SliderRange extends Slider {
+export class SliderRange extends Slider {
     constructor(element) {
         super(element);
         // this.rangeWrapper = this.element.getElementsByClassName('slider__range')[0];
@@ -69,17 +69,15 @@ class SliderRange extends Slider {
     }
 }
 
-export default SliderRange;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const sliders = Array.from(document.querySelectorAll('.slider--multi-value.js-slider'));
+export function initSliderRange(context = document) {
+    const elements = context.querySelectorAll('.slider--multi-value.js-slider');
     const sliderInstances = [];
-    sliders.forEach((element) => {
-        if (element.getElementsByClassName('slider__input').length > 1) {
-            sliderInstances.push(new SliderRange(element));
+    elements.forEach(el => {
+        if (!el.dataset.sliderRangeInitialized) {
+            sliderInstances.push(new SliderRange(el));
+            el.dataset.sliderRangeInitialized = 'true';
         }
     });
-
     if (sliderInstances.length > 0) {
         let resizeTimeout;
         const updateEvent = new CustomEvent('update-slider-multi-value');
@@ -92,5 +90,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500);
         });
     }
-});
-
+}

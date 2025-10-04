@@ -4,20 +4,27 @@ import {
     initMultipleCustomSelect,
     initMultipleCustomSelectV2,
     initAdvSelect,
+    initPasswordVisibility,
+    initPasswordStrength,
     initDatePicker,
     initDatePickerRange,
+    initSlider,
+    initSliderRange,
 } from '@components/forms';
 
 import { LanguagePicker } from '@components/forms/picker-language';
 
 export function initComponents(context = document) {
-    // select custom
     initCustomSelect(context);
     initMultipleCustomSelect(context);
     initMultipleCustomSelectV2(context);
     initAdvSelect(context);
+    initPasswordVisibility(context);
+    initPasswordStrength(context);
     initDatePicker(context);
     initDatePickerRange(context);
+    initSlider(context);
+    initSliderRange(context);
 
     // language picker
     const pickers = context.querySelectorAll('.js-language-picker');
