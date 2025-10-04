@@ -6,7 +6,7 @@ Usage: https://codyhouse.co/ds/components/info/language-picker
 */
 import { tools as Util } from '@modules';
 
-class LanguagePicker {
+export class LanguagePicker {
     constructor(element, opts = {}) {
         this.opts = opts;
         this.element = element;
@@ -200,16 +200,17 @@ class LanguagePicker {
 window.LanguagePicker= LanguagePicker;
 export default LanguagePicker;
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const languagePickerElements = Array.from(document.getElementsByClassName('js-language-picker'));
-//         languagePickerElements.forEach((element) => {
-//             new LanguagePicker(element,{
-//                 onGetLangUrl: (option) => {
-//                     console.log('Language selected:', option);
-//                     // Add your custom logic here, e.g., redirecting to the selected language URL
-//                     //window.location.href = option.getAttribute('href');
-//                 },
-//             });
-//         });
-// });
-
+/*
+document.addEventListener('DOMContentLoaded', () => {
+    const languagePickerElements = Array.from(document.getElementsByClassName('js-language-picker'));
+        languagePickerElements.forEach((element) => {
+            new LanguagePicker(element,{
+                onGetLangUrl: (option) => {
+                    console.log('Language selected:', option);
+                    // Add your custom logic here, e.g., redirecting to the selected language URL
+                    //window.location.href = option.getAttribute('href');
+                },
+            });
+        });
+}); 
+*/

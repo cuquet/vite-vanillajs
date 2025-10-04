@@ -23,7 +23,12 @@ export function initComponents(context = document) {
     const pickers = context.querySelectorAll('.js-language-picker');
     pickers.forEach(el => {
         if (!el.dataset.lpInitialized) {
-            new LanguagePicker(el);
+            new LanguagePicker(el, {
+                    onGetLangUrl: (option) => {
+                        return window.location.origin + window.location.pathname + `?lang=${option.value}`;
+                        //return window.location + `?lang=${option.value}`;
+                    },
+                })
             el.dataset.lpInitialized = 'true';
         }
     });

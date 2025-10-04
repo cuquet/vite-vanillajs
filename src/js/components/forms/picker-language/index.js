@@ -1,3 +1,2 @@
-import LanguagePicker from "./_1_language-picker";
-export { LanguagePicker };
-export default LanguagePicker;
+// src/js/components/forms/picker-language/index.js
+export * from "./_1_language-picker";
