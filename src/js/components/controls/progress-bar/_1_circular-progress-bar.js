@@ -9,15 +9,24 @@ Usage: https://codyhouse.co/ds/components/info/circular-progress-bar
 -------------------------------- */
 
 import { tools as Util } from '@modules';
-import ProgressBar from './_1_progress-bar';
+import { ProgressBar }from './_1_progress-bar';
 
-class CProgressBar extends ProgressBar {
+export class CProgressBar extends ProgressBar {
     constructor(element, opts) {
         super(element, Util.extend(CProgressBar.defaults, opts));
         this.fillLength = parseFloat(2 * Math.PI * this.fill.getAttribute('r')).toFixed(2);
         this.colorThresholds = this.getColorThresholds;
         this.init();
     }
+    static defaults = {
+        fillClass: 'c-progress-bar__fill',
+        labelClass: 'js-c-progress-bar__value',
+        ariaLabelClass: 'js-c-progress-bar__aria-value',
+        colorUpdateClass: 'c-progress-bar--color-update',
+        colorVariable: '--c-progress-bar-color-',
+        colorFillVariable: 'c-progress-bar--fill-color-',
+    }; 
+
     get updateValue() {
         return parseFloat(this.element.getAttribute('data-progress'));
     }
@@ -87,20 +96,13 @@ class CProgressBar extends ProgressBar {
     }
 }
 
-CProgressBar.defaults = {
-    fillClass: 'c-progress-bar__fill',
-    labelClass: 'js-c-progress-bar__value',
-    ariaLabelClass: 'js-c-progress-bar__aria-value',
-    colorUpdateClass: 'c-progress-bar--color-update',
-    colorVariable: '--c-progress-bar-color-',
-    colorFillVariable: 'c-progress-bar--fill-color-',
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    const circProgressBars = Array.from(document.getElementsByClassName('js-c-progress-bar'));
-    circProgressBars.forEach((element) => {
-        new CProgressBar(element);
+export function initCProgressBar(context = document) {
+    const elements = context.querySelectorAll('.js-c-progress-bar');
+    elements.forEach(el => {
+        if (!el.dataset.cprogressBarInitialized) {
+            new CProgressBar(el);
+            el.dataset.cprogressBarInitialized = 'true';
+        }
     });
-});
+}
 
-export default CProgressBar;

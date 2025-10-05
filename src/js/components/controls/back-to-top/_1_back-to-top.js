@@ -9,7 +9,7 @@ Usage: https://codyhouse.co/ds/components/info/back-to-top
 
 //import { tools as Util } from '@modules';
 
-class Back2Top {
+export class Back2Top {
     constructor(element) {
         this.backTop = element;
         this.dataElement = this.backTop.getAttribute('data-element');
@@ -115,13 +115,14 @@ class Back2Top {
     }
 }
 
-window.Back2Top = Back2Top;
-export default Back2Top;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const backToTopElement = document.querySelector('.js-back-to-top');
-    if (backToTopElement) {
-        new Back2Top(backToTopElement);
+export function initBack2Top(context = document) {
+    const el = context.querySelector('.js-back-to-top');
+    if (el) {
+        if (!el.dataset.backTopInitialized) {
+            new Back2Top(el);
+            el.dataset.backTopInitialized = 'true';
+        }
     }
-});
+}
+
 

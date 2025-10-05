@@ -12,6 +12,7 @@ export class ChoiceTags {
         this.element = element;
         this.labels = this.element.getElementsByClassName('js-choice-tag');
         this.inputs = this.getInputs;
+        if (!this.inputs.length) return;
         this.isRadio = this.inputs[0].type === 'radio';
         this.checkedClass = 'choice-tag--checked';
         this.initChoiceTags();

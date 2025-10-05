@@ -1,2 +1,2 @@
-import LdSwitch from "./_3_light-dark-switch";
-export default LdSwitch;
+// src/js/components/controls/light-dark-switch/index.js
+export * from "./_3_light-dark-switch";

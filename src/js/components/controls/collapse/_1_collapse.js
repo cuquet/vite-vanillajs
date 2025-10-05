@@ -9,7 +9,7 @@ Usage: https://codyhouse.co/ds/components/info/collapse
 
 //import { tools as Util } from '@modules';
 
-class Collapse {
+export class Collapse {
     constructor(element) {
         this.element = element;
         this.triggers = document.querySelectorAll(
@@ -107,10 +107,13 @@ class Collapse {
     }
 }
 
-window.Collapse = Collapse;
-export default Collapse;
+export function initCollapse(context = document) {
+    const elements = context.querySelectorAll('.js-collapse');
+    elements.forEach(el => {
+        if (!el.dataset.collapseInitialized) {
+            new Collapse(el);
+            el.dataset.collapseInitialized = 'true';
+        }
+    });
+}
 
-// Inicialitza els objectes Collapse
-document.querySelectorAll('.js-collapse').forEach((element) => {
-    new Collapse(element);
-});

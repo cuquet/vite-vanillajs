@@ -10,7 +10,7 @@ Usage: https://codyhouse.co/ds/components/info/smooth-scrolling
 
 import { tools as Util } from '@modules';
 
-class SmoothScroll {
+export class SmoothScroll {
 	constructor(element) {
 		if (!('CSS' in window) || !CSS.supports('color', 'var(--color-var)')) return;
 		this.element = element;
@@ -88,14 +88,16 @@ class SmoothScroll {
 		return fixedElementDelta;
 	}
 }
-export default SmoothScroll;
 
-// Initialize the Smooth Scroll objects
-document.addEventListener('DOMContentLoaded', () => {
-	const smoothScrollLinks = Array.from(document.getElementsByClassName('js-smooth-scroll'));
-	if (smoothScrollLinks.length > 0 && !Util.cssSupports('scroll-behavior', 'smooth') && window.requestAnimationFrame) {
-		smoothScrollLinks.forEach((element) => {
-			new SmoothScroll(element);
-		});
-	}
-});
+export function initSmoothScroll(context = document) {
+	const elements = context.querySelectorAll('.js-select');
+	elements.forEach(el => {
+		if (!Util.cssSupports('scroll-behavior', 'smooth') && window.requestAnimationFrame) {
+			if (!el.dataset.smooothScrollInitialized) {
+				new SmoothScroll(el);
+				el.dataset.smoothScrollInitialized = 'true';
+			}
+		}
+
+	});
+}

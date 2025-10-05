@@ -9,7 +9,7 @@ Usage: https://codyhouse.co/ds/components/info/tooltip
 
 import { tools as Util } from '@modules';
 
-class Tooltip {
+export class Tooltip {
     constructor(element) {
         this.element = element;
         this.tooltip = false;
@@ -204,11 +204,13 @@ class Tooltip {
     }
 }
 
-export default Tooltip;
-window.Tooltip = Tooltip;
+export function initTooltip(context = document) {
+    const elements = context.querySelectorAll('.js-tooltip-trigger');
+    elements.forEach(el => {
+        if (!el.dataset.tooltipInitialized) {
+            new Tooltip(el);
+            el.dataset.tooltipInitialized = 'true';
+        }
+    });
+}
 
-// Inicialitzar els objectes Tooltip
-document.addEventListener('DOMContentLoaded', () => {
-    const tooltips = Array.from(document.getElementsByClassName('js-tooltip-trigger'));
-    tooltips.forEach(element =>  new Tooltip(element));
-});

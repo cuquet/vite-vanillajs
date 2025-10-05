@@ -1,2 +1,2 @@
-import SmoothScroll from "./_1_smooth-scrolling";
-export default SmoothScroll;
+// src/js/components/controls/smooth-scroll/index.js
+export * from "./_1_smooth-scrolling";

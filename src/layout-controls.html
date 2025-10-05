@@ -86,6 +86,42 @@
                                 <button class="anim-menu-btn color-contrast-high js-anim-menu-btn" aria-label="Toggle menu"><i class="anim-menu-btn__icon anim-menu-btn__icon--close" aria-hidden="true"></i></button>
                             </div>
                         </section>
+                        <section class="padding-y-xs"><h2>Full screen search</h2>
+                            <button class="btn btn--subtle btn--icon" aria-controls="modal-search"><svg class="icon" viewBox="0 0 24 24">
+                                    <title>Toggle search</title>
+                                    <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-miterlimit="10">
+                                        <line x1="22" y1="22" x2="15.656" y2="15.656"></line>
+                                        <circle cx="10" cy="10" r="8"></circle>
+                                    </g>
+                                </svg></button>
+                            <div class="modal modal--search modal--animate-fade bg bg-opacity-90% flex flex-center padding-md backdrop-blur-10 js-modal"
+                                id="modal-search">
+                                <div class="modal__content width-100% max-width-sm max-height-100% overflow-auto" role="alertdialog"
+                                    aria-labelledby="modal-search-title" aria-describedby="">
+                                    <form class="full-screen-search"><label for="search-input-x" id="modal-search-title"
+                                            class="sr-only">Search</label> <input class="reset full-screen-search__input" type="search"
+                                            name="search-input-x" id="search-input-x" placeholder="Search..."> <button
+                                            class="full-screen-search__btn"><svg class="icon" viewBox="0 0 24 24">
+                                                <title>Search</title>
+                                                <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor"
+                                                    fill="none" stroke-miterlimit="10">
+                                                    <line x1="22" y1="22" x2="15.656" y2="15.656"></line>
+                                                    <circle cx="10" cy="10" r="8"></circle>
+                                                </g>
+                                            </svg></button></form>
+                                </div><button class="modal__close-btn modal__close-btn--outer js-modal__close"><svg class="icon icon--sm"
+                                        viewBox="0 0 24 24">
+                                        <title>Close modal window</title>
+                                        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <line x1="3" y1="3" x2="21" y2="21"></line>
+                                            <line x1="21" y1="3" x2="3" y2="21"></line>
+                                        </g>
+                                    </svg></button>
+                            </div>
+                        </section>
+
                         <section class="padding-y-md"><h2>Alertes</h2>
                             <h3>default .alert</h3>
                             <div class="alert alert--is-visible padding-sm text-sm radius-md js-alert" role="alert">

@@ -1,17 +1,15 @@
 /* -------------------------------- 
-
 File#: _1_popover
 Title: Popover
 Descr: A pop-up box controlled by a trigger element
 Usage: https://codyhouse.co/ds/components/info/popover
-
 -------------------------------- */
 
 import { tools as Util } from '@modules';
 
-class Popover {
-    constructor(element, opts={}) {
-        this.opts= Util.extend(Popover.defaults, opts);
+export class Popover {
+    constructor(element, opts = {}) {
+        this.opts = Util.extend(Popover.defaults, opts);
         this.element = element;
         this.elementId = this.element.getAttribute('id');
         this.trigger = document.querySelectorAll(`[aria-controls="${this.elementId}"]`);
@@ -22,11 +20,17 @@ class Popover {
         this.firstFocusable = false;
         this.lastFocusable = false;
         this.positionTarget = this.getPositionTarget();
-        this.viewportGap = parseInt(getComputedStyle(this.element).getPropertyValue('--popover-viewport-gap')) || 20;
+        this.viewportGap =
+            parseInt(getComputedStyle(this.element).getPropertyValue('--popover-viewport-gap')) ||
+            20;
 
         this.init();
         this.initEvents();
     }
+
+    static defaults = {
+        focusableElString: Util.focusableElString(),
+    };
 
     togglePopover(bool, moveFocus) {
         this.togglePopoverVisibility(bool, moveFocus);
@@ -34,7 +38,10 @@ class Popover {
 
     checkPopoverClick(target) {
         if (!this.popoverIsOpen) return;
-        if (!this.element.contains(target) && !target.closest(`[aria-controls="${this.elementId}"]`)) {
+        if (
+            !this.element.contains(target) &&
+            !target.closest(`[aria-controls="${this.elementId}"]`)
+        ) {
             this.togglePopoverVisibility(false);
         }
     }
@@ -54,7 +61,10 @@ class Popover {
     init() {
         this.initPopoverPosition();
         for (let i = 0; i < this.trigger.length; i++) {
-            Util.setAttributes(this.trigger[i], { 'aria-expanded': 'false', 'aria-haspopup': 'true' });
+            Util.setAttributes(this.trigger[i], {
+                'aria-expanded': 'false',
+                'aria-haspopup': 'true',
+            });
         }
     }
 
@@ -62,37 +72,41 @@ class Popover {
         for (let i = 0; i < this.trigger.length; i++) {
             this.trigger[i].addEventListener('click', (event) => {
                 event.preventDefault();
-                if (Util.hasClass(this.element, this.popoverVisibleClass) && this.selectedTrigger != this.trigger[i]) {
+                if (
+                    Util.hasClass(this.element, this.popoverVisibleClass) &&
+                    this.selectedTrigger != this.trigger[i]
+                ) {
                     this.togglePopoverVisibility(false, false);
                 }
                 this.selectedTrigger = this.trigger[i];
-                this.togglePopoverVisibility(!Util.hasClass(this.element, this.popoverVisibleClass), true);
+                this.togglePopoverVisibility(
+                    !Util.hasClass(this.element, this.popoverVisibleClass),
+                    true,
+                );
             });
         }
 
         this.element.addEventListener('keydown', (event) => {
-            if (event.key === 'Tab') {
-                this.trapFocus(event);
-            }
+            if (event.key === 'Tab') this.trapFocus(event);
         });
 
-        this.element.addEventListener('openPopover', () => {
-            this.togglePopoverVisibility(true);
-        });
-
-        this.element.addEventListener('closePopover', (event) => {
-            this.togglePopoverVisibility(false, event.detail);
-        });
+        this.element.addEventListener('openPopover', () => this.togglePopoverVisibility(true));
+        this.element.addEventListener('closePopover', (event) =>
+            this.togglePopoverVisibility(false, event.detail),
+        );
     }
 
     togglePopoverVisibility(bool, moveFocus) {
         Util.toggleClass(this.element, this.popoverVisibleClass, bool);
         this.popoverIsOpen = bool;
+
         if (bool) {
             this.selectedTrigger.setAttribute('aria-expanded', 'true');
             this.getFocusableElements();
             this.focusPopover();
-            this.element.addEventListener("transitionend", () => this.focusPopover(), { once: true });
+            this.element.addEventListener('transitionend', () => this.focusPopover(), {
+                once: true,
+            });
             this.positionPopover();
             Util.addClass(this.selectedTrigger, this.selectedTriggerClass);
         } else if (this.selectedTrigger) {
@@ -113,19 +127,34 @@ class Popover {
 
     positionPopover() {
         this.resetPopoverStyle();
-        const selectedTriggerPosition = this.positionTarget ? this.positionTarget.getBoundingClientRect() : this.selectedTrigger.getBoundingClientRect();
-        const menuOnTop = (window.innerHeight - selectedTriggerPosition.bottom) < selectedTriggerPosition.top;
+        const selectedTriggerPosition = this.positionTarget
+            ? this.positionTarget.getBoundingClientRect()
+            : this.selectedTrigger.getBoundingClientRect();
+
+        const menuOnTop =
+            window.innerHeight - selectedTriggerPosition.bottom < selectedTriggerPosition.top;
         const left = selectedTriggerPosition.left;
-        const right = (window.innerWidth - selectedTriggerPosition.right);
-        const isRight = (window.innerWidth < selectedTriggerPosition.left + this.element.offsetWidth);
+        const right = window.innerWidth - selectedTriggerPosition.right;
+        const isRight = window.innerWidth < selectedTriggerPosition.left + this.element.offsetWidth;
+
         let horizontal = isRight ? `right: ${right}px;` : `left: ${left}px;`;
-        let vertical = menuOnTop ? `bottom: ${window.innerHeight - selectedTriggerPosition.top}px;` : `top: ${selectedTriggerPosition.bottom}px;`;
-        if (isRight && (right + this.element.offsetWidth) > window.innerWidth) {
+        let vertical = menuOnTop
+            ? `bottom: ${window.innerHeight - selectedTriggerPosition.top}px;`
+            : `top: ${selectedTriggerPosition.bottom}px;`;
+
+        if (isRight && right + this.element.offsetWidth > window.innerWidth) {
             horizontal = `left: ${parseInt((window.innerWidth - this.element.offsetWidth) / 2)}px;`;
         }
-        const maxHeight = menuOnTop ? selectedTriggerPosition.top - this.viewportGap : window.innerHeight - selectedTriggerPosition.bottom - this.viewportGap;
+
+        const maxHeight = menuOnTop
+            ? selectedTriggerPosition.top - this.viewportGap
+            : window.innerHeight - selectedTriggerPosition.bottom - this.viewportGap;
+
         const initialStyle = this.element.getAttribute('style') || '';
-        this.element.setAttribute('style', `${initialStyle}${horizontal}${vertical}max-height:${Math.floor(maxHeight)}px;`);
+        this.element.setAttribute(
+            'style',
+            `${initialStyle}${horizontal}${vertical}max-height:${Math.floor(maxHeight)}px;`,
+        );
     }
 
     resetPopoverStyle() {
@@ -143,8 +172,10 @@ class Popover {
 
     getFocusableElements() {
         const allFocusable = this.element.querySelectorAll(this.opts.focusableElString);
-        this.firstFocusable = Array.from(allFocusable).find(el => this.isVisible(el));
-        this.lastFocusable = Array.from(allFocusable).reverse().find(el => this.isVisible(el));
+        this.firstFocusable = Array.from(allFocusable).find((el) => this.isVisible(el));
+        this.lastFocusable = Array.from(allFocusable)
+            .reverse()
+            .find((el) => this.isVisible(el));
     }
 
     trapFocus(event) {
@@ -163,23 +194,20 @@ class Popover {
     }
 }
 
-Popover.defaults = {
-    focusableElString : Util.focusableElString(),
-}
-
-export default Popover;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const popovers = Array.from(document.getElementsByClassName('js-popover'));
+export function initPopover(context = document) {
+    const popovers = Array.from(context.getElementsByClassName('js-popover'));
     const popoversArray = [];
     const scrollingContainers = [];
-    popovers.forEach(el => {
+
+    popovers.forEach((el) => {
         const popover = new Popover(el);
         popoversArray.push(popover);
+
         const scrollableElement = el.getAttribute('data-scrollable-element');
         if (scrollableElement && !scrollingContainers.includes(scrollableElement)) {
             scrollingContainers.push(scrollableElement);
         }
+
         const handleEvent = (event) => {
             if (event.type === 'keyup' && event.key === 'Escape') {
                 popover.checkPopoverFocus();
@@ -189,19 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (popover.popoverIsOpen) popover.togglePopover(false, false);
             }
         };
+
         window.addEventListener('keyup', handleEvent);
         window.addEventListener('click', handleEvent);
         window.addEventListener('resize', handleEvent);
         window.addEventListener('scroll', handleEvent);
     });
-    scrollingContainers.forEach(container => {
+
+    scrollingContainers.forEach((container) => {
         const scrollingContainer = document.querySelector(container);
         if (scrollingContainer) {
             scrollingContainer.addEventListener('scroll', () => {
-                popoversArray.forEach(element => {
+                popoversArray.forEach((element) => {
                     if (element.popoverIsOpen) element.togglePopover(false, false);
                 });
             });
         }
     });
-});
+}

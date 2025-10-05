@@ -1,4 +1,3 @@
-import Popover from "./_1_popover";
-
-export default Popover;
+// src/js/components/controls/popover/index.js
+export * from "./_1_popover";
 

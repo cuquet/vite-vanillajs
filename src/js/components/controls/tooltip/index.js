@@ -1,4 +1,3 @@
-import Tooltip from "./_1_tooltip";
-
-export default Tooltip;
+// src/js/components/controls/tooltip/index.js
+export * from "./_1_tooltip";
 

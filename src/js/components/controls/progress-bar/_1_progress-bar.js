@@ -10,7 +10,7 @@ Usage: https://codyhouse.co/ds/components/info/progress-bar
 
 import { tools as Util } from '@modules';
 
-class ProgressBar {
+export class ProgressBar {
     constructor(element, opts) {
         this.element = element;
         Object.assign(this, Util.extend(ProgressBar.defaults, opts));
@@ -36,6 +36,17 @@ class ProgressBar {
         this.animationId = false;
         this.init();
     }
+
+    static defaults = {
+        prefersReducedMotion: Util.osHasReducedMotion(),
+        fillClass: 'progress-bar__fill',
+        labelClass: 'progress-bar__value',
+        ariaLabelClass: 'js-progress-bar__aria-value',
+        colorUpdateClass: 'progress-bar--color-update',
+        colorVariable : '--progress-bar-color-',
+        colorFillVariable : 'progress-bar--fill-color-',
+    };
+
     get getFillElemement () {
         return this.element.querySelector('.'.concat(this.fillClass));
     }
@@ -154,23 +165,16 @@ class ProgressBar {
         this.element.dispatchEvent(new CustomEvent(eventName, { detail }));
     }
 }
-ProgressBar.defaults = {
-    prefersReducedMotion: Util.osHasReducedMotion(),
-    fillClass: 'progress-bar__fill',
-    labelClass: 'progress-bar__value',
-    ariaLabelClass: 'js-progress-bar__aria-value',
-    colorUpdateClass: 'progress-bar--color-update',
-    colorVariable : '--progress-bar-color-',
-    colorFillVariable : 'progress-bar--fill-color-',
-};
 
-export default ProgressBar;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const progressBars = Array.from(document.getElementsByClassName('js-progress-bar'));
-    progressBars.forEach((el) => {
-        new ProgressBar(el);
+export function initProgressBar(context = document) {
+    const elements = context.querySelectorAll('.js-progress-bar');
+    elements.forEach(el => {
+        if (!el.dataset.progressBarInitialized) {
+            new ProgressBar(el);
+            el.dataset.progressBarInitialized = 'true';
+        }
     });
-});
+}
+
 
 

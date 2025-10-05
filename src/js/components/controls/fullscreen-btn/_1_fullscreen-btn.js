@@ -2,12 +2,12 @@
 
 File#: _1_fullscreen-btn
 Title: Fullscreen Button
-Descr: toggle fullscreen browser mode.
-Usage: 
+Descr: Toggle fullscreen browser mode.
+
 -------------------------------- */
 
-(function() {
-    const btns = document.querySelectorAll('.js-fullscreen-btn');
+export function initFullscreenBtn(context = document) {
+    const btns = context.querySelectorAll('.js-fullscreen-btn');
     const elem = document.documentElement;
 
     function toggleFullscreen(isEntering) {
@@ -22,14 +22,18 @@ Usage:
         }
     }
 
-    btns.forEach(btn => {
-        btn.addEventListener('click', e => {
+    btns.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
+
             const entering = !btn.classList.contains('fullscreen-btn--state-b');
             btn.classList.toggle('fullscreen-btn--state-b', entering);
+
+            // actualitza l’icona <use href="#expand/compress">
             const icon = btn.querySelector('use');
             if (icon) icon.setAttribute('href', `#${entering ? 'compress' : 'expand'}`);
+
             toggleFullscreen(entering);
         });
     });
-}());
+}

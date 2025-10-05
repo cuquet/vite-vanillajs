@@ -1,5 +1,19 @@
 // src/js/modules/initComponents.js
 import {
+    initAlert,
+    initAnimMenuBtn, 
+    initBack2Top,
+    initCollapse,
+    initDropdown,
+    initTooltip,
+    initPopover,
+    initProgressBar,
+    initCProgressBar,
+    initSmoothScroll,
+    initLdSwitch,
+    initFullscreenBtn,
+} from '@components/controls'
+import {
     initChoiceTags,
     initNumberInput,
     initListFilter,
@@ -20,6 +34,20 @@ import {
 import { LanguagePicker } from '@components/forms/picker-language';
 
 export function initComponents(context = document) {
+    // src/js/components/controls
+    initAlert(context);
+    initAnimMenuBtn(context);
+    initBack2Top(context);
+    initCollapse(context);
+    initDropdown(context);
+    initTooltip(context);
+    initPopover(context);
+    initProgressBar(context);
+    initCProgressBar(context);
+    initSmoothScroll(context);
+    initLdSwitch(context);
+    initFullscreenBtn(context);
+    // src/js/components/forms
     initChoiceTags(context);
     initNumberInput(context);
     initListFilter(context);

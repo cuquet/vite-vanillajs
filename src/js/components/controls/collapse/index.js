@@ -1,2 +1,2 @@
-import Collapse from "./_1_collapse";
-export default Collapse;
+// src/js/components/controls/collapse/index.js
+export * from "./_1_collapse";

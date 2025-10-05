@@ -1,7 +1,7 @@
 
 import './components/controls';
 import './components/overlays';
-import './components/forms';
+//import './components/forms';
 import './components/navigation';
 import './components/plugins';
 import './components/table';

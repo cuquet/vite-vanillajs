@@ -1,20 +1,12 @@
 /* -------------------------------- 
-
 File#: _3_light-dark-switch
 Title: Light Dark Switch
-Descr: A color theme switcher based on the user system preferences.
-Usage: https://codyhouse.co/ds/components/info/light-dark-switch
-    https://dev.to/whitep4nth3r/the-best-lightdark-mode-theme-toggle-in-javascript-368f
-    https://codepen.io/whitep4nth3r/pen/VwEqrQL
-
-Dependencies
-    _1_popover
-    _2_adv-custom-select
+Descr: A color theme switcher based on system preferences
 -------------------------------- */
 
 import { tools as Util } from '@modules';
 
-class LdSwitch {
+export class LdSwitch {
     constructor(element) {
         this.element = element;
         this.icons = this.element.getElementsByClassName('js-ld-switch-icon');
@@ -25,22 +17,21 @@ class LdSwitch {
         this.mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
         this.eventBind = false;
         this.saveThemeLabels();
-        if (this.element) this.init();
+        this.init();
     }
 
     saveThemeLabels() {
         this.themes = ['light', 'dark', 'system'];
         if (this.element) {
             this.options = this.element.querySelectorAll('option');
-            const lightTheme = this.options[0].getAttribute('data-option-theme');
-            const darkTheme = this.options[1].getAttribute('data-option-theme');
+            const lightTheme = this.options[0]?.getAttribute('data-option-theme');
+            const darkTheme = this.options[1]?.getAttribute('data-option-theme');
             if (lightTheme) this.themes[0] = lightTheme;
             if (darkTheme) this.themes[1] = darkTheme;
         }
     }
 
     init() {
-        //this.element.querySelector('select').setAttribute('id', `select-color-theme-${this.ID}`);
         this.setStartIcon();
         this.element.addEventListener('change', (event) => {
             this.setTheme(event.target.value);
@@ -61,7 +52,7 @@ class LdSwitch {
         if (value == 1) {
             theme = this.themes[1];
         } else if (value == 2) {
-            const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDarkTheme = this.mediaQueryList.matches;
             if (isDarkTheme) {
                 iconIndex = 3;
                 theme = this.themes[1];
@@ -91,7 +82,7 @@ class LdSwitch {
     }
 
     updateThemeValue(theme) {
-        document.getElementsByTagName('html')[0].setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
     }
 
     setMatchMediaEvents(addEvent, removeEvent) {
@@ -104,7 +95,7 @@ class LdSwitch {
     }
 
     systemUpdated() {
-        const isDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDarkTheme = this.mediaQueryList.matches;
         const theme = isDarkTheme ? this.themes[1] : this.themes[0];
         const newIndex = isDarkTheme ? 3 : 2;
         const oldIcon = isDarkTheme ? 2 : 3;
@@ -113,17 +104,23 @@ class LdSwitch {
     }
 }
 
-export default LdSwitch;
+/**
+ * Inicialitza tots els light-dark switches dins d’un context determinat.
+ */
+export function initLdSwitch(context = document) {
+    const ldSwitches = context.querySelectorAll('.js-ld-switch');
+    ldSwitches.forEach((el) => new LdSwitch(el));
 
-document.addEventListener('DOMContentLoaded', () => {
-    const ldSwitches = Array.from(document.getElementsByClassName('js-ld-switch'));
-    ldSwitches.forEach((element) => { new LdSwitch(element) });
-    const htmlEl = document.getElementsByTagName('html')[0];
+    // Configura el tema inicial basat en el valor guardat
+    const htmlEl = document.documentElement;
     const ldTheme = localStorage.getItem('ldSwitch');
+
     if (
-        ldTheme == 'dark' ||
-        (ldTheme == 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ldTheme === 'dark' ||
+        (ldTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
         htmlEl.setAttribute('data-theme', 'dark');
+    } else if (ldTheme === 'light') {
+        htmlEl.setAttribute('data-theme', 'light');
     }
-});
+}
