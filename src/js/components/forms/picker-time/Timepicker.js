@@ -120,8 +120,8 @@ export class TimePicker {
 }
 
 export function initTimePicker(context = document) {
-    const elements = context.querySelectorAll('.js-timepicker');
-    elements.forEach(el => {
+    const elements = context.querySelectorAll('.js-time-picker');
+    elements.forEach((el) => {
         if (!el.dataset.timePickerInitialized) {
             const timepicker = new TimePicker(el);
             el.dataset.timePickerInitialized = 'true';
@@ -129,4 +129,3 @@ export function initTimePicker(context = document) {
         }
     });
 }
-

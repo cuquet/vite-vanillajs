@@ -1,80 +1,126 @@
 // src/js/modules/initComponents.js
-import {
-    initAlert,
-    initAnimMenuBtn, 
-    initBack2Top,
-    initCollapse,
-    initDropdown,
-    initTooltip,
-    initPopover,
-    initProgressBar,
-    initCProgressBar,
-    initSmoothScroll,
-    initLdSwitch,
-    initFullscreenBtn,
-} from '@components/controls'
-import {
-    initChoiceTags,
-    initNumberInput,
-    initListFilter,
-    initCustomSelect,
-    initMultipleCustomSelect,
-    initMultipleCustomSelectV2,
-    initAdvSelect,
-    initPasswordVisibility,
-    initPasswordStrength,
-    initDatePicker,
-    initDatePickerRange,
-    initTimePicker,
-    initSlider,
-    initSliderRange,
-    initExpandableSearch,
-} from '@components/forms';
+// Carrega automàticament només els components necessaris segons el DOM
 
-import { LanguagePicker } from '@components/forms/picker-language';
+export async function initComponents(context = document) {
+    const lazyLoaders = [];
 
-export function initComponents(context = document) {
-    // src/js/components/controls
-    initAlert(context);
-    initAnimMenuBtn(context);
-    initBack2Top(context);
-    initCollapse(context);
-    initDropdown(context);
-    initTooltip(context);
-    initPopover(context);
-    initProgressBar(context);
-    initCProgressBar(context);
-    initSmoothScroll(context);
-    initLdSwitch(context);
-    initFullscreenBtn(context);
-    // src/js/components/forms
-    initChoiceTags(context);
-    initNumberInput(context);
-    initListFilter(context);
-    initCustomSelect(context);
-    initMultipleCustomSelect(context);
-    initMultipleCustomSelectV2(context);
-    initAdvSelect(context);
-    initPasswordVisibility(context);
-    initPasswordStrength(context);
-    initDatePicker(context);
-    initDatePickerRange(context);
-    initTimePicker(context);
-    initSlider(context);
-    initSliderRange(context);
-    initExpandableSearch(context);
+    // 🧭 Controls
+    if (context.querySelector('.js-alert')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initAlert(context)));
+    }
+    if (context.querySelector('.js-anim-menu-btn')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initAnimMenuBtn(context)));
+    }
+    if (context.querySelector('.js-back-to-top')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initBack2Top(context)));
+    }
+    if (context.querySelector('.js-collapse')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initCollapse(context)));
+    }
+    if (context.querySelector('.js-dropdown')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initDropdown(context)));
+    }
+    if (context.querySelector('.js-tooltip')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initTooltip(context)));
+    }
+    if (context.querySelector('.js-popover')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initPopover(context)));
+    }
+    if (context.querySelector('.js-progress-bar')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initProgressBar(context)));
+    }
+    if (context.querySelector('.js-c-progress-bar')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initCProgressBar(context)));
+    }
+    if (context.querySelector('.js-smooth-scroll')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initSmoothScroll(context)));
+    }
+    if (context.querySelector('.js-ld-switch')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initLdSwitch(context)));
+    }
+    if (context.querySelector('.js-fullscreen-btn')) {
+        lazyLoaders.push(import('@components/controls').then((m) => m.initFullscreenBtn(context)));
+    }
 
-    // language picker
-    const pickers = context.querySelectorAll('.js-language-picker');
-    pickers.forEach(el => {
-        if (!el.dataset.lpInitialized) {
-            new LanguagePicker(el, {
-                    onGetLangUrl: (option) => {
-                        return window.location.origin + window.location.pathname + `?lang=${option.value}`;
-                        //return window.location + `?lang=${option.value}`;
-                    },
-                })
-            el.dataset.lpInitialized = 'true';
-        }
-    });
+    // 🧩 Forms
+    if (context.querySelector('.js-choice-tag')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initChoiceTags(context)));
+    }
+    if (context.querySelector('.js-number-input')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initNumberInput(context)));
+    }
+    if (context.querySelector('.js-list-filter')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initListFilter(context)));
+    }
+    if (context.querySelector('.js-select')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initCustomSelect(context)));
+    }
+    if (context.querySelector('.js-multi-select')) {
+        lazyLoaders.push(
+            import('@components/forms').then((m) => m.initMultipleCustomSelect(context)),
+        );
+    }
+    if (context.querySelector('.js-multi-select-v2')) {
+        lazyLoaders.push(
+            import('@components/forms').then((m) => m.initMultipleCustomSelectV2(context)),
+        );
+    }
+    if (context.querySelector('.js-adv-select')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initAdvSelect(context)));
+    }
+    if (context.querySelector('.js-password')) {
+        lazyLoaders.push(
+            import('@components/forms').then((m) => m.initPasswordVisibility(context)),
+        );
+    }
+    if (context.querySelector('.js-password-strength')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initPasswordStrength(context)));
+    }
+    if (context.querySelector('.js-date-picker')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initDatePicker(context)));
+    }
+    if (context.querySelector('.js-date-range')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initDatePickerRange(context)));
+    }
+    if (context.querySelector('.js-time-picker')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initTimePicker(context)));
+    }
+    if (context.querySelector('.js-slider')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initSlider(context)));
+    }
+    if (context.querySelector('.slider--multi-value.js-slider')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initSliderRange(context)));
+    }
+    if (context.querySelector('.js-expandable-search')) {
+        lazyLoaders.push(import('@components/forms').then((m) => m.initExpandableSearch(context)));
+    }
+
+    // 🌐 Language picker
+    if (context.querySelector('.js-language-picker')) {
+        lazyLoaders.push(
+            import('@components/forms/picker-language').then(({ LanguagePicker }) => {
+                const pickers = context.querySelectorAll('.js-language-picker');
+                pickers.forEach((el) => {
+                    if (!el.dataset.lpInitialized) {
+                        new LanguagePicker(el, {
+                            onGetLangUrl: (option) =>
+                                window.location.origin +
+                                window.location.pathname +
+                                `?lang=${option.value}`,
+                        });
+                        el.dataset.lpInitialized = 'true';
+                    }
+                });
+            }),
+        );
+    }
+
+    // Espera que tots els components s’hagin inicialitzat
+    if (import.meta.env.DEV) {
+        console.info(`🧩 initComponents: carregant ${lazyLoaders.length} components`);
+        // console.group('🧩 initComponents: components carregats');
+        // lazyLoaders.forEach((_, i) => console.log(`→ Component #${i + 1}`));
+        // console.groupEnd();
+    }
+    await Promise.all(lazyLoaders);
 }
