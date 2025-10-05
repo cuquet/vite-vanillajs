@@ -5,108 +5,92 @@
  *   npm install --save-dev vite chokidar fs-extra glob
  *
  * 📁 Estructura recomanada:
- *   src/ ← (arrel de Vite)
+ *   src/
  *     ├─ js/
- *     │   └─ main.js
  *     ├─ scss/
- *     │   └─ style.scss
  *     └─ site/
  *         ├─ pages/
- *         └─ partials/   
+ *         └─ partials/
  *
  * 🧰 Funcions:
- *   - Compila automàticament les pàgines Handlebars abans d’iniciar Vite.
- *   - Actualitza el fitxer vite.entries.json.
- *   - Esborra fitxers temporals després del build.
+ *   - Compila automàticament Handlebars abans d’iniciar Vite.
+ *   - Recompila pàgines o partials al vol amb watcher.
+ *   - Actualitza vite.entries.json.
  */
 
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import fs from 'fs-extra';
-import { execSync } from 'child_process';
 import path from 'path';
-import { glob } from 'glob';
+import { spawnSync } from 'child_process';
 import chokidar from 'chokidar';
 
 const ROOT = process.cwd();
 const ENTRY_FILE = path.join(ROOT, 'vite.entries.json');
-const COMPILED_OUT_ROOT = path.join(ROOT, 'src'); // on build-pages escriu els HTML compilats
+const COMPILED_OUT_ROOT = path.join(ROOT, 'src');
 const PAGES_GLOB = path.join(ROOT, 'src/site/pages/**/*.html');
 const PARTIALS_GLOB = path.join(ROOT, 'src/site/partials/**/*.hbs');
 
 // ------------------------------------------------
-//   Assegurem que hi hagi vite.entries.json abans de carregar
-//   (això evita que rollupOptions.input quedi buit)
+// Generem vite.entries.json si no existeix
 // ------------------------------------------------
 if (!fs.existsSync(ENTRY_FILE)) {
-  console.log('⚠️ No s’ha trobat vite.entries.json — executant build-pages.mjs per generar entrades...');
-  execSync('node build-pages.mjs', { stdio: 'inherit' });
+    console.log('⚠️ No s’ha trobat vite.entries.json — executant build-pages.mjs...');
+    spawnSync('node', ['build-pages.mjs'], { stdio: 'inherit', shell: true });
 }
 
 // ------------------------------------------------------
-// 🔧 Plugin personalitzat per compilar pàgines Handlebars
-//    - observa canvis a pages/ i partials/
-//    - crida build-pages.mjs <fitxer> per recompilar només el que cal
-//    - quan el build finalitza (command === 'build'), elimina només els fitxers llistats
+// 🔧 Plugin personalitzat per recompilar Handlebars al vol
 // ------------------------------------------------------
 function handlebarsWatcherPlugin() {
-  return {
-    name: 'vite-handlebars-watch',
+    return {
+        name: 'vite-handlebars-watch',
 
-    configureServer(server) {
-      // Watch en dev: quan canvia un partial o una pàgina, re-executa build-pages per aquell fitxer
-      const watcher = chokidar.watch([PAGES_GLOB, PARTIALS_GLOB], { ignoreInitial: true });
+        configureServer(server) {
+            const watcher = chokidar.watch([PAGES_GLOB, PARTIALS_GLOB], { ignoreInitial: true });
 
-      watcher.on('change', (filePath) => {
-        console.log(`♻️  Fitxer canviat: ${filePath} — recompilant...`);
-        // passem la ruta del fitxer a build-pages.mjs per compilar només el necessari
-        try {
-          execSync(`node build-pages.mjs "${filePath}"`, { stdio: 'inherit' });
-          // refresquem entries a memoria
-          if (fs.existsSync(ENTRY_FILE)) {
-            entries = fs.readJsonSync(ENTRY_FILE);
-          }
-          // forcem recàrrega completa (simple i robust)
-          server.ws.send({ type: 'full-reload' });
-        } catch (err) {
-          console.error('Error en recompilar pàgina:', err);
-        }
-      });
-    },
+            watcher.on('change', async (filePath) => {
+                console.log(`♻️  Fitxer canviat: ${filePath}`);
 
-    // closeBundle s'executa al final del build; eliminarem només els arxius listats a vite.entries.json
-    closeBundle() {
-      // Només fer això en build de producció (Vite executa closeBundle tant en dev com build; comprovarem NODE_ENV)
-      const isProd = process.env.NODE_ENV === 'production' || process.env.VITE_BUILD === 'true';
-      if (!isProd) {
-        // Preferim no esborrar en dev per poder inspeccionar els fitxers
-        return;
-      }
+                try {
+                    // 🧱 1. Recompilar
+                    spawnSync('node', ['build-pages.mjs', filePath], {
+                        stdio: 'inherit',
+                        shell: true,
+                    });
 
-      if (!fs.existsSync(ENTRY_FILE)) return;
+                    // 🕒 2. Esperar que el fitxer compilat existeixi abans del reload
+                    const fileName = path.basename(filePath);
+                    const compiledPath = path.join(ROOT, 'src', fileName);
 
-      const entriesToRemove = fs.readJsonSync(ENTRY_FILE);
-      console.log('🧹 Esborrant només les pàgines compilades indicades a vite.entries.json...');
-      for (const key of Object.keys(entriesToRemove)) {
-        const filePath = entriesToRemove[key];
-        if (fs.existsSync(filePath)) {
-          try {
-            fs.removeSync(filePath);
-            console.log(`✅ Eliminat: ${filePath}`);
-          } catch (err) {
-            console.warn(`⚠️ No s'ha pogut eliminar ${filePath}:`, err.message);
-          }
-        }
-      }
-      // finalment, esborrem el fitxer d'entrades
-      try {
-        fs.removeSync(ENTRY_FILE);
-        console.log('✅ Eliminat: vite.entries.json');
-      } catch (err) {
-        console.warn('⚠️ No s’ha pogut eliminar vite.entries.json:', err.message);
-      }
-    },
-  };
+                    const waitForFile = (target, tries = 10) =>
+                        new Promise((resolve, reject) => {
+                            const check = () => {
+                                if (fs.existsSync(target)) return resolve(true);
+                                if (tries-- <= 0)
+                                    return reject(new Error(`No s'ha trobat ${target}`));
+                                setTimeout(check, 100);
+                            };
+                            check();
+                        });
+
+                    await waitForFile(compiledPath);
+
+                    console.log(`✅ Pàgina compilada: ${compiledPath}`);
+
+                    // 🔁 3. Refrescar el navegador
+                    setTimeout(() => {
+                        console.log('🔁 Refrescant navegador...');
+                        server.ws.send({ type: 'full-reload' });
+                    }, 200);
+                } catch (err) {
+                    console.error('❌ Error recompilant pàgina Handlebars:', err.message);
+                }
+            });
+
+            console.log('👀 Watcher Handlebars actiu (pages + partials).');
+        },
+    };
 }
 
 // ------------------------------------------------------
@@ -120,7 +104,7 @@ if (fs.existsSync(ENTRY_FILE)) {
 }
 
 export default defineConfig({
-    root: 'src', // arrel pública
+    root: 'src',
     plugins: [handlebarsWatcherPlugin()],
     resolve: {
         alias: {
@@ -136,18 +120,11 @@ export default defineConfig({
             },
         },
     },
-
-    // ✅ Permet accedir a fitxers fora del root (`src/`)
     server: {
         fs: {
-            // 🟢 Permet accedir a src i a la carpeta arrel del projecte
-            allow: [
-                path.resolve(ROOT),
-                path.resolve(ROOT, 'src'),
-            ],
+            allow: [path.resolve(ROOT), path.resolve(ROOT, 'src')],
         },
     },
-
     build: {
         outDir: '../dist',
         emptyOutDir: true,
