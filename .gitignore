@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 src/site/compiled
-*.html
+/*.html
 vite.entries.json
 
 # Editor directories and files

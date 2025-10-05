@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+    <link rel="stylesheet" href="/scss/style.scss" />
+    <title>CodyFrame</title>
+    </head>
+    <body class="bg-darker">
+        {{> header activepage='forms-validate'}}
+        <main class="main-el padding-y-lg@lg padding-y-xs" aria-label="Content">
+            <div class="container max-width-adaptive-lg">
+                <div class="grid gap-md flex-row-reverse@md">
+                    <div class="col-3@md">
+                        <div class="toc toc--static@md js-toc"></div>
+                    </div>
+                    <div class="col-9@md bg padding-md ">
+                        <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
+                            <section class="text-component text-component--relaxed">
+                                <p><a href="https://codyhouse.co/ds/docs/framework/forms"> Form control component</a></p>
+                            </section>
+                            <section class="padding-y-xs"><h1>Form Validator</h1>
+                                <form class="form-validate js-form-validate">
+                                    <fieldset class="margin-bottom-md">
+                                        <legend class="form-legend">Form Legend</legend>
+                                        <div class="margin-bottom-xs">
+                                            <div class="grid gap-xs">
+                                                <div class="col-6@md form-validate__input-wrapper js-form-validate__input-wrapper">
+                                                    <label class="form-label margin-bottom-2xs" for="email">Email</label>
+                                                    <input class="form-control width-100%" type="email" name="email" id="email" required>
+                                                    <div role="alert" class="form-validate__error-msg bg-error bg-opacity-20% padding-x-xs padding-y-2xs radius-md text-xs color-contrast-higher margin-top-2xs">
+                                                        <p>Provide a valid email address.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6@md form-validate__input-wrapper js-form-validate__input-wrapper">
+                                                    <label class="form-label margin-bottom-2xs" for="password">Password</label>
+                                                    <input class="form-control width-100%" type="password" name="password" id="password" data-validate="hasNumber">
+                                                    <div role="alert" class="form-validate__error-msg bg-error bg-opacity-20% padding-x-xs padding-y-2xs radius-md text-xs color-contrast-higher margin-top-2xs">
+                                                        <p>Must include a number.</p>
+                                                    </div>
+                                                    <p class="text-xs color-contrast-medium margin-top-2xs">Include a number.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-validate__input-wrapper js-form-validate__input-wrapper">
+                                            <label class="form-label margin-bottom-2xs" for="textarea">Message</label>
+                                            <textarea class="form-control width-100%" name="textarea" id="textarea" minlength="10" required></textarea>
+                                            <div role="alert" class="form-validate__error-msg bg-error bg-opacity-20% padding-x-xs padding-y-2xs radius-md text-xs color-contrast-higher margin-top-2xs">
+                                                <p>Must be at least 10 characters.</p>
+                                            </div>
+                                            <p class="text-xs color-contrast-medium margin-top-2xs">At least 10 characters.</p>
+                                        </div>
+                                    </fieldset>
+                                    <div class="text-right padding-top-sm border-top">
+                                        <button class="btn btn--primary" formnovalidate>Submit</button>
+                                    </div>
+                                </form>
+                            </section>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {{> totop }}
+        {{> footer }}
+        {{> svg }}
+    
+    </body>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" >
+        // exemple <input type="password" name="password" id="password" required data-validate="hasNumber">
+        // exemple <input type="email" name="email" id="email" required>
+        /*
+        Aside from your custom functions, you can use the standard input attributes (like required or minlength).
+        Note: when using the standard input attributes, HTML Form validation will be automatically performed. 
+        To deactivate it (and rely only on the Form Validator plugin) add the novalidate attribute to the form element.
+        */
+        const form = document.getElementsByClassName('js-form-validate');
+        if (form.length > 0) {
+            const formVerify = new FormValidator({
+                element: form[0],
+                inputWrapperErrorClass: 'form-validate__input-wrapper--error',
+                customValidate: {
+                    minLength: function(input, cb) {
+                        cb(input.value.length >= 2);
+                    },
+                    hasNumber: function(input, cb) {
+                        // input -> field to check
+                        // cb -> callback function; return false if there was an error when validating the field
+                        cb(/\d/.test(input.value)); // return false if input.value does not include a number
+                    }
+                }
+            });
+            form[0].addEventListener('submit', function(event) {
+                event.preventDefault();
+                formVerify.validate();
+            });
+        }
+    </script>
+</html>

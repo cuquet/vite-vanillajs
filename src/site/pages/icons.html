@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+        <link rel="stylesheet" href="/scss/style.scss" />
+        <title>Vite App</title>
+        <style>
+            #icons-table{
+                li{
+                    border: 1px solid var(--color-contrast-lower);
+                    padding:var(--space-sm);
+                    &:hover{
+                        background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.1);
+                    }
+                }
+            }
+
+        </style>
+    </head>
+    <body class="bg-lighter">
+        {{> header activepage='icons'}}
+        <main class="main-el container max-width-lg">
+            <section class="padding-y-md">
+                <ul id="icons-table" class="grid gap-xs"></ul>
+            </section>
+        </main>
+        
+        {{> totop }}
+        {{> footer }}
+        {{> svg }}
+        {{> flags }}
+    </body>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" >
+        const icons = document.getElementById('icons-svg');
+        const iconsTable = document.getElementById('icons-table');
+        const values = Array.from(icons.getElementsByTagName('symbol')).map(element => ({name: element.id}));
+        values.forEach(element => {
+            var inner=`<li class="col-2">
+                <svg class="icon icon--lg">
+                    <use href="#${element.name}"></use>
+                </svg>
+                <span class="text-xs">#${element.name}</span>
+            </li>`;
+            iconsTable.innerHTML += inner;
+        });
+    </script>
+</html>
