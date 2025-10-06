@@ -20,7 +20,7 @@ export async function initComponents(context = document) {
     if (context.querySelector('.js-dropdown')) {
         lazyLoaders.push(import('@components/controls').then((m) => m.initDropdown(context)));
     }
-    if (context.querySelector('.js-tooltip')) {
+    if (context.querySelector('.js-tooltip-trigger')) {
         lazyLoaders.push(import('@components/controls').then((m) => m.initTooltip(context)));
     }
     if (context.querySelector('.js-popover')) {
@@ -41,7 +41,6 @@ export async function initComponents(context = document) {
     if (context.querySelector('.js-fullscreen-btn')) {
         lazyLoaders.push(import('@components/controls').then((m) => m.initFullscreenBtn(context)));
     }
-
     // 🧩 Forms
     if (context.querySelector('.js-choice-tag')) {
         lazyLoaders.push(import('@components/forms').then((m) => m.initChoiceTags(context)));
@@ -138,14 +137,13 @@ export async function initComponents(context = document) {
     if (context.querySelector('.js-modal')) {
         lazyLoaders.push(
             import('@components/overlays/modal').then(({ Modal, initModal}) => {
+                initModal(context); 
                 if (typeof window !== 'undefined' && !window.Modal) {
                     window.Modal = Modal;
-                    initModal(context);       // inicialitza modals HTML existents
                 }
             }),
         );
     }
-
     if (context.querySelector('.js-modal-video__media')) {
         lazyLoaders.push(
             import('@components/overlays/modal').then(({ ModalVideo, initModalVideo }) => {
@@ -156,6 +154,12 @@ export async function initComponents(context = document) {
             }),
         );
     }
+    if (context.querySelector('.js-modal-search')) {
+        lazyLoaders.push(
+            import('@components/overlays/full-screen-search').then((m) => m.initFullModalSearch(context))
+        );
+    }
+
 
 
     // Espera que tots els components s’hagin inicialitzat

@@ -28,7 +28,9 @@ class DynamicModal {
                 : false;
         this.buildModal();
         if(this.isDynamic) {
-        console.log(`Soc ModalDynamic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
+            console.log(`Soc ModalDynamic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
+        } else {
+            console.log(`Soc Modal Estàtic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
         }
     }
 
@@ -375,7 +377,6 @@ class DynamicModal {
     }
 }
 
-// ---------------- Modal (instanciable) ----------------
 class Modal extends DynamicModal {
     constructor(modalEl, opts = {}) {
         super(modalEl, Util.extend(Modal.defaults, opts));
@@ -665,15 +666,19 @@ class Modal extends DynamicModal {
     }
 }
 
-// expose to global scope (optional)
 if (typeof window !== 'undefined') {
     if (!window.Modal) window.Modal = Modal;
 }
 
 function initModal(context = document) {
     const modals = context.querySelectorAll('.js-modal.modal');
+    console.log('initModal: trobades', modals.length, 'modals'); // debug: quantes modals detecta
     modals.forEach((element) => {
-        if (element.dataset.modalInitialized) return;
+        if (element.dataset.modalInitialized) {
+            console.log('initModal: ja inicialitzada', element.id);
+            return;
+        }
+        console.log('initModal: inicialitzant modal', element.id);
         new Modal(element, {
             fullscreen: element.dataset.fullscreen === 'off' ? false : true,
             confirmClose: element.dataset.confirmClose === 'on' ? true : false,
