@@ -122,12 +122,31 @@ class DynamicDialog {
     }
 }
 
-class Dialog extends DynamicDialog {
+export class Dialog extends DynamicDialog {
     constructor(opts) {
         super(Util.extend(Dialog.defaults, opts));
         this.triggers = document.querySelectorAll('[aria-controls="' + this.dialog.id + '"]');
         this.init();
     }
+
+    static defaults = {
+            visibleClass: 'dialog--is-visible',
+            title: 'Estàs segur que vols tancar? ',
+            description: "Les dades que no s'hagin guardat es perdran.",
+            acceptText: 'Acceptar',
+            cancelText: 'Cancel·lar',
+            dialogClass: 'dialog js-dialog',
+            dialogStickyClass: 'dialog--sticky',
+            dialogContentClass: 'dialog__content max-width-xs',
+            dialogTitleClass: 'text-md margin-bottom-2xs toc-skip',
+            dialogDescriptionClass: 'text-sm color-contrast-medium',
+            dialogFooterClass: 'margin-top-md',
+            dialogFooterActionsClass: 'flex justify-end gap-xs flex-wrap',
+            dialogBtnCloseStickyClass: 'dialog__close-btn dialog__close-btn--inner',
+            isSticky: false,
+            isAnimated: true,
+        };
+
     init() {
         if(this.triggers) {
             for (let i = 0; i < this.triggers.length; i += 1) {
@@ -232,25 +251,4 @@ class Dialog extends DynamicDialog {
         }
     }
 }
-
-Dialog.defaults = {
-    visibleClass: 'dialog--is-visible',
-    title: 'Estàs segur que vols tancar? ',
-    description: "Les dades que no s'hagin guardat es perdran.",
-    acceptText: 'Acceptar',
-    cancelText: 'Cancel·lar',
-    dialogClass: 'dialog js-dialog',
-    dialogStickyClass: 'dialog--sticky',
-    dialogContentClass: 'dialog__content max-width-xs',
-    dialogTitleClass: 'text-md margin-bottom-2xs toc-skip',
-    dialogDescriptionClass: 'text-sm color-contrast-medium',
-    dialogFooterClass: 'margin-top-md',
-    dialogFooterActionsClass: 'flex justify-end gap-xs flex-wrap',
-    dialogBtnCloseStickyClass: 'dialog__close-btn dialog__close-btn--inner',
-    isSticky: false,
-    isAnimated: true,
-};
-
 window.Dialog = Dialog;
-export default Dialog;
-

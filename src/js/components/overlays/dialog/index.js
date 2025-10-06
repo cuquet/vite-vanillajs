@@ -1,2 +1,2 @@
-import Dialog from './_1_dialog';
-export default Dialog;
+// src/js/components/overlays/dialog/index.js
+export * from './_1_dialog';

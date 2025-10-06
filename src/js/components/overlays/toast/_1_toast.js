@@ -9,7 +9,7 @@ Usage: https://codyhouse.co/ds/components/info/toast
 
 //import { tools as Util } from '@modules';
 
-class Toasts {
+export class Toasts {
     constructor() {
         this.toastsEl = document.getElementsByClassName('js-toast');
         this.toastsId = this.getRandomInt(0, 1000);
@@ -177,8 +177,14 @@ class Toasts {
 
 // ho necessito si vull crear toast al vol
 window.Toasts = Toasts;
-export default Toasts;
 
-document.addEventListener('DOMContentLoaded', () => {
-    Array.from(document.getElementsByClassName('js-toast')).forEach(() => new Toasts());
-});
+export function initToasts(context = document) {
+    const elements = context.querySelectorAll('.js-toast');
+    elements.forEach(el => {
+        if (!el.dataset.toastsInitialized) {
+            new Toasts(el);
+            el.dataset.soastsInitialized = 'true';
+        }
+    });
+}
+

@@ -95,6 +95,16 @@ export async function initComponents(context = document) {
         lazyLoaders.push(import('@components/forms').then((m) => m.initExpandableSearch(context)));
     }
 
+    // Overlays
+    if (context.querySelector('.js-flash-message')) {
+        lazyLoaders.push(import('@components/overlays').then((m) => m.initFlashMessage(context)));
+    }
+    if (context.querySelector('.js-toast')) {
+        lazyLoaders.push(import('@components/overlays').then((m) => m.initToasts(context)));
+    }
+
+
+
     // 🌐 Language picker
     if (context.querySelector('.js-language-picker')) {
         lazyLoaders.push(
@@ -124,3 +134,5 @@ export async function initComponents(context = document) {
     }
     await Promise.all(lazyLoaders);
 }
+
+import { Dialog } from '@components/overlays/dialog';

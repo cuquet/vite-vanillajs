@@ -9,7 +9,7 @@ Usage: https://codyhouse.co/ds/components/info/flash-messages
 
 //import { tools as Util } from '@modules';
 
-class FlashMessage {
+export class FlashMessage {
     constructor(element) {
         this.element = element;
         this.showClass = 'flash-message--is-visible';
@@ -68,15 +68,26 @@ class FlashMessage {
     }
 }
 
-export default FlashMessage;
+export function initFlashMessage(context = document) {
+    const flashMessages = context.querySelectorAll('.js-flash-message');
 
-document.addEventListener('DOMContentLoaded', () => {
-    const flashMessages = document.querySelectorAll('.js-flash-message');
-    const instances = Array.from(flashMessages).map((element) => new FlashMessage(element));
+    const instances = Array.from(flashMessages)
+        .map((el) => {
+            if (!el.dataset.flashMessageInitialized) {
+                el.dataset.flashMessageInitialized = 'true';
+                return new FlashMessage(el);
+            }
+            return null;
+        })
+        .filter(Boolean);
 
-    window.addEventListener('flashMessageShown', (event) => {
-        instances.forEach((instance) => {
-            instance.checkFlashMessage(event.detail);
+    // 🔒 Evitem múltiples listeners globals
+    if (!window._flashMessageListenerAdded) {
+        window.addEventListener('flashMessageShown', (event) => {
+            instances.forEach((instance) => {
+                instance.checkFlashMessage(event.detail);
+            });
         });
-    });
-});
+        window._flashMessageListenerAdded = true;
+    }
+}

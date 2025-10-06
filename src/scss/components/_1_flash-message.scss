@@ -14,7 +14,7 @@ Usage: https://codyhouse.co/ds/components/info/flash-messages
     position: fixed;
     top: var(--space-md);
     right: var(--space-md);
-    z-index: var(--z-index-fixed-element);
+    z-index: var(--z-index-overlay); //var(--z-index-fixed-element);
     background-color: var(--color-bg-light);
     padding: var(--space-xs);
     box-shadow: var(--inner-glow), var(--shadow-ring), var(--shadow-sm);

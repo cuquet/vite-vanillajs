@@ -1,15 +1,8 @@
-import './full-screen-search';
-import Toasts from './toast';
-import FlashMessage from './flash-message';
-import Dialog from './dialog';
-import Modal from './modal';
-import ModalVideo from './modal';
-import Lightbox from './lightbox';
-export {
-    Dialog,
-    Toasts,
-    FlashMessage,
-    Modal,
-    ModalVideo,
-    Lightbox,
-}
+// src/js/components/overlays/index.js
+export * from './full-screen-search';
+export * from './toast';
+export * from './flash-message';
+export * from './dialog';
+export * from './modal';
+export * from './modal';
+export * from './lightbox';

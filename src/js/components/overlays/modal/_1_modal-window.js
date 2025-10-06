@@ -8,7 +8,7 @@ Usage: https://codyhouse.co/ds/components/info/modal-window
 -------------------------------- */
 import Resize from './Resize';
 import Drag from './Drag';
-import Dialog from '@components/overlays/dialog';
+import { Dialog } from '@components/overlays/dialog';
 import Button from '@components/button';
 import { icons, tools as Util } from '@modules';
 
