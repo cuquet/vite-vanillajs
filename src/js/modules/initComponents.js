@@ -102,6 +102,16 @@ export async function initComponents(context = document) {
     if (context.querySelector('.js-toast')) {
         lazyLoaders.push(import('@components/overlays').then((m) => m.initToasts(context)));
     }
+    if (context.querySelector('.js-dialog')) {
+        lazyLoaders.push(
+            import('@components/overlays/dialog').then(({ Dialog }) => {
+                // només assegura que el mòdul estigui carregat
+                if (typeof window !== 'undefined') {
+                    if (!window.Dialog) window.Dialog = Dialog;
+                }
+            }),
+        );
+    }
 
 
 
@@ -135,4 +145,4 @@ export async function initComponents(context = document) {
     await Promise.all(lazyLoaders);
 }
 
-import { Dialog } from '@components/overlays/dialog';
+//import { Dialog } from '@components/overlays/dialog';

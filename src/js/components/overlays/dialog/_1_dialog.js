@@ -122,7 +122,7 @@ class DynamicDialog {
     }
 }
 
-export class Dialog extends DynamicDialog {
+class Dialog extends DynamicDialog {
     constructor(opts) {
         super(Util.extend(Dialog.defaults, opts));
         this.triggers = document.querySelectorAll('[aria-controls="' + this.dialog.id + '"]');
@@ -251,4 +251,8 @@ export class Dialog extends DynamicDialog {
         }
     }
 }
-window.Dialog = Dialog;
+if (typeof window !== 'undefined') {
+    window.Dialog = Dialog;
+}
+
+export { Dialog };
