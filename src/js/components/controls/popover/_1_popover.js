@@ -96,7 +96,7 @@ export class Popover {
         );
     }
 
-    togglePopoverVisibility(bool, moveFocus) {
+    async togglePopoverVisibility(bool, moveFocus) {
         Util.toggleClass(this.element, this.popoverVisibleClass, bool);
         this.popoverIsOpen = bool;
 
@@ -104,10 +104,10 @@ export class Popover {
             this.selectedTrigger.setAttribute('aria-expanded', 'true');
             this.getFocusableElements();
             this.focusPopover();
-            this.element.addEventListener('transitionend', () => this.focusPopover(), {
-                once: true,
-            });
             this.positionPopover();
+
+            await Util.transitionend(this.element); // 👈 espera el final de la transició, cross-browser
+
             Util.addClass(this.selectedTrigger, this.selectedTriggerClass);
         } else if (this.selectedTrigger) {
             this.selectedTrigger.setAttribute('aria-expanded', 'false');

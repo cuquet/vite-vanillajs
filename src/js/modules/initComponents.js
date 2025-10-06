@@ -6,7 +6,7 @@ export async function initComponents(context = document) {
 
     // 🧭 Controls
     if (context.querySelector('.js-alert')) {
-        lazyLoaders.push(import('@components/controls').then((m) => m.initAlert(context)));
+        lazyLoaders.push(import('@components/controls/alert').then((m) => m.initAlert(context)));
     }
     if (context.querySelector('.js-anim-menu-btn')) {
         lazyLoaders.push(import('@components/controls').then((m) => m.initAnimMenuBtn(context)));
@@ -132,6 +132,27 @@ export async function initComponents(context = document) {
         lazyLoaders.push(
             import('@components/overlays/lightbox').then(({ initLightbox }) => {
                 initLightbox(context); // inicialitza només els elements del context actual
+            }),
+        );
+    }
+    if (context.querySelector('.js-modal')) {
+        lazyLoaders.push(
+            import('@components/overlays/modal').then(({ Modal, initModal}) => {
+                if (typeof window !== 'undefined' && !window.Modal) {
+                    window.Modal = Modal;
+                    initModal(context);       // inicialitza modals HTML existents
+                }
+            }),
+        );
+    }
+
+    if (context.querySelector('.js-modal-video__media')) {
+        lazyLoaders.push(
+            import('@components/overlays/modal').then(({ ModalVideo, initModalVideo }) => {
+                if (typeof window !== 'undefined' && !window.ModalVideo) {
+                    window.ModalVideo = ModalVideo;
+                }
+                initModalVideo(context);
             }),
         );
     }

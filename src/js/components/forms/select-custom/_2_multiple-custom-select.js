@@ -6,6 +6,7 @@ Usage: https://codyhouse.co/ds/components/info/multiple-custom-select
 Dependencies
     _1_radios-checkboxes Radio Checkbox Buttons
 */
+import { tools as Util } from '@modules';
 export class MultipleCustomSelect {
     constructor(element) {
         this.element = element;
@@ -132,7 +133,7 @@ export class MultipleCustomSelect {
         window.addEventListener('click', this.handleOutsideClick.bind(this));
     }
 
-    toggleDropdown(forceState) {
+    async toggleDropdown(forceState) {
         const expanded =
             forceState ||
             (this.trigger.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
@@ -144,13 +145,11 @@ export class MultipleCustomSelect {
                     ?.getElementsByClassName('js-multi-select__checkbox')[0] ||
                 this.customOptions[0].getElementsByClassName('js-multi-select__checkbox')[0];
             this.focusElement(focusElement);
-            this.dropdown.addEventListener(
-                'transitionend',
-                () => {
-                    this.focusElement(focusElement);
-                },
-                { once: true },
-            );
+            try {
+                await Util.transitionend(this.dropdown); // 👈 espera el final de la transició, cross-browser
+            } catch (err) {
+                console.warn('Transition error:', err);
+            }
             this.positionDropdown();
         }
     }

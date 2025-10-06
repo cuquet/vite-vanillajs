@@ -6,8 +6,8 @@ Descr: A modal dialog used to display critical information
 Usage: https://codyhouse.co/ds/components/info/modal-window
 
 -------------------------------- */
-import Resize from './Resize';
-import Drag from './Drag';
+import { Resize } from './Resize';
+import { Drag } from './Drag';
 import { Dialog } from '@components/overlays/dialog';
 import Button from '@components/button';
 import { icons, tools as Util } from '@modules';
@@ -16,23 +16,58 @@ class DynamicModal {
     isDynamic;
     mimeType;
     modal;
-    constructor( element, opts) {
+    constructor(element, opts) {
         Object.assign(this, Util.extend(DynamicModal.defaults, opts));
         this.element = element;
         this.dataOrigin = element.dataset.url || element.dataset.content;
         this.mimeType = this.setMimeType(this.dataOrigin);
-        this.isDynamic = ((element.hasAttribute('data-content') || element.hasAttribute('data-url')) && !element.hasAttribute('aria-control')) ? true : false;
+        this.isDynamic =
+            ((element.hasAttribute('data-content') || element.hasAttribute('data-url')) &&
+                !element.hasAttribute('aria-controls'))
+                ? true
+                : false;
         this.buildModal();
-        //if(this.isDynamic) {
-        //     console.log(`Soc ModalDynamic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
-        // }
-    }
-    buildModal() {
         if(this.isDynamic) {
+        console.log(`Soc ModalDynamic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
+        }
+    }
+
+    static defaults = {
+        animateClass: 'modal--animate-scale',
+        //   'modal--animate-scale' default when is empty
+        //   'modal--animate-translate-up'
+        //   'modal--animate-translate-down'
+        //   'modal--animate-translate-right'
+        //   'modal--animate-translate-left'
+        //   'modal--animate-slide-up'
+        //   'modal--animate-slide-down'
+        //   'modal--animate-slide-right'
+        //   'modal--animate-slide-left'
+        modalClass: 'modal flex flex-center flex-wrap bg-black bg-opacity-90% padding-md js-modal',
+        contentClass: 'modal__content',
+        contentClassDefault:
+            'flex flex-column flex-nowrap max-height-100% overflow-auto bg radius-md inner-glow shadow-md max-width-sm',
+        contentClassImg: 'flex flex-center width-100% height-100% pointer-events-none',
+        contentClassVideo: 'width-100% max-width-md max-height-100% overflow-auto shadow-md',
+        headerClass:
+            'modal__header draggable padding-y-sm padding-x-md flex items-center justify-between flex-shrink-0 bg-contrast-lower bg-opacity-50%',
+        footerClass: 'modal__footer padding-md',
+        actionsClass: 'modal__actions flex flex-row justify-between gap-sm',
+        bodyClass: 'modal__body padding-y-sm padding-x-md flex-grow overflow-auto momentum-scrolling',
+        btnInnerClass: 'modal__close-btn modal__close-btn--inner',
+        btnInnerStickyClass: 'float-right position-sticky top-0',
+        btnOuterClass: 'modal__close-btn modal__close-btn--outer js-modal__close',
+        headerActions: [],
+        footerActions: [],
+        loadingButtons: [],
+    };
+
+    buildModal() {
+        if (this.isDynamic) {
             this.dataOrigin = this.element.dataset.url || this.element.dataset.content;
             this.mimeType = this.setMimeType(this.dataOrigin);
             this.ID = Util.getNewId();
-            this.element.setAttribute('aria-controls','modal-' + this.ID);
+            this.element.setAttribute('aria-controls', 'modal-' + this.ID);
             this.title = this.element.hasAttribute('data-title') ? this.element.dataset.title : null;
             this.modal = this.#renderDynamicModal;
             document.body.appendChild(this.modal);
@@ -41,6 +76,7 @@ class DynamicModal {
             this.modal = this.element;
         }
     }
+
     setMimeType(url) {
         const isVideo = (v) => (/\.(mp4|3gp|ogg|wmv|webm|flv|avi*|wav|vob*)$/i).test(v);
         const isImage = (v) => (/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(v);
@@ -57,11 +93,10 @@ class DynamicModal {
                 }
                 return true;
             })(document.createDocumentFragment());
-        
+
             if (!isSelectorValid(v)) return false;
             var elem = document.querySelector(v);
-            if (elem !== null) return true;
-            else return elem;
+            return elem !== null;
         };
         const isValidUrl = (urlString, base) => {
             let givenURL;
@@ -72,44 +107,22 @@ class DynamicModal {
             }
             return givenURL.protocol === 'http:' || givenURL.protocol === 'https:';
         };
-        const isVimeo = (v) =>{
-            // https://player.vimeo.com/video/nnnnnnnn
-            return /^(http:\/\/|https:\/\/)?(player\.)?(vimeo\.com\/video\/)([0-9]+)$/.test(v);
-        };
-        const isYouTube = (v) => {
-            // https://www.youtube.com/embed/nnnnnnnn
-            return /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/.test(v);
-        }
+        // https://player.vimeo.com/video/nnnnnnnn
+        const isVimeo = (v) => /^(http:\/\/|https:\/\/)?(player\.)?(vimeo\.com\/video\/)([0-9]+)$/.test(v);
+        // https://www.youtube.com/embed/nnnnnnnn
+        const isYouTube = (v) =>
+            /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/.test(v);
 
-        if (isDOMcontent(url)) {
-            return 'dom';
-        } else {
-            if (isHTMLcontent(url)) {
-                return 'html';
-            } else {
-                if (isImage(url)) {
-                    return 'image';
-                } else {
-                    if (isVideo(url)) {
-                        return 'video';
-                    } else {
-                        if (isValidUrl(url) || isValidUrl(url, window.location.origin) ) {
-                            if (isVimeo(url)) {
-                                return 'vimeo';
-                            } else {
-                                if (isYouTube(url)) {
-                                    return 'youtube';
-                                } else {
-                                    return 'url';
-                                }
-                            }
-                        } else {
-                            return 'unknown';
-                        }
-                    }
-                }
-            }
+        if (isDOMcontent(url)) return 'dom';
+        if (isHTMLcontent(url)) return 'html';
+        if (isImage(url)) return 'image';
+        if (isVideo(url)) return 'video';
+        if (isValidUrl(url) || isValidUrl(url, window.location.origin)) {
+            if (isVimeo(url)) return 'vimeo';
+            if (isYouTube(url)) return 'youtube';
+            return 'url';
         }
+        return 'unknown';
     }
 
     get renderDynamicFooter() {
@@ -161,16 +174,12 @@ class DynamicModal {
         const title = document.createElement('h1');
         Util.addClass(title, 'text-truncate text-md');
         title.id = 'modal-title-' + this.ID;
-        //title.textContent = this.title;
-        title.innerHTML = this.title;
-
+        title.innerHTML = this.title || '';
         const actions = document.createElement('div');
         Util.addClass(actions, this.actionsClass);
 
         const actionsArray = [];
-        if (this.headerActions) {
-            actionsArray.push(...this.headerActions);
-        }
+        if (this.headerActions) actionsArray.push(...this.headerActions);
         if (this.fullscreen) {
             actionsArray.push({
                 icon: '#expand',
@@ -190,43 +199,34 @@ class DynamicModal {
         actionsArray.push({
             icon: '#close',
             ariaLabel: 'Tancar modal',
-            classes: 'hide@md'.concat(' ', this.closeClass ),
+            classes: 'hide@md'.concat(' ', this.closeClass),
             onClick: () => {
                 this.handleClose();
-            }, 
+            },
         });
-        //}
 
-        if (actionsArray) {
-            actionsArray.forEach((action) => {
-                const button = new Button('IconButton', {
-                    icon: icons.get(action.icon),
-                    classes: this.mimeType === 'image'
-                        ? this.btnInnerClass
-                            .trim()
-                            .concat(
-                                ' ',
-                                this.btnInnerStickyClass,
-                                action.classes,
-                            )
-                        : this.btnInnerClass
-                            .trim()
-                            .concat(' ', action.classes),
-                    buttonSize: 'small',
-                    svgSize: 'xs',
-                    ariaLabel: action.ariaLabel,
-                    onClick: action.onClick,
-                });
-                actions.appendChild(button.get());
+        actionsArray.forEach((action) => {
+            const button = new Button('IconButton', {
+                icon: icons.get(action.icon),
+                classes:
+                    this.mimeType === 'image'
+                        ? this.btnInnerClass.trim().concat(' ', this.btnInnerStickyClass, action.classes)
+                        : this.btnInnerClass.trim().concat(' ', action.classes),
+                buttonSize: 'small',
+                svgSize: 'xs',
+                ariaLabel: action.ariaLabel,
+                onClick: action.onClick,
             });
-        }
+            actions.appendChild(button.get());
+        });
+
         header.appendChild(title);
         header.appendChild(actions);
         return header;
     }
 
     get renderDynamicContent() {
-        let modalContent;// = document.createElement('div');
+        let modalContent;
         switch (this.mimeType) {
             case 'dom':
                 if (document.querySelector(this.dataOrigin)) {
@@ -235,7 +235,6 @@ class DynamicModal {
                     modalContent.innerHTML = document.querySelector(this.dataOrigin).innerHTML;
                     document.querySelector(this.dataOrigin).remove();
                 }
-
                 break;
             case 'html':
                 modalContent = document.createElement('div');
@@ -245,13 +244,7 @@ class DynamicModal {
             case 'image':
                 modalContent = document.createElement('img');
                 modalContent.src = this.dataOrigin;
-                modalContent.classList.add(
-                    'radius-md',
-                    'draggable',
-                    'shadow-md',
-                    'max-height-100%',
-                    'max-width-100%',
-                );
+                modalContent.classList.add('radius-md', 'draggable', 'shadow-md', 'max-height-100%', 'max-width-100%');
                 break;
             case 'video':
                 modalContent = document.createElement('figure');
@@ -262,29 +255,30 @@ class DynamicModal {
             case 'youtube':
                 modalContent = document.createElement('figure');
                 modalContent.classList.add('media-wrapper-16:9');
-                modalContent.innerHTML = '<iframe class="js-modal-video__media" width="640" height="360" src="" frameborder="0" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen ></iframe>';
+                modalContent.innerHTML =
+                    '<iframe class="js-modal-video__media" width="640" height="360" src="" frameborder="0" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen ></iframe>';
                 break;
             case 'url':
                 modalContent = document.createElement('div');
                 Util.addClass(modalContent, this.bodyClass);
-                ( async () =>
-                    await fetch(this.dataOrigin, {
-                        method: 'GET',
-                        headers: { 'Access-Control-Allow-Origin': '*' },
+                (async () =>
+                    await fetch(this.dataOrigin, { method: 'GET', headers: { 'Access-Control-Allow-Origin': '*' } })
+                        .then((response) => {
+                            if (!response.ok) throw new Error(response.status);
+                            return response.text();
                         })
-                    .then((response) => { if(!response.ok) {throw new Error(response.status)} return response.text(); })
-                    .then((data) =>{ modalContent.innerHTML = data; })
-                    .catch((err) => {
-                        //console.error('ERROR ajax: ', err.message);
-                        modalContent.innerHTML = err.message;
-                }))();
+                        .then((data) => { modalContent.innerHTML = data; })
+                        .catch((err) => {
+                            modalContent.innerHTML = err.message;
+                        }))();
                 break;
             case 'unknown':
             default:
                 modalContent = document.createElement('div');
                 Util.addClass(modalContent, this.bodyClass);
-                modalContent.innerText = this.dataOrigin;           
+                modalContent.innerText = this.dataOrigin;
         }
+
         setTimeout(() => {
             this.modal.dispatchEvent(new CustomEvent('loadedModal'));
         }, 500);
@@ -301,11 +295,11 @@ class DynamicModal {
             'data-modal-prevent-scroll': this.preventScroll,
             id: 'modal-' + this.ID,
         });
-        
+
         let content = document.createElement('div');
         Util.setAttributes(content, {
             role: 'alertdialog',
-            'aria-labelledby': this.title ? 'modal-title-' + this.ID: '',
+            'aria-labelledby': this.title ? 'modal-title-' + this.ID : '',
             'aria-describedby': '',
         });
 
@@ -314,10 +308,13 @@ class DynamicModal {
             case 'html':
             case 'url':
             case 'unknown':
-                this.contentClass = this.contentClassDefault? this.contentClass.concat(' ', this.contentClassDefault): this.contentClass;
-                if(this.contentClassDefault) {
-                    content.appendChild(this.renderDynamicHeader)
-            
+                this.contentClass = this.contentClassDefault
+                    ? this.contentClass.concat(' ', this.contentClassDefault)
+                    : this.contentClass;
+
+                if (this.contentClassDefault) {
+                    content.appendChild(this.renderDynamicHeader);
+
                     if (this.isFullscreen) {
                         modal.classList.add('fullscreen');
                         content.removeAttribute('style');
@@ -337,15 +334,14 @@ class DynamicModal {
                     drag = new Drag({
                         el: modal,
                         maxWidth: this.maxWidth,
-                        onDrag: (isDrag) => {  
+                        onDrag: (isDrag) => {
                             this.isFullscreen = false;
                             resize.isDrag = isDrag;
                         },
                     });
-                };
-                
+                }
+
                 if (this.footerActions.length > 0) {
-                    // console.log('this.footerActions=>', this.footerActions.length);
                     content.appendChild(this.renderDynamicFooter);
                 }
                 break;
@@ -365,96 +361,81 @@ class DynamicModal {
 
         const closeOuterIconButton = new Button('IconButton', {
             icon: icons.get('#close'),
-            classes: this.btnOuterClass.concat(' ', this.closeClass ),
+            classes: this.btnOuterClass.concat(' ', this.closeClass),
             buttonSize: 'small',
             svgSize: 'small',
             ariaLabel: 'Tancar modal',
             onClick: () => {
                 this.handleClose();
-            }, 
+            },
         });
         modal.appendChild(closeOuterIconButton.get());
 
         return modal;
     }
-
 }
 
-DynamicModal.defaults = {
-    animateClass: 'modal--animate-scale',
-    //   'modal--animate-scale' default when is empty
-    //   'modal--animate-translate-up'
-    //   'modal--animate-translate-down'
-    //   'modal--animate-translate-right'
-    //   'modal--animate-translate-left'
-    //   'modal--animate-slide-up'
-    //   'modal--animate-slide-down'
-    //   'modal--animate-slide-right'
-    //   'modal--animate-slide-left'
-    modalClass: 'modal flex flex-center flex-wrap bg-black bg-opacity-90% padding-md js-modal' /*padding-x-md*/ ,
-    contentClass: 'modal__content',
-    contentClassDefault: 'flex flex-column flex-nowrap max-height-100% overflow-auto bg radius-md inner-glow shadow-md max-width-sm',  
-    //height-75%',
-    contentClassImg: 'flex flex-center width-100% height-100% pointer-events-none',
-    //contentClassImg: 'flex-column flex-center width-100% height-100% position-absolute pointer-events-none',
-    contentClassVideo: 'width-100% max-width-md max-height-100% overflow-auto shadow-md',
-    headerClass: 'modal__header draggable padding-y-sm padding-x-md flex items-center justify-between flex-shrink-0 bg-contrast-lower bg-opacity-50%',
-    footerClass: 'modal__footer padding-md',
-    actionsClass: 'modal__actions flex flex-row justify-between gap-sm', // 'justify-end flex-shrink-0'
-    bodyClass: 'modal__body padding-y-sm padding-x-md flex-grow overflow-auto momentum-scrolling',
-    btnInnerClass: 'modal__close-btn modal__close-btn--inner',
-    btnInnerStickyClass: 'float-right position-sticky top-0',
-    btnOuterClass: 'modal__close-btn modal__close-btn--outer js-modal__close',
-    headerActions: [],
-    footerActions: [],
-    loadingButtons: [],
-};
-
+// ---------------- Modal (instanciable) ----------------
 class Modal extends DynamicModal {
-    constructor( modal, opts = {} ) {
-        super(modal, Util.extend(Modal.defaults, opts));
-        this.triggers = Array.from(document.querySelectorAll(`[aria-controls= ${this.modal.id}]`));
+    constructor(modalEl, opts = {}) {
+        super(modalEl, Util.extend(Modal.defaults, opts));
+        this.triggers = Array.from(document.querySelectorAll(`[aria-controls="${this.modal.id}"]`));
         this.firstFocusable = null;
         this.lastFocusable = null;
         this.moveFocusEl = null; // focus will be moved to this element when modal is open
-        this.modalFocus = (this.modal.dataset.modalFirstFocus)
-            ? this.modal.querySelector(this.modal.dataset.modalFirstFocus)
-            : null;
-//        console.log(`Soc Modal => id: ${this.modal.id} => isDynamic: ${this.isDynamic}`);
+        this.modalFocus = this.modal.dataset.modalFirstFocus ? this.modal.querySelector(this.modal.dataset.modalFirstFocus) : null;
         this.scrollbarWidth = Util.getScrollbarWidth();
-//        console.log(`Scrollbar width: ${this.scrollbarWidth}`);
+
+        // Bound handlers stored so we can remove them later
+        this._onOpen = this.handleOpen.bind(this);
+        this._onClose = this.handleClose.bind(this);
+        this._onKeydown = this.handleKeyDown.bind(this);
+        this._onClick = this.handleClick.bind(this);
+        this._onWindowKeydown = (event) => {
+            if ((event.code && event.code == 27) || (event.key && event.key == 'Escape')) {
+                this.close();
+            }
+        };
+
         this.init();
     }
-    get renderLoader (){
+
+    static defaults = {
+        preventScroll: 'body',
+        loadingClass: 'modal--is-loading',
+        showClass: 'modal--is-visible',
+        closeClass: 'js-modal__close',
+        focusableElString: Util.focusableElString(),
+        fullscreen: true,
+        confirmClose: false,
+    };
+
+    get renderLoader() {
         const modalLoader = document.createElement('div');
         modalLoader.setAttribute('aria-hidden', 'true');
         Util.addClass(modalLoader, 'modal__loader bg-black bg-opacity-90%');
         modalLoader.innerHTML = '<svg class="icon icon--lg color-primary icon--is-spinning" ><use href="#spinner"></use></svg>';
         return modalLoader;
     }
-    get preventScrollEl () {
-        return (this.modal.dataset.modalPreventScroll) ? document.querySelector(this.modal.dataset.modalPreventScroll) : document.querySelector(this.preventScroll);
-    }
-    isVisible (element) {
-        return (
-            element.offsetWidth ||
-            element.offsetHeight ||
-            element.getClientRects().length
-        );
-    }
-    getFocusableElements () {
-        const focusableElString = Array.from(this.modal.querySelectorAll(this.focusableElString));
 
-        // console.log('focusableElString s=>', focusableElString);
+    get preventScrollEl() {
+        return this.modal.dataset.modalPreventScroll ? document.querySelector(this.modal.dataset.modalPreventScroll) : document.querySelector(this.preventScroll);
+    }
+
+    isVisible(element) {
+        return element.offsetWidth || element.offsetHeight || element.getClientRects().length;
+    }
+
+    getFocusableElements() {
+        const focusableElString = Array.from(this.modal.querySelectorAll(this.focusableElString));
         // obtenir tots els elements enfocables dins del modal
         // obtenir el primer element enfocable visible dins del modal
-        focusableElString.forEach((element) => { 
+        focusableElString.forEach((element) => {
             if (this.isVisible(element)) {
-            this.firstFocusable = element;
-            return;
+                this.firstFocusable = element;
+                return;
             }
         });
-        //console.log('focusableElString this.firstFocusable=>', this.firstFocusable);
         // obtenir l'últim element enfocable visible dins del modal
         focusableElString.reverse().forEach((element) => {
             if (this.isVisible(element)) {
@@ -462,16 +443,15 @@ class Modal extends DynamicModal {
                 return;
             }
         });
-        //console.log('focusableElString this.lastFocusable=>', this.lastFocusable);
         this.getFirstFocusable();
     }
-    getFirstFocusable () {
+
+    getFirstFocusable() {
         if (!this.modalFocus || !Element.prototype.matches) {
             this.moveFocusEl = this.firstFocusable;
             return;
         }
         var containerIsFocusable = this.modalFocus.matches(this.focusableElString);
-        console.log('getFirstFocusable containerIsFocusable=>', containerIsFocusable);
         if (containerIsFocusable) {
             this.moveFocusEl = this.modalFocus;
         } else {
@@ -480,15 +460,15 @@ class Modal extends DynamicModal {
             for (let i = 0; i < elements.length; i += 1) {
                 if (this.isVisible(elements[i])) {
                     this.moveFocusEl = elements[i];
-                    //console.log('getFirstFocusable false=>', this.moveFocusEl);
                     break;
                 }
             }
             if (!this.moveFocusEl) this.moveFocusEl = this.firstFocusable;
         }
     }
-    init () {
-        if(this.triggers.length > 0){
+
+    init() {
+        if (this.triggers.length > 0) {
             this.triggers.forEach((trigger) => {
                 trigger.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -499,37 +479,27 @@ class Modal extends DynamicModal {
                     }
                     this.modal.prepend(this.renderLoader);
                     this.modal.classList.add(this.loadingClass);
-                    //this.preventScrollEl;
                     this.loading();
                     this.initEvents();
                 });
             });
         }
-
     }
-    initEvents () {
-        this.modal.addEventListener('openModal', this.handleOpen.bind(this));
-        this.modal.addEventListener('closeModal', this.handleClose.bind(this));
 
-        this.modal.addEventListener('keydown', this.handleKeyDown.bind(this));
-        this.modal.addEventListener('click', this.handleClick.bind(this));
-        
-        //tancar la finestra modal amb la tecla esc
-        window.addEventListener('keydown', (event) => {
-            if (
-                (event.code && event.code == 27) ||
-                (event.key && event.key == 'Escape')
-            ) {
-                this.close();
-            }
-        });
+    initEvents() {
+        this.modal.addEventListener('openModal', this._onOpen);
+        this.modal.addEventListener('closeModal', this._onClose);
+        this.modal.addEventListener('keydown', this._onKeydown);
+        this.modal.addEventListener('click', this._onClick);
+        window.addEventListener('keydown', this._onWindowKeydown);
     }
-    loading () {
-        //this.preventScrollEl.style.overflow = 'hidden';
-        if (this.preventScrollEl.offsetHeight > window.innerHeight) {
+
+    loading() {
+        if (this.preventScrollEl && this.preventScrollEl.offsetHeight > window.innerHeight) {
             this.preventScrollEl.style.overflow = 'hidden';
             this.preventScrollEl.style.marginRight = `${this.scrollbarWidth}px`;
         }
+
         this.modal.addEventListener('loadedModal', () => {
             Util.removeClass(this.modal, this.loadingClass);
             document.querySelectorAll('.modal__loader').forEach((el) => el.remove());
@@ -538,13 +508,15 @@ class Modal extends DynamicModal {
 
         this.modal.style.visibility = 'visible';
         this.modal.style.opacity = '1';
-        if(!this.isDynamic || ['video','vimeo','youtube'].includes(this.mimeType)){
+
+        if (!this.isDynamic || ['video', 'vimeo', 'youtube'].includes(this.mimeType)) {
             setTimeout(() => {
                 this.modal.dispatchEvent(new CustomEvent('loadedModal'));
             }, 500);
         } else {
             let content = this.modal.querySelector('.modal__content');
             let header;
+
             switch (this.mimeType) {
                 case 'dom':
                 case 'html':
@@ -558,8 +530,17 @@ class Modal extends DynamicModal {
                     break;
                 case 'video':
                 case 'vimeo':
-                case 'youtube':
+                case 'youtube': {
+                    // aquests tipus ja tenen el contingut complet generat dins renderDynamicContent
+                    content.innerHTML = ''; // neteja
+                    content.appendChild(this.renderDynamicContent);
+
+                    // afegim header amb títol (si n’hi ha)
+                    if (this.title) {
+                        content.prepend(this.renderDynamicHeader);
+                    }
                     break;
+                }
                 case 'image':
                 default:
                     content.appendChild(this.renderDynamicContent);
@@ -567,67 +548,64 @@ class Modal extends DynamicModal {
         }
         this.modal.removeEventListener('loadedModal', (this));
     }
-    handleOpen () {
+
+    async handleOpen() {
         this.modal.removeAttribute('style');
         Util.addClass(this.modal, this.showClass);
         this.getFocusableElements();
-        
+
         if (this.moveFocusEl) {
             this.moveFocusEl.focus();
-            this.modal.addEventListener("transitionend", (event) => {
-                this.moveFocusEl.focus();
-                this.modal.removeEventListener("transitionend", event.currentTarget);
-            });
+            await Util.transitionend(this.modal);
+            this.moveFocusEl.focus();
         }
-        
+
         this.modal.dispatchEvent(new CustomEvent('modalIsOpen', { detail: this.selectedTrigger }));
 
-        if (this.onOpen) { this.onOpen(); }
+        if (this.onOpen) this.onOpen();
 
-        this.modal.removeEventListener('openModal', this.handleOpen.bind(this));
+        // 👇 inicialitza tots els mòduls dins del diàleg -> import dinàmic per evitar circular imports
+        try {
+            const module = await import('@modules/initComponents');
+            if (module && module.initComponents) module.initComponents(this.modal);
+        } catch (err) {
+            // si hi ha problemes, no fallem l'obertura, només loguem
+            console.warn('initComponents no disponibles per al modal:', err);
+        }
+
+        this.modal.removeEventListener('openModal', this._onOpen);
     }
-    async handleClose (e) {
+
+    async handleClose(e) {
         if (e !== undefined) {
             e.preventDefault();
-            if( e.target.classList.contains(this.closeClass)) {
-                //console.log('handleClose=> hasClass');
+            if (e.target.classList && e.target.classList.contains(this.closeClass)) {
                 this.close();
             }
         }
+
         if (this.confirmClose) {
             const confirm = new Dialog({
                 title: 'Estàs segur que vols tancar finestra?',
-                description:
-                    'Les dades que no s\'hagin guardat es perdran.',
+                description: "Les dades que no s'hagin guardat es perdran.",
                 accept: 'Tancar',
                 cancel: 'Cancel·lar',
                 scrollbarWidth: this.scrollbarWidth,
                 isDynamic: this.isDynamic,
             });
             const confirmResponse = await confirm.question();
-
             if (!confirmResponse) {
                 this.isClose = false;
                 return;
             }
         }
-        if (this.onClose) { this.onClose(); }
-        //this.modal.dispatchEvent(new CustomEvent('modalIsClose'), { detail: this.selectedTrigger });
+
+        if (this.onClose) this.onClose();
+
         this.close();
     }
-    handleKeyDown (e) {
-        // const trapFocus = (event) => {
-        //     if (this.firstFocusable == document.activeElement && event.shiftKey) {
-        //         // Amb Shift+Tab -> enfoca l'últim element enfocable quan el focus surt del modal
-        //         event.preventDefault();
-        //         this.lastFocusable.focus();
-        //     }
-        //     if (this.lastFocusable == document.activeElement && !event.shiftKey) {
-        //         // Amb Tab -> enfoca el primer element enfocable quan el focus surt del modal
-        //         event.preventDefault();
-        //         this.firstFocusable.focus();
-        //     }
-        // } 
+
+    handleKeyDown(e) {
         if ((e.code && e.code == 9) || (e.key && e.key == 'Tab')) {
             // Manté el focus dins del modal
             if (this.firstFocusable == document.activeElement && e.shiftKey) {
@@ -640,69 +618,89 @@ class Modal extends DynamicModal {
                 e.preventDefault();
                 this.firstFocusable.focus();
             }
-        } else if (((e.code && event.code == 13) || (e.key && e.key == 'Enter')) && e.target.closest('.js-modal__close')) {
+        } else if (((e.code && e.code == 13) || (e.key && e.key == 'Enter')) && e.target.closest('.js-modal__close')) {
             // Tanca el modal quan es prem Enter al botó de tancar
             this.modal.dispatchEvent(new CustomEvent('closeModal'));
             e.preventDefault();
             this.close();
         }
     }
-    handleClick (e) {
-        if ( !e.target.closest('.'+this.closeClass) && !e.target.classList.contains('js-modal'))
-            return;
+
+    handleClick(e) {
+        if (!e.target.closest('.' + this.closeClass) && !e.target.classList.contains('js-modal')) return;
         e.preventDefault();
         this.close();
     }
-    async close () {
+
+    async close() {
+        // stop possible loading buttons
         this.loadingButtons.forEach((button) => {
-            button.stop();
+            if (button && typeof button.stop === 'function') button.stop();
         });
-        document.removeEventListener('closeModal', this.handleClose.bind(this));
-        document.removeEventListener('keydown', this.handleKeyDown.bind(this));
-        document.removeEventListener('click', this.handleClick.bind(this));
+
+        this.modal.removeEventListener('openModal', this._onOpen);
+        this.modal.removeEventListener('closeModal', this._onClose);
+        this.modal.removeEventListener('keydown', this._onKeydown);
+        this.modal.removeEventListener('click', this._onClick);
+        window.removeEventListener('keydown', this._onWindowKeydown);
 
         Util.removeClass(this.modal, this.showClass);
         await Util.transitionend(this.modal);
 
-        if (this.isDynamic && !['video','vimeo','youtube','dom'].includes(this.mimeType)) this.modal.querySelector('.modal__content').innerHTML='';
+        if (this.isDynamic && !['video', 'vimeo', 'youtube', 'dom'].includes(this.mimeType)) {
+            const content = this.modal.querySelector('.modal__content');
+            if (content) content.innerHTML = '';
+        }
         if (this.selectedTrigger) this.selectedTrigger.focus();
 
-        this.modal.dispatchEvent(new CustomEvent('modalIsClose'), { detail: this.selectedTrigger });
-        this.preventScrollEl.removeAttribute('style');
-        delete this;
+        this.modal.dispatchEvent(new CustomEvent('modalIsClose', { detail: this.selectedTrigger }));
+
+        try {
+            if (this.preventScrollEl) this.preventScrollEl.removeAttribute('style');
+        } catch (err) {
+            console.warn('close=>preventScrollEl no disponible per al modal:', err);
+        }
+
+        // do not `delete this;` — letting GC handle it
     }
 }
 
-Modal.defaults = {
-    preventScroll: 'body',
-    loadingClass: 'modal--is-loading',
-    showClass: 'modal--is-visible',
-    closeClass: 'js-modal__close',
-    focusableElString : Util.focusableElString(),
-    fullscreen: true,
-    confirmClose: false,
-};
+// expose to global scope (optional)
+if (typeof window !== 'undefined') {
+    if (!window.Modal) window.Modal = Modal;
+}
 
-window.Modal = Modal;
-export default Modal;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const modals = Array.from(document.querySelectorAll('.js-modal.modal'));
+function initModal(context = document) {
+    const modals = context.querySelectorAll('.js-modal.modal');
     modals.forEach((element) => {
-        new Modal(element,
-            {
-                fullscreen: (element.getAttribute('data-fullscreen') && element.dataset.fullscreen == 'off') ? false : true,
-                confirmClose: (element.getAttribute('data-confirm-close') && element.dataset.confirmClose == 'on') ? true : false,
-                // onOpen: () => {
-                //     console.log('Obrir');
-                // },
-                // onClose: () => {
-                //     console.log('Tancar');
-                // },
-                // onFullscreen: (isFullscreen) => {
-                //     console.log(`Pantalla Complerta: ${isFullscreen}`);
-                // },
-            }
-        );
+        if (element.dataset.modalInitialized) return;
+        new Modal(element, {
+            fullscreen: element.dataset.fullscreen === 'off' ? false : true,
+            confirmClose: element.dataset.confirmClose === 'on' ? true : false,
+        });
+        element.dataset.modalInitialized = 'true';
     });
-});
+}
+
+export { Modal, initModal};
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     const modals = Array.from(document.querySelectorAll('.js-modal.modal'));
+//     modals.forEach((element) => {
+//         new Modal(element,
+//             {
+//                 fullscreen: (element.getAttribute('data-fullscreen') && element.dataset.fullscreen == 'off') ? false : true,
+//                 confirmClose: (element.getAttribute('data-confirm-close') && element.dataset.confirmClose == 'on') ? true : false,
+//                 // onOpen: () => {
+//                 //     console.log('Obrir');
+//                 // },
+//                 // onClose: () => {
+//                 //     console.log('Tancar');
+//                 // },
+//                 // onFullscreen: (isFullscreen) => {
+//                 //     console.log(`Pantalla Complerta: ${isFullscreen}`);
+//                 // },
+//             }
+//         );
+//     });
+// });

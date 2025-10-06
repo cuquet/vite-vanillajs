@@ -1,4 +1,4 @@
-class Drag {
+export class Drag {
     constructor(data) {
         Object.assign(this, data);
 
@@ -113,5 +113,3 @@ class Drag {
         document.removeEventListener('touchend', this.end, { passive: true });
     }
 }
-
-export default Drag;

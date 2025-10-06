@@ -74,7 +74,7 @@ class LanguagePicker {
         });
     }
 
-    toggleLanguagePicker(bool) {
+    async toggleLanguagePicker(bool) {
         // const ariaExpanded = bool
         //     ? bool
         //     : this.trigger.getAttribute('aria-expanded') == 'true'
@@ -84,14 +84,8 @@ class LanguagePicker {
         const ariaExpanded = bool || (this.trigger.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
         this.trigger.setAttribute('aria-expanded', ariaExpanded);
         if (ariaExpanded == 'true') {
+            await Util.transitionend(this.dropdown); // 👈 espera el final de la transició, cross-browser
             this.firstLanguage.focus();
-            this.dropdown.addEventListener(
-                'transitionend',
-                () => {
-                    this.firstLanguage.focus();
-                },
-                { once: true },
-            );
             this.placeElement();
             //document.body.style.overflow = 'hidden';
         } //else {

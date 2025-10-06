@@ -5,7 +5,7 @@ Descr: A hoverable link that toggles the visibility of a dropdown list.
 Usage: https://codyhouse.co/ds/components/info/dropdown
 Dependencies: _1_diagonal-movement
 -------------------------------- */
-
+import { tools as Util } from '@modules';
 import './_1_diagonal-movement.js';
 
 export class DropDown {
@@ -166,16 +166,16 @@ export class DropDown {
         menu.classList.remove('dropdown__menu--hide');
     }
 
-    hideLevel(menu) {
+    async hideLevel(menu) {
         if (!menu.classList.contains('dropdown__menu--is-visible')) return;
         menu.classList.remove('dropdown__menu--is-visible');
         menu.classList.add('dropdown__menu--hide');
-        menu.addEventListener('transitionend', function onTransitionEnd(event) {
-            if (event.propertyName === 'opacity') {
-                menu.removeEventListener('transitionend', onTransitionEnd);
-                menu.classList.remove('dropdown__menu--is-hidden', 'dropdown__menu--left');
-            }
-        });
+        try {
+            await Util.transitionend(menu); // 👈 espera el final de la transició, cross-browser
+        } catch (err) {
+            console.warn('Transition error:', err);
+        }
+        menu.classList.remove('dropdown__menu--is-hidden', 'dropdown__menu--left');
     }
 }
 

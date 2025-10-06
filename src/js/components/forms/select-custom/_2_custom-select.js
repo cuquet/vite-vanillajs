@@ -9,7 +9,7 @@ Dependencies:
     _1_inputgroup
     _1_input-icon 
  -------------------------------- */
-
+import { tools as Util } from '@modules';
 export class CustomSelect {
     constructor(element) {
         this.element = element;
@@ -155,20 +155,17 @@ export class CustomSelect {
         this.trigger.focus();
     }
 
-    toggleDropdown(forceState) {
+    async toggleDropdown(forceState) {
         const ariaExpanded = forceState || (this.trigger.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
         this.trigger.setAttribute('aria-expanded', ariaExpanded);
         if (ariaExpanded === 'true') {
             const selectedItem =
                 this.dropdown.querySelector('[aria-selected="true"]') || this.customOptions[0];
-            this.focusElement(selectedItem);
-            this.dropdown.addEventListener(
-                'transitionend',
-                () => {
-                    this.focusElement(selectedItem);
-                },
-                { once: true },
-            );
+            try {
+                await Util.transitionend(selectedItem); // 👈 espera el final de la transició, cross-browser
+            } catch (err) {
+                console.warn('Transition error:', err);
+            }
             this.placeElement();
         }
 

@@ -1,4 +1,4 @@
-class Resize {
+export class Resize {
     constructor(data) {
         Object.assign(this, data);
 
@@ -285,5 +285,3 @@ class Resize {
         document.removeEventListener("touchend", this.end);
     }
 }
-
-export default Resize;

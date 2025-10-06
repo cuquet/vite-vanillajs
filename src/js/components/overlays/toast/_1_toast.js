@@ -7,7 +7,7 @@ Usage: https://codyhouse.co/ds/components/info/toast
 
 -------------------------------- */
 
-//import { tools as Util } from '@modules';
+import { tools as Util } from '@modules';
 
 export class Toasts {
     constructor() {
@@ -129,7 +129,7 @@ export class Toasts {
         this.closeToastAnimation(toast, id);
     }
 
-    closeToastAnimation(toast, id) {
+    async closeToastAnimation(toast, id) {
         const siblings = this.getToastNextSiblings(toast);
         const toastStyle = window.getComputedStyle(toast);
         const margin =
@@ -141,13 +141,13 @@ export class Toasts {
         siblings.forEach((sibling) => {
             sibling.style.transform = `translateY(${translateValue}px)`;
         });
-
-        toast.addEventListener('transitionend', (event) => {
-            if (event.propertyName !== 'opacity') return;
-            toast.removeEventListener('transitionend', event);
-            this.removeToast(toast, siblings, id);
-            this.closingToast = false;
-        });
+        try {
+            await Util.transitionend(toast); // 👈 espera el final de la transició, cross-browser
+        } catch (err) {
+            console.warn('Transition error:', err);
+        }
+        this.removeToast(toast, siblings, id);
+        this.closingToast = false;
     }
 
     getToastNextSiblings(toast) {
@@ -175,8 +175,9 @@ export class Toasts {
     }
 }
 
-// ho necessito si vull crear toast al vol
-window.Toasts = Toasts;
+if (typeof window !== 'undefined') {
+    window.Dialog = Toasts;
+}
 
 export function initToasts(context = document) {
     const elements = context.querySelectorAll('.js-toast');

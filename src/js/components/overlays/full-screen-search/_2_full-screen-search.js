@@ -13,7 +13,7 @@ juntament amb data-content="#id" del div que conté el formulari de cerca:
 -------------------------------- */
 
 
-import Modal from '@components/overlays/modal';
+import {Modal} from '@components/overlays/modal';
 document.addEventListener('DOMContentLoaded', () => {
     const fullModalSearchs = Array.from(document.querySelectorAll('.js-modal-search:not(.modal)'));
     fullModalSearchs.forEach(element => {

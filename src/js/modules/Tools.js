@@ -1,42 +1,47 @@
 export const tools = (() => {
-    const animationend = async (target) => {
-        let t;
-        const animations = {
-            "animation"       : "animationend",
-            "OAnimation"      : "oAnimationEnd",
-            "MozAnimation"    : "animationend",
-            "WebkitAnimation" : "webkitAnimationEnd"
-        }
-        for (t in animations) {
-            if (target.style[t] !== undefined){
-                return new Promise((resolve) => {
-                    target.addEventListener(animations[t], resolve, { once: true });
-                });
+    const animationend = (target) => {
+        return new Promise((resolve) => {
+            const animations = {
+                animation: 'animationend',
+                OAnimation: 'oAnimationEnd',
+                MozAnimation: 'animationend',
+                WebkitAnimation: 'webkitAnimationEnd',
+            };
+            let found = false;
+            for (const a in animations) {
+                if (target.style[a] !== undefined) {
+                target.addEventListener(animations[a], resolve, { once: true });
+                found = true;
+                break;
+                }
             }
-        }
-        // return new Promise((resolve) => {
-        //     target.addEventListener("animationend", resolve, { once: true });
-        // });
+            if (!found) {
+                requestAnimationFrame(resolve);
+            }
+        });
     };
-    const transitionend = async (target) =>{
-        let t;
-        const transitions = {
-            "transition"      : "transitionend",
-            "OTransition"     : "oTransitionEnd",
-            "MozTransition"   : "transitionend",
-            "WebkitTransition": "webkitTransitionEnd"
-        }
-        for (t in transitions) {
-            if (target.style[t] !== undefined){
-                return new Promise((resolve) => {
-                    target.addEventListener(transitions[t], resolve, { once: true });
-                });
+    const transitionend = (target) => {
+        return new Promise((resolve) => {
+            const transitions = {
+                transition: 'transitionend',
+                OTransition: 'oTransitionEnd',
+                MozTransition: 'transitionend',
+                WebkitTransition: 'webkitTransitionEnd',
+            };
+            let found = false;
+            for (const t in transitions) {
+                if (target.style[t] !== undefined) {
+                target.addEventListener(transitions[t], resolve, { once: true });
+                found = true;
+                break;
+                }
             }
-        }
-        // return new Promise((resolve) => {
-        //     target.addEventListener("transitionend", resolve, { once: true });
-        // });
-    }
+            if (!found) {
+                // fallback si el navegador no suporta o no hi ha transició
+                requestAnimationFrame(resolve);
+            }
+        });
+    };
     /** 
     * fusiona un conjunt d'opcions d'usuari amb els valors per defecte del plugin
     * https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
