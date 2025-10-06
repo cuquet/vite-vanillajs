@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+    <link rel="stylesheet" href="/scss/style.scss" />
+    <title>Modal | CodyFrame</title>
+</head>
+
+<body>
+    {{> header activepage='overlay-toast'}}
+    <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
+        <div class="container max-width-adaptive-xl">
+            <div class="grid gap-md flex-row-reverse@md">
+                <div class="col-3@md">
+                    <div class="toc toc--static@md js-toc"></div>
+                </div>
+                <div class="col-9@md bg padding-md ">
+                    <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
+                        <div class="text-divider"><span><h1>Missatges emergents</h1></span></div>                    
+                        <section class=" padding-y-md"><h2 class="padding-bottom-md">Toast</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <p class="color-contrast-medium margin-bottom-sm">👇 Click multiple times to show multiple notifications.</p>
+                                <button id="toast_btn" class="btn btn--primary toast-btn" aria-controls="toast-1">Show Toast</button>
+
+                                <div data-toast-interval="3000" class="toast toast--warning toast--hidden toast--bottom-right js-toast" role="alert" aria-live="assertive" aria-atomic="true" id="toast-1">
+                                    <div class="flex items-start justify-between">
+                                        <div class="toast__icon-wrapper margin-right-2xs">
+                                            <svg class="icon"><title>Title One</title><use href="#warning" ></use></svg>
+                                        </div>
+                                        <div class="text-component text-sm">
+                                            <h1 class="toast__title text-md toc-skip">Title One</h1>
+                                            <p class="toast__p">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus iusto ut, error aspernatur quaerat corrupti ipsum deleniti ratione.</p>
+                                        </div>
+                                    
+                                        <button class=" toast__close-btn margin-left-4xs js-toast__close-btn ">
+                                        <svg class="icon" viewBox="0 0 12 12"><title>Close notification</title><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="1" y1="1" x2="11" y2="11" /><line x1="11" y1="1" x2="1" y2="11" /></g></svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="toast toast--hidden toast--top-right js-toast" role="alert" aria-live="assertive" aria-atomic="true" id="toast-2">
+                                    <div class="flex items-start justify-between">
+                                        <div class="toast__icon-wrapper toast__icon-wrapper--warning margin-right-xs">
+                                            <svg class="icon" viewBox="0 0 16 16"><g><title>Alert</title><path d="M15.8,12.526,9.483.88A1.668,1.668,0,0,0,8.8.2,1.693,1.693,0,0,0,6.516.88L.2,12.526A1.678,1.678,0,0,0,1.686,15H14.314a1.7,1.7,0,0,0,.8-.2,1.673,1.673,0,0,0,.687-2.274ZM8,13a1,1,0,1,1,1-1A1,1,0,0,1,8,13ZM9,9.5a.5.5,0,0,1-.5.5h-1A.5.5,0,0,1,7,9.5v-4A.5.5,0,0,1,7.5,5h1a.5.5,0,0,1,.5.5Z"></path></g></svg>
+                                        </div>
+                                        <div class="text-component text-sm">
+                                            <h1 class="toast__title text-md toc-skip">Title Two</h1>
+                                            <p class="toast__p">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                                        </div>
+                                        <button class=" toast__close-btn margin-left-4xs js-toast__close-btn ">
+                                            <svg class="icon" viewBox="0 0 12 12"><title>Close notification</title><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="1" y1="1" x2="11" y2="11" /><line x1="11" y1="1" x2="1" y2="11" /></g></svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="toast toast--hidden toast--top-right js-toast" role="alert" aria-live="assertive" aria-atomic="true" id="toast-3">
+                                    <header class="flex items-center justify-between border-bottom border-bg border-opacity-20% padding-bottom-xs margin-bottom-xs">
+                                        <h1 class="toast__title text-base text-truncate toc-skip">Title Three</h1>
+                                        <button class=" toast__close-btn margin-left-4xs js-toast__close-btn ">
+                                            <svg class="icon" viewBox="0 0 12 12"><title>Close notification</title><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="1" y1="1" x2="11" y2="11" /><line x1="11" y1="1" x2="1" y2="11" /></g></svg>
+                                        </button>
+                                    </header>
+                                    <p class="toast__p text-sm line-height-md">Lorem ipsum dolor sit amet consectetur.</p>
+                                </div>
+
+                                <div class="toast toast--hidden toast--top-right js-toast" role="alert" aria-live="assertive" aria-atomic="true" id="toast-4">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <div class="text-component text-sm">
+                                                <h1 class="toast__title text-md toc-skip">Title Four</h1>
+                                                <p class="toast__p">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, delectus.</p>
+                                            </div>
+                                            <a class="btn btn--primary text-sm width-100% margin-top-xs" href="#0">Button</a>
+                                        </div>
+                                        <button class=" toast__close-btn margin-left-4xs js-toast__close-btn ">
+                                            <svg class="icon" viewBox="0 0 12 12"><title>Close notification</title><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="1" y1="1" x2="11" y2="11" /><line x1="11" y1="1" x2="1" y2="11" /></g></svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="toast toast--hidden toast--top-right js-toast" role="alert" aria-live="assertive" aria-atomic="true" id="toast-5">
+                                    <div class="flex items-start justify-between">
+                                        <div class="toast__icon-wrapper toast__icon-wrapper--success margin-right-xs">
+                                            <svg class="icon" viewBox="0 0 16 16"><title>Success</title><g><path d="M6,15a1,1,0,0,1-.707-.293l-5-5A1,1,0,1,1,1.707,8.293L5.86,12.445,14.178.431a1,1,0,1,1,1.644,1.138l-9,13A1,1,0,0,1,6.09,15C6.06,15,6.03,15,6,15Z"></path></g></svg>
+                                        </div>
+                                        <div class="text-component text-sm">
+                                            <h1 class="toast__title text-md toc-skip">Title Five</h1>
+                                            <p class="toast__p">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo esse maiores assumenda.</p>
+                                        </div>
+                                        <button class=" toast__close-btn margin-left-4xs js-toast__close-btn ">
+                                            <svg class="icon" viewBox="0 0 12 12"><title>Close notification</title><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="1" y1="1" x2="11" y2="11" /><line x1="11" y1="1" x2="1" y2="11" /></g></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class=" padding-y-md"><h2 class="padding-bottom-md">Flash Message</h2>
+                            <div class="container max-width-3xs padding-y-xs ">
+                                <button class="btn btn--primary" aria-controls="flash-message-2">Show flash message</button>
+                                <div class="flash-message js-flash-message" role="status" id="flash-message-2" data-duration="5000">
+                                    <div class="inline-flex items-center">
+                                        <svg aria-hidden="true" class="icon icon--xs margin-right-3xs" viewBox="0 0 16 16">
+                                            <g fill="currentColor">
+                                                <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z" fill="currentColor" opacity=".4"></path>
+                                                <rect x="7" y="7" width="2" height="5" rx=".5" ry=".5" fill="currentColor"></rect>
+                                                <circle cx="8" cy="5" r="1" fill="currentColor"></circle>
+                                            </g>
+                                        </svg>
+                                        <p>This is a flash message</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="text-divider"><span><h1>Full Screen Search</h1></span></div>
+                        <section class="padding-y-md"><h2 class="padding-bottom-md">Estàtic</h2>
+                            <div class="container padding-y-xs">
+                                <button class="btn btn--subtle btn--icon" aria-controls="modal-search">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <title>Toggle search</title>
+                                        <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor" fill="none" stroke-miterlimit="10">
+                                            <line x1="22" y1="22" x2="15.656" y2="15.656"></line>
+                                            <circle cx="10" cy="10" r="8"></circle>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                        </section>
+                        <section class=" padding-y-md"><h2 class="padding-bottom-md">Dinàmic</h2>
+                            <div class="container padding-y-xs">
+                                <button class="btn btn--subtle btn--icon js-modal-search" data-content="#modal-search">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <title>Toggle search</title>
+                                        <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor" fill="none" stroke-miterlimit="10">
+                                            <line x1="22" y1="22" x2="15.656" y2="15.656"></line>
+                                            <circle cx="10" cy="10" r="8"></circle>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <div id="modal-search" class="hide">
+                                    <form class="full-screen-search">
+                                        <label for="search-input-x" id="modal-search-title" class="sr-only">Search</label>
+                                        <input class="reset full-screen-search__input" type="search" name="search-input-2x" id="search-input-2x" placeholder="Search...">
+                                        <button class="full-screen-search__btn">
+                                            <svg class="icon" viewBox="0 0 24 24">
+                                                <title>Search</title>
+                                                <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor" fill="none" stroke-miterlimit="10">
+                                                    <line x1="22" y1="22" x2="15.656" y2="15.656"></line>
+                                                    <circle cx="10" cy="10" r="8"></circle>
+                                                </g>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+    {{> totop }}
+    {{> footer }}
+    <div class="modal modal--search modal--animate-fade bg bg-opacity-90% flex flex-center padding-md backdrop-blur-10 js-modal" data-modal-prevent-scroll="body" id="modal-search">
+        <div class="modal__content width-100% max-width-sm max-height-100% overflow-auto" role="alertdialog" aria-labelledby="modal-search-title" aria-describedby="">
+            <form class="full-screen-search">
+                <label for="search-input-x" id="modal-search-title" class="sr-only">Search</label>
+                <input class="reset full-screen-search__input" type="search" name="search-input-x" id="search-input-x" placeholder="Search...">
+                <button class="full-screen-search__btn">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <title>Search</title>
+                        <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" stroke="currentColor" fill="none" stroke-miterlimit="10">
+                            <line x1="22" y1="22" x2="15.656" y2="15.656"></line>
+                            <circle cx="10" cy="10" r="8"></circle>
+                        </g>
+                    </svg>
+                </button>
+            </form>
+        </div>
+        <button class="modal__close-btn modal__close-btn--outer js-modal__close">
+            <svg class="icon icon--sm" viewBox="0 0 24 24">
+                <title>Close modal window</title>
+                <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="3" x2="21" y2="21"/>
+                    <line x1="21" y1="3" x2="3" y2="21"/>
+                </g>
+            </svg>
+        </button>
+    </div>
+
+    {{> svg }}
+</body>
+<script type="module" src="/js/main.js"></script>
+<script>
+    var toasts = document.querySelectorAll('.js-toast'),
+        trigger = document.querySelector('.toast-btn'),
+        index = 0;
+    var openToastEvent = new CustomEvent('openToast');
+    trigger.addEventListener('click', function(event) {
+        if (index >= toasts.length)
+            index = 0;
+        toasts[index].dispatchEvent(openToastEvent);
+        index += 1;
+    });
+</script>
+<script type="module">// Creació d'un toast al vol
+        const toastIcon = `<div class="toast__icon-wrapper margin-right-2xs"><svg class="icon"><title>error</title><use href="#warning"></use></svg></div>`;
+        const toastContent = `<div class="text-component text-sm">
+        <h1 class="toast__title text-md
+        ">L'home ve de ...</h1>
+        <p class="toast__p">la patata.</p>
+        </div>`;
+        const toastClose =`<button class=" toast__close-btn margin-left-4xs js-toast__close-btn"><svg class="icon"><title>Close</title><use href="#close"></use></svg></button>`;
+        document.addEventListener('DOMContentLoaded', () => {
+            const toastObj = new Toasts();
+            const fragment = `<div data-toast-interval="3000" class="toast-001 toast toast--hidden toast--top-right js-toast" role="alert" aria-live="assertive" aria-atomic="true"><div class="flex items-start justify-between">${toastIcon}${toastContent}${toastClose}</div></div>`;
+            document.body.insertAdjacentHTML('beforeend', fragment);
+            const toast = document.getElementsByClassName("toast-001")[0];
+            toastObj.initToast(toast);
+            toast.dispatchEvent(new CustomEvent('openToast'));
+        });
+    </script>
+</html>

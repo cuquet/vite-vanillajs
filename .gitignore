@@ -1,4 +1,4 @@
-# Logs
+### Logs
 logs
 *.log
 npm-debug.log*
@@ -11,11 +11,24 @@ node_modules
 dist
 dist-ssr
 *.local
-src/site/compiled
-/*.html
+
+#### handlebars
+# Si ja els havies afegit abans de posar el .gitignore.
+# El .gitignore no afecta fitxers que ja estan trackejats.
+# Pots solucionar-ho fàcilment amb:
+# git rm --cached 'src/**/*.html'
+# Això elimina del repositori els .html generats (sense esborrar-los del disc).
+# Després torna a fer commit i ja no et tornaran a sortir.
+
+# Ignora tots els .html dins src/
+src/**/*.html
+# ...excepte els que són dins src/site/pages (els originals)
+!src/site/pages/**/*.html
+# No ignorem els partials (handebars)
+!src/site/partials/**/*.hbs
 vite.entries.json
 
-# Editor directories and files
+### Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
