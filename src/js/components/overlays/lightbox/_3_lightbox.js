@@ -218,13 +218,20 @@ class Lightbox {
         }
     }
 }
+if (typeof window !== 'undefined') {
+    window.Lightbox = Lightbox;
+}
 
-window.Lightbox = Lightbox;
-export default Lightbox;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const lightboxs = Array.from(document.getElementsByClassName('js-lightbox'));
-    if (lightboxs.length > 0) {
-        lightboxs.forEach((element) => new Lightbox(element));
-    }
-});
+function initLightbox(context = document) {
+    const elements = context.querySelectorAll('.js-lightbox');
+    elements.forEach(el => {
+        if (!el.dataset.lightboxInitialized) {
+            new Lightbox(el);
+            el.dataset.lightboxInitialized = 'true';
+        }
+    });
+}
+
+export { Lightbox, initLightbox };
+

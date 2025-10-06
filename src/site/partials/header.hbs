@@ -82,7 +82,9 @@
             </ul>
             <script>
                 const currentitem = document.getElementById("{{activepage}}");
-                currentitem.setAttribute("aria-current", "page");
+                if (currentitem) {
+                    currentitem.setAttribute("aria-current", "page");
+                }
             </script>
             <ul class="f-header__list flex-grow flex-basis-0 justify-end@md">
                 <li class="f-header__item">

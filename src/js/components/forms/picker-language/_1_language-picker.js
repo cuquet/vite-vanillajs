@@ -6,7 +6,7 @@ Usage: https://codyhouse.co/ds/components/info/language-picker
  -------------------------------- */
 import { tools as Util } from '@modules';
 
-export class LanguagePicker {
+class LanguagePicker {
     constructor(element, opts = {}) {
         this.opts = opts;
         this.element = element;
@@ -197,12 +197,12 @@ export class LanguagePicker {
     }
 }
 
-
 // expose to global scope (optional)
 if (typeof window !== 'undefined') {
     window.LanguagePicker = LanguagePicker;
 }
 
+export { LanguagePicker }
 /*
 document.addEventListener('DOMContentLoaded', () => {
     const languagePickerElements = Array.from(document.getElementsByClassName('js-language-picker'));

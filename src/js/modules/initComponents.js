@@ -94,7 +94,16 @@ export async function initComponents(context = document) {
     if (context.querySelector('.js-expandable-search')) {
         lazyLoaders.push(import('@components/forms').then((m) => m.initExpandableSearch(context)));
     }
-
+    if (context.querySelector('.js-language-picker')) {
+        lazyLoaders.push(
+            import('@components/forms/picker-language').then(({ LanguagePicker }) => {
+                // només assegura que el mòdul estigui carregat
+                if (typeof window !== 'undefined') {
+                    if (!window.LanguagePicker) window.LanguagePicker = LanguagePicker;
+                }
+            }),
+        );
+    }
     // Overlays
     if (context.querySelector('.js-flash-message')) {
         lazyLoaders.push(import('@components/overlays/flash-message').then((m) => m.initFlashMessage(context)));
@@ -119,26 +128,14 @@ export async function initComponents(context = document) {
             }),
         );
     }
-
-    // 🌐 Language picker
-    if (context.querySelector('.js-language-picker')) {
+    if (context.querySelector('.js-lightbox')) {
         lazyLoaders.push(
-            import('@components/forms/picker-language').then(({ LanguagePicker }) => {
-                const pickers = context.querySelectorAll('.js-language-picker');
-                pickers.forEach((el) => {
-                    if (!el.dataset.lpInitialized) {
-                        new LanguagePicker(el, {
-                            onGetLangUrl: (option) =>
-                                window.location.origin +
-                                window.location.pathname +
-                                `?lang=${option.value}`,
-                        });
-                        el.dataset.lpInitialized = 'true';
-                    }
-                });
+            import('@components/overlays/lightbox').then(({ initLightbox }) => {
+                initLightbox(context); // inicialitza només els elements del context actual
             }),
         );
     }
+
 
     // Espera que tots els components s’hagin inicialitzat
     if (import.meta.env.DEV) {

@@ -1,2 +1,2 @@
-import Lightbox from "./_3_lightbox";
-export default Lightbox;
+// src/js/components/overlays/lightbox/index.js
+export * from "./_3_lightbox";
