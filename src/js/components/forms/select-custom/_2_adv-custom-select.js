@@ -138,10 +138,16 @@ export class AdvSelect {
         let optionHtml = optionClone.outerHTML;
         optionHtml = optionHtml.replace('{option-label}', option.text);
         for (let i = 0; i < this.optionData.length; i++) {
-            optionHtml = optionHtml.replace(
-                `{${this.optionData[i]}}`,
-                option.getAttribute(`data-${this.optionData[i]}`),
-            );
+            const val = option.getAttribute(`data-${this.optionData[i]}`);
+            optionHtml = optionHtml.replace(`{${this.optionData[i]}}`, val ?? '');
+        
+            // 🔥 Si és preview, posa'l a src també
+            if (this.optionData[i] === 'option-theme-preview' && val) {
+                optionHtml = optionHtml.replace(
+                    /<img([^>]*?)>/,
+                    `<img$1 src="${val}">`
+                );
+            }
         }
         return optionHtml;
     }
