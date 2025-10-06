@@ -29,9 +29,18 @@ const PARTIALS_DIR = path.join(SRC_ROOT, 'site/partials');
 // 🧱 Execució build-pages.mjs
 // ------------------------------------------------------
 function buildPages(file = '') {
-    const arg = file ? `"${file}"` : '';
-    console.log(`📄 Executant build-pages.mjs ${arg}`);
-    execSync(`node build-pages.mjs ${arg}`, { stdio: 'inherit' });
+    return new Promise((resolve, reject) => {
+        const arg = file ? `"${file}"` : '';
+        const proc = exec(`node build-pages.mjs ${arg}`, { stdio: 'inherit' });
+
+        proc.stdout?.pipe(process.stdout);
+        proc.stderr?.pipe(process.stderr);
+
+        proc.on('exit', (code) => {
+            if (code === 0) resolve();
+            else reject(new Error(`build-pages.mjs exited with code ${code}`));
+        });
+    });
 }
 
 // ------------------------------------------------------
@@ -42,27 +51,22 @@ function handlebarsWatcherPlugin() {
         name: 'vite-handlebars-watch',
         configureServer(server) {
             const watcher = chokidar.watch(
-                [path.join(PAGES_DIR, '**/*.html'), path.join(PARTIALS_DIR, '**/*.hbs')],
-                { ignoreInitial: true }
+                ['src/site/pages/**/*.html', 'src/site/partials/**/*.hbs'],
+                { ignoreInitial: true },
             );
 
             watcher.on('change', async (filePath) => {
                 console.log(`♻️ Fitxer canviat: ${filePath}`);
-                try {
-                    buildPages(filePath);
-                    const ext = path.extname(filePath);
 
-                    if (ext === '.hbs') {
-                        console.log('🔁 Partial canviat — refrescant tot...');
+                try {
+                    await buildPages(filePath);
+                    console.log('✅ build-pages.mjs completat, recarregant...');
+                    // 👇 Espera una mica abans del reload per assegurar que el fitxer s’ha escrit
+                    setTimeout(() => {
                         server.ws.send({ type: 'full-reload' });
-                    } else if (ext === '.html') {
-                        const rel = path.relative(PAGES_DIR, filePath);
-                        const target = `/${rel.replace(/\\/g, '/')}`;
-                        console.log(`🔁 Recarregant pàgina: ${target}`);
-                        server.ws.send({ type: 'full-reload', path: target });
-                    }
+                    }, 200);
                 } catch (err) {
-                    console.error('❌ Error recompilant Handlebars:', err.message);
+                    console.error('❌ Error durant la compilació Handlebars:', err);
                 }
             });
 
@@ -89,7 +93,7 @@ export default defineConfig(({ command }) => {
     if (command === 'build') {
         const allowed = ['index', 'dashboard'];
         entries = Object.fromEntries(
-            Object.entries(entries).filter(([key]) => allowed.includes(key))
+            Object.entries(entries).filter(([key]) => allowed.includes(key)),
         );
         console.log('🏗️ Compilant només pàgines:', Object.keys(entries).join(', '));
     }
@@ -117,14 +121,14 @@ export default defineConfig(({ command }) => {
             },
         },
         server: {
-            fs: { allow: [SRC_ROOT, ROOT] },
+            fs: { allow: [SRC_ROOT] },
         },
         build: {
             outDir: '../dist',
             emptyOutDir: true,
             rollupOptions: {
                 input: Object.fromEntries(
-                    Object.entries(entries).map(([name, file]) => [name, resolve(file)])
+                    Object.entries(entries).map(([name, file]) => [name, resolve(file)]),
                 ),
             },
         },

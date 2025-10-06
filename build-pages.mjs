@@ -56,7 +56,8 @@ async function compilePage(pageFile, env = 'development') {
     await fs.writeFile(outPath, html, 'utf8');
 
     const key = rel.replace(/\\/g, '/').replace(/\.html$/, '');
-    console.log(`✔️ Compilat: ${rel}`);
+    console.log(`✔️ Compilat →  ${rel}`);
+    console.log(`✔️ Compilat → ${path.relative(ROOT, outPath)}`);
     return [key, outPath];
 }
 
