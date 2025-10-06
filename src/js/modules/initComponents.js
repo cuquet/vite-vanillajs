@@ -1,9 +1,80 @@
 // src/js/modules/initComponents.js
-// Carrega automàticament només els components necessaris segons el DOM
+import * as Controls from '@components/controls';
+import * as Forms from '@components/forms';
+import * as Overlays from '@components/overlays';
 
+/**
+ * Components globals que exposem a window per poder fer servir des d’HTML
+ * Exemple: window.Modal
+ */
+const GLOBAL_EXPORTS = ['Dialog', 'Modal', 'ModalVideo', 'LanguagePicker'];
+
+/**
+ * Inicialitza components segons selectors
+ * @param {HTMLElement|Document} context
+ */
 export async function initComponents(context = document) {
-    const lazyLoaders = [];
+    const isProd = import.meta.env.PROD;
 
+    const initMap = [
+        // Controls
+        ['.js-alert', 'initAlert', Controls],
+        ['.js-anim-menu-btn', 'initAnimMenuBtn', Controls],
+        ['.js-back-to-top', 'initBack2Top', Controls],
+        ['.js-collapse', 'initCollapse', Controls],
+        ['.js-dropdown', 'initDropdown', Controls],
+        ['.js-tooltip-trigger', 'initTooltip', Controls],
+        ['.js-popover', 'initPopover', Controls],
+        ['.js-progress-bar', 'initProgressBar', Controls],
+        ['.js-c-progress-bar', 'initCProgressBar', Controls],
+        ['.js-smooth-scroll', 'initSmoothScroll', Controls],
+        ['.js-ld-switch', 'initLdSwitch', Controls],
+        ['.js-fullscreen-btn', 'initFullscreenBtn', Controls],
+
+        // Forms
+        ['.js-choice-tag', 'initChoiceTags', Forms],
+        ['.js-number-input', 'initNumberInput', Forms],
+        ['.js-list-filter', 'initListFilter', Forms],
+        ['.js-select', 'initCustomSelect', Forms],
+        ['.js-multi-select', 'initMultipleCustomSelect', Forms],
+        ['.js-multi-select-v2', 'initMultipleCustomSelectV2', Forms],
+        ['.js-adv-select', 'initAdvSelect', Forms],
+        ['.js-password', 'initPasswordVisibility', Forms],
+        ['.js-password-strength', 'initPasswordStrength', Forms],
+        ['.js-date-picker', 'initDatePicker', Forms],
+        ['.js-date-range', 'initDatePickerRange', Forms],
+        ['.js-time-picker', 'initTimePicker', Forms],
+        ['.js-slider', 'initSlider', Forms],
+        ['.slider--multi-value.js-slider', 'initSliderRange', Forms],
+        ['.js-expandable-search', 'initExpandableSearch', Forms],
+
+        // Overlays
+        ['.js-flash-message', 'initFlashMessage', Overlays],
+        ['.js-toast', 'initToasts', Overlays],
+        ['.js-dialog', 'Dialog', Overlays],
+        ['.js-slideshow', 'initSlideshow', Overlays],
+        ['.js-lightbox', 'initLightbox', Overlays],
+        ['.js-modal', 'initModal', Overlays],
+        ['.js-modal-video__media', 'ModalVideo', Overlays],
+        ['.js-modal-search', 'initFullModalSearch', Overlays],
+        ['.js-language-picker', 'LanguagePicker', Forms],
+    ];
+
+    // --- 🔧 PRODUCCIÓ: tot en un bundle únic ---
+    if (isProd) {
+        for (const [selector, fn, module] of initMap) {
+            if (context.querySelector(selector) && typeof module[fn] === 'function') {
+                module[fn](context);
+                // exposar globals si cal
+                if (GLOBAL_EXPORTS.includes(fn) && typeof window !== 'undefined') {
+                    if (!window[fn]) window[fn] = module[fn];
+                }
+            }
+        }
+        return;
+    }
+    // --- ⚙️ DESENVOLUPAMENT: lazy load dinàmic ---
+    const lazyLoaders = [];
     // 🧭 Controls
     if (context.querySelector('.js-alert')) {
         lazyLoaders.push(import('@components/controls/alert').then((m) => m.initAlert(context)));
@@ -159,9 +230,7 @@ export async function initComponents(context = document) {
             import('@components/overlays/full-screen-search').then((m) => m.initFullModalSearch(context))
         );
     }
-
-
-
+    
     // Espera que tots els components s’hagin inicialitzat
     if (import.meta.env.DEV) {
         console.info(`🧩 initComponents: carregant ${lazyLoaders.length} components`);
