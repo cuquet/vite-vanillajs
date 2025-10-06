@@ -97,10 +97,10 @@ export async function initComponents(context = document) {
 
     // Overlays
     if (context.querySelector('.js-flash-message')) {
-        lazyLoaders.push(import('@components/overlays').then((m) => m.initFlashMessage(context)));
+        lazyLoaders.push(import('@components/overlays/flash-message').then((m) => m.initFlashMessage(context)));
     }
     if (context.querySelector('.js-toast')) {
-        lazyLoaders.push(import('@components/overlays').then((m) => m.initToasts(context)));
+        lazyLoaders.push(import('@components/overlays/toast').then((m) => m.initToasts(context)));
     }
     if (context.querySelector('.js-dialog')) {
         lazyLoaders.push(
@@ -112,8 +112,13 @@ export async function initComponents(context = document) {
             }),
         );
     }
-
-
+    if (context.querySelector('.js-slideshow')) {
+        lazyLoaders.push(
+            import('@components/overlays/slideshow').then(({ initSlideshow }) => {
+                initSlideshow(context); // inicialitza només els elements del context actual
+            }),
+        );
+    }
 
     // 🌐 Language picker
     if (context.querySelector('.js-language-picker')) {
@@ -144,5 +149,3 @@ export async function initComponents(context = document) {
     }
     await Promise.all(lazyLoaders);
 }
-
-//import { Dialog } from '@components/overlays/dialog';

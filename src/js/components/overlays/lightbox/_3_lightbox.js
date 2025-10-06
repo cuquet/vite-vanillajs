@@ -12,7 +12,7 @@ Dependencies
 -------------------------------- */
 
 //import { tools as Util } from '@modules';
-import Slideshow from '@components/overlays/slideshow';
+import { Slideshow } from '@components/overlays/slideshow';
 
 class Lightbox {
     constructor(element) {

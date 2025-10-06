@@ -1,2 +1,2 @@
-import Slideshow from './_2_slideshow';
-export default Slideshow;
+// src/js/components/overlays/slideshow
+export * from './_2_slideshow';

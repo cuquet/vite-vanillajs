@@ -9,7 +9,7 @@ Dependencies:
 -------------------------------- */
 
 import { tools as Util } from '@modules';
-import SwipeContent from './_1_swipe-content';
+import { SwipeContent } from './_1_swipe-content';
 class Slideshow {
     constructor(opts) {
         this.options = Util.extend(Slideshow.defaults, opts);
@@ -37,6 +37,19 @@ class Slideshow {
         this.initEvents();
         this.initAnimationEndEvents();
     }
+
+    static defaults = {
+        element: '',
+        navigation: true,
+        autoplay: false,
+        autoplayOnHover: false,
+        autoplayOnFocus: false,
+        autoplayInterval: 5000,
+        navigationItemClass: 'slideshow__nav-item',
+        navigationClass: 'slideshow__navigation',
+        swipe: false,
+    };
+
     get renderSlideshowControls() {
         const controls = document.createElement('ul');
         controls.setAttribute('id', 'lightboxControllers');
@@ -434,59 +447,44 @@ class Slideshow {
     }
 }
 
-Slideshow.defaults = {
-    element: '',
-    navigation: true,
-    autoplay: false,
-    autoplayOnHover: false,
-    autoplayOnFocus: false,
-    autoplayInterval: 5000,
-    navigationItemClass: 'slideshow__nav-item',
-    navigationClass: 'slideshow__navigation',
-    swipe: false,
-};
-
-window.Slideshow = Slideshow;
-export default Slideshow;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const slideshows = Array.from(document.getElementsByClassName('js-slideshow'));
-    if (slideshows.length > 0) {
-        slideshows.forEach((elm) => {
+function initSlideshow(context = document) {
+    const elements = context.querySelectorAll('.js-slideshow');
+    elements.forEach(el => {
+        if (!el.dataset.slideshowInitialized) {
             let navigation =
-                    elm.getAttribute('data-navigation') &&
-                    elm.getAttribute('data-navigation') == 'off'
+                    el.getAttribute('data-navigation') &&
+                    el.getAttribute('data-navigation') == 'off'
                         ? false
                         : true,
                 autoplay =
-                    elm.getAttribute('data-autoplay') && elm.getAttribute('data-autoplay') == 'on'
+                    el.getAttribute('data-autoplay') && el.getAttribute('data-autoplay') == 'on'
                         ? true
                         : false,
                 autoplayOnHover =
-                    elm.getAttribute('data-autoplay-on-hover') &&
-                    elm.getAttribute('data-autoplay-on-hover') == 'on'
+                    el.getAttribute('data-autoplay-on-hover') &&
+                    el.getAttribute('data-autoplay-on-hover') == 'on'
                         ? true
                         : false,
                 autoplayOnFocus =
-                    elm.getAttribute('data-autoplay-on-focus') &&
-                    elm.getAttribute('data-autoplay-on-focus') == 'on'
+                    el.getAttribute('data-autoplay-on-focus') &&
+                    el.getAttribute('data-autoplay-on-focus') == 'on'
                         ? true
                         : false,
-                autoplayInterval = elm.getAttribute('data-autoplay-interval')
-                    ? parseInt(elm.getAttribute('data-autoplay-interval'))
+                autoplayInterval = el.getAttribute('data-autoplay-interval')
+                    ? parseInt(el.getAttribute('data-autoplay-interval'))
                     : 5000,
                 swipe =
-                    elm.getAttribute('data-swipe') && elm.getAttribute('data-swipe') == 'on'
+                    el.getAttribute('data-swipe') && el.getAttribute('data-swipe') == 'on'
                         ? true
                         : false,
-                navigationItemClass = elm.getAttribute('data-navigation-item-class')
-                    ? elm.getAttribute('data-navigation-item-class')
+                navigationItemClass = el.getAttribute('data-navigation-item-class')
+                    ? el.getAttribute('data-navigation-item-class')
                     : 'slideshow__nav-item',
-                navigationClass = elm.getAttribute('data-navigation-class')
-                    ? elm.getAttribute('data-navigation-class')
+                navigationClass = el.getAttribute('data-navigation-class')
+                    ? el.getAttribute('data-navigation-class')
                     : 'slideshow__navigation';
             new Slideshow({
-                element: elm,
+                element: el,
                 navigation: navigation,
                 autoplay: autoplay,
                 autoplayOnHover: autoplayOnHover,
@@ -496,6 +494,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 navigationClass: navigationClass,
                 swipe: swipe,
             });
-        });
-    }
-});
+            el.dataset.slideshowInitialized = 'true';
+        }
+    });
+}
+
+if (typeof window !== 'undefined') {
+    window.Slideshow = Slideshow;
+}
+export {Slideshow, initSlideshow};
+

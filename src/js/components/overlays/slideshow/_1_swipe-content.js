@@ -1,7 +1,7 @@
 // File#: _1_swipe-content
 // Usage: https://codyhouse.co/ds/components/app/swipe-content
 
-class SwipeContent {
+export class SwipeContent {
     constructor(element) {
         this.element = element;
         this.delta = [false, false];
@@ -149,19 +149,3 @@ class SwipeContent {
         }
     }
 }
-
-export default SwipeContent;
-
-
-// window.SwipeContent = SwipeContent
-
-// //initialize the SwipeContent objects
-// var swipe = document.getElementsByClassName('js-swipe-content')
-// if (swipe.length > 0) {
-//     for (var i = 0; i < swipe.length; i++) {
-//         ; (function (i) {
-//             new SwipeContent(swipe[i])
-//         })(i)
-//     }
-// }
-
