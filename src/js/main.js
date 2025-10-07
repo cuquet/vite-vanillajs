@@ -10,12 +10,6 @@ if (document.querySelector('#counter')) {
     setupCounter(document.querySelector('#counter'));
 }
 
-
-
-
-
-
-
 const INIT_ENTRIES = [
     // Controls
     { selector: '.js-alert', component: '@components/controls', init: 'initAlert' },
@@ -72,7 +66,6 @@ const INIT_ENTRIES = [
         init: 'initFullModalSearch',
     },
 ];
-
 
 import { initComponents } from '@modules/initComponents';
 // 🚀 Inicialització global
