@@ -27,11 +27,11 @@ class DynamicModal {
                 ? true
                 : false;
         this.buildModal();
-        if(this.isDynamic) {
-            console.log(`Soc ModalDynamic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
-        } else {
-            console.log(`Soc Modal Estàtic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
-        }
+        // if(this.isDynamic) {
+        //     console.log(`Soc ModalDynamic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
+        // } else {
+        //     console.log(`Soc Modal Estàtic => id: ${this.modal.id} => isDynamic: ${this.isDynamic} => dataOrigin: ${this.dataOrigin} => mimeType: ${this.mimeType}`);
+        // }
     }
 
     static defaults = {
@@ -675,10 +675,10 @@ function initModal(context = document) {
     console.log('initModal: trobades', modals.length, 'modals'); // debug: quantes modals detecta
     modals.forEach((element) => {
         if (element.dataset.modalInitialized) {
-            console.log('initModal: ja inicialitzada', element.id);
+            //console.log('initModal: ja inicialitzada', element.id);
             return;
         }
-        console.log('initModal: inicialitzant modal', element.id);
+        //console.log('initModal: inicialitzant modal', element.id);
         new Modal(element, {
             fullscreen: element.dataset.fullscreen === 'off' ? false : true,
             confirmClose: element.dataset.confirmClose === 'on' ? true : false,

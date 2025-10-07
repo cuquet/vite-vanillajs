@@ -1,1032 +1,1024 @@
 <!doctype html>
 <html lang="en" data-theme="default">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
-    <link rel="stylesheet" href="/scss/style.scss" />
-    <title>CodyFrame</title>
-</head>
-<body class="bg" >
-    {{> header activepage='nav'}}
-    <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
-        <div class="container max-width-adaptive-xl">
-            <div class="grid gap-md flex-row-reverse@md">
-                <div class="col-3@md">
-                    <div class="toc toc--static@md js-toc">
-                        <nav class="toc__nav"></nav>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+        <link rel="stylesheet" href="/scss/style.scss" />
+        <title>CodyFrame</title>
+    </head>
+    <body class="bg" >
+        {{> header activepage='nav'}}
+        <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
+            <div class="container max-width-adaptive-xl">
+                <div class="grid gap-md flex-row-reverse@md">
+                    <div class="col-3@md">
+                        <div class="toc toc--static@md js-toc">
+                            <nav class="toc__nav"></nav>
+                        </div>
                     </div>
-                </div>
-                <div class="col-9@md bg padding-md ">
-                    <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
-                        <div class="text-divider"><span><h1>Varis: tabs, breadcrumb</h1></span></div>
-                        <section class=" padding-y-md"><h2>_1_breadcrumbs</h2>
-                            <nav class="breadcrumbs text-sm" aria-label="Breadcrumbs">
-                                <ol class="flex flex-wrap gap-2xs">
-                                <li class="breadcrumbs__item">
-                                    <a href="#0" class="color-inherit">Home</a>
-                                    <svg class="icon margin-left-3xs color-contrast-low" aria-hidden="true" viewBox="0 0 16 16"><polyline fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline></svg>
-                                </li>
-                            
-                                <li class="breadcrumbs__item">
-                                    <a href="#0" class="color-inherit">Gallery</a>
-                                    <svg class="icon margin-left-3xs color-contrast-low" aria-hidden="true" viewBox="0 0 16 16"><polyline fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline></svg>
-                                </li>
-                            
-                                <li class="breadcrumbs__item">
-                                    <a href="#0" class="color-inherit">Web</a>
-                                    <svg class="icon margin-left-3xs color-contrast-low" aria-hidden="true" viewBox="0 0 16 16"><polyline fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline></svg>
-                                </li>
-                            
-                                <li class="breadcrumbs__item" aria-current="page">Project</li>
+                    <div class="col-9@md bg padding-md ">
+                        <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
+                            <div class="text-divider"><span><h1>Varis: tabs, breadcrumb</h1></span></div>
+                            <section class=" padding-y-md"><h2>_1_breadcrumbs</h2>
+                                <nav class="breadcrumbs text-sm" aria-label="Breadcrumbs">
+                                    <ol class="flex flex-wrap gap-2xs">
+                                    <li class="breadcrumbs__item">
+                                        <a href="#0" class="color-inherit">Home</a>
+                                        <svg class="icon margin-left-3xs color-contrast-low" aria-hidden="true" viewBox="0 0 16 16"><polyline fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline></svg>
+                                    </li>
+                                
+                                    <li class="breadcrumbs__item">
+                                        <a href="#0" class="color-inherit">Gallery</a>
+                                        <svg class="icon margin-left-3xs color-contrast-low" aria-hidden="true" viewBox="0 0 16 16"><polyline fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline></svg>
+                                    </li>
+                                
+                                    <li class="breadcrumbs__item">
+                                        <a href="#0" class="color-inherit">Web</a>
+                                        <svg class="icon margin-left-3xs color-contrast-low" aria-hidden="true" viewBox="0 0 16 16"><polyline fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="6.5,3.5 11,8 6.5,12.5 "></polyline></svg>
+                                    </li>
+                                
+                                    <li class="breadcrumbs__item" aria-current="page">Project</li>
+                                    </ol>
+                                </nav>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_expandable-side-navigation</h2>
+                                <div class="container max-width-3xs padding-y-xs flex justify-center">
+                                    <div class="padding-x-md exsidenav js-exsidenav">
+                                        <nav class="exsidenav__pop-nav" aria-label="Popular links">
+                                            <ul>
+                                                <li>
+                                                    <a class="exsidenav__pop-link" href="#0" aria-current="page">
+                                                        <svg class="icon" viewBox="0 0 16 16">
+                                                            <g>
+                                                                <path d="M14,14H11V12h2V4H11V2h3a1,1,0,0,1,1,1V13A1,1,0,0,1,14,14Z"></path>
+                                                                <path d="M8.584.188a.994.994,0,0,0-.9-.136l-6,2A1,1,0,0,0,1,3V13a1,1,0,0,0,.684.948l6,2A.983.983,0,0,0,8,16a1,1,0,0,0,1-1V1A1,1,0,0,0,8.584.188ZM6,9A1,1,0,1,1,7,8,1,1,0,0,1,6,9Z"></path>
+                                                            </g>
+                                                        </svg>
+                                                        <span>Getting started</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="exsidenav__pop-link" href="#0">
+                                                        <svg class="icon" viewBox="0 0 16 16">
+                                                            <g>
+                                                                <path d="M2,8h12c0.6,0,1-0.4,1-1V1c0-0.6-0.4-1-1-1H2C1.4,0,1,0.4,1,1v6C1,7.6,1.4,8,2,8z"></path>
+                                                                <path d="M16,10H0v2h4l-1.8,2.4c-0.3,0.4-0.2,1.1,0.2,1.4C2.6,15.9,2.8,16,3,16c0.3,0,0.6-0.1,0.8-0.4 L6.5,12H7v2h2v-2h0.5l2.7,3.6c0.2,0.3,0.5,0.4,0.8,0.4c0.2,0,0.4-0.1,0.6-0.2c0.4-0.3,0.5-1,0.2-1.4L12,12h4V10z"></path>
+                                                            </g>
+                                                        </svg>
+                                                        <span>Tutorials</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="exsidenav__pop-link" href="#0">
+                                                        <svg class="icon" viewBox="0 0 16 16">
+                                                            <g>
+                                                                <path d="M8,0C3.6,0,0,3.6,0,8s3.6,8,8,8s8-3.6,8-8S12.4,0,8,0z M9,12H7V7h2V12z M8,6C7.4,6,7,5.6,7,5s0.4-1,1-1 s1,0.4,1,1S8.6,6,8,6z"></path>
+                                                            </g>
+                                                        </svg>
+                                                        <span>FAQ</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                        <nav aria-label="Main">
+                                            <ul class="exsidenav__list">
+                                                <li class="exsidenav__label-wrapper">
+                                                    <span class="exsidenav__label">API</span>
+                                                </li>
+                                                <li>
+                                                    <button class="exsidenav__control js-exsidenav__control">
+                                                        <span>Syntax</span>
+                                                        <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
+                                                            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                                <path d="M3 3l10 10"></path>
+                                                                <path d="M13 3L3 13"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                    <ul class="exsidenav__list">
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Overview</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Structure</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Comments</a>
+                                                        </li>
+                                                        <li>
+                                                            <button class="exsidenav__control js-exsidenav__control">
+                                                                <span>Functions</span>
+                                                                <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
+                                                                    <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                                        <path d="M3 3l10 10"></path>
+                                                                        <path d="M13 3L3 13"></path>
+                                                                    </g>
+                                                                </svg>
+                                                            </button>
+                                                            <ul class="exsidenav__list">
+                                                                <li>
+                                                                    <a class="exsidenav__link" href="#0">expression()</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="exsidenav__link" href="#0">url()</a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Older APIs</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <button class="exsidenav__control js-exsidenav__control">
+                                                        <span>Interface</span>
+                                                        <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
+                                                            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                                <path d="M3 3l10 10"></path>
+                                                                <path d="M13 3L3 13"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                    <ul class="exsidenav__list">
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Overview</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Inspector</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Timeline</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Toolbar</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <button class="exsidenav__control js-exsidenav__control">
+                                                        <span>Examples</span>
+                                                        <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
+                                                            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                                <path d="M3 3l10 10"></path>
+                                                                <path d="M13 3L3 13"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                    <ul class="exsidenav__list">
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Overview</a>
+                                                        </li>
+                                                        <li class="exsidenav__label-wrapper">
+                                                            <span class="exsidenav__label">Customers</span>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Customers</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Discounts</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Orders</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="exsidenav__label-wrapper">
+                                                    <span class="exsidenav__label">Testing</span>
+                                                </li>
+                                                <li>
+                                                    <button class="exsidenav__control js-exsidenav__control">
+                                                        <span>Invoicing</span>
+                                                        <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
+                                                            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                                <path d="M3 3l10 10"></path>
+                                                                <path d="M13 3L3 13"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </button>
+                                                    <ul class="exsidenav__list">
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Overview</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">How invoicing works</a>
+                                                        </li>
+                                                        <li class="exsidenav__label-wrapper">
+                                                            <span class="exsidenav__label">Customers</span>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Managing customers</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="exsidenav__link" href="#0">Taxes</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="text-divider"><span><h1>Tabs</h1></span></div>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_tabs</h2>
+                                <div class="container max-width-md padding-y-xs ">
+                                    <div class="tabs js-tabs">
+                                        <ul class="flex flex-wrap gap-sm js-tabs__controls" aria-label="Tabs Interface">
+                                        <li><a href="#tab1Panel1" class="tabs__control" aria-selected="true">Tab 1</a></li>
+                                        <li><a href="#tab1Panel2" class="tabs__control">Tab 2</a></li>
+                                        <li><a href="#tab1Panel3" class="tabs__control">Tab 3</a></li>
+                                        <li><a href="#tab1Panel4" class="tabs__control">Tab 4</a></li>
+                                        <li><a href="#tab1Panel5" class="tabs__control">Tab 5</a></li>
+                                        </ul>
+                                    
+                                        <div class="js-tabs__panels">
+                                        <section id="tab1Panel1" class="padding-top-md js-tabs__panel">
+                                            <div class="text-component">
+                                            <h1 class="text-lg toc-skip">Panel 1</h1>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
+                                            </div>
+                                        </section>
+                                    
+                                        <section id="tab1Panel2" class="padding-top-md js-tabs__panel">
+                                            <div class="text-component">
+                                            <h1 class="text-lg toc-skip">Panel 2</h1>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
+                                            </div>
+                                        </section>
+                                    
+                                        <section id="tab1Panel3" class="padding-top-md js-tabs__panel">
+                                            <div class="text-component">
+                                            <h1 class="text-lg toc-skip">Panel 3</h1>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
+                                            </div>
+                                        </section>
+                                    
+                                        <section id="tab1Panel4" class="padding-top-md js-tabs__panel">
+                                            <div class="text-component">
+                                            <h1 class="text-lg toc-skip">Panel 4</h1>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
+                                            </div>
+                                        </section>
+                                    
+                                        <section id="tab1Panel5" class="padding-top-md js-tabs__panel">
+                                            <div class="text-component">
+                                            <h1 class="text-lg toc-skip">Panel 5</h1>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
+                                            </div>
+                                        </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_tabs-v2</h2>
+                                <div class="container max-width-md padding-y-xs ">
+                                    <div class="tabs-v2 js-tabs">
+                                        <nav>
+                                            <ul class="tabs-v2 js-tabs__controls" aria-label="Tabs Interface">
+                                                <li>
+                                                    <a href="#tab2Panel1" class="tabs-v2__item" >Tab 1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab2Panel2" class="tabs-v2__item">Tab 2</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab2Panel3" class="tabs-v2__item" aria-selected="true">Tab 3</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab2Panel4" class="tabs-v2__item">Tab 4</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tab2Panel5" class="tabs-v2__item">Tab 5</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                        <div class="js-tabs__panels">
+                                            <section id="tab2Panel1" class="padding-top-md js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h2 class="toc-skip">Panel 1</h2>
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
+                                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab2Panel2" class="padding-top-md js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h2 class="toc-skip">Panel 2</h2>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab2Panel3" class="padding-top-md js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h2 class="toc-skip">Panel 3</h2>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab2Panel4" class="padding-top-md js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h2 class="toc-skip">Panel 4</h2>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab2Panel5" class="padding-top-md js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h2 class="toc-skip">Panel 5</h2>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_tabs-v3</h2>
+                                <div class="container max-width-md padding-y-xs ">
+                                    <div class="tabs-v3 js-tabs">
+                                        <ul class="tabs-v3__controls js-tabs__controls" aria-label="Tabs Interface">
+                                            <li>
+                                                <a href="#tab1Panel1" class="tabs-v3__control">Tab 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel2" class="tabs-v3__control">Tab 2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel3" aria-selected="true" class="tabs-v3__control">Tab 3</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel4" class="tabs-v3__control">Tab 4</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel5" class="tabs-v3__control">Tab 5</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tabs-v3__panels js-tabs__panels">
+                                            <section id="tab1Panel1" class="tabs-v3__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 1</h1>
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
+                                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel2" class="tabs-v3__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 2</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel3" class="tabs-v3__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 3</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel4" class="tabs-v3__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 4</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel5" class="tabs-v3__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 5</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_tabs-vert</h2>
+                                <div class="container max-width-md padding-y-xs ">
+                                    <div class="tabs-vert js-tabs">
+                                        <ul class="tabs-vert__controls js-tabs__controls" aria-label="Tabs Interface">
+                                            <li>
+                                                <a href="#tab1Panel1" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 1" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel2" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 2" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel3" aria-selected="true" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 3" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel4" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 4" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab1Panel5" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 5" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
+                                            </li>
+                                        </ul>
+                                        <div class="tabs-vert__panels js-tabs__panels">
+                                            <section id="tab1Panel1" class="tabs-vert__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 1</h1>
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
+                                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel2" class="tabs-vert__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 2</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel3" class="tabs-vert__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 3</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel4" class="tabs-vert__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 4</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
+                                                </div>
+                                            </section>
+                                            <section id="tab1Panel5" class="tabs-vert__panel js-tabs__panel">
+                                                <div class="text-component">
+                                                    <h1 class="toc-skip">Panel 5</h1>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_accordion</h2>
+                                <div class="container max-width-md padding-y-xs ">
+                                    <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
+                                
+                                        <li class="accordion__item accordion__item--is-open js-accordion__item">
+                                            <button class=" accordion__header padding-y-sm padding-x-md " type="button">
+                                                <span class="text-md">Panel 1</span>
+                                
+                                                <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
+                                                    <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <line x1="3" y1="3" x2="17" y2="17" />
+                                                        <line x1="17" y1="3" x2="3" y2="17" />
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                
+                                            <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
+                                                <div class="text-component">
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
+                                                        quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
+                                                        inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                
+                                        <li class="accordion__item  js-accordion__item">
+                                            <button class=" accordion__header padding-y-sm padding-x-md " type="button">
+                                                <span class="text-md">Panel 2</span>
+                                
+                                                <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
+                                                    <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <line x1="3" y1="3" x2="17" y2="17" />
+                                                        <line x1="17" y1="3" x2="3" y2="17" />
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                
+                                            <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
+                                                <div class="text-component">
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
+                                                        quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
+                                                        inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
+                                                        quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
+                                                        inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                
+                                        <li class="accordion__item  js-accordion__item">
+                                            <button class=" accordion__header padding-y-sm padding-x-md " type="button">
+                                                <span class="text-md">Panel 3</span>
+                                
+                                                <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
+                                                    <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <line x1="3" y1="3" x2="17" y2="17" />
+                                                        <line x1="17" y1="3" x2="3" y2="17" />
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                
+                                            <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
+                                                <div class="text-component">
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
+                                                        quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
+                                                        inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                
+                                        <li class="accordion__item  js-accordion__item">
+                                            <button class=" accordion__header padding-y-sm padding-x-md " type="button">
+                                                <span class="text-md">Panel 4</span>
+                                
+                                                <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
+                                                    <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <line x1="3" y1="3" x2="17" y2="17" />
+                                                        <line x1="17" y1="3" x2="3" y2="17" />
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                
+                                            <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
+                                                <div class="text-component">
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
+                                                        quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
+                                                        inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
+                                                        quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
+                                                        inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                
+                                    </ul>
+                                </div>
+                                </section>
+                            <div class="text-divider"><span><h1>Navegació</h1></span></div>
+                            <section class=" padding-y-md"><h2>_1_tabbed-navigation</h2>
+                                <nav class="tabs-nav">
+                                    <ul class="tabs-nav__list">
+                                    <li><a class="tabs-nav__link tabs-nav__link--current" href="#0">Link 1</a></li>
+                                    <li><a class="tabs-nav__link" href="#0">Link 2</a></li>
+                                    <li><a class="tabs-nav__link" href="#0">Link 3</a></li>
+                                    <li><a class="tabs-nav__link" href="#0">Link 4</a></li>
+                                    </ul>
+                                </nav>
+                            </section>
+                            <section class=" padding-y-md"><h2>_1_tabbed-navigation-v2</h2>
+                                <nav>
+                                    <ul class="tabs-nav-v2">
+                                    <li><a href="#0" class="tabs-nav-v2__item tabs-nav-v2__item--selected">Tab 1</a></li>
+                                    <li><a href="#0" class="tabs-nav-v2__item">Tab 2</a></li>
+                                    <li><a href="#0" class="tabs-nav-v2__item">Tab 3</a></li>
+                                    <li><a href="#0" class="tabs-nav-v2__item">Tab 4</a></li>
+                                    <li><a href="#0" class="tabs-nav-v2__item">Tab 5</a></li>
+                                    </ul>
+                                </nav>
+                            </section>
+                            <section class=" padding-y-md"><h2>_1_tabbed-navigation-v3</h2>
+                                <div class="tabs-nav-v3">
+                                    <nav>
+                                        <ul>
+                                            <li><a href="#0" class="tabs-nav-v3__item tabs-nav-v3__item--selected" aria-selected=true>Tab 1</a></li>
+                                            <li><a href="#0" class="tabs-nav-v3__item">Tab 2</a></li>
+                                            <li><a href="#0" class="tabs-nav-v3__item">Tab 3</a></li>
+                                            <li><a href="#0" class="tabs-nav-v3__item">Tab 4</a></li>
+                                            <li><a href="#0" class="tabs-nav-v3__item">Tab 5</a></li>
+                                        </ul>
+                                    </nav>
+                                    <section class="tabs-nav-v3__section">
+                                        <div class="text-component">
+                                            <h1 class="toc-skip">Panel 1</h1>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
+                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class=" padding-y-md"><h2>_1_sub-navigation</h2>
+                            <div class="margin-bottom-md"><h3>Per defecte</h3>
+                                <div class="bg-dark">
+                                <div class="container max-width-lg">
+                                    <div class="subnav js-subnav">
+                                        <button class="btn btn--subtle margin-y-sm subnav__control js-subnav__control">
+                                            <span>Mostra Categories</span>
+                                            <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true" viewBox="0 0 12 12">
+                                                <polyline points="0.5 3.5 6 9.5 11.5 3.5" fill="none" stroke-width="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                                            </svg>
+                                        </button>
+                                        <div class="subnav__wrapper js-subnav__wrapper">
+                                            <nav class="subnav__nav justify-center">
+                                                <button class="subnav__close-btn js-subnav__close-btn" aria-label="Close navigation">
+                                                    <svg class="icon ">
+                                                        <use href="#close"></use>
+                                                    </svg>
+                                                </button>
+                                                <ul class="subnav__list">
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link" aria-current="page">Intro</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Features</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Photos</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Videos</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Specs</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Support</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Compare</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Buy</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="margin-bottom-md"><h3>--collapsed</h3>
+                                <div class="bg-dark">
+                                <div class="container max-width-lg">
+                                    <div class="subnav subnav--expanded@sm js-subnav">
+                                        <button class="btn btn--subtle margin-y-sm subnav__control js-subnav__control">
+                                            <span>Mostra Categories</span>
+                                            <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true" viewBox="0 0 12 12">
+                                                <polyline points="0.5 3.5 6 9.5 11.5 3.5" fill="none" stroke-width="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                                            </svg>
+                                        </button>
+                                        <div class="subnav__wrapper js-subnav__wrapper">
+                                            <nav class="subnav__nav justify-center">
+                                                <button class="subnav__close-btn js-subnav__close-btn" aria-label="Close navigation">
+                                                    <svg class="icon "><use href="#close"></use></svg>
+                                                </button>
+                                                <ul class="subnav__list">
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link" aria-current="page">Intro</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Features</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Photos</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Videos</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Specs</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Support</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Compare</a>
+                                                    </li>
+                                                    <li class="subnav__item">
+                                                        <a href="#0" class="subnav__link">Buy</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container max-width-adaptive-md">
+                                <div class="text-component text-center margin-top-lg">
+                                    <p>
+                                        "The --collapsed variation is visible if screen minus 768px"
+                                    </p>
+                                </div>
+                            </div>
+                            </div>
+                            </section>
+                            <div class="text-divider"><span><h1>Menu</h1></span></div>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_menu</h2>
+                                <div class="container max-width-3xs padding-y-xs ">
+                                    <button class="btn btn--primary" aria-controls="menu-example">Toggle Menu</button>
+                                    <menu id="menu-example" class="menu js-menu">
+                                        <li role="menuitem">
+                                            <span class="menu__content js-menu__content">
+                                                <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 12 12">
+                                                    <path d="M10.121.293a1,1,0,0,0-1.414,0L1,8,0,12l4-1,7.707-7.707a1,1,0,0,0,0-1.414Z"></path>
+                                                </svg>
+                                                <span>Edit</span>
+                                            </span>
+                                        </li>
+                                        <li role="menuitem">
+                                            <span class="menu__content js-menu__content">
+                                                <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 16 16">
+                                                    <path d="M15,4H1C0.4,4,0,4.4,0,5v10c0,0.6,0.4,1,1,1h14c0.6,0,1-0.4,1-1V5C16,4.4,15.6,4,15,4z M14,14H2V6h12V14z"></path>
+                                                    <rect x="2" width="12" height="2"></rect>
+                                                </svg>
+                                                <span>Copy</span>
+                                            </span>
+                                        </li>
+                                        <li role="menuitem">
+                                            <span class="menu__content js-menu__content">
+                                                <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 12 12">
+                                                    <path d="M8.354,3.646a.5.5,0,0,0-.708,0L6,5.293,4.354,3.646a.5.5,0,0,0-.708.708L5.293,6,3.646,7.646a.5.5,0,0,0,.708.708L6,6.707,7.646,8.354a.5.5,0,1,0,.708-.708L6.707,6,8.354,4.354A.5.5,0,0,0,8.354,3.646Z"></path>
+                                                    <path d="M6,0a6,6,0,1,0,6,6A6.006,6.006,0,0,0,6,0ZM6,10a4,4,0,1,1,4-4A4,4,0,0,1,6,10Z"></path>
+                                                </svg>
+                                                <span>Delete</span>
+                                            </span>
+                                        </li>
+                                        <li class="menu__separator" role="separator"></li>
+                                        <li class="menu__label">Link examples</li>
+                                        <li role="menuitem">
+                                            <a class="menu__content js-menu__content" href="#0">Link One</a>
+                                        </li>
+                                        <li role="menuitem">
+                                            <a class="menu__content js-menu__content" href="#0">Link Two</a>
+                                        </li>
+                                    </menu>
+                                </div>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_menu-bar</h2>
+                                <div class="container max-width-3xs padding-y-xs flex justify-center">
+                                    <menu class="menu-bar menu-bar--expanded@md js-menu-bar">
+                                        <li class="menu-bar__item menu-bar__item--trigger js-menu-bar__trigger" role="menuitem" aria-label="More options">
+                                            <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="7.5" r="1.5"/>
+                                                <circle cx="1.5" cy="7.5" r="1.5"/>
+                                                <circle cx="14.5" cy="7.5" r="1.5"/>
+                                            </svg>
+                                        </li>
+                                        <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
+                                            <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 12 12">
+                                                <path d="M10.121.293a1,1,0,0,0-1.414,0L1,8,0,12l4-1,7.707-7.707a1,1,0,0,0,0-1.414Z"></path>
+                                            </svg>
+                                            <span class="menu-bar__label">Edit</span>
+                                        </li>
+                                        <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
+                                            <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
+                                                <path d="M2,6v8c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V6H2z"></path>
+                                                <path d="M12,3V1c0-0.6-0.4-1-1-1H5C4.4,0,4,0.4,4,1v2H0v2h16V3H12z M10,3H6V2h4V3z"></path>
+                                            </svg>
+                                            <span class="menu-bar__label">Delete</span>
+                                        </li>
+                                        <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
+                                            <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
+                                                <path d="M15.707,0.293c-0.273-0.272-0.68-0.365-1.043-0.234l-14,5C0.287,5.193,0.026,5.54,0.002,5.939 c-0.024,0.4,0.192,0.775,0.551,0.955l4.586,2.292L11,5l-4.187,5.862l2.292,4.586C9.276,15.787,9.623,16,10,16 c0.021,0,0.041-0.001,0.061-0.002c0.4-0.024,0.747-0.284,0.882-0.662l5-14C16.072,0.973,15.98,0.566,15.707,0.293z"></path>
+                                            </svg>
+                                            <span class="menu-bar__label">Send</span>
+                                        </li>
+                                        <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
+                                            <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
+                                                <path d="M8,12c0.3,0,0.5-0.1,0.7-0.3L14.4,6L13,4.6l-4,4V0H7v8.6l-4-4L1.6,6l5.7,5.7C7.5,11.9,7.7,12,8,12z"></path>
+                                                <rect x="1" y="14" width="14" height="2"></rect>
+                                            </svg>
+                                            <span class="menu-bar__label">Download</span>
+                                        </li>
+                                        <li class="menu-bar__item" role="menuitem">
+                                            <svg class="icon menu-bar__icon" aria-hidden="true" >
+                                                <use href="#close">
+                                            </svg>
+                                            <span class="menu-bar__label">Close</span>
+                                        </li>
+                                    </menu>
+                                </div>
+                            </section>
+
+                            <div class="text-divider"><span><h1>Paginació</h1></span></div>
+                            <section class=" padding-y-lg"><h2>pagination default</h2>
+                            <div class="container max-width-md padding-y-xs ">
+                                <nav class="pagination " aria-label="Pagination">
+                                <ol class="pagination__list flex flex-wrap gap-3xs justify-center">
+                                    <li>
+                                    <a href="#0" class="pagination__item pagination__item--disabled" aria-label="Go to previous page">
+                                        <svg class="icon icon--xs margin-right-3xs flip-x" viewBox="0 0 16 16"><polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                                        <span>Prev</span>
+                                    </a>
+                                    </li>
+                                
+                                    <li class="display@sm">
+                                    <a href="#0" class="pagination__item" aria-label="Go to page 1">1</a>
+                                    </li>
+                                
+                                    <li class="display@sm">
+                                    <a href="#0" class="pagination__item" aria-label="Go to page 2">2</a>
+                                    </li>
+                                
+                                    <li class="display@sm">
+                                    <a href="#0" class="pagination__item pagination__item--selected" aria-label="Current Page, page 3" aria-current="page">3</a>
+                                    </li>
+                                
+                                    <li class="display@sm">
+                                    <a href="#0" class="pagination__item" aria-label="Go to page 4">4</a>
+                                    </li>
+                                
+                                    <li class="display@sm" aria-hidden="true">
+                                    <span class="pagination__item pagination__item--ellipsis">...</span>
+                                    </li>
+                                
+                                    <li class="display@sm">
+                                    <a href="#0" class="pagination__item" aria-label="Go to page 20">20</a>
+                                    </li>
+                                
+                                    <li>
+                                    <a href="#0" class="pagination__item" aria-label="Go to next page">
+                                        <span>Next</span>
+                                        <svg class="icon icon--xs margin-left-3xs" viewBox="0 0 16 16"><polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                                    </a>
+                                    </li>
+                                </ol>
+                                </nav>
+                            </div>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">pagination --jumper</h2>
+                            <div class="container max-width-md padding-y-xs ">
+                                <nav class="pagination" aria-label="Pagination">
+                                <ul class="pagination__list flex flex-wrap gap-3xs justify-center">
+                                    <li>
+                                        <a href="#0" class="pagination__item">
+                                            <svg class="icon icon--xs flip-x" viewBox="0 0 16 16">
+                                                <title>Go to previous page</title>
+                                                <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="pagination__jumper flex items-center">
+                                            <input aria-label="Page number" class="form-control" type="text" id="pageNumber" name="pageNumber" value="1">
+                                            <em>of 50</em>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="#0" class="pagination__item">
+                                            <svg class="icon icon--xs" viewBox="0 0 16 16">
+                                                <title>Go to next page</title>
+                                                <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                                </nav>
+                            </div>
+                            </section>
+                            <section class=" padding-y-md"><h2 class="padding-bottom-mc">pagination --split</h2>
+                            <div class="container max-width-md padding-y-xs ">
+                            <nav class="pagination pagination--split" aria-label="Pagination">
+                                <ol class="pagination__list flex flex-wrap gap-3xs justify-center">
+                                    <li>
+                                        <a href="#0" class="pagination__item pagination__item--disabled" aria-label="Go to previous page">
+                                            <svg class="icon icon--xs margin-right-3xs flip-x" viewBox="0 0 16 16">
+                                                <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                            </svg>
+                                            <span>Prev</span>
+                                        </a>
+                                    </li>
+                                    <li class="display@sm">
+                                        <a href="#0" class="pagination__item" aria-label="Go to page 1">1</a>
+                                    </li>
+                                    <li class="display@sm">
+                                        <a href="#0" class="pagination__item" aria-label="Go to page 2">2</a>
+                                    </li>
+                                    <li class="display@sm">
+                                        <a href="#0" class="pagination__item pagination__item--selected" aria-label="Current Page, page 3" aria-current="page">3</a>
+                                    </li>
+                                    <li class="display@sm">
+                                        <a href="#0" class="pagination__item" aria-label="Go to page 4">4</a>
+                                    </li>
+                                    <li class="display@sm" aria-hidden="true">
+                                        <span class="pagination__item pagination__item--ellipsis">...</span>
+                                    </li>
+                                    <li class="display@sm">
+                                        <a href="#0" class="pagination__item" aria-label="Go to page 20">20</a>
+                                    </li>
+                                    <li>
+                                        <a href="#0" class="pagination__item" aria-label="Go to next page">
+                                            <span>Next</span>
+                                            <svg class="icon icon--xs margin-left-3xs" viewBox="0 0 16 16">
+                                                <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                            </svg>
+                                        </a>
+                                    </li>
                                 </ol>
                             </nav>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_expandable-side-navigation</h2>
-                            <div class="container max-width-3xs padding-y-xs flex justify-center">
-                                <div class="padding-x-md exsidenav js-exsidenav">
-                                    <nav class="exsidenav__pop-nav" aria-label="Popular links">
-                                        <ul>
-                                            <li>
-                                                <a class="exsidenav__pop-link" href="#0" aria-current="page">
-                                                    <svg class="icon" viewBox="0 0 16 16">
-                                                        <g>
-                                                            <path d="M14,14H11V12h2V4H11V2h3a1,1,0,0,1,1,1V13A1,1,0,0,1,14,14Z"></path>
-                                                            <path d="M8.584.188a.994.994,0,0,0-.9-.136l-6,2A1,1,0,0,0,1,3V13a1,1,0,0,0,.684.948l6,2A.983.983,0,0,0,8,16a1,1,0,0,0,1-1V1A1,1,0,0,0,8.584.188ZM6,9A1,1,0,1,1,7,8,1,1,0,0,1,6,9Z"></path>
-                                                        </g>
-                                                    </svg>
-                                                    <span>Getting started</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="exsidenav__pop-link" href="#0">
-                                                    <svg class="icon" viewBox="0 0 16 16">
-                                                        <g>
-                                                            <path d="M2,8h12c0.6,0,1-0.4,1-1V1c0-0.6-0.4-1-1-1H2C1.4,0,1,0.4,1,1v6C1,7.6,1.4,8,2,8z"></path>
-                                                            <path d="M16,10H0v2h4l-1.8,2.4c-0.3,0.4-0.2,1.1,0.2,1.4C2.6,15.9,2.8,16,3,16c0.3,0,0.6-0.1,0.8-0.4 L6.5,12H7v2h2v-2h0.5l2.7,3.6c0.2,0.3,0.5,0.4,0.8,0.4c0.2,0,0.4-0.1,0.6-0.2c0.4-0.3,0.5-1,0.2-1.4L12,12h4V10z"></path>
-                                                        </g>
-                                                    </svg>
-                                                    <span>Tutorials</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="exsidenav__pop-link" href="#0">
-                                                    <svg class="icon" viewBox="0 0 16 16">
-                                                        <g>
-                                                            <path d="M8,0C3.6,0,0,3.6,0,8s3.6,8,8,8s8-3.6,8-8S12.4,0,8,0z M9,12H7V7h2V12z M8,6C7.4,6,7,5.6,7,5s0.4-1,1-1 s1,0.4,1,1S8.6,6,8,6z"></path>
-                                                        </g>
-                                                    </svg>
-                                                    <span>FAQ</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <nav aria-label="Main">
-                                        <ul class="exsidenav__list">
-                                            <li class="exsidenav__label-wrapper">
-                                                <span class="exsidenav__label">API</span>
-                                            </li>
-                                            <li>
-                                                <button class="exsidenav__control js-exsidenav__control">
-                                                    <span>Syntax</span>
-                                                    <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
-                                                        <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                            <path d="M3 3l10 10"></path>
-                                                            <path d="M13 3L3 13"></path>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                                <ul class="exsidenav__list">
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Overview</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Structure</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Comments</a>
-                                                    </li>
-                                                    <li>
-                                                        <button class="exsidenav__control js-exsidenav__control">
-                                                            <span>Functions</span>
-                                                            <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
-                                                                <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                                    <path d="M3 3l10 10"></path>
-                                                                    <path d="M13 3L3 13"></path>
-                                                                </g>
-                                                            </svg>
-                                                        </button>
-                                                        <ul class="exsidenav__list">
-                                                            <li>
-                                                                <a class="exsidenav__link" href="#0">expression()</a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="exsidenav__link" href="#0">url()</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Older APIs</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <button class="exsidenav__control js-exsidenav__control">
-                                                    <span>Interface</span>
-                                                    <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
-                                                        <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                            <path d="M3 3l10 10"></path>
-                                                            <path d="M13 3L3 13"></path>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                                <ul class="exsidenav__list">
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Overview</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Inspector</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Timeline</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Toolbar</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <button class="exsidenav__control js-exsidenav__control">
-                                                    <span>Examples</span>
-                                                    <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
-                                                        <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                            <path d="M3 3l10 10"></path>
-                                                            <path d="M13 3L3 13"></path>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                                <ul class="exsidenav__list">
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Overview</a>
-                                                    </li>
-                                                    <li class="exsidenav__label-wrapper">
-                                                        <span class="exsidenav__label">Customers</span>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Customers</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Discounts</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Orders</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="exsidenav__label-wrapper">
-                                                <span class="exsidenav__label">Testing</span>
-                                            </li>
-                                            <li>
-                                                <button class="exsidenav__control js-exsidenav__control">
-                                                    <span>Invoicing</span>
-                                                    <svg class="icon no-js:hide" viewBox="0 0 16 16" aria-hidden="true">
-                                                        <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                                            <path d="M3 3l10 10"></path>
-                                                            <path d="M13 3L3 13"></path>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                                <ul class="exsidenav__list">
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Overview</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">How invoicing works</a>
-                                                    </li>
-                                                    <li class="exsidenav__label-wrapper">
-                                                        <span class="exsidenav__label">Customers</span>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Managing customers</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="exsidenav__link" href="#0">Taxes</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
                             </div>
-                        </section>
-                        <div class="text-divider"><span><h1>Tabs</h1></span></div>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_tabs</h2>
+                            </section>
+                            <section class=" padding-y-lg"><h2>Previous/Next Links</h2>
                             <div class="container max-width-md padding-y-xs ">
-                                <div class="tabs js-tabs">
-                                    <ul class="flex flex-wrap gap-sm js-tabs__controls" aria-label="Tabs Interface">
-                                    <li><a href="#tab1Panel1" class="tabs__control" aria-selected="true">Tab 1</a></li>
-                                    <li><a href="#tab1Panel2" class="tabs__control">Tab 2</a></li>
-                                    <li><a href="#tab1Panel3" class="tabs__control">Tab 3</a></li>
-                                    <li><a href="#tab1Panel4" class="tabs__control">Tab 4</a></li>
-                                    <li><a href="#tab1Panel5" class="tabs__control">Tab 5</a></li>
-                                    </ul>
-                                
-                                    <div class="js-tabs__panels">
-                                    <section id="tab1Panel1" class="padding-top-md js-tabs__panel">
-                                        <div class="text-component">
-                                        <h1 class="text-lg toc-skip">Panel 1</h1>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
-                                        </div>
-                                    </section>
-                                
-                                    <section id="tab1Panel2" class="padding-top-md js-tabs__panel">
-                                        <div class="text-component">
-                                        <h1 class="text-lg toc-skip">Panel 2</h1>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
-                                        </div>
-                                    </section>
-                                
-                                    <section id="tab1Panel3" class="padding-top-md js-tabs__panel">
-                                        <div class="text-component">
-                                        <h1 class="text-lg toc-skip">Panel 3</h1>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
-                                        </div>
-                                    </section>
-                                
-                                    <section id="tab1Panel4" class="padding-top-md js-tabs__panel">
-                                        <div class="text-component">
-                                        <h1 class="text-lg toc-skip">Panel 4</h1>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
-                                        </div>
-                                    </section>
-                                
-                                    <section id="tab1Panel5" class="padding-top-md js-tabs__panel">
-                                        <div class="text-component">
-                                        <h1 class="text-lg toc-skip">Panel 5</h1>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
-                                        </div>
-                                    </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_tabs-v2</h2>
-                            <div class="container max-width-md padding-y-xs ">
-                                <div class="tabs-v2 js-tabs">
-                                    <nav>
-                                        <ul class="tabs-v2 js-tabs__controls" aria-label="Tabs Interface">
-                                            <li>
-                                                <a href="#tab2Panel1" class="tabs-v2__item" >Tab 1</a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab2Panel2" class="tabs-v2__item">Tab 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab2Panel3" class="tabs-v2__item" aria-selected="true">Tab 3</a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab2Panel4" class="tabs-v2__item">Tab 4</a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab2Panel5" class="tabs-v2__item">Tab 5</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <div class="js-tabs__panels">
-                                        <section id="tab2Panel1" class="padding-top-md js-tabs__panel">
-                                            <div class="text-component">
-                                                <h2 class="toc-skip">Panel 1</h2>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
-                                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab2Panel2" class="padding-top-md js-tabs__panel">
-                                            <div class="text-component">
-                                                <h2 class="toc-skip">Panel 2</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab2Panel3" class="padding-top-md js-tabs__panel">
-                                            <div class="text-component">
-                                                <h2 class="toc-skip">Panel 3</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab2Panel4" class="padding-top-md js-tabs__panel">
-                                            <div class="text-component">
-                                                <h2 class="toc-skip">Panel 4</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab2Panel5" class="padding-top-md js-tabs__panel">
-                                            <div class="text-component">
-                                                <h2 class="toc-skip">Panel 5</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_tabs-v3</h2>
-                            <div class="container max-width-md padding-y-xs ">
-                                <div class="tabs-v3 js-tabs">
-                                    <ul class="tabs-v3__controls js-tabs__controls" aria-label="Tabs Interface">
-                                        <li>
-                                            <a href="#tab1Panel1" class="tabs-v3__control">Tab 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel2" class="tabs-v3__control">Tab 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel3" aria-selected="true" class="tabs-v3__control">Tab 3</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel4" class="tabs-v3__control">Tab 4</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel5" class="tabs-v3__control">Tab 5</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tabs-v3__panels js-tabs__panels">
-                                        <section id="tab1Panel1" class="tabs-v3__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 1</h1>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
-                                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel2" class="tabs-v3__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 2</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel3" class="tabs-v3__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 3</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel4" class="tabs-v3__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 4</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel5" class="tabs-v3__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 5</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_tabs-vert</h2>
-                            <div class="container max-width-md padding-y-xs ">
-                                <div class="tabs-vert js-tabs">
-                                    <ul class="tabs-vert__controls js-tabs__controls" aria-label="Tabs Interface">
-                                        <li>
-                                            <a href="#tab1Panel1" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 1" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel2" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 2" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel3" aria-selected="true" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 3" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel4" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 4" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab1Panel5" class="tabs-vert__control"><span class="tooltip-trigger js-tooltip-trigger" title="Tab 5" data-tooltip-position="top"><svg class="icon icon--xs"><use href="#warning"></use></svg></span></a>
-                                        </li>
-                                    </ul>
-                                    <div class="tabs-vert__panels js-tabs__panels">
-                                        <section id="tab1Panel1" class="tabs-vert__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 1</h1>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
-                                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel2" class="tabs-vert__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 2</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, nobis! Vitae quis minus accusantium qui atque? Officiis sunt exercitationem natus, minus sapiente debitis eum animi porro. Ut cupiditate amet expedita!</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel3" class="tabs-vert__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 3</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis.</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel4" class="tabs-vert__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 4</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, ipsa. Maiores sit totam dignissimos perferendis recusandae quis eligendi quos expedita consequatur, natus debitis, deserunt placeat tenetur odit voluptates, ad nihil cum ipsa quae est facere, voluptate sapiente tempora a officiis. Ipsa perspiciatis aut commodi enim expedita. Saepe at cupiditate quaerat explicabo distinctio quae enim, ab impedit! Sunt, omnis, sit magnam id exercitationem mollitia alias pariatur doloremque nulla. Totam quis, animi minus error molestias sit. Quidem, dolor, aspernatur. Voluptates, magni, provident?</p>
-                                            </div>
-                                        </section>
-                                        <section id="tab1Panel5" class="tabs-vert__panel js-tabs__panel">
-                                            <div class="text-component">
-                                                <h1 class="toc-skip">Panel 5</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam modi nesciunt eum, dolores corrupti labore assumenda vel? Cupiditate fugit nihil, sunt nulla nisi blanditiis quidem, eos nesciunt. Quidem dolorem laudantium, ex fuga natus nisi error architecto saepe sapiente dolores assumenda.</p>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_accordion</h2>
-                            <div class="container max-width-md padding-y-xs ">
-                                <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
+                                <ul class="pn-links grid">
+                                <li class="pn-links__item col-6@md">
+                                <a class="pn-links__link justify-center justify-between@md" href="#0">
+                                    <svg class="pn-links__icon icon icon--lg flip-x" viewBox="0 0 48 48">
+                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="37" y1="14" x2="47" y2="24" />
+                                        <line x1="47" y1="24" x2="37" y2="34" />
+                                        <line x1="47" y1="24" x2="1.5" y2="24" />
+                                    </g>
+                                    </svg>
                             
-                                    <li class="accordion__item accordion__item--is-open js-accordion__item">
-                                        <button class=" accordion__header padding-y-sm padding-x-md " type="button">
-                                            <span class="text-md">Panel 1</span>
+                                    <span class="margin-left-sm">
+                                    <i class="sr-only">Previous article: </i>It was going to be a lonely trip back
+                                    </span>
+                                </a>
+                                </li>
                             
-                                            <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
-                                                <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                    <line x1="3" y1="3" x2="17" y2="17" />
-                                                    <line x1="17" y1="3" x2="3" y2="17" />
-                                                </g>
-                                            </svg>
-                                        </button>
+                                <li class="pn-links__item col-6@md">
+                                <a class="pn-links__link justify-center justify-between@md" href="#0">
+                                    <span class="margin-right-sm">
+                                    <i class="sr-only">Next article: </i>The spectacle before us was sublime
+                                    </span>
                             
-                                        <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
-                                            <div class="text-component">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
-                                                    quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
-                                                    inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                            
-                                    <li class="accordion__item  js-accordion__item">
-                                        <button class=" accordion__header padding-y-sm padding-x-md " type="button">
-                                            <span class="text-md">Panel 2</span>
-                            
-                                            <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
-                                                <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                    <line x1="3" y1="3" x2="17" y2="17" />
-                                                    <line x1="17" y1="3" x2="3" y2="17" />
-                                                </g>
-                                            </svg>
-                                        </button>
-                            
-                                        <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
-                                            <div class="text-component">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
-                                                    quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
-                                                    inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
-                                                    quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
-                                                    inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                            
-                                    <li class="accordion__item  js-accordion__item">
-                                        <button class=" accordion__header padding-y-sm padding-x-md " type="button">
-                                            <span class="text-md">Panel 3</span>
-                            
-                                            <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
-                                                <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                    <line x1="3" y1="3" x2="17" y2="17" />
-                                                    <line x1="17" y1="3" x2="3" y2="17" />
-                                                </g>
-                                            </svg>
-                                        </button>
-                            
-                                        <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
-                                            <div class="text-component">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
-                                                    quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
-                                                    inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                            
-                                    <li class="accordion__item  js-accordion__item">
-                                        <button class=" accordion__header padding-y-sm padding-x-md " type="button">
-                                            <span class="text-md">Panel 4</span>
-                            
-                                            <svg class="icon accordion__icon-arrow-v2 no-js:hide" viewBox="0 0 20 20">
-                                                <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                    <line x1="3" y1="3" x2="17" y2="17" />
-                                                    <line x1="17" y1="3" x2="3" y2="17" />
-                                                </g>
-                                            </svg>
-                                        </button>
-                            
-                                        <div class="accordion__panel padding-top-2xs padding-x-md padding-bottom-md js-accordion__panel">
-                                            <div class="text-component">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
-                                                    quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
-                                                    inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia
-                                                    quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum
-                                                    inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                            
+                                    <svg class="pn-links__icon icon icon--lg" viewBox="0 0 48 48">
+                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="37" y1="14" x2="47" y2="24" />
+                                        <line x1="47" y1="24" x2="37" y2="34" />
+                                        <line x1="47" y1="24" x2="1.5" y2="24" />
+                                    </g>
+                                    </svg>
+                                </a>
+                                </li>
                                 </ul>
                             </div>
                             </section>
-                        <div class="text-divider"><span><h1>Navegació</h1></span></div>
-                        <section class=" padding-y-md"><h2>_1_tabbed-navigation</h2>
-                            <nav class="tabs-nav">
-                                <ul class="tabs-nav__list">
-                                <li><a class="tabs-nav__link tabs-nav__link--current" href="#0">Link 1</a></li>
-                                <li><a class="tabs-nav__link" href="#0">Link 2</a></li>
-                                <li><a class="tabs-nav__link" href="#0">Link 3</a></li>
-                                <li><a class="tabs-nav__link" href="#0">Link 4</a></li>
-                                </ul>
-                            </nav>
-                        </section>
-                        <section class=" padding-y-md"><h2>_1_tabbed-navigation-v2</h2>
-                            <nav>
-                                <ul class="tabs-nav-v2">
-                                <li><a href="#0" class="tabs-nav-v2__item tabs-nav-v2__item--selected">Tab 1</a></li>
-                                <li><a href="#0" class="tabs-nav-v2__item">Tab 2</a></li>
-                                <li><a href="#0" class="tabs-nav-v2__item">Tab 3</a></li>
-                                <li><a href="#0" class="tabs-nav-v2__item">Tab 4</a></li>
-                                <li><a href="#0" class="tabs-nav-v2__item">Tab 5</a></li>
-                                </ul>
-                            </nav>
-                        </section>
-                        <section class=" padding-y-md"><h2>_1_tabbed-navigation-v3</h2>
-                            <div class="tabs-nav-v3">
-                                <nav>
-                                    <ul>
-                                        <li><a href="#0" class="tabs-nav-v3__item tabs-nav-v3__item--selected" aria-selected=true>Tab 1</a></li>
-                                        <li><a href="#0" class="tabs-nav-v3__item">Tab 2</a></li>
-                                        <li><a href="#0" class="tabs-nav-v3__item">Tab 3</a></li>
-                                        <li><a href="#0" class="tabs-nav-v3__item">Tab 4</a></li>
-                                        <li><a href="#0" class="tabs-nav-v3__item">Tab 5</a></li>
-                                    </ul>
-                                </nav>
-                                <section class="tabs-nav-v3__section">
-                                    <div class="text-component">
-                                        <h1 class="toc-skip">Panel 1</h1>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit voluptatibus expedita. Laboriosam maxime aut dolorem eum qui nemo! Ea!</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati natus totam assumenda cumque numquam culpa officia, harum vel quibusdam recusandae, blanditiis non quae pariatur? Laborum, animi dolor tempora laboriosam minus nulla sit, hic molestias velit delectus sint aspernatur possimus soluta?</p>
-                                    </div>
-                                </section>
-                            </div>
-                        </section>
-                        <section class=" padding-y-md"><h2>_1_sub-navigation</h2>
-                        <div class="margin-bottom-md"><h3>Per defecte</h3>
-                            <div class="bg-dark">
-                            <div class="container max-width-lg">
-                                <div class="subnav js-subnav">
-                                    <button class="btn btn--subtle margin-y-sm subnav__control js-subnav__control">
-                                        <span>Mostra Categories</span>
-                                        <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true" viewBox="0 0 12 12">
-                                            <polyline points="0.5 3.5 6 9.5 11.5 3.5" fill="none" stroke-width="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></polyline>
-                                        </svg>
-                                    </button>
-                                    <div class="subnav__wrapper js-subnav__wrapper">
-                                        <nav class="subnav__nav justify-center">
-                                            <button class="subnav__close-btn js-subnav__close-btn" aria-label="Close navigation">
-                                                <svg class="icon ">
-                                                    <use href="#close"></use>
-                                                </svg>
-                                            </button>
-                                            <ul class="subnav__list">
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link" aria-current="page">Intro</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Features</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Photos</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Videos</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Specs</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Support</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Compare</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Buy</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="margin-bottom-md"><h3>--collapsed</h3>
-                            <div class="bg-dark">
-                            <div class="container max-width-lg">
-                                <div class="subnav subnav--expanded@sm js-subnav">
-                                    <button class="btn btn--subtle margin-y-sm subnav__control js-subnav__control">
-                                        <span>Mostra Categories</span>
-                                        <svg class="icon icon--2xs margin-left-2xs" aria-hidden="true" viewBox="0 0 12 12">
-                                            <polyline points="0.5 3.5 6 9.5 11.5 3.5" fill="none" stroke-width="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></polyline>
-                                        </svg>
-                                    </button>
-                                    <div class="subnav__wrapper js-subnav__wrapper">
-                                        <nav class="subnav__nav justify-center">
-                                            <button class="subnav__close-btn js-subnav__close-btn" aria-label="Close navigation">
-                                                <svg class="icon "><use href="#close"></use></svg>
-                                            </button>
-                                            <ul class="subnav__list">
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link" aria-current="page">Intro</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Features</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Photos</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Videos</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Specs</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Support</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Compare</a>
-                                                </li>
-                                                <li class="subnav__item">
-                                                    <a href="#0" class="subnav__link">Buy</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container max-width-adaptive-md">
-                            <div class="text-component text-center margin-top-lg">
-                                <p>
-                                    "The --collapsed variation is visible if screen minus 768px"
-                                </p>
-                            </div>
-                        </div>
-                        </div>
-                        </section>
-                        <div class="text-divider"><span><h1>Menu</h1></span></div>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_1_menu</h2>
-                            <div class="container max-width-3xs padding-y-xs ">
-                                <button class="btn btn--primary" aria-controls="menu-example">Toggle Menu</button>
-                                <menu id="menu-example" class="menu js-menu">
-                                    <li role="menuitem">
-                                        <span class="menu__content js-menu__content">
-                                            <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 12 12">
-                                                <path d="M10.121.293a1,1,0,0,0-1.414,0L1,8,0,12l4-1,7.707-7.707a1,1,0,0,0,0-1.414Z"></path>
+                            <div class="text-divider"><span><h1>Header</h1></span></div>
+                            <section class=" padding-y-md"><h2>Flexi header</h2>
+                                <header class="f-header js-f-header position-relative">
+                                    <div class="f-header__mobile-content container max-width-lg">
+                                        <a href="#0" class="f-header__logo">
+                                            <svg width="104" height="30" viewBox="0 0 104 30">
+                                                <title>Go to homepage</title>
+                                                <path d="M37.54 24.08V3.72h4.92v16.37h8.47v4zM60.47 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8 8 0 015.64-2.18 8.07 8.07 0 015.68 2.2 8.49 8.49 0 012 5.69 8.63 8.63 0 01-1.78 5.38 7.6 7.6 0 01-5.89 2.49zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.79 3-2.79 4.26.32 4.23 2.82 4.23zM95.49 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8.4 8.4 0 0111.31 0 8.43 8.43 0 012 5.69 8.6 8.6 0 01-1.77 5.38 7.6 7.6 0 01-5.89 2.51zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.8 3-2.8 4.26.31 4.23 2.83 4.23zM77.66 30c-5.74 0-7-3.25-7.23-4.52l4.6-.26c.41.91 1.17 1.41 2.76 1.41a2.45 2.45 0 002.82-2.53v-2.68a7 7 0 01-1.7 1.75 6.12 6.12 0 01-5.85-.08c-2.41-1.37-3-4.25-3-6.66 0-.89.12-3.67 1.45-5.42a5.67 5.67 0 014.64-2.4c1.2 0 3 .25 4.46 2.82V8.81h4.85v15.33a5.2 5.2 0 01-2.12 4.32A9.92 9.92 0 0177.66 30zm.15-9.66c2.53 0 2.81-2.69 2.81-3.91s-.31-4-2.81-4-2.81 2.8-2.81 4 .27 3.91 2.81 3.91zM55.56 3.72h9.81v2.41h-9.81z" fill="var(--color-contrast-higher)"/>
+                                                <circle cx="15" cy="15" r="15" fill="var(--color-primary)"/>
                                             </svg>
-                                            <span>Edit</span>
-                                        </span>
-                                    </li>
-                                    <li role="menuitem">
-                                        <span class="menu__content js-menu__content">
-                                            <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 16 16">
-                                                <path d="M15,4H1C0.4,4,0,4.4,0,5v10c0,0.6,0.4,1,1,1h14c0.6,0,1-0.4,1-1V5C16,4.4,15.6,4,15,4z M14,14H2V6h12V14z"></path>
-                                                <rect x="2" width="12" height="2"></rect>
-                                            </svg>
-                                            <span>Copy</span>
-                                        </span>
-                                    </li>
-                                    <li role="menuitem">
-                                        <span class="menu__content js-menu__content">
-                                            <svg class="icon menu__icon" aria-hidden="true" viewBox="0 0 12 12">
-                                                <path d="M8.354,3.646a.5.5,0,0,0-.708,0L6,5.293,4.354,3.646a.5.5,0,0,0-.708.708L5.293,6,3.646,7.646a.5.5,0,0,0,.708.708L6,6.707,7.646,8.354a.5.5,0,1,0,.708-.708L6.707,6,8.354,4.354A.5.5,0,0,0,8.354,3.646Z"></path>
-                                                <path d="M6,0a6,6,0,1,0,6,6A6.006,6.006,0,0,0,6,0ZM6,10a4,4,0,1,1,4-4A4,4,0,0,1,6,10Z"></path>
-                                            </svg>
-                                            <span>Delete</span>
-                                        </span>
-                                    </li>
-                                    <li class="menu__separator" role="separator"></li>
-                                    <li class="menu__label">Link examples</li>
-                                    <li role="menuitem">
-                                        <a class="menu__content js-menu__content" href="#0">Link One</a>
-                                    </li>
-                                    <li role="menuitem">
-                                        <a class="menu__content js-menu__content" href="#0">Link Two</a>
-                                    </li>
-                                </menu>
-                            </div>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">_2_menu-bar</h2>
-                            <div class="container max-width-3xs padding-y-xs flex justify-center">
-                                <menu class="menu-bar menu-bar--expanded@md js-menu-bar">
-                                    <li class="menu-bar__item menu-bar__item--trigger js-menu-bar__trigger" role="menuitem" aria-label="More options">
-                                        <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
-                                            <circle cx="8" cy="7.5" r="1.5"/>
-                                            <circle cx="1.5" cy="7.5" r="1.5"/>
-                                            <circle cx="14.5" cy="7.5" r="1.5"/>
-                                        </svg>
-                                    </li>
-                                    <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
-                                        <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 12 12">
-                                            <path d="M10.121.293a1,1,0,0,0-1.414,0L1,8,0,12l4-1,7.707-7.707a1,1,0,0,0,0-1.414Z"></path>
-                                        </svg>
-                                        <span class="menu-bar__label">Edit</span>
-                                    </li>
-                                    <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
-                                        <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
-                                            <path d="M2,6v8c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V6H2z"></path>
-                                            <path d="M12,3V1c0-0.6-0.4-1-1-1H5C4.4,0,4,0.4,4,1v2H0v2h16V3H12z M10,3H6V2h4V3z"></path>
-                                        </svg>
-                                        <span class="menu-bar__label">Delete</span>
-                                    </li>
-                                    <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
-                                        <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
-                                            <path d="M15.707,0.293c-0.273-0.272-0.68-0.365-1.043-0.234l-14,5C0.287,5.193,0.026,5.54,0.002,5.939 c-0.024,0.4,0.192,0.775,0.551,0.955l4.586,2.292L11,5l-4.187,5.862l2.292,4.586C9.276,15.787,9.623,16,10,16 c0.021,0,0.041-0.001,0.061-0.002c0.4-0.024,0.747-0.284,0.882-0.662l5-14C16.072,0.973,15.98,0.566,15.707,0.293z"></path>
-                                        </svg>
-                                        <span class="menu-bar__label">Send</span>
-                                    </li>
-                                    <li class="menu-bar__item menu-bar__item--hide" role="menuitem">
-                                        <svg class="icon menu-bar__icon" aria-hidden="true" viewBox="0 0 16 16">
-                                            <path d="M8,12c0.3,0,0.5-0.1,0.7-0.3L14.4,6L13,4.6l-4,4V0H7v8.6l-4-4L1.6,6l5.7,5.7C7.5,11.9,7.7,12,8,12z"></path>
-                                            <rect x="1" y="14" width="14" height="2"></rect>
-                                        </svg>
-                                        <span class="menu-bar__label">Download</span>
-                                    </li>
-                                    <li class="menu-bar__item" role="menuitem">
-                                        <svg class="icon menu-bar__icon" aria-hidden="true" >
-                                            <use href="#close">
-                                        </svg>
-                                        <span class="menu-bar__label">Close</span>
-                                    </li>
-                                </menu>
-                            </div>
-                        </section>
-
-                        <div class="text-divider"><span><h1>Paginació</h1></span></div>
-                        <section class=" padding-y-lg"><h2>pagination default</h2>
-                        <div class="container max-width-md padding-y-xs ">
-                            <nav class="pagination " aria-label="Pagination">
-                            <ol class="pagination__list flex flex-wrap gap-3xs justify-center">
-                                <li>
-                                <a href="#0" class="pagination__item pagination__item--disabled" aria-label="Go to previous page">
-                                    <svg class="icon icon--xs margin-right-3xs flip-x" viewBox="0 0 16 16"><polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                                    <span>Prev</span>
-                                </a>
-                                </li>
-                            
-                                <li class="display@sm">
-                                <a href="#0" class="pagination__item" aria-label="Go to page 1">1</a>
-                                </li>
-                            
-                                <li class="display@sm">
-                                <a href="#0" class="pagination__item" aria-label="Go to page 2">2</a>
-                                </li>
-                            
-                                <li class="display@sm">
-                                <a href="#0" class="pagination__item pagination__item--selected" aria-label="Current Page, page 3" aria-current="page">3</a>
-                                </li>
-                            
-                                <li class="display@sm">
-                                <a href="#0" class="pagination__item" aria-label="Go to page 4">4</a>
-                                </li>
-                            
-                                <li class="display@sm" aria-hidden="true">
-                                <span class="pagination__item pagination__item--ellipsis">...</span>
-                                </li>
-                            
-                                <li class="display@sm">
-                                <a href="#0" class="pagination__item" aria-label="Go to page 20">20</a>
-                                </li>
-                            
-                                <li>
-                                <a href="#0" class="pagination__item" aria-label="Go to next page">
-                                    <span>Next</span>
-                                    <svg class="icon icon--xs margin-left-3xs" viewBox="0 0 16 16"><polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-                                </a>
-                                </li>
-                            </ol>
-                            </nav>
-                        </div>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">pagination --jumper</h2>
-                        <div class="container max-width-md padding-y-xs ">
-                            <nav class="pagination" aria-label="Pagination">
-                            <ul class="pagination__list flex flex-wrap gap-3xs justify-center">
-                                <li>
-                                    <a href="#0" class="pagination__item">
-                                        <svg class="icon icon--xs flip-x" viewBox="0 0 16 16">
-                                            <title>Go to previous page</title>
-                                            <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <span class="pagination__jumper flex items-center">
-                                        <input aria-label="Page number" class="form-control" type="text" id="pageNumber" name="pageNumber" value="1">
-                                        <em>of 50</em>
-                                    </span>
-                                </li>
-                                <li>
-                                    <a href="#0" class="pagination__item">
-                                        <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                            <title>Go to next page</title>
-                                            <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
-                            </nav>
-                        </div>
-                        </section>
-                        <section class=" padding-y-md"><h2 class="padding-bottom-mc">pagination --split</h2>
-                        <div class="container max-width-md padding-y-xs ">
-                        <nav class="pagination pagination--split" aria-label="Pagination">
-                            <ol class="pagination__list flex flex-wrap gap-3xs justify-center">
-                                <li>
-                                    <a href="#0" class="pagination__item pagination__item--disabled" aria-label="Go to previous page">
-                                        <svg class="icon icon--xs margin-right-3xs flip-x" viewBox="0 0 16 16">
-                                            <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                        </svg>
-                                        <span>Prev</span>
-                                    </a>
-                                </li>
-                                <li class="display@sm">
-                                    <a href="#0" class="pagination__item" aria-label="Go to page 1">1</a>
-                                </li>
-                                <li class="display@sm">
-                                    <a href="#0" class="pagination__item" aria-label="Go to page 2">2</a>
-                                </li>
-                                <li class="display@sm">
-                                    <a href="#0" class="pagination__item pagination__item--selected" aria-label="Current Page, page 3" aria-current="page">3</a>
-                                </li>
-                                <li class="display@sm">
-                                    <a href="#0" class="pagination__item" aria-label="Go to page 4">4</a>
-                                </li>
-                                <li class="display@sm" aria-hidden="true">
-                                    <span class="pagination__item pagination__item--ellipsis">...</span>
-                                </li>
-                                <li class="display@sm">
-                                    <a href="#0" class="pagination__item" aria-label="Go to page 20">20</a>
-                                </li>
-                                <li>
-                                    <a href="#0" class="pagination__item" aria-label="Go to next page">
-                                        <span>Next</span>
-                                        <svg class="icon icon--xs margin-left-3xs" viewBox="0 0 16 16">
-                                            <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ol>
-                        </nav>
-                        </div>
-                        </section>
-                        <section class=" padding-y-lg"><h2>Previous/Next Links</h2>
-                        <div class="container max-width-md padding-y-xs ">
-                            <ul class="pn-links grid">
-                            <li class="pn-links__item col-6@md">
-                            <a class="pn-links__link justify-center justify-between@md" href="#0">
-                                <svg class="pn-links__icon icon icon--lg flip-x" viewBox="0 0 48 48">
-                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="37" y1="14" x2="47" y2="24" />
-                                    <line x1="47" y1="24" x2="37" y2="34" />
-                                    <line x1="47" y1="24" x2="1.5" y2="24" />
-                                </g>
-                                </svg>
-                        
-                                <span class="margin-left-sm">
-                                <i class="sr-only">Previous article: </i>It was going to be a lonely trip back
-                                </span>
-                            </a>
-                            </li>
-                        
-                            <li class="pn-links__item col-6@md">
-                            <a class="pn-links__link justify-center justify-between@md" href="#0">
-                                <span class="margin-right-sm">
-                                <i class="sr-only">Next article: </i>The spectacle before us was sublime
-                                </span>
-                        
-                                <svg class="pn-links__icon icon icon--lg" viewBox="0 0 48 48">
-                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="37" y1="14" x2="47" y2="24" />
-                                    <line x1="47" y1="24" x2="37" y2="34" />
-                                    <line x1="47" y1="24" x2="1.5" y2="24" />
-                                </g>
-                                </svg>
-                            </a>
-                            </li>
-                            </ul>
-                        </div>
-                        </section>
-                        <div class="text-divider"><span><h1>Header</h1></span></div>
-                        <section class=" padding-y-md"><h2>Flexi header</h2>
-                            <header class="f-header js-f-header position-relative">
-                                <div class="f-header__mobile-content container max-width-lg">
-                                    <a href="#0" class="f-header__logo">
-                                        <svg width="104" height="30" viewBox="0 0 104 30">
-                                            <title>Go to homepage</title>
-                                            <path d="M37.54 24.08V3.72h4.92v16.37h8.47v4zM60.47 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8 8 0 015.64-2.18 8.07 8.07 0 015.68 2.2 8.49 8.49 0 012 5.69 8.63 8.63 0 01-1.78 5.38 7.6 7.6 0 01-5.89 2.49zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.79 3-2.79 4.26.32 4.23 2.82 4.23zM95.49 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8.4 8.4 0 0111.31 0 8.43 8.43 0 012 5.69 8.6 8.6 0 01-1.77 5.38 7.6 7.6 0 01-5.89 2.51zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.8 3-2.8 4.26.31 4.23 2.83 4.23zM77.66 30c-5.74 0-7-3.25-7.23-4.52l4.6-.26c.41.91 1.17 1.41 2.76 1.41a2.45 2.45 0 002.82-2.53v-2.68a7 7 0 01-1.7 1.75 6.12 6.12 0 01-5.85-.08c-2.41-1.37-3-4.25-3-6.66 0-.89.12-3.67 1.45-5.42a5.67 5.67 0 014.64-2.4c1.2 0 3 .25 4.46 2.82V8.81h4.85v15.33a5.2 5.2 0 01-2.12 4.32A9.92 9.92 0 0177.66 30zm.15-9.66c2.53 0 2.81-2.69 2.81-3.91s-.31-4-2.81-4-2.81 2.8-2.81 4 .27 3.91 2.81 3.91zM55.56 3.72h9.81v2.41h-9.81z" fill="var(--color-contrast-higher)"/>
-                                            <circle cx="15" cy="15" r="15" fill="var(--color-primary)"/>
-                                        </svg>
-                                    </a>
-                                    <button class="anim-menu-btn js-anim-menu-btn f-header__nav-control" aria-label="Toggle menu">
-                                        <i class="anim-menu-btn__icon anim-menu-btn__icon--close" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                                <div class="f-header__nav" role="navigation">
-                                    <div class="f-header__nav-grid justify-between@md container max-width-lg">
-                                        <div class="f-header__nav-logo-wrapper flex-grow flex-basis-0">
-                                            <a href="#0" class="f-header__logo">
-                                                <svg width="104" height="30" viewBox="0 0 104 30">
-                                                    <title>Go to homepage</title>
-                                                    <path d="M37.54 24.08V3.72h4.92v16.37h8.47v4zM60.47 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8 8 0 015.64-2.18 8.07 8.07 0 015.68 2.2 8.49 8.49 0 012 5.69 8.63 8.63 0 01-1.78 5.38 7.6 7.6 0 01-5.89 2.49zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.79 3-2.79 4.26.32 4.23 2.82 4.23zM95.49 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8.4 8.4 0 0111.31 0 8.43 8.43 0 012 5.69 8.6 8.6 0 01-1.77 5.38 7.6 7.6 0 01-5.89 2.51zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.8 3-2.8 4.26.31 4.23 2.83 4.23zM77.66 30c-5.74 0-7-3.25-7.23-4.52l4.6-.26c.41.91 1.17 1.41 2.76 1.41a2.45 2.45 0 002.82-2.53v-2.68a7 7 0 01-1.7 1.75 6.12 6.12 0 01-5.85-.08c-2.41-1.37-3-4.25-3-6.66 0-.89.12-3.67 1.45-5.42a5.67 5.67 0 014.64-2.4c1.2 0 3 .25 4.46 2.82V8.81h4.85v15.33a5.2 5.2 0 01-2.12 4.32A9.92 9.92 0 0177.66 30zm.15-9.66c2.53 0 2.81-2.69 2.81-3.91s-.31-4-2.81-4-2.81 2.8-2.81 4 .27 3.91 2.81 3.91zM55.56 3.72h9.81v2.41h-9.81z" fill="var(--color-contrast-higher)"/>
-                                                    <circle cx="15" cy="15" r="15" fill="var(--color-primary)"/>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                        <ul class="f-header__list flex-grow flex-basis-0 justify-center@md">
-                                            <li class="f-header__item">
-                                                <a href="#0" class="f-header__link">About</a>
-                                            </li>
-                                            <li class="f-header__item">
-                                                <button class="f-header__dropdown-control js-f-header__dropdown-control">
-                                                    <span>Solutions</span>
-                                                    <svg class="f-header__dropdown-icon icon" aria-hidden="true" viewBox="0 0 12 12">
-                                                        <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z"/>
+                                        </a>
+                                        <button class="anim-menu-btn js-anim-menu-btn f-header__nav-control" aria-label="Toggle menu">
+                                            <i class="anim-menu-btn__icon anim-menu-btn__icon--close" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <div class="f-header__nav" role="navigation">
+                                        <div class="f-header__nav-grid justify-between@md container max-width-lg">
+                                            <div class="f-header__nav-logo-wrapper flex-grow flex-basis-0">
+                                                <a href="#0" class="f-header__logo">
+                                                    <svg width="104" height="30" viewBox="0 0 104 30">
+                                                        <title>Go to homepage</title>
+                                                        <path d="M37.54 24.08V3.72h4.92v16.37h8.47v4zM60.47 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8 8 0 015.64-2.18 8.07 8.07 0 015.68 2.2 8.49 8.49 0 012 5.69 8.63 8.63 0 01-1.78 5.38 7.6 7.6 0 01-5.89 2.49zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.79 3-2.79 4.26.32 4.23 2.82 4.23zM95.49 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8.4 8.4 0 0111.31 0 8.43 8.43 0 012 5.69 8.6 8.6 0 01-1.77 5.38 7.6 7.6 0 01-5.89 2.51zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.8 3-2.8 4.26.31 4.23 2.83 4.23zM77.66 30c-5.74 0-7-3.25-7.23-4.52l4.6-.26c.41.91 1.17 1.41 2.76 1.41a2.45 2.45 0 002.82-2.53v-2.68a7 7 0 01-1.7 1.75 6.12 6.12 0 01-5.85-.08c-2.41-1.37-3-4.25-3-6.66 0-.89.12-3.67 1.45-5.42a5.67 5.67 0 014.64-2.4c1.2 0 3 .25 4.46 2.82V8.81h4.85v15.33a5.2 5.2 0 01-2.12 4.32A9.92 9.92 0 0177.66 30zm.15-9.66c2.53 0 2.81-2.69 2.81-3.91s-.31-4-2.81-4-2.81 2.8-2.81 4 .27 3.91 2.81 3.91zM55.56 3.72h9.81v2.41h-9.81z" fill="var(--color-contrast-higher)"/>
+                                                        <circle cx="15" cy="15" r="15" fill="var(--color-primary)"/>
                                                     </svg>
-                                                </button>
-                                                <ul class="f-header__dropdown">
-                                                    <li>
-                                                        <a href="#0" class="f-header__dropdown-link">Sub Nav Item One</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#0" class="f-header__dropdown-link">Sub Nav Item Two</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#0" class="f-header__dropdown-link">Sub Nav Item Three</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#0" class="f-header__dropdown-link">Sub Nav Item Four</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#0" class="f-header__dropdown-link">Sub Nav Item Five</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="f-header__item">
-                                                <a href="#0" class="f-header__link" aria-current="page">Resources</a>
-                                            </li>
-                                            <li class="f-header__item">
-                                                <a href="#0" class="f-header__link">Pricing</a>
-                                            </li>
-                                            <li class="f-header__item">
-                                                <a href="#0" class="f-header__link">Contact</a>
-                                            </li>
-                                        </ul>
-                                        <ul class="f-header__list flex-grow flex-basis-0 justify-end@md">
-                                            <li class="f-header__item">
-                                                <a href="#0" class="f-header__link">Login</a>
-                                            </li>
-                                            <li class="f-header__item">
-                                                <a href="#0" class="f-header__btn btn btn--primary">Button</a>
-                                            </li>
-                                        </ul>
+                                                </a>
+                                            </div>
+                                            <ul class="f-header__list flex-grow flex-basis-0 justify-center@md">
+                                                <li class="f-header__item">
+                                                    <a href="#0" class="f-header__link">About</a>
+                                                </li>
+                                                <li class="f-header__item">
+                                                    <button class="f-header__dropdown-control js-f-header__dropdown-control">
+                                                        <span>Solutions</span>
+                                                        <svg class="f-header__dropdown-icon icon" aria-hidden="true" viewBox="0 0 12 12">
+                                                            <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <ul class="f-header__dropdown">
+                                                        <li>
+                                                            <a href="#0" class="f-header__dropdown-link">Sub Nav Item One</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#0" class="f-header__dropdown-link">Sub Nav Item Two</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#0" class="f-header__dropdown-link">Sub Nav Item Three</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#0" class="f-header__dropdown-link">Sub Nav Item Four</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#0" class="f-header__dropdown-link">Sub Nav Item Five</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="f-header__item">
+                                                    <a href="#0" class="f-header__link" aria-current="page">Resources</a>
+                                                </li>
+                                                <li class="f-header__item">
+                                                    <a href="#0" class="f-header__link">Pricing</a>
+                                                </li>
+                                                <li class="f-header__item">
+                                                    <a href="#0" class="f-header__link">Contact</a>
+                                                </li>
+                                            </ul>
+                                            <ul class="f-header__list flex-grow flex-basis-0 justify-end@md">
+                                                <li class="f-header__item">
+                                                    <a href="#0" class="f-header__link">Login</a>
+                                                </li>
+                                                <li class="f-header__item">
+                                                    <a href="#0" class="f-header__btn btn btn--primary">Button</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </header>
-                        </section>
-                    </article>
+                                </header>
+                            </section>
+                        </article>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    {{> totop }}
-    {{> footer }}
-    {{> svg }}
+        </main>
+        {{> totop }}
+        {{> footer }}
+        {{> svg }}
 
     </body>
     <script type="module" src="/js/main.js"></script>
-    <script type="text/javascript">
-        function getLanguageUrl(option) {
-            var baseurl='{{ctx.homepath}}/login?lang=';
-            return baseurl + option.value;
-        };
-    </script>
-    
-
 </html>

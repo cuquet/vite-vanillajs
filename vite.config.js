@@ -1,3 +1,4 @@
+// vite.config.js
 /**
  * ⚡ Configuració de Vite per projecte multipàgina amb Handlebars
  *
@@ -91,7 +92,7 @@ export default defineConfig(({ command }) => {
 
     // 🏗️ Mode build: només pàgines específiques
     if (command === 'build') {
-        const allowed = ['index', 'dashboard'];
+        const allowed = ['index', 'dashboard', 'overlay-modal'];
         entries = Object.fromEntries(
             Object.entries(entries).filter(([key]) => allowed.includes(key)),
         );
@@ -130,6 +131,9 @@ export default defineConfig(({ command }) => {
                 input: Object.fromEntries(
                     Object.entries(entries).map(([name, file]) => [name, resolve(file)]),
                 ),
+                output: {
+                    manualChunks: undefined, // 💥 força un sol chunk per bundle
+                },
             },
         },
     };

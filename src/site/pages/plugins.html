@@ -1,106 +1,33 @@
 <!doctype html>
 <html lang="en" data-theme="default">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+        <link rel="stylesheet" href="/scss/style.scss" />
+        <title>Modal | CodyFrame</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
-    <link rel="stylesheet" href="/scss/style.scss" />
-    <title>Modal | CodyFrame</title>
-</head>
-
-<body>
-    {{> header activepage='plugins'}}
-    <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
-        <div class="container max-width-adaptive-xl">
-            <div class="grid gap-md flex-row-reverse@md">
-                <div class="col-3@md">
-                    <div class="toc toc--static@md js-toc"></div>
-                </div>
-                <div class="col-9@md bg padding-md ">
-                    <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
-                        <div class="text-divider"><span><h1>Compartir</h1></span></div>                    
-                        <section class=" padding-y-sm"><h2 class="padding-bottom-md">Social Sharing</h2>
-                            <div class="container max-width-md padding-y-xs ">
-                                <div class="margin-bottom-md">
-                                    <h4 class="text-center toc-skip">Share the article</h4>
-                                </div>
-                                <ul class="sharebar flex flex-wrap gap-xs justify-center">
-                                    <li>
-                                        <a class="sharebar__btn js-social-share" data-social="twitter" data-text="Hi there! https://codyhouse.co via @CodyWebHouse" data-hashtags="#nuggets, #dev" href="https://twitter.com/intent/tweet">
-                                            <svg class="icon" viewBox="0 0 32 32">
-                                                <title>Share on Twitter</title>
-                                                <g>
-                                                    <path d="M32,6.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6C25.7,3.8,24,3,22.2,3 c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5C10.3,10.8,5.5,8.2,2.2,4.2c-0.6,1-0.9,2.1-0.9,3.3c0,2.3,1.2,4.3,2.9,5.5 c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1C2.9,27.9,6.4,29,10.1,29c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C30,8.5,31.1,7.4,32,6.1z"></path>
-                                                </g>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="sharebar__btn js-social-share" data-social="facebook" data-url="https://codyhouse.co" href="https://www.facebook.com/sharer.php">
-                                            <svg class="icon" viewBox="0 0 32 32">
-                                                <title>Share on Facebook</title>
-                                                <path d="M32,16A16,16,0,1,0,13.5,31.806V20.625H9.438V16H13.5V12.475c0-4.01,2.389-6.225,6.043-6.225a24.644,24.644,0,0,1,3.582.312V10.5H21.107A2.312,2.312,0,0,0,18.5,13v3h4.438l-.71,4.625H18.5V31.806A16,16,0,0,0,32,16Z"></path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="sharebar__btn js-social-share" data-social="pinterest" data-description="Description for my Pinterest share" data-media="https://codyhouse.co/app/assets/img/social-sharing-img-1.jpg" data-url="https://codyhouse.co" href="https://pinterest.com/pin/create/button">
-                                            <svg class="icon" viewBox="0 0 32 32">
-                                                <title>Share on Pinterest</title>
-                                                <g>
-                                                    <path d="M16,0C7.2,0,0,7.2,0,16c0,6.8,4.2,12.6,10.2,14.9c-0.1-1.3-0.3-3.2,0.1-4.6c0.3-1.2,1.9-8,1.9-8 s-0.5-1-0.5-2.4c0-2.2,1.3-3.9,2.9-3.9c1.4,0,2,1,2,2.3c0,1.4-0.9,3.4-1.3,5.3c-0.4,1.6,0.8,2.9,2.4,2.9c2.8,0,5-3,5-7.3 c0-3.8-2.8-6.5-6.7-6.5c-4.6,0-7.2,3.4-7.2,6.9c0,1.4,0.5,2.8,1.2,3.7c0.1,0.2,0.1,0.3,0.1,0.5c-0.1,0.5-0.4,1.6-0.4,1.8 C9.5,21.9,9.3,22,9,21.8c-2-0.9-3.2-3.9-3.2-6.2c0-5,3.7-9.7,10.6-9.7c5.6,0,9.9,4,9.9,9.2c0,5.5-3.5,10-8.3,10 c-1.6,0-3.1-0.8-3.7-1.8c0,0-0.8,3.1-1,3.8c-0.4,1.4-1.3,3.1-2,4.2c1.5,0.5,3.1,0.7,4.7,0.7c8.8,0,16-7.2,16-16C32,7.2,24.8,0,16,0z "></path>
-                                                </g>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="sharebar__btn js-social-share" data-social="linkedin" data-url="http://codyhouse.co" href="https://www.linkedin.com/shareArticle">
-                                            <svg class="icon" viewBox="0 0 32 32">
-                                                <title>Share on Linkedin</title>
-                                                <g>
-                                                    <path d="M29,1H3A2,2,0,0,0,1,3V29a2,2,0,0,0,2,2H29a2,2,0,0,0,2-2V3A2,2,0,0,0,29,1ZM9.887,26.594H5.374V12.25H9.887ZM7.63,10.281a2.625,2.625,0,1,1,2.633-2.625A2.624,2.624,0,0,1,7.63,10.281ZM26.621,26.594H22.2V19.656c0-1.687,0-3.75-2.35-3.75s-2.633,1.782-2.633,3.656v7.126H12.8V12.25h4.136v1.969h.094a4.7,4.7,0,0,1,4.231-2.344c4.513,0,5.359,3,5.359,6.844Z"></path>
-                                                </g>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="sharebar__btn js-social-share" data-social="mail" data-subject="Email Subject" data-body="Content of my email." href="/cdn-cgi/l/email-protection#82">
-                                            <svg class="icon" viewBox="0 0 32 32">
-                                                <title>Share by Email</title>
-                                                <g>
-                                                    <path d="M28,3H4A3.957,3.957,0,0,0,0,7V25a3.957,3.957,0,0,0,4,4H28a3.957,3.957,0,0,0,4-4V7A3.957,3.957,0,0,0,28,3Zm.6,6.8-12,9a1,1,0,0,1-1.2,0l-12-9A1,1,0,0,1,4.6,8.2L16,16.75,27.4,8.2a1,1,0,1,1,1.2,1.6Z"></path>
-                                                </g>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class=" padding-y-sm"><h2 class="padding-bottom-md">Sticky Sharebar</h2>
-                            <div class="container max-width-md padding-y-xs text-component text-component--relaxed">
-                                <!-- <div class="container max-width-sm text-component text-component--relaxed"> -->
-                                    <h3 class="toc-skip">Sticky Sharebar Demo</h3>
-                                    <p class="text-md">⚠️ Scroll down to reveal the Sharebar.</p>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit non deserunt at nemo laboriosam nesciunt ad voluptate optio repellat architecto quis obcaecati id rem nihil, sunt illo nobis accusantium corrupti laudantium necessitatibus aut ut saepe tenetur hic. Optio facere ipsum eveniet laudantium sint maxime nihil non. Est commodi, dignissimos incidunt illo cum mollitia error a, perferendis, asperiores inventore eum impedit dolores. Suscipit autem enim, voluptas aliquid laborum repudiandae, atque doloremque facere provident vero amet, corporis qui porro distinctio sint incidunt minus quibusdam consequuntur eum error ea voluptatibus consequatur alias voluptates? Harum ducimus culpa consequatur aliquid voluptas officiis unde alias amet.</p>
-                                    <div class="js-sticky-sharebar-target">
-                                        <h4 class="toc-skip">Introduction</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab harum porro aut voluptatum illo id, maxime, totam quidem natus saepe ut dignissimos quasi perferendis minus laborum dolores in qui suscipit, accusamus magnam dolor! Rem nobis libero assumenda possimus iusto sint harum, explicabo reiciendis quisquam. Debitis quisquam sequi numquam deleniti nihil?</p>
-                                        <p>
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis 
-                                            <a href="#0">molestiae accusantium fugiat</a>
-                                            , culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.
-                                        </p>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis molestiae accusantium fugiat, culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.</p>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis molestiae accusantium fugiat, culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.</p>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis molestiae accusantium fugiat, culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.</p>
+    <body>
+        {{> header activepage='plugins'}}
+        <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
+            <div class="container max-width-adaptive-xl">
+                <div class="grid gap-md flex-row-reverse@md">
+                    <div class="col-3@md">
+                        <div class="toc toc--static@md js-toc"></div>
+                    </div>
+                    <div class="col-9@md bg padding-md ">
+                        <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
+                            <div class="text-divider"><span><h1>Compartir</h1></span></div>                    
+                            <section class=" padding-y-sm"><h2 class="padding-bottom-md">Social Sharing</h2>
+                                <div class="container max-width-md padding-y-xs ">
+                                    <div class="margin-bottom-md">
+                                        <h4 class="text-center toc-skip">Share the article</h4>
                                     </div>
-                                </div>
-                                <div class="sticky-sharebar js-sticky-sharebar">
-                                    <ul class="sticky-sharebar__list">
+                                    <ul class="sharebar flex flex-wrap gap-xs justify-center">
                                         <li>
-                                            <a class="sticky-sharebar__btn js-social-share" data-social="twitter" data-text="Hi there! https://codyhouse.co via @CodyWebHouse" data-hashtags="#nuggets, #dev" href="https://twitter.com/intent/tweet">
+                                            <a class="sharebar__btn js-social-share" data-social="twitter" data-text="Hi there! https://codyhouse.co via @CodyWebHouse" data-hashtags="#nuggets, #dev" href="https://twitter.com/intent/tweet">
                                                 <svg class="icon" viewBox="0 0 32 32">
                                                     <title>Share on Twitter</title>
                                                     <g>
@@ -110,7 +37,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="sticky-sharebar__btn js-social-share" data-social="facebook" data-url="https://codyhouse.co" href="https://www.facebook.com/sharer.php">
+                                            <a class="sharebar__btn js-social-share" data-social="facebook" data-url="https://codyhouse.co" href="https://www.facebook.com/sharer.php">
                                                 <svg class="icon" viewBox="0 0 32 32">
                                                     <title>Share on Facebook</title>
                                                     <path d="M32,16A16,16,0,1,0,13.5,31.806V20.625H9.438V16H13.5V12.475c0-4.01,2.389-6.225,6.043-6.225a24.644,24.644,0,0,1,3.582.312V10.5H21.107A2.312,2.312,0,0,0,18.5,13v3h4.438l-.71,4.625H18.5V31.806A16,16,0,0,0,32,16Z"></path>
@@ -118,7 +45,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="sticky-sharebar__btn js-social-share" data-social="pinterest" data-description="Description for my Pinterest share" data-media="https://codyhouse.co/app/assets/img/social-sharing-img-1.jpg" href="https://pinterest.com/pin/create/button">
+                                            <a class="sharebar__btn js-social-share" data-social="pinterest" data-description="Description for my Pinterest share" data-media="https://codyhouse.co/app/assets/img/social-sharing-img-1.jpg" data-url="https://codyhouse.co" href="https://pinterest.com/pin/create/button">
                                                 <svg class="icon" viewBox="0 0 32 32">
                                                     <title>Share on Pinterest</title>
                                                     <g>
@@ -128,7 +55,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="sticky-sharebar__btn js-social-share" data-social="linkedin" data-url="http://codyhouse.co" href="https://www.linkedin.com/shareArticle">
+                                            <a class="sharebar__btn js-social-share" data-social="linkedin" data-url="http://codyhouse.co" href="https://www.linkedin.com/shareArticle">
                                                 <svg class="icon" viewBox="0 0 32 32">
                                                     <title>Share on Linkedin</title>
                                                     <g>
@@ -138,7 +65,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="sticky-sharebar__btn js-social-share" data-social="mail" data-subject="Email Subject" data-body="Content of my email." href="/cdn-cgi/l/email-protection#ab">
+                                            <a class="sharebar__btn js-social-share" data-social="mail" data-subject="Email Subject" data-body="Content of my email." href="/cdn-cgi/l/email-protection#82">
                                                 <svg class="icon" viewBox="0 0 32 32">
                                                     <title>Share by Email</title>
                                                     <g>
@@ -148,364 +75,435 @@
                                             </a>
                                         </li>
                                     </ul>
-                                <!-- </div> -->
-                            </div>
-                        </section>
-                        <div class="text-divider"><span><h1>Editar en línia</h1></span></div>
-                        <section class="padding-y-sm"><h2>Markdown editor</h2>
-                            <div class="md-editor js-md-editor">
-                                <div class="bg-light radius-md inner-glow-top shadow-sm padding-4xs margin-bottom-3xs">
-                                    <menu class="flex flex-wrap js-md-editor__actions">
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="heading" type="button" title="Heading" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Heading</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M3 15a1 1 0 0 0 1-1V9h8v5a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0v5H4V2a1 1 0 0 0-2 0v12a1 1 0 0 0 1 1z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="code" type="button" title="Code" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Code</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M6.707 2.293a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 0 1.414l5 5a1 1 0 1 0 1.414-1.414L2.414 8l4.293-4.293a1 1 0 0 0 0-1.414z"></path>
-                                                        <path d="M15.707 7.293l-5-5a1 1 0 0 0-1.414 1.414L13.586 8l-4.293 4.293a1 1 0 1 0 1.414 1.414l5-5a1 1 0 0 0 0-1.414z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="link" type="button" title="Link" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Link</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M7.431 12.6l-.566.564a2.92 2.92 0 0 1-4.03 0 2.849 2.849 0 0 1 0-4.03L4.54 7.43a2.92 2.92 0 0 1 4.028 0c.068.067.131.137.191.209A1 1 0 1 0 10.3 6.363a4.63 4.63 0 0 0-.316-.347 4.848 4.848 0 0 0-6.858 0l-1.7 1.705a4.849 4.849 0 1 0 6.852 6.859l.565-.563A1 1 0 1 0 7.431 12.6z"></path>
-                                                        <path d="M11.15 0a4.816 4.816 0 0 0-3.429 1.42l-.565.565A1 1 0 1 0 8.57 3.4l.565-.565a2.919 2.919 0 0 1 4.03 0 2.85 2.85 0 0 1 0 4.031L11.46 8.57a2.851 2.851 0 0 1-4.03 0 2.844 2.844 0 0 1-.189-.207A1 1 0 1 0 5.7 9.637a4.688 4.688 0 0 0 .316.347 4.855 4.855 0 0 0 6.858 0l1.705-1.7A4.85 4.85 0 0 0 11.15 0z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="blockquote" type="button" title="Blockquote" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Blockquote</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M6 7H2.016a5.559 5.559 0 0 1 .829-2.464 5.5 5.5 0 0 1 1.694-1.694 1 1 0 1 0-1.078-1.684 7.484 7.484 0 0 0-2.306 2.306A7.739 7.739 0 0 0 0 8.013V14a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"></path>
-                                                        <path d="M15 7h-3.984a5.559 5.559 0 0 1 .829-2.464 5.5 5.5 0 0 1 1.694-1.694 1 1 0 1 0-1.078-1.684 7.484 7.484 0 0 0-2.306 2.306A7.739 7.739 0 0 0 9 8.013V14a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li class="md-editor__btn-separator" role="separator"></li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="bold" type="button" title="Bold" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Bold</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M3 15h7a3.988 3.988 0 0 0 2.035-7.425A3.962 3.962 0 0 0 13 5a4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1zm7-2H4V9h6a2 2 0 0 1 0 4zM4 3h5a2 2 0 0 1 0 4H4z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="italic" type="button" title="Italic" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Italic</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M6 15h3a1 1 0 0 0 0-2H7.388l3.333-10H13a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1.612L5.279 13H3a1 1 0 0 0 0 2h3z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li class="md-editor__btn-separator" role="separator"></li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="uList" type="button" title="Unordered list" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Unordered list</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M14 2H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path>
-                                                        <circle cx="3" cy="3" r="2"></circle>
-                                                        <path d="M14 12H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path>
-                                                        <circle cx="3" cy="13" r="2"></circle>
-                                                        <path d="M14 7H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path>
-                                                        <circle cx="3" cy="8" r="2"></circle>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="oList" type="button" title="Ordered list" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Ordered list</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M14 2H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path>
-                                                        <path d="M14 7H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path>
-                                                        <path d="M14 12H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path>
-                                                        <path d="M1.854 3.922l.4-.255v2.625a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-1.156-.631l-1.553 1a.75.75 0 0 0 .813 1.261z"></path>
-                                                        <path d="M4.177 12.733h-.829a4.857 4.857 0 0 1 .413-.333 2.3 2.3 0 0 0 .977-2.31A1.741 1.741 0 0 0 3.5 8.69a2.093 2.093 0 0 0-2.374 1.391.75.75 0 1 0 1.4.527c.087-.233.37-.514.619-.461a.425.425 0 0 1 .132.3.8.8 0 0 1-.391.731 5.269 5.269 0 0 0-1.751 2 .749.749 0 0 0 .689 1.046h2.353a.75.75 0 0 0 0-1.5z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="md-editor__btn js-tooltip-trigger" data-md-action="tList" type="button" title="Task list" data-tooltip-class="tooltip--sm">
-                                                <svg class="md-editor__icon icon" viewBox="0 0 16 16">
-                                                    <title>Task list</title>
-                                                    <g fill="currentColor">
-                                                        <path d="M13 0H3a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3zm1 13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"></path>
-                                                        <path d="M10.293 5.293L7 8.586 5.707 7.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 1 0-1.414-1.414z"></path>
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                    </menu>
                                 </div>
-                                <label class="form-label margin-bottom-4xs" for="md-editor-content">Markdown Editor</label>
-                                <textarea class="form-control width-100% js-md-editor__content" name="md-editor-content" id="md-editor-content" rows="12"></textarea>
-                            </div>
-                        </section>
-                        <div class="text-divider"><span><h1>Newsletter</h1></span></div>
-                        <section class="padding-y-xs"><h2>Newsletter OK</h2>
-                            <div class="container max-width-3xs padding-y-xs ">
-                                <form id="newsformOK" class="news-form js-news-form">
-                                    <label class="inline-block text-sm margin-bottom-xs" for="news-input-name">Get notified when we launch</label>
-                                    <div class="news-form__wrapper">
-                                        <input class="reset news-form__input js-news-form__input" type="email" placeholder="Email" name="news-input-name" id="news-input-name">
-                                        <button class="news-form__btn js-news-form__btn" disabled="disabled">
-                                            <span>Notify me</span>
-                                            <span>
-                                                <svg class="news-form__icon" viewBox="0 0 24 24">
-                                                    <path class="news-form__icon-circle" d="M2,12a10,10,0,0,0,20,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                    <path class="news-form__icon-check" d="M2,12l6,6L22,4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                    <line class="news-form__icon-excl-line" x1="12" y1="2" x2="12" y2="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                    <circle class="news-form__icon-excl-dot" cx="12" cy="21.5" r="1.5" fill="currentColor"/>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <div role="alert" class="news-form__msg news-form__msg--error padding-xs radius-md text-sm">
+                            </section>
+                            <section class=" padding-y-sm"><h2 class="padding-bottom-md">Sticky Sharebar</h2>
+                                <div class="container max-width-md padding-y-xs text-component text-component--relaxed">
+                                    <!-- <div class="container max-width-sm text-component text-component--relaxed"> -->
+                                        <h3 class="toc-skip">Sticky Sharebar Demo</h3>
+                                        <p class="text-md">⚠️ Scroll down to reveal the Sharebar.</p>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit non deserunt at nemo laboriosam nesciunt ad voluptate optio repellat architecto quis obcaecati id rem nihil, sunt illo nobis accusantium corrupti laudantium necessitatibus aut ut saepe tenetur hic. Optio facere ipsum eveniet laudantium sint maxime nihil non. Est commodi, dignissimos incidunt illo cum mollitia error a, perferendis, asperiores inventore eum impedit dolores. Suscipit autem enim, voluptas aliquid laborum repudiandae, atque doloremque facere provident vero amet, corporis qui porro distinctio sint incidunt minus quibusdam consequuntur eum error ea voluptatibus consequatur alias voluptates? Harum ducimus culpa consequatur aliquid voluptas officiis unde alias amet.</p>
+                                        <div class="js-sticky-sharebar-target">
+                                            <h4 class="toc-skip">Introduction</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab harum porro aut voluptatum illo id, maxime, totam quidem natus saepe ut dignissimos quasi perferendis minus laborum dolores in qui suscipit, accusamus magnam dolor! Rem nobis libero assumenda possimus iusto sint harum, explicabo reiciendis quisquam. Debitis quisquam sequi numquam deleniti nihil?</p>
                                             <p>
-                                                <strong class="font-bold">Error:</strong>
-                                                 this is an error message
+                                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis 
+                                                <a href="#0">molestiae accusantium fugiat</a>
+                                                , culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.
                                             </p>
-                                        </div>
-                                        <div role="alert" class="news-form__msg news-form__msg--success padding-xs radius-md text-sm">
-                                            <p>
-                                                <strong class="font-bold">Success!</strong>
-                                                 Check your inbox for a confirmation email.
-                                            </p>
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis molestiae accusantium fugiat, culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.</p>
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis molestiae accusantium fugiat, culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.</p>
+                                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit beatae laborum itaque aliquam ipsam consequatur numquam? Qui nobis molestiae accusantium fugiat, culpa asperiores similique ad dolor, eum cum maiores earum ipsam dolores veritatis nostrum odit illum rerum delectus officiis dolore. Doloribus odit nulla quasi eos mollitia rem perferendis est laudantium unde ad blanditiis, ut vitae dicta aliquam beatae sed impedit illum explicabo. Saepe aliquam, at similique ipsum quae cum soluta quia cumque illum reprehenderit iusto, adipisci, unde id totam. Nihil explicabo distinctio quibusdam fugiat expedita voluptate atque eligendi, sit at ullam, in optio vero facere maxime nesciunt pariatur autem id suscipit labore fuga quis ipsum! Quidem sint eius omnis, inventore consequatur minus fugit vitae mollitia, pariatur quo neque vel aliquid.</p>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                        </section>
-                        <section class="padding-y-xs"><h2>Newsletter KO</h2>
-                            <div class="container max-width-3xs padding-y-xs ">
-                                <form id="newsformKO" class="news-form js-news-form">
-                                    <label class="inline-block text-sm margin-bottom-xs" for="news-input-name1">Get notified when we launch</label>
-                                    <div class="news-form__wrapper">
-                                        <input class="reset news-form__input js-news-form__input" type="email" placeholder="Email" name="news-input-name1" id="news-input-name1">
-                                        <button class="news-form__btn js-news-form__btn" disabled="disabled">
-                                            <span>Notify me</span>
-                                            <span>
-                                                <svg class="news-form__icon" viewBox="0 0 24 24">
-                                                    <path class="news-form__icon-circle" d="M2,12a10,10,0,0,0,20,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                    <path class="news-form__icon-check" d="M2,12l6,6L22,4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                    <line class="news-form__icon-excl-line" x1="12" y1="2" x2="12" y2="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                    <circle class="news-form__icon-excl-dot" cx="12" cy="21.5" r="1.5" fill="currentColor"/>
-                                                </svg>
-                                            </span>
-                                        </button>
-                                        <div role="alert" class="news-form__msg news-form__msg--error padding-xs radius-md text-sm">
-                                            <p>
-                                                <strong class="font-bold">Error:</strong>
-                                                 this is an error message
-                                            </p>
-                                        </div>
-                                        <div role="alert" class="news-form__msg news-form__msg--success padding-xs radius-md text-sm">
-                                            <p>
-                                                <strong class="font-bold">Success!</strong>
-                                                 Check your inbox for a confirmation email.
-                                            </p>
-                                        </div>
+                                    <div class="sticky-sharebar js-sticky-sharebar">
+                                        <ul class="sticky-sharebar__list">
+                                            <li>
+                                                <a class="sticky-sharebar__btn js-social-share" data-social="twitter" data-text="Hi there! https://codyhouse.co via @CodyWebHouse" data-hashtags="#nuggets, #dev" href="https://twitter.com/intent/tweet">
+                                                    <svg class="icon" viewBox="0 0 32 32">
+                                                        <title>Share on Twitter</title>
+                                                        <g>
+                                                            <path d="M32,6.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6C25.7,3.8,24,3,22.2,3 c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5C10.3,10.8,5.5,8.2,2.2,4.2c-0.6,1-0.9,2.1-0.9,3.3c0,2.3,1.2,4.3,2.9,5.5 c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1C2.9,27.9,6.4,29,10.1,29c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C30,8.5,31.1,7.4,32,6.1z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="sticky-sharebar__btn js-social-share" data-social="facebook" data-url="https://codyhouse.co" href="https://www.facebook.com/sharer.php">
+                                                    <svg class="icon" viewBox="0 0 32 32">
+                                                        <title>Share on Facebook</title>
+                                                        <path d="M32,16A16,16,0,1,0,13.5,31.806V20.625H9.438V16H13.5V12.475c0-4.01,2.389-6.225,6.043-6.225a24.644,24.644,0,0,1,3.582.312V10.5H21.107A2.312,2.312,0,0,0,18.5,13v3h4.438l-.71,4.625H18.5V31.806A16,16,0,0,0,32,16Z"></path>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="sticky-sharebar__btn js-social-share" data-social="pinterest" data-description="Description for my Pinterest share" data-media="https://codyhouse.co/app/assets/img/social-sharing-img-1.jpg" href="https://pinterest.com/pin/create/button">
+                                                    <svg class="icon" viewBox="0 0 32 32">
+                                                        <title>Share on Pinterest</title>
+                                                        <g>
+                                                            <path d="M16,0C7.2,0,0,7.2,0,16c0,6.8,4.2,12.6,10.2,14.9c-0.1-1.3-0.3-3.2,0.1-4.6c0.3-1.2,1.9-8,1.9-8 s-0.5-1-0.5-2.4c0-2.2,1.3-3.9,2.9-3.9c1.4,0,2,1,2,2.3c0,1.4-0.9,3.4-1.3,5.3c-0.4,1.6,0.8,2.9,2.4,2.9c2.8,0,5-3,5-7.3 c0-3.8-2.8-6.5-6.7-6.5c-4.6,0-7.2,3.4-7.2,6.9c0,1.4,0.5,2.8,1.2,3.7c0.1,0.2,0.1,0.3,0.1,0.5c-0.1,0.5-0.4,1.6-0.4,1.8 C9.5,21.9,9.3,22,9,21.8c-2-0.9-3.2-3.9-3.2-6.2c0-5,3.7-9.7,10.6-9.7c5.6,0,9.9,4,9.9,9.2c0,5.5-3.5,10-8.3,10 c-1.6,0-3.1-0.8-3.7-1.8c0,0-0.8,3.1-1,3.8c-0.4,1.4-1.3,3.1-2,4.2c1.5,0.5,3.1,0.7,4.7,0.7c8.8,0,16-7.2,16-16C32,7.2,24.8,0,16,0z "></path>
+                                                        </g>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="sticky-sharebar__btn js-social-share" data-social="linkedin" data-url="http://codyhouse.co" href="https://www.linkedin.com/shareArticle">
+                                                    <svg class="icon" viewBox="0 0 32 32">
+                                                        <title>Share on Linkedin</title>
+                                                        <g>
+                                                            <path d="M29,1H3A2,2,0,0,0,1,3V29a2,2,0,0,0,2,2H29a2,2,0,0,0,2-2V3A2,2,0,0,0,29,1ZM9.887,26.594H5.374V12.25H9.887ZM7.63,10.281a2.625,2.625,0,1,1,2.633-2.625A2.624,2.624,0,0,1,7.63,10.281ZM26.621,26.594H22.2V19.656c0-1.687,0-3.75-2.35-3.75s-2.633,1.782-2.633,3.656v7.126H12.8V12.25h4.136v1.969h.094a4.7,4.7,0,0,1,4.231-2.344c4.513,0,5.359,3,5.359,6.844Z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="sticky-sharebar__btn js-social-share" data-social="mail" data-subject="Email Subject" data-body="Content of my email." href="/cdn-cgi/l/email-protection#ab">
+                                                    <svg class="icon" viewBox="0 0 32 32">
+                                                        <title>Share by Email</title>
+                                                        <g>
+                                                            <path d="M28,3H4A3.957,3.957,0,0,0,0,7V25a3.957,3.957,0,0,0,4,4H28a3.957,3.957,0,0,0,4-4V7A3.957,3.957,0,0,0,28,3Zm.6,6.8-12,9a1,1,0,0,1-1.2,0l-12-9A1,1,0,0,1,4.6,8.2L16,16.75,27.4,8.2a1,1,0,1,1,1.2,1.6Z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    <!-- </div> -->
+                                </div>
+                            </section>
+                            <div class="text-divider"><span><h1>Editar en línia</h1></span></div>
+                            <section class="padding-y-sm"><h2>Markdown editor</h2>
+                                <div class="md-editor js-md-editor">
+                                    <div class="bg-light radius-md inner-glow-top shadow-sm padding-4xs margin-bottom-3xs">
+                                        <menu class="flex flex-wrap js-md-editor__actions">
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="heading" type="button" title="Heading" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Heading</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M3 15a1 1 0 0 0 1-1V9h8v5a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0v5H4V2a1 1 0 0 0-2 0v12a1 1 0 0 0 1 1z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="code" type="button" title="Code" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Code</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M6.707 2.293a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 0 1.414l5 5a1 1 0 1 0 1.414-1.414L2.414 8l4.293-4.293a1 1 0 0 0 0-1.414z"></path>
+                                                            <path d="M15.707 7.293l-5-5a1 1 0 0 0-1.414 1.414L13.586 8l-4.293 4.293a1 1 0 1 0 1.414 1.414l5-5a1 1 0 0 0 0-1.414z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="link" type="button" title="Link" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Link</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M7.431 12.6l-.566.564a2.92 2.92 0 0 1-4.03 0 2.849 2.849 0 0 1 0-4.03L4.54 7.43a2.92 2.92 0 0 1 4.028 0c.068.067.131.137.191.209A1 1 0 1 0 10.3 6.363a4.63 4.63 0 0 0-.316-.347 4.848 4.848 0 0 0-6.858 0l-1.7 1.705a4.849 4.849 0 1 0 6.852 6.859l.565-.563A1 1 0 1 0 7.431 12.6z"></path>
+                                                            <path d="M11.15 0a4.816 4.816 0 0 0-3.429 1.42l-.565.565A1 1 0 1 0 8.57 3.4l.565-.565a2.919 2.919 0 0 1 4.03 0 2.85 2.85 0 0 1 0 4.031L11.46 8.57a2.851 2.851 0 0 1-4.03 0 2.844 2.844 0 0 1-.189-.207A1 1 0 1 0 5.7 9.637a4.688 4.688 0 0 0 .316.347 4.855 4.855 0 0 0 6.858 0l1.705-1.7A4.85 4.85 0 0 0 11.15 0z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="blockquote" type="button" title="Blockquote" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Blockquote</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M6 7H2.016a5.559 5.559 0 0 1 .829-2.464 5.5 5.5 0 0 1 1.694-1.694 1 1 0 1 0-1.078-1.684 7.484 7.484 0 0 0-2.306 2.306A7.739 7.739 0 0 0 0 8.013V14a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"></path>
+                                                            <path d="M15 7h-3.984a5.559 5.559 0 0 1 .829-2.464 5.5 5.5 0 0 1 1.694-1.694 1 1 0 1 0-1.078-1.684 7.484 7.484 0 0 0-2.306 2.306A7.739 7.739 0 0 0 9 8.013V14a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li class="md-editor__btn-separator" role="separator"></li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="bold" type="button" title="Bold" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Bold</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M3 15h7a3.988 3.988 0 0 0 2.035-7.425A3.962 3.962 0 0 0 13 5a4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1zm7-2H4V9h6a2 2 0 0 1 0 4zM4 3h5a2 2 0 0 1 0 4H4z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="italic" type="button" title="Italic" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Italic</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M6 15h3a1 1 0 0 0 0-2H7.388l3.333-10H13a1 1 0 0 0 0-2H7a1 1 0 0 0 0 2h1.612L5.279 13H3a1 1 0 0 0 0 2h3z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li class="md-editor__btn-separator" role="separator"></li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="uList" type="button" title="Unordered list" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Unordered list</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M14 2H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path>
+                                                            <circle cx="3" cy="3" r="2"></circle>
+                                                            <path d="M14 12H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path>
+                                                            <circle cx="3" cy="13" r="2"></circle>
+                                                            <path d="M14 7H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z"></path>
+                                                            <circle cx="3" cy="8" r="2"></circle>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="oList" type="button" title="Ordered list" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Ordered list</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M14 2H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path>
+                                                            <path d="M14 7H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path>
+                                                            <path d="M14 12H7a1 1 0 0 0 0 2h7a1 1 0 0 0 0-2z"></path>
+                                                            <path d="M1.854 3.922l.4-.255v2.625a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-1.156-.631l-1.553 1a.75.75 0 0 0 .813 1.261z"></path>
+                                                            <path d="M4.177 12.733h-.829a4.857 4.857 0 0 1 .413-.333 2.3 2.3 0 0 0 .977-2.31A1.741 1.741 0 0 0 3.5 8.69a2.093 2.093 0 0 0-2.374 1.391.75.75 0 1 0 1.4.527c.087-.233.37-.514.619-.461a.425.425 0 0 1 .132.3.8.8 0 0 1-.391.731 5.269 5.269 0 0 0-1.751 2 .749.749 0 0 0 .689 1.046h2.353a.75.75 0 0 0 0-1.5z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="md-editor__btn js-tooltip-trigger" data-md-action="tList" type="button" title="Task list" data-tooltip-class="tooltip--sm">
+                                                    <svg class="md-editor__icon icon" viewBox="0 0 16 16">
+                                                        <title>Task list</title>
+                                                        <g fill="currentColor">
+                                                            <path d="M13 0H3a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3zm1 13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"></path>
+                                                            <path d="M10.293 5.293L7 8.586 5.707 7.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 1 0-1.414-1.414z"></path>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </li>
+                                        </menu>
                                     </div>
-                                </form>
-                            </div>
-                        </section>
-                        <div class="text-divider"><span><h1>Code</h1></span></div>
-                        <section class="padding-y-md"><h2>Copy to Clip</h2>
-                            <pre class="code-snippet">
-                            <button class="copy-to-clip float-right margin-sm js-copy-to-clip js-tooltip-trigger" type="button" data-tooltip-title="Click to copy" data-success-title="Copied!" aria-controls="content-to-copy">
-                                <svg class="icon icon--xs" width="16" height="16" viewBox="0 0 16 16"><title>Click to copy</title><path d="M12,2h.5A1.5,1.5,0,0,1,14,3.5v10A1.5,1.5,0,0,1,12.5,15h-9A1.5,1.5,0,0,1,2,13.5V3.5A1.5,1.5,0,0,1,3.5,2H4" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></path><rect x="6" y="1" width="4" height="2" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></rect><polyline class="copy-to-clip__icon-check" points="5 9 7 11 11 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline></svg>
-                            </button>
-                            <code id="content-to-copy">.component {
-                            background-color: var(--color-bg);
-                            padding: var(--space-md);
-                            height: auto;
-                            width: 600px;
-                            }</code>
-                            </pre>
-                        </section>
-                        <div class="text-divider"><span><h1>Repetidor d'items (_1_repeater)</h1></span></div>
-                        <section class="padding-y-xs"><h2> Items </h2>
-                            <div class="container max-width-3xs padding-y-xs ">
-                                <div class="js-repeater" data-repeater-input-name="[n]" data-repeater-class="show-remover">
-                                    <ul class="grid gap-xs js-repeater__list">
-                                        <li class="js-repeater__item">
-                                            <div class="flex flex-row flex-wrap gap-2xs">
-                                                <p>Hola món</p>
-                                                <button class="js-repeater__remove" type="button"><svg class="icon block"><use href="#trash"></use></svg></button>
+                                    <label class="form-label margin-bottom-4xs" for="md-editor-content">Markdown Editor</label>
+                                    <textarea class="form-control width-100% js-md-editor__content" name="md-editor-content" id="md-editor-content" rows="12"></textarea>
+                                </div>
+                            </section>
+                            <div class="text-divider"><span><h1>Newsletter</h1></span></div>
+                            <section class="padding-y-xs"><h2>Newsletter OK</h2>
+                                <div class="container max-width-3xs padding-y-xs ">
+                                    <form id="newsformOK" class="news-form js-news-form">
+                                        <label class="inline-block text-sm margin-bottom-xs" for="news-input-name">Get notified when we launch</label>
+                                        <div class="news-form__wrapper">
+                                            <input class="reset news-form__input js-news-form__input" type="email" placeholder="Email" name="news-input-name" id="news-input-name">
+                                            <button class="news-form__btn js-news-form__btn" disabled="disabled">
+                                                <span>Notify me</span>
+                                                <span>
+                                                    <svg class="news-form__icon" viewBox="0 0 24 24">
+                                                        <path class="news-form__icon-circle" d="M2,12a10,10,0,0,0,20,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                        <path class="news-form__icon-check" d="M2,12l6,6L22,4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                        <line class="news-form__icon-excl-line" x1="12" y1="2" x2="12" y2="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                        <circle class="news-form__icon-excl-dot" cx="12" cy="21.5" r="1.5" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                            <div role="alert" class="news-form__msg news-form__msg--error padding-xs radius-md text-sm">
+                                                <p>
+                                                    <strong class="font-bold">Error:</strong>
+                                                    this is an error message
+                                                </p>
                                             </div>
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn--primary width-100% margin-top-xs js-repeater__add" type="button"><svg class="icon block"><use href="#plus-circle-dual"></use></svg></button>
+                                            <div role="alert" class="news-form__msg news-form__msg--success padding-xs radius-md text-sm">
+                                                <p>
+                                                    <strong class="font-bold">Success!</strong>
+                                                    Check your inbox for a confirmation email.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                        </section>
-                        <section class="padding-y-xs"><h2> Formularis </h2>
-                            <div class="container padding-y-xs ">
-                                <form>
-                                    <fieldset class="margin-bottom-md">
-                                    <legend class="form-legend">Form Legend</legend>
+                            </section>
+                            <section class="padding-y-xs"><h2>Newsletter KO</h2>
+                                <div class="container max-width-3xs padding-y-xs ">
+                                    <form id="newsformKO" class="news-form js-news-form">
+                                        <label class="inline-block text-sm margin-bottom-xs" for="news-input-name1">Get notified when we launch</label>
+                                        <div class="news-form__wrapper">
+                                            <input class="reset news-form__input js-news-form__input" type="email" placeholder="Email" name="news-input-name1" id="news-input-name1">
+                                            <button class="news-form__btn js-news-form__btn" disabled="disabled">
+                                                <span>Notify me</span>
+                                                <span>
+                                                    <svg class="news-form__icon" viewBox="0 0 24 24">
+                                                        <path class="news-form__icon-circle" d="M2,12a10,10,0,0,0,20,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                        <path class="news-form__icon-check" d="M2,12l6,6L22,4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                        <line class="news-form__icon-excl-line" x1="12" y1="2" x2="12" y2="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                                        <circle class="news-form__icon-excl-dot" cx="12" cy="21.5" r="1.5" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                            <div role="alert" class="news-form__msg news-form__msg--error padding-xs radius-md text-sm">
+                                                <p>
+                                                    <strong class="font-bold">Error:</strong>
+                                                    this is an error message
+                                                </p>
+                                            </div>
+                                            <div role="alert" class="news-form__msg news-form__msg--success padding-xs radius-md text-sm">
+                                                <p>
+                                                    <strong class="font-bold">Success!</strong>
+                                                    Check your inbox for a confirmation email.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </section>
+                            <div class="text-divider"><span><h1>Code</h1></span></div>
+                            <section class="padding-y-md"><h2>Copy to Clip</h2>
+                                <pre class="code-snippet">
+                                <button class="copy-to-clip float-right margin-sm js-copy-to-clip js-tooltip-trigger" type="button" data-tooltip-title="Click to copy" data-success-title="Copied!" aria-controls="content-to-copy">
+                                    <svg class="icon icon--xs" width="16" height="16" viewBox="0 0 16 16"><title>Click to copy</title><path d="M12,2h.5A1.5,1.5,0,0,1,14,3.5v10A1.5,1.5,0,0,1,12.5,15h-9A1.5,1.5,0,0,1,2,13.5V3.5A1.5,1.5,0,0,1,3.5,2H4" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></path><rect x="6" y="1" width="4" height="2" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></rect><polyline class="copy-to-clip__icon-check" points="5 9 7 11 11 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline></svg>
+                                </button>
+                                <code id="content-to-copy">.component {
+                                background-color: var(--color-bg);
+                                padding: var(--space-md);
+                                height: auto;
+                                width: 600px;
+                                }</code>
+                                </pre>
+                            </section>
+                            <div class="text-divider"><span><h1>Repetidor d'items (_1_repeater)</h1></span></div>
+                            <section class="padding-y-xs"><h2> Items </h2>
+                                <div class="container max-width-3xs padding-y-xs ">
+                                    <div class="js-repeater" data-repeater-input-name="[n]" data-repeater-class="show-remover">
+                                        <ul class="grid gap-xs js-repeater__list">
+                                            <li class="js-repeater__item">
+                                                <div class="flex flex-row flex-wrap gap-2xs">
+                                                    <p>Hola món</p>
+                                                    <button class="js-repeater__remove" type="button"><svg class="icon block"><use href="#trash"></use></svg></button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <button class="btn btn--primary width-100% margin-top-xs js-repeater__add" type="button"><svg class="icon block"><use href="#plus-circle-dual"></use></svg></button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="padding-y-xs"><h2> Formularis </h2>
+                                <div class="container padding-y-xs ">
+                                    <form>
+                                        <fieldset class="margin-bottom-md">
+                                        <legend class="form-legend">Form Legend</legend>
+                                        <div class="js-repeater" data-repeater-input-name="user[n]" data-repeater-class="show-remover">
+                                            <div class="grid gap-xs js-repeater__list">
+                                                <fieldset class="js-repeater__item">
+                                                    <div class="grid gap-sm">
+                                                        <div class="col-5@md">
+                                                            <label class="form-label margin-bottom-2xs" for="user[0][name]">Name</label>
+                                                            <input class="form-control " type="text" name="user[0][name]" id="user[0][name]">
+                                                        </div>
+                                                        <div class="col-5@md">
+                                                            <label class="form-label margin-bottom-2xs" for="user[0][email]">Email</label>
+                                                            <input class="form-control " type="email" name="user[0][email]" id="user[0][email]" data-default="myemail@mail.com">
+                                                        </div>
+                                                        <div class="col-2@md">
+                                                            <button class="btn btn--subtle padding-x-xs col-content js-repeater__remove" type="button">
+                                                                <svg class="icon block"><use href="#trash"></use></svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <button class="btn btn--primary width-100% margin-top-xs js-repeater__add" type="button">+ Afegir Item</button>
+                                        </div>
+                                </div>
+                            </section>
+                            <section class="padding-y-xs"><h2> Formularis: Radio o Checkboxes </h2>
+                                <div class="container max-width-3xs padding-y-xs ">
                                     <div class="js-repeater" data-repeater-input-name="user[n]" data-repeater-class="show-remover">
                                         <div class="grid gap-xs js-repeater__list">
                                             <fieldset class="js-repeater__item">
-                                                <div class="grid gap-sm">
-                                                    <div class="col-5@md">
-                                                        <label class="form-label margin-bottom-2xs" for="user[0][name]">Name</label>
-                                                        <input class="form-control " type="text" name="user[0][name]" id="user[0][name]">
+                                                <div class="flex flex-row flex-wrap gap-2xs">
+                                                    <div>
+                                                        <input class="checkbox" type="checkbox" name="user[0][newsletter]" id="user[0][newsletter]" data-default="true">
+                                                        <label for="user[0][newsletter]">Subscribe me</label>
                                                     </div>
-                                                    <div class="col-5@md">
-                                                        <label class="form-label margin-bottom-2xs" for="user[0][email]">Email</label>
-                                                        <input class="form-control " type="email" name="user[0][email]" id="user[0][email]" data-default="myemail@mail.com">
-                                                    </div>
-                                                    <div class="col-2@md">
-                                                        <button class="btn btn--subtle padding-x-xs col-content js-repeater__remove" type="button">
-                                                            <svg class="icon block"><use href="#trash"></use></svg>
-                                                        </button>
-                                                    </div>
+                                                    <button class="js-repeater__remove" type="button">
+                                                        <svg class="icon block"><use href="#trash"></use></svg>
+                                                    </button>
                                                 </div>
                                             </fieldset>
                                         </div>
                                         <button class="btn btn--primary width-100% margin-top-xs js-repeater__add" type="button">+ Afegir Item</button>
                                     </div>
-                            </div>
-                        </section>
-                        <section class="padding-y-xs"><h2> Formularis: Radio o Checkboxes </h2>
-                            <div class="container max-width-3xs padding-y-xs ">
-                                <div class="js-repeater" data-repeater-input-name="user[n]" data-repeater-class="show-remover">
-                                    <div class="grid gap-xs js-repeater__list">
-                                        <fieldset class="js-repeater__item">
-                                            <div class="flex flex-row flex-wrap gap-2xs">
-                                                <div>
-                                                    <input class="checkbox" type="checkbox" name="user[0][newsletter]" id="user[0][newsletter]" data-default="true">
-                                                    <label for="user[0][newsletter]">Subscribe me</label>
-                                                </div>
-                                                <button class="js-repeater__remove" type="button">
-                                                    <svg class="icon block"><use href="#trash"></use></svg>
-                                                </button>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <button class="btn btn--primary width-100% margin-top-xs js-repeater__add" type="button">+ Afegir Item</button>
                                 </div>
-                            </div>
-                        </section>
-                        <section class="padding-y-xs"><h2> Formularis: dinàmic </h2>
-                            <div class="container max-width-3xs padding-y-xs ">
-                                <div class="js-repeater" data-repeater-input-name="user[n]" data-repeater-class="show-remover">
-                                    <div class="js-repeater__list">
-                                        <fieldset class="js-repeater__item">
-                                            <div class="grid gap-2xs">
-                                                <div class="container ">
-                                                    <label class="form-label margin-bottom-2xs" for="qtyInput">Quantity:</label>
-                                                    <div class="number-input number-input--v1 js-number-input">
-                                                        <input class="form-control js-number-input__value" type="number" name="qtyInput" id="qtyInput" min="0" max="10" step="1" value="1">
-                                                        <div class="number-input__btns">
-                                                            <button class="number-input__btn number-input__btn--plus js-number-input__btn" aria-label="Increase Number" type="button">
-                                                                <svg class="icon" viewBox="0 0 8 8">
-                                                                    <path d="M7.909,6.213l-3.5-5a.52.52,0,0,0-.82,0l-3.5,5A.5.5,0,0,0,.5,7h7a.5.5,0,0,0,.409-.787Z"/>
-                                                                </svg>
-                                                            </button>
-                                                            <button class="number-input__btn number-input__btn--minus js-number-input__btn" aria-label="Decrease Number" type="button">
-                                                                <svg class="icon" viewBox="0 0 8 8">
-                                                                    <path d="M7.909,1.8l-3.5,5a.519.519,0,0,1-.82,0l-3.5-5A.5.5,0,0,1,.5,1.013h7a.5.5,0,0,1,.409.787Z"/>
-                                                                </svg>
-                                                            </button>
+                            </section>
+                            <section class="padding-y-xs"><h2> Formularis: dinàmic </h2>
+                                <div class="container max-width-3xs padding-y-xs ">
+                                    <div class="js-repeater" data-repeater-input-name="user[n]" data-repeater-class="show-remover">
+                                        <div class="js-repeater__list">
+                                            <fieldset class="js-repeater__item">
+                                                <div class="grid gap-2xs">
+                                                    <div class="container ">
+                                                        <label class="form-label margin-bottom-2xs" for="qtyInput">Quantity:</label>
+                                                        <div class="number-input number-input--v1 js-number-input">
+                                                            <input class="form-control js-number-input__value" type="number" name="qtyInput" id="qtyInput" min="0" max="10" step="1" value="1">
+                                                            <div class="number-input__btns">
+                                                                <button class="number-input__btn number-input__btn--plus js-number-input__btn" aria-label="Increase Number" type="button">
+                                                                    <svg class="icon" viewBox="0 0 8 8">
+                                                                        <path d="M7.909,6.213l-3.5-5a.52.52,0,0,0-.82,0l-3.5,5A.5.5,0,0,0,.5,7h7a.5.5,0,0,0,.409-.787Z"/>
+                                                                    </svg>
+                                                                </button>
+                                                                <button class="number-input__btn number-input__btn--minus js-number-input__btn" aria-label="Decrease Number" type="button">
+                                                                    <svg class="icon" viewBox="0 0 8 8">
+                                                                        <path d="M7.909,1.8l-3.5,5a.519.519,0,0,1-.82,0l-3.5-5A.5.5,0,0,1,.5,1.013h7a.5.5,0,0,1,.409.787Z"/>
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <button class="btn btn--subtle padding-x-xs col-content js-repeater__remove" type="button">
+                                                        <svg class="icon block"><use href="#trash"></use></svg>
+                                                    </button>
                                                 </div>
-                                                <button class="btn btn--subtle padding-x-xs col-content js-repeater__remove" type="button">
-                                                    <svg class="icon block"><use href="#trash"></use></svg>
-                                                </button>
-                                            </div>
-                                        </fieldset>
+                                            </fieldset>
+                                        </div>
+                                        <button class="btn btn--primary width-100% margin-top-xs js-repeater__add" type="button">+ Afegir Item</button>
                                     </div>
-                                    <button class="btn btn--primary width-100% margin-top-xs js-repeater__add" type="button">+ Afegir Item</button>
                                 </div>
-                            </div>
-                        </section>
-                        <div class="text-divider"><span><h1>Smooth Scrolling</h1></span></div>
-                        <section class="padding-y-xs">
-                            <div class="container padding-y-xs ">
-                                <a href="#targetId" class="js-smooth-scroll" data-duration="300">Click to scroll to Section Two</a>
-                                <div class="text-component margin-top-md">
-                                    <h1 class="toc-skip">Section One</h1>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, aspernatur. Sapiente dolorum neque modi ad repellendus, suscipit quia doloremque vero, veritatis aliquid nihil! Adipisci odit laudantium voluptas repellendus consequatur assumenda eveniet, molestias nobis tenetur? Quaerat ex illo ut cupiditate blanditiis qui atque vero fuga, consequatur velit perferendis rem reprehenderit tenetur, amet illum architecto, maxime dicta impedit iusto! Nobis, quam incidunt maxime at quia laudantium natus cum. Quis eveniet hic officiis animi doloremque, tenetur consequatur nihil eligendi nobis in ex voluptates harum, delectus dicta facilis, vero ea. Molestias dolorum, eius ipsa officia error ipsum eaque. Quisquam quasi ab quibusdam cupiditate explicabo ad nobis aliquam, saepe, commodi molestiae error, quos quaerat ea! Ipsum minus velit quisquam omnis recusandae saepe! Dolore rerum tempore est veritatis minus modi facere, ipsam illo dicta, iusto beatae officia odio deserunt veniam dignissimos quos quia laudantium iure fugit eaque possimus suscipit? Magni saepe soluta nisi ipsa iusto deleniti tempora, explicabo commodi, at quam voluptatem voluptatum voluptas accusamus non id asperiores nobis aliquid excepturi? Delectus consectetur, animi aut illum at iusto? Est impedit iusto, praesentium porro eaque unde aspernatur aperiam. Veniam error, deleniti iusto aut a ullam voluptatem dignissimos quia! Maxime vitae reprehenderit quidem eligendi sit non est? Earum illum sequi odio. Beatae sit unde velit voluptatibus, ducimus officia, accusamus iusto voluptas atque necessitatibus, qui sunt delectus porro reiciendis quisquam hic autem illo magnam ipsa quod nobis odio dignissimos. Impedit ipsum tenetur deserunt quod odio labore, minus, sit voluptate corrupti nisi pariatur quae quaerat, necessitatibus est iste exercitationem quisquam quia voluptas rem? Eos voluptatibus nihil aut reprehenderit suscipit temporibus praesentium quod, animi debitis. Dolores exercitationem nesciunt ea eum voluptatibus quaerat! Expedita quae suscipit, corrupti repudiandae reiciendis autem totam ipsam dolor rem eius sed doloremque modi voluptates, quidem consequatur deserunt possimus ullam inventore voluptate nemo dolore error amet.</p>
-                        
-                                    <h2 id="targetId" class="toc-skip">Section Two</h2>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, aspernatur. Sapiente dolorum neque modi ad repellendus, suscipit quia doloremque vero, veritatis aliquid nihil! Adipisci odit laudantium voluptas repellendus consequatur assumenda eveniet, molestias nobis tenetur? Quaerat ex illo ut cupiditate blanditiis qui atque vero fuga, consequatur velit perferendis rem reprehenderit tenetur, amet illum architecto, maxime dicta impedit iusto! Nobis, quam incidunt maxime at quia laudantium natus cum. Quis eveniet hic officiis animi doloremque, tenetur consequatur nihil eligendi nobis in ex voluptates harum, delectus dicta facilis, vero ea. Molestias dolorum, eius ipsa officia error iste illo voluptatum ipsum eaque. Quisquam quasi ab quibusdam cupiditate explicabo ad nobis aliquam, saepe, commodi molestiae error, quos quaerat ea! Ipsum minus velit quisquam omnis recusandae saepe! Dolore rerum tempore est, ipsam illo dicta, iusto beatae officia odio deserunt veniam dignissimos quos quia laudantium iure fugit eaque possimus suscipit? Magni saepe soluta nisi ipsa iusto deleniti tempora, explicabo commodi, at quam voluptatem voluptatum voluptas accusamus non id asperiores nobis aliquid excepturi? Delectus consectetur, animi aut illum at iusto? Est impedit iusto, praesentium porro eaque unde aspernatur aperiam. Veniam error, deleniti iusto aut a ullam voluptatem dignissimos quia! Maxime vitae reprehenderit quidem eligendi sit non est? Earum illum sequi odio. Beatae sit unde velit voluptatibus, ducimus officia, accusamus iusto voluptas atque necessitatibus, qui sunt delectus porro reiciendis quisquam hic autem illo magnam ipsa quod nobis odio dignissimos. Impedit ipsum tenetur deserunt quod odio labore, minus, sit voluptate corrupti nisi pariatur quae quaerat, necessitatibus est iste exercitationem quisquam quia voluptas rem? Eos voluptatibus nihil aut reprehenderit suscipit temporibus praesentium quod, animi debitis. Dolores exercitationem nesciunt ea eum voluptatibus quaerat! Expedita quae suscipit, corrupti repudiandae reiciendis autem totam ipsam dolor rem eius sed doloremque modi voluptates, quidem consequatur deserunt possimus ullam inventore voluptate nemo dolore error amet.</p>
-                        
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, aspernatur. Sapiente dolorum neque modi ad repellendus, suscipit quia doloremque vero, veritatis aliquid nihil! Adipisci odit laudantium voluptas repellendus consequatur assumenda eveniet, molestias nobis tenetur? Quaerat ex illo ut cupiditate blanditiis qui atque vero fuga, consequatur velit perferendis rem reprehenderit tenetur, amet illum architecto, maxime dicta impedit iusto! Nobis, quam incidunt maxime at quia laudantium natus cum. Quis eveniet hic officiis animi doloremque, tenetur consequatur nihil eligendi nobis in ex voluptates harum, delectus dicta facilis, vero ea. Molestias dolorum, eius ipsa officia error iste illo voluptatum ipsum eaque. Quisquam quasi ab quibusdam cupiditate explicabo ad nobis aliquam, saepe, commodi molestiae error, quos quaerat ea! Ipsum minus velit quisquam omnis recusandae saepe! Dolore rerum tempore est veritatis minus modi facere, ipsam illo dicta, iusto beatae officia odio deserunt veniam dignissimos quos quia laudantium iure fugit eaque possimus suscipit? Magni saepe soluta nisi ipsa iusto deleniti tempora, explicabo commodi, at quam voluptatem voluptatum voluptas accusamus non id asperiores nobis aliquid excepturi? Delectus consectetur, animi aut illum at iusto? Est impedit iusto, praesentium porro eaque unde aspernatur aperiam. Veniam error, deleniti iusto aut a ullam voluptatem dignissimos quia! Maxime vitae reprehenderit quidem eligendi sit non est? Earum illum sequi odio. Beatae sit unde velit voluptatibus, ducimus officia, accusamus iusto voluptas atque necessitatibus, qui sunt delectus porro reiciendis quisquam hic autem illo magnam ipsa quod nobis odio dignissimos. Impedit ipsum tenetur deserunt quod odio labore, minus, sit voluptate corrupti nisi pariatur quae quaerat, necessitatibus est iste exercitationem quisquam quia voluptas rem? Eos voluptatibus nihil aut reprehenderit suscipit temporibus praesentium quod, animi debitis. Dolores exercitationem nesciunt ea eum voluptatibus quaerat! Expedita quae suscipit, corrupti repudiandae reiciendis autem totam ipsam dolor rem eius sed doloremque modi voluptates, quidem consequatur deserunt possimus ullam inventore voluptate nemo dolore error amet.</p>
+                            </section>
+                            <div class="text-divider"><span><h1>Smooth Scrolling</h1></span></div>
+                            <section class="padding-y-xs">
+                                <div class="container padding-y-xs ">
+                                    <a href="#targetId" class="js-smooth-scroll" data-duration="300">Click to scroll to Section Two</a>
+                                    <div class="text-component margin-top-md">
+                                        <h1 class="toc-skip">Section One</h1>
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, aspernatur. Sapiente dolorum neque modi ad repellendus, suscipit quia doloremque vero, veritatis aliquid nihil! Adipisci odit laudantium voluptas repellendus consequatur assumenda eveniet, molestias nobis tenetur? Quaerat ex illo ut cupiditate blanditiis qui atque vero fuga, consequatur velit perferendis rem reprehenderit tenetur, amet illum architecto, maxime dicta impedit iusto! Nobis, quam incidunt maxime at quia laudantium natus cum. Quis eveniet hic officiis animi doloremque, tenetur consequatur nihil eligendi nobis in ex voluptates harum, delectus dicta facilis, vero ea. Molestias dolorum, eius ipsa officia error ipsum eaque. Quisquam quasi ab quibusdam cupiditate explicabo ad nobis aliquam, saepe, commodi molestiae error, quos quaerat ea! Ipsum minus velit quisquam omnis recusandae saepe! Dolore rerum tempore est veritatis minus modi facere, ipsam illo dicta, iusto beatae officia odio deserunt veniam dignissimos quos quia laudantium iure fugit eaque possimus suscipit? Magni saepe soluta nisi ipsa iusto deleniti tempora, explicabo commodi, at quam voluptatem voluptatum voluptas accusamus non id asperiores nobis aliquid excepturi? Delectus consectetur, animi aut illum at iusto? Est impedit iusto, praesentium porro eaque unde aspernatur aperiam. Veniam error, deleniti iusto aut a ullam voluptatem dignissimos quia! Maxime vitae reprehenderit quidem eligendi sit non est? Earum illum sequi odio. Beatae sit unde velit voluptatibus, ducimus officia, accusamus iusto voluptas atque necessitatibus, qui sunt delectus porro reiciendis quisquam hic autem illo magnam ipsa quod nobis odio dignissimos. Impedit ipsum tenetur deserunt quod odio labore, minus, sit voluptate corrupti nisi pariatur quae quaerat, necessitatibus est iste exercitationem quisquam quia voluptas rem? Eos voluptatibus nihil aut reprehenderit suscipit temporibus praesentium quod, animi debitis. Dolores exercitationem nesciunt ea eum voluptatibus quaerat! Expedita quae suscipit, corrupti repudiandae reiciendis autem totam ipsam dolor rem eius sed doloremque modi voluptates, quidem consequatur deserunt possimus ullam inventore voluptate nemo dolore error amet.</p>
+                            
+                                        <h2 id="targetId" class="toc-skip">Section Two</h2>
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, aspernatur. Sapiente dolorum neque modi ad repellendus, suscipit quia doloremque vero, veritatis aliquid nihil! Adipisci odit laudantium voluptas repellendus consequatur assumenda eveniet, molestias nobis tenetur? Quaerat ex illo ut cupiditate blanditiis qui atque vero fuga, consequatur velit perferendis rem reprehenderit tenetur, amet illum architecto, maxime dicta impedit iusto! Nobis, quam incidunt maxime at quia laudantium natus cum. Quis eveniet hic officiis animi doloremque, tenetur consequatur nihil eligendi nobis in ex voluptates harum, delectus dicta facilis, vero ea. Molestias dolorum, eius ipsa officia error iste illo voluptatum ipsum eaque. Quisquam quasi ab quibusdam cupiditate explicabo ad nobis aliquam, saepe, commodi molestiae error, quos quaerat ea! Ipsum minus velit quisquam omnis recusandae saepe! Dolore rerum tempore est, ipsam illo dicta, iusto beatae officia odio deserunt veniam dignissimos quos quia laudantium iure fugit eaque possimus suscipit? Magni saepe soluta nisi ipsa iusto deleniti tempora, explicabo commodi, at quam voluptatem voluptatum voluptas accusamus non id asperiores nobis aliquid excepturi? Delectus consectetur, animi aut illum at iusto? Est impedit iusto, praesentium porro eaque unde aspernatur aperiam. Veniam error, deleniti iusto aut a ullam voluptatem dignissimos quia! Maxime vitae reprehenderit quidem eligendi sit non est? Earum illum sequi odio. Beatae sit unde velit voluptatibus, ducimus officia, accusamus iusto voluptas atque necessitatibus, qui sunt delectus porro reiciendis quisquam hic autem illo magnam ipsa quod nobis odio dignissimos. Impedit ipsum tenetur deserunt quod odio labore, minus, sit voluptate corrupti nisi pariatur quae quaerat, necessitatibus est iste exercitationem quisquam quia voluptas rem? Eos voluptatibus nihil aut reprehenderit suscipit temporibus praesentium quod, animi debitis. Dolores exercitationem nesciunt ea eum voluptatibus quaerat! Expedita quae suscipit, corrupti repudiandae reiciendis autem totam ipsam dolor rem eius sed doloremque modi voluptates, quidem consequatur deserunt possimus ullam inventore voluptate nemo dolore error amet.</p>
+                            
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, aspernatur. Sapiente dolorum neque modi ad repellendus, suscipit quia doloremque vero, veritatis aliquid nihil! Adipisci odit laudantium voluptas repellendus consequatur assumenda eveniet, molestias nobis tenetur? Quaerat ex illo ut cupiditate blanditiis qui atque vero fuga, consequatur velit perferendis rem reprehenderit tenetur, amet illum architecto, maxime dicta impedit iusto! Nobis, quam incidunt maxime at quia laudantium natus cum. Quis eveniet hic officiis animi doloremque, tenetur consequatur nihil eligendi nobis in ex voluptates harum, delectus dicta facilis, vero ea. Molestias dolorum, eius ipsa officia error iste illo voluptatum ipsum eaque. Quisquam quasi ab quibusdam cupiditate explicabo ad nobis aliquam, saepe, commodi molestiae error, quos quaerat ea! Ipsum minus velit quisquam omnis recusandae saepe! Dolore rerum tempore est veritatis minus modi facere, ipsam illo dicta, iusto beatae officia odio deserunt veniam dignissimos quos quia laudantium iure fugit eaque possimus suscipit? Magni saepe soluta nisi ipsa iusto deleniti tempora, explicabo commodi, at quam voluptatem voluptatum voluptas accusamus non id asperiores nobis aliquid excepturi? Delectus consectetur, animi aut illum at iusto? Est impedit iusto, praesentium porro eaque unde aspernatur aperiam. Veniam error, deleniti iusto aut a ullam voluptatem dignissimos quia! Maxime vitae reprehenderit quidem eligendi sit non est? Earum illum sequi odio. Beatae sit unde velit voluptatibus, ducimus officia, accusamus iusto voluptas atque necessitatibus, qui sunt delectus porro reiciendis quisquam hic autem illo magnam ipsa quod nobis odio dignissimos. Impedit ipsum tenetur deserunt quod odio labore, minus, sit voluptate corrupti nisi pariatur quae quaerat, necessitatibus est iste exercitationem quisquam quia voluptas rem? Eos voluptatibus nihil aut reprehenderit suscipit temporibus praesentium quod, animi debitis. Dolores exercitationem nesciunt ea eum voluptatibus quaerat! Expedita quae suscipit, corrupti repudiandae reiciendis autem totam ipsam dolor rem eius sed doloremque modi voluptates, quidem consequatur deserunt possimus ullam inventore voluptate nemo dolore error amet.</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
-                    </article>
+                            </section>
+                        </article>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    {{> totop }}
-    {{> footer }}
-    {{> svg }}
-</body>
-<script type="module" src="/js/main.js"></script>
-
-<script type="module" >
-    const newsletterinputs = document.getElementsByClassName('js-news-form');
-    if (newsletterinputs.length > 0) {
-        new NewsInput({
-            element: newsletterinputs[0],
-            submit: function(email, cb) {
-                setTimeout(function() {
-                    cb('success');
-                }, 3360);
-            }
-        });
-        new NewsInput({
-            element: newsletterinputs[1],
-            submit: function(email, cb) {
-                setTimeout(function() {
-                    cb('error');
-                }, 3360);
-            }
-        });
-    }
-</script>
-<script type="module">
-    const repeaters = Array.from(document.getElementsByClassName('js-repeater'));
-    if(repeaters.length > 0) {
-        repeaters.forEach(element => {
-            element.addEventListener('itemCloned', function(event) {
-                initDynamicInput(event.detail);
+        </main>
+        {{> totop }}
+        {{> footer }}
+        {{> svg }}
+    </body>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" >
+        const newsletterinputs = document.getElementsByClassName('js-news-form');
+        if (newsletterinputs.length > 0) {
+            new NewsInput({
+                element: newsletterinputs[0],
+                submit: function(email, cb) {
+                    setTimeout(function() {
+                        cb('success');
+                    }, 3360);
+                }
             });
-        });
-    }
+            new NewsInput({
+                element: newsletterinputs[1],
+                submit: function(email, cb) {
+                    setTimeout(function() {
+                        cb('error');
+                    }, 3360);
+                }
+            });
+        }
+    </script>
+    <script type="module">
+        const repeaters = Array.from(document.getElementsByClassName('js-repeater'));
+        if(repeaters.length > 0) {
+            repeaters.forEach(element => {
+                element.addEventListener('itemCloned', function(event) {
+                    initDynamicInput(event.detail);
+                });
+            });
+        }
 
-    function initDynamicInput(element) {
-        Array.from(element.getElementsByClassName('js-number-input')).forEach((element) => { new NumberInput(element); });
-    };
-</script>
+        function initDynamicInput(element) {
+            Array.from(element.getElementsByClassName('js-number-input')).forEach((element) => { new NumberInput(element); });
+        };
+    </script>
 </html>

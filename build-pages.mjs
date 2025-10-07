@@ -1,3 +1,4 @@
+// build-pages.mjs
 /**
  * 🛠️ Compilador Handlebars per a projectes Vite multipàgina
  *
