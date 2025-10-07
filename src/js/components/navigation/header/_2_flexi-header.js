@@ -152,4 +152,25 @@ class FlexiHeader {
             .replace(/['"]/g, '');
     }
 }
-export default FlexiHeader;
+
+function initFlexiHeader(context = document) {
+    /*
+    | Cas                                         | Recomanació                             |
+    | ------------------------------------------- | ----------------------------------------|
+    | Components **lleugers o visuals**           | `dataset.*` ✅ (més semàntic, visible)  |
+    | Components **modulars o amb lògica pròpia** | `__instance` ✅ (més eficient i flexible) |
+    */
+    const elements = context.querySelectorAll('.js-f-header');
+    elements.forEach((header) => {
+        // Evita duplicar instàncies
+        if (header.__flexiInstance) return;
+
+        // Inicialitza una nova instància
+        const instance = new FlexiHeader();
+
+        // Marca l'element per evitar reinit
+        header.__flexiInstance = instance;
+    });
+}
+
+export { FlexiHeader, initFlexiHeader };

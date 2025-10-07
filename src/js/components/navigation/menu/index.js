@@ -1,4 +1,3 @@
-import Menu from './_1_menu';
-import MenuBar from './_2_menu-bar';
-export default Menu;
-export { Menu, MenuBar };
+// src/js/components/navigation/menu/index.js
+export * from './_1_menu';
+export * from './_2_menu-bar';

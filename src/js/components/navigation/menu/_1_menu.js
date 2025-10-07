@@ -194,12 +194,15 @@ class Menu {
     }
 }
 
-export default Menu;
+function initMenu(context = document) {
+    const elements = context.querySelectorAll('.js-menu');
+    elements.forEach(el => {
+        if (!el.dataset.menuInitialized) {
+            new Menu(el);
+            el.dataset.menuInitialized = 'true';
+        }
+    });
+}
 
-// Inicialitza els menús
-document.addEventListener('DOMContentLoaded', () => {
-    const menus = Array.from(document.getElementsByClassName('js-menu'));
-    if(menus.length > 0) {
-        menus.forEach(element => new Menu(element));   
-    }
-});
+
+export { Menu, initMenu };

@@ -1,3 +1,2 @@
-import Accordion from './_1_accordion';
-export default Accordion;
-export { Accordion };
+// src/js/components/navigation/accordion/index.js
+export * from  './_1_accordion';

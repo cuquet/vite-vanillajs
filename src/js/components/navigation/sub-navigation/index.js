@@ -1,2 +1,2 @@
-import SubNavigation from './_1_sub-navigation';
-export default SubNavigation;
+// src/js/components/navigation/sub-navigation/index.js
+export * from './_1_sub-navigation';

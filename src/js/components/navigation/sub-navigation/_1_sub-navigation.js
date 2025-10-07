@@ -114,16 +114,17 @@ class SubNavigation {
     }
 }
 
-export default SubNavigation;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const subNavElements = Array.from(document.getElementsByClassName('js-subnav'));
-    subNavElements.forEach(element => {
-        new SubNavigation(element);
-        const content = getComputedStyle(element, ':before').getPropertyValue('content');
-        if (content && content !== 'none') {
-            // @TODO console.log('subnav=>',content);
+function initSubNavigation(context = document) {
+    const elements = context.querySelectorAll('.js-subnav');
+    elements.forEach(el => {
+        if (!el.dataset.subNavigationInitialized) {
+            const content = getComputedStyle(el, ':before').getPropertyValue('content');
+            if (content && content !== '' && content !== 'none') {
+                new SubNavigation(el);
+                el.dataset.subNavigationInitialized = 'true';
+            }
         }
     });
-});
+}
 
+export { SubNavigation, initSubNavigation };

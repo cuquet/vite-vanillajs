@@ -1,2 +1,2 @@
-import Tab from './_1_tabs';
-export default Tab;
+// src/js/components/navigation/tabs/index.js
+export * from './_1_tabs';

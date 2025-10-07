@@ -8,7 +8,7 @@ Dependencies
 _1_menu
 
 -------------------------------- */
-import Menu from './_1_menu';
+import {Menu} from './_1_menu';
 //import { tools as Util } from '@modules';
 
 class MenuBar extends Menu {
@@ -181,18 +181,31 @@ class MenuBar extends Menu {
         }
     }
 }
-export default MenuBar;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const menuBars = Array.from(document.getElementsByClassName('js-menu-bar'));
-    if(menuBars.length > 0) {
-        menuBars.forEach( element => {
-            //new MenuBar(element);
-            const content = getComputedStyle(element, ':before').getPropertyValue('content');
+function initMenuBar(context = document) {
+    const elements = context.querySelectorAll('.js-menu-bar');
+    elements.forEach(el => {
+        if (!el.dataset.menubarInitialized) {
+            const content = getComputedStyle(el, ':before').getPropertyValue('content');
             if (content && content !== '' && content !== 'none') {
-                new MenuBar(element);
+                new MenuBar(el);
+                el.dataset.menubarInitialized = 'true';
             }
-        });
-    }
-});
+        }
+    });
+}
 
+// document.addEventListener('DOMContentLoaded', () => {
+//     const menuBars = Array.from(document.getElementsByClassName('js-menu-bar'));
+//     if(menuBars.length > 0) {
+//         menuBars.forEach( element => {
+//             //new MenuBar(element);
+//             const content = getComputedStyle(element, ':before').getPropertyValue('content');
+//             if (content && content !== '' && content !== 'none') {
+//                 new MenuBar(element);
+//             }
+//         });
+//     }
+// });
+
+export { MenuBar, initMenuBar };

@@ -264,7 +264,6 @@ class SideNav {
         });
     }
 }
-
 class Sidebar extends SideNav {
     constructor(element) {
         super();

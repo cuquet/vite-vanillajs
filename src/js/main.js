@@ -3,8 +3,7 @@ import './components/navigation';
 import './components/plugins';
 import './components/table';
 
-import { FlexiHeader } from './components/navigation';
-new FlexiHeader();
+
 import { setupCounter } from '@components/counter.js';
 if (document.querySelector('#counter')) {
     setupCounter(document.querySelector('#counter'));
@@ -25,6 +24,14 @@ const INIT_ENTRIES = [
     { selector: '.js-ld-switch', component: '@components/controls', init: 'initLdSwitch' },
     { selector: '.js-fullscreen-btn', component: '@components/controls', init: 'initFullscreenBtn' },
 
+    //navigation
+    { selector: '.js-accordion', component: '@components/navigation', init: 'initAccordion' },
+    { selector: '.js-f-header', component: '@components/navigation', init: 'initFlexiHeader' },
+    { selector: '.js-menu', component: '@components/navigation', init: 'initMenu' },
+    { selector: '.js-menu-bar', component: '@components/navigation', init: 'initMenuBar' },
+    { selector: '.js-tabs', component: '@components/navigation', init: 'initTab', expose: 'Tab' },
+    { selector: '.js-subnav', component: '@components/navigation', init: 'initSubNavigation' },
+    
     // Forms
     { selector: '.js-choice-tag', component: '@components/forms', init: 'initChoiceTags' },
     { selector: '.js-number-input', component: '@components/forms', init: 'initNumberInput' },

@@ -3,6 +3,7 @@
 import * as Controls from '@components/controls';
 import * as Forms from '@components/forms';
 import * as Overlays from '@components/overlays';
+import * as Navigation from '@components/navigation';
 
 /**
  * Inicialitza components segons el DOM i la configuració INIT_ENTRIES
@@ -20,6 +21,8 @@ export async function initComponents(context = document, entries = []) {
         let module;
         if (component.startsWith('@components/controls')) {
             module = Controls;
+        } else if (component.startsWith('@components/navigation')) {
+            module = Navigation;
         } else if (component.startsWith('@components/forms')) {
             module = Forms;
         } else if (component.startsWith('@components/overlays')) {
@@ -28,7 +31,6 @@ export async function initComponents(context = document, entries = []) {
             console.warn('Component no reconegut:', component);
             continue;
         }
-
 
         if (isProd) {
             // PROD: assumeix que el bundle ja té tot importat

@@ -108,12 +108,14 @@ class Accordion {
     }
 }
 
-export default Accordion;
+function initAccordion(context = document) {
+    const elements = context.querySelectorAll('.js-accordion');
+    elements.forEach(el => {
+        if (!el.dataset.accordionInitialized) {
+            new Accordion(el);
+            el.dataset.accordionInitialized = 'true';
+        }
+    });
+}
 
-// Inicialitza els menús
-document.addEventListener('DOMContentLoaded', () => {
-    const accordions = Array.from(document.getElementsByClassName('js-accordion'));
-    if(accordions.length > 0) {
-        accordions.forEach(element => new Accordion(element));   
-    }
-});
+export { Accordion, initAccordion };

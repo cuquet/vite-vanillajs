@@ -122,10 +122,15 @@ class Tab {
 }
 
 window.Tab = Tab;
-export default Tab;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const tabs = Array.from(document.getElementsByClassName('js-tabs'));
-    tabs.forEach(tab => new Tab(tab));
-});
+function initTab(context = document) {
+    const elements = context.querySelectorAll('.js-tabs');
+    elements.forEach(el => {
+        if (!el.dataset.tabInitialized) {
+            new Tab(el);
+            el.dataset.tabInitialized = 'true';
+        }
+    });
+}
 
+export { Tab, initTab };
