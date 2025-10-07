@@ -6,7 +6,7 @@
   "scripts": {
     "build:pages": "node build-pages.mjs",
     "dev": "npm run build:pages && vite",
-    "build": "NODE_ENV=production npm run build:pages && vite build",
+    "build": "npm run build:pages --prod && vite build",
     "preview": "vite preview",
     "lint": "npx eslint src ",
     "lint:fix": "npm run lint -- --fix",
@@ -16,7 +16,6 @@
   "devDependencies": {
     "@eslint/js": "^9.16.0",
     "autoprefixer": "^10.4.21",
-    "chokidar": "^4.0.3",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

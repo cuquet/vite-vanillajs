@@ -17,6 +17,7 @@
  *   - node build-pages.mjs
  *   - node build-pages.mjs src/site/pages/index.html
  *   - node build-pages.mjs src/site/partials/header.hbs
+ *   - node build-pages.mjs --prod  // prod mode
  */
 
 import handlebars from 'handlebars';
@@ -63,12 +64,14 @@ async function compilePage(pageFile, env = 'development') {
 }
 
 // Troba totes les pàgines que usen un partial concret
-function findPagesUsingPartial(partialName) {
-    const pageFiles = glob.sync(`${PAGES}/**/*.html`);
-    return pageFiles.filter((file) => {
-        const content = fs.readFileSync(file, 'utf8');
-        return new RegExp(`\\{\\{>\\s*${partialName}\\b`).test(content);
-    });
+async function findPagesUsingPartial(partialName) {
+    const pageFiles = await glob(`${PAGES}/**/*.html`);
+    const affected = [];
+    for (const file of pageFiles) {
+        const content = await fs.readFile(file, 'utf8');
+        if (new RegExp(`\\{\\{>\\s*${partialName}\\b`).test(content)) affected.push(file);
+    }
+    return affected;
 }
 
 // Esborra HTML de src/ que ja no tenen pàgina d’origen
@@ -94,16 +97,24 @@ async function cleanOldCompiledPages() {
 // ---------------------------
 // 🧠 Execució principal
 // ---------------------------
-const env = process.env.NODE_ENV || 'development';
-const arg = process.argv[2] ? path.resolve(process.argv[2]) : null;
+const args = process.argv.slice(2);
+const fileArg = args.find(a => !a.startsWith('--'));
+const isProd = args.includes('--prod');
+const env = isProd ? 'production' : 'development';
 
 await registerPartials();
 const entries = {};
 
-if (arg) {
-    if (arg.endsWith('.hbs') && arg.startsWith(PARTIALS)) {
-        const partialName = path.basename(arg, '.hbs');
-        const affectedPages = findPagesUsingPartial(partialName);
+if (fileArg) {
+    const absFile = path.resolve(fileArg);
+
+    // ✅ Comprovació compatible amb Windows/macOS/Linux
+    const isPartial = path.relative(PARTIALS, absFile).startsWith('..') === false;
+    const isPage = path.relative(PAGES, absFile).startsWith('..') === false;
+
+    if (absFile.endsWith('.hbs') && isPartial) {
+        const partialName = path.basename(absFile, '.hbs');
+        const affectedPages = await findPagesUsingPartial(partialName);
         if (!affectedPages.length) {
             console.log(`ℹ️ Cap pàgina utilitza el partial "${partialName}".`);
         } else {
@@ -113,16 +124,9 @@ if (arg) {
                 entries[key] = out;
             }
         }
-    } else if (arg.endsWith('.html') && arg.startsWith(PAGES)) {
-        const [key, out] = await compilePage(arg, env);
+    } else if (absFile.endsWith('.html') && isPage) {
+        const [key, out] = await compilePage(absFile, env);
         entries[key] = out;
-    } else {
-        console.warn('⚠️ Fitxer desconegut — compilant tot.');
-        const pageFiles = await glob(`${PAGES}/**/*.html`);
-        for (const page of pageFiles) {
-            const [key, out] = await compilePage(page, env);
-            entries[key] = out;
-        }
     }
 
     await cleanOldCompiledPages();
@@ -130,7 +134,9 @@ if (arg) {
     const prev = (await fs.pathExists(ENTRY_FILE)) ? await fs.readJson(ENTRY_FILE) : {};
     Object.assign(prev, entries);
     await fs.writeJson(ENTRY_FILE, prev, { spaces: 2 });
+
 } else {
+    console.log('ℹ️ Cap fitxer passat — compilant totes les pàgines.');
     const pageFiles = await glob(`${PAGES}/**/*.html`);
     for (const page of pageFiles) {
         const [key, out] = await compilePage(page, env);
