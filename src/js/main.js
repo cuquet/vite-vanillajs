@@ -45,12 +45,12 @@ const INIT_ENTRIES = [
     { selector: '.js-language-picker', component: '@components/forms', expose: 'LanguagePicker' },
 
     // Overlays
-    { selector: '.js-flash-message', component: '@components/overlays/flash-message', init: 'initFlashMessage' },
-    { selector: '.js-toast', component: '@components/overlays/toast', init: 'initToasts' },
+    { selector: '.js-flash-message', component: '@components/overlays', init: 'initFlashMessage' },
+    { selector: '.js-toast', component: '@components/overlays', init: 'initToasts', expose: 'Toasts' },
     // dialog: expose class (no init function executed here)
-    { selector: '.js-dialog', component: '@components/overlays/dialog', expose: 'Dialog' },
-    { selector: '.js-slideshow', component: '@components/overlays/slideshow', init: 'initSlideshow' },
-    { selector: '.js-lightbox', component: '@components/overlays/lightbox', init: 'initLightbox' },
+    { selector: '.js-dialog', component: '@components/overlays', expose: 'Dialog' },
+    { selector: '.js-slideshow', component: '@components/overlays', init: 'initSlideshow' },
+    { selector: '.js-lightbox', component: '@components/overlays', init: 'initLightbox' },
     // modal: initModal + expose Modal
     { selector: '.js-modal', component: '@components/overlays/modal', init: 'initModal', expose: 'Modal' },
     // modal video: init helper + expose ModalVideo (component components/overlays/modal exports both)
