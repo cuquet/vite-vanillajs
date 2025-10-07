@@ -3,7 +3,7 @@
  * ⚡ Configuració de Vite per projecte multipàgina amb Handlebars
  *
  * 📦 Requisits:
- *   npm install --save-dev vite chokidar fs-extra glob
+ *   npm install --save-dev vite fs-extra
  *
  * 🧰 Funcions:
  *   - Compila pàgines Handlebars abans d’iniciar Vite.
@@ -14,11 +14,11 @@
  */
 
 import { defineConfig } from 'vite';
+import path from 'path';
 import { resolve } from 'path';
 import fs from 'fs-extra';
-import { execSync } from 'child_process';
-import path from 'path';
-import chokidar from 'chokidar';
+import { execSync} from 'child_process';
+
 
 const ROOT = process.cwd();
 const SRC_ROOT = path.join(ROOT, 'src');
@@ -30,18 +30,20 @@ const PARTIALS_DIR = path.join(SRC_ROOT, 'site/partials');
 // 🧱 Execució build-pages.mjs
 // ------------------------------------------------------
 function buildPages(file = '') {
-    return new Promise((resolve, reject) => {
-        const arg = file ? `"${file}"` : '';
-        const proc = exec(`node build-pages.mjs ${arg}`, { stdio: 'inherit' });
+    try {
+        // 🧮 Converteix el path absolut (si existeix) a relatiu respecte a ROOT
+        const relPath = file ? path.relative(ROOT, file) : '';
+        const arg = relPath ? `"${relPath}"` : '';
+        console.log(`🏗️ Executant build-pages.mjs ${arg || '(totes les pàgines)'}`);
 
-        proc.stdout?.pipe(process.stdout);
-        proc.stderr?.pipe(process.stderr);
-
-        proc.on('exit', (code) => {
-            if (code === 0) resolve();
-            else reject(new Error(`build-pages.mjs exited with code ${code}`));
+        // 🧱 Executa build-pages.mjs sempre amb cwd = ROOT
+        execSync(`node build-pages.mjs ${arg}`, {
+            cwd: ROOT,
+            stdio: 'inherit',
         });
-    });
+    } catch (err) {
+        console.error('❌ Error executant build-pages.mjs:', err.message);
+    }
 }
 
 // ------------------------------------------------------
@@ -51,27 +53,47 @@ function handlebarsWatcherPlugin() {
     return {
         name: 'vite-handlebars-watch',
         configureServer(server) {
-            const watcher = chokidar.watch(
-                ['src/site/pages/**/*.html', 'src/site/partials/**/*.hbs'],
-                { ignoreInitial: true },
-            );
+            console.log('👀 Watcher Handlebars actiu (pages + partials)');
+            // Indica explícitament a Vite que estigui atent a aquests patterns
+            const pagesGlob = path.join(PAGES_DIR, '**/*.html');
+            const partialsGlob = path.join(PARTIALS_DIR, '**/*.hbs');
+            server.watcher.add([pagesGlob, partialsGlob]);
 
-            watcher.on('change', async (filePath) => {
+            // Debounce per evitar múltiples builds immediats
+            let pendingTimer = null;
+            const DEBOUNCE_MS = 120;
+
+            server.watcher.on('change', (filePath) => {
+                if (!filePath) return;
                 console.log(`♻️ Fitxer canviat: ${filePath}`);
 
-                try {
-                    await buildPages(filePath);
-                    console.log('✅ build-pages.mjs completat, recarregant...');
-                    // 👇 Espera una mica abans del reload per assegurar que el fitxer s’ha escrit
-                    setTimeout(() => {
-                        server.ws.send({ type: 'full-reload' });
-                    }, 200);
-                } catch (err) {
-                    console.error('❌ Error durant la compilació Handlebars:', err);
-                }
-            });
+                const normalized = path.normalize(filePath);
+                const rel = path.relative(ROOT, normalized);
 
-            console.log('👀 Watcher Handlebars actiu (pages + partials)');
+                // Comparacions robustes: comprova si el fitxer està dins pages o partials
+                const pagesRelPrefix = path.relative(ROOT, PAGES_DIR);
+                const partialsRelPrefix = path.relative(ROOT, PARTIALS_DIR);
+
+                const isPage = rel.startsWith(pagesRelPrefix + path.sep) || rel === pagesRelPrefix;
+                const isPartial = rel.startsWith(partialsRelPrefix + path.sep) || rel === partialsRelPrefix;
+
+                if (!isPage && !isPartial) return; // no és del nostre interès
+
+                console.log(`♻️ Handlebars canviat: ${filePath} (recompilaré)`);
+                if (pendingTimer) clearTimeout(pendingTimer);
+                pendingTimer = setTimeout(() => {
+                    pendingTimer = null;
+                    try {
+                        // regenéra només el fitxer canviat
+                        buildPages(filePath);
+                        console.log('✅ build-pages.mjs completat, forçant recarrega del navegador...');
+                        // Dona un petit marge perquè el fs estigui net
+                        setTimeout(() => server.ws.send({ type: 'full-reload' }), 120);
+                    } catch (err) {
+                        console.error('❌ Error durant la compilació Handlebars:', err);
+                    }
+                }, DEBOUNCE_MS);
+            });
         },
     };
 }
@@ -80,11 +102,13 @@ function handlebarsWatcherPlugin() {
 // 🚀 Config principal de Vite
 // ------------------------------------------------------
 export default defineConfig(({ command }) => {
+    // ⚙️ Genera vite.entries.json si no existeix
     if (!fs.existsSync(ENTRY_FILE)) {
         console.log('⚙️ Generant vite.entries.json inicial...');
         buildPages();
     }
 
+    // 📦 Llegeix entrades
     let entries = {};
     if (fs.existsSync(ENTRY_FILE)) {
         entries = JSON.parse(fs.readFileSync(ENTRY_FILE, 'utf-8'));
@@ -92,11 +116,18 @@ export default defineConfig(({ command }) => {
 
     // 🏗️ Mode build: només pàgines específiques
     if (command === 'build') {
-        const allowed = ['index', 'dashboard', 'overlay-modal'];
+        buildPages(); // 🧱 reconstrueix tot abans del build
+        const allowed = ['index', 'dashboard', 'overlay-modal', 'overlay-dialog'];
         entries = Object.fromEntries(
             Object.entries(entries).filter(([key]) => allowed.includes(key)),
         );
         console.log('🏗️ Compilant només pàgines:', Object.keys(entries).join(', '));
+    }
+
+    // 🚀 Mode serve —> sempre fer buildPages() abans d’arrencar
+    if (command === 'serve') {
+        console.log('🚀 Iniciant Vite (mode desenvolupament): regenerant pàgines...');
+        buildPages();
     }
 
     return {
