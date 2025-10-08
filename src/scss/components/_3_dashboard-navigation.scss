@@ -488,6 +488,104 @@ Usage: https://codyhouse.co/ds/components/info/dashboard-navigation
         }
     }
     /* End desktop version only (--static) */
+    &__btn {
+        &-nav {
+            --anim-menu-btn-size: 36px;
+            --anim-menu-btn-icon-size: 20px;
+            --anim-menu-btn-icon-stroke: 1.5px;
+            &-wrapper {
+                position: fixed;
+                z-index: var(--z-index-overlay, 15);
+                top: 0;
+                left: 0;
+                height: var(--dr-nav-header-height);
+                width: 100%;
+                pointer-events: none;
+            }
+            pointer-events: auto;
+            position: relative;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: transform 0.3s var(--ease-in-out);
+            color: var(--color-contrast-high);
+            circle { display: none; }
+            &.anim-menu-btn--state-b { transform: rotate(180deg); }
+            &:hover &-bg {
+                fill: var(--color-contrast-lower);
+                opacity: 1;
+            }
+            &-bg {
+                display: block;
+                fill: var(--color-bg);
+                stroke-width: 1.5;
+                stroke: var(--color-contrast-low);
+                opacity: 0.95;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transition: 0.2s;
+            }
+            &--ready-to-animate circle {
+                display: block;
+                transition: stroke-dashoffset 0.3s 0s;
+            }
+            &.anim-menu-btn--state-b circle {
+                stroke-dashoffset: 0;
+                transition-delay: 0.3s;
+            }
+        }
+        &-header,
+        &-user,
+        &-lang {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-decoration: none;
+        }
+        &-header {
+            display: flex;
+            transition: background-color 0.3s;
+            color: var(--color-contrast-high);
+            &.anim-menu-btn {
+                --anim-menu-btn-size: 36px;
+                --anim-menu-btn-icon-size: 20px;
+                --anim-menu-btn-icon-stroke: 1.5px;
+            }
+            .icon {
+                font-size: 20px;
+                display: block;
+                margin: auto;
+            }
+            &:hover {
+                cursor: pointer;
+                background-color: hsla(
+                    var(--color-contrast-higher-h),
+                    var(--color-contrast-higher-s),
+                    var(--color-contrast-higher-l),
+                    0.1
+                );
+            }
+        }
+        &-user {
+            display: block;
+            overflow: hidden;
+            transition: 0.3s;
+            img {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                -o-object-fit: cover;
+                object-fit: cover;
+            }
+            :hover { opacity: 0.85; }
+        }
+    }
 }
 
 .subnav__nav {
@@ -501,101 +599,3 @@ Usage: https://codyhouse.co/ds/components/info/dashboard-navigation
     to { opacity: 1; transform: translateY(0px); }
 }
 
-.app-ui__btn {
-    &-nav {
-        --anim-menu-btn-size: 36px;
-        --anim-menu-btn-icon-size: 20px;
-        --anim-menu-btn-icon-stroke: 1.5px;
-        &-wrapper {
-            position: fixed;
-            z-index: var(--z-index-overlay, 15);
-            top: 0;
-            left: 0;
-            height: var(--dr-nav-header-height);
-            width: 100%;
-            pointer-events: none;
-        }
-        pointer-events: auto;
-        position: relative;
-        cursor: pointer;
-        border-radius: 50%;
-        transition: transform 0.3s var(--ease-in-out);
-        color: var(--color-contrast-high);
-        circle { display: none; }
-        &.anim-menu-btn--state-b { transform: rotate(180deg); }
-        &:hover &-bg {
-            fill: var(--color-contrast-lower);
-            opacity: 1;
-        }
-        &-bg {
-            display: block;
-            fill: var(--color-bg);
-            stroke-width: 1.5;
-            stroke: var(--color-contrast-low);
-            opacity: 0.95;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: 0.2s;
-        }
-        &--ready-to-animate circle {
-            display: block;
-            transition: stroke-dashoffset 0.3s 0s;
-        }
-        &.anim-menu-btn--state-b circle {
-            stroke-dashoffset: 0;
-            transition-delay: 0.3s;
-        }
-    }
-    &-header,
-    &-user,
-    &-lang {
-        position: relative;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        text-decoration: none;
-    }
-    &-header {
-        display: flex;
-        transition: background-color 0.3s;
-        color: var(--color-contrast-high);
-        &.anim-menu-btn {
-            --anim-menu-btn-size: 36px;
-            --anim-menu-btn-icon-size: 20px;
-            --anim-menu-btn-icon-stroke: 1.5px;
-        }
-        .icon {
-            font-size: 20px;
-            display: block;
-            margin: auto;
-        }
-        &:hover {
-            cursor: pointer;
-            background-color: hsla(
-                var(--color-contrast-higher-h),
-                var(--color-contrast-higher-s),
-                var(--color-contrast-higher-l),
-                0.1
-            );
-        }
-    }
-    &-user {
-        display: block;
-        overflow: hidden;
-        transition: 0.3s;
-        img {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            -o-object-fit: cover;
-            object-fit: cover;
-        }
-        :hover { opacity: 0.85; }
-    }
-}

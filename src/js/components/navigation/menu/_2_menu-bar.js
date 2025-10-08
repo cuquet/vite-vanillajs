@@ -45,9 +45,8 @@ class MenuBar extends Menu {
         this.setupMoreItems();
         this.updateMenuBar();
         this.element.classList.add('menu-bar--loaded');
-
     }
-    initMenuBarEvents(){
+    initMenuBarEvents() {
         this.element.addEventListener('update-menu-bar', () => {
             this.updateMenuBar();
             if (this.menuInstance) {
@@ -62,7 +61,7 @@ class MenuBar extends Menu {
                     this.menuInstance.selectedTrigger = this.moreItemsTrigger;
                     this.menuInstance.toggleMenu(
                         !this.subMenu.classList.contains('menu--is-visible'),
-                        true
+                        true,
                     );
                 }
             });
@@ -75,7 +74,6 @@ class MenuBar extends Menu {
                     }
                 });
             }
-
         }
 
         this.element.addEventListener('keydown', (event) => {
@@ -106,48 +104,49 @@ class MenuBar extends Menu {
     }
 
     setupMoreItems() {
-        if (!this.mobHideItems) {
-            if (this.moreItemsTrigger) {
-                this.element.removeChild(this.moreItemsTrigger);
-            }
+        if (!this.mobHideItems || this.mobHideItems.length === 0) {
+            if (this.moreItemsTrigger) this.element.removeChild(this.moreItemsTrigger);
             return;
         }
 
-        if (this.moreItemsTrigger) {
-            let menuContent = '';
-            this.menuControlId = 'submenu-bar-' + Date.now();
-            for (let i = 0; i < this.mobHideItems.length; i++) {
-                const clone = this.mobHideItems[i].cloneNode(true);
-                const link = clone.getElementsByTagName('a')[0] || clone.getElementsByTagName('button')[0];
-                const svg = clone.getElementsByTagName('svg')[0];
-                const label = clone.getElementsByClassName('menu-bar__label')[0];
-                svg.setAttribute('class', 'icon menu__icon');
-                label.setAttribute('class', '');
-                // menuContent += `<li role="menuitem"><span class="menu__content js-menu__content">${svg.outerHTML}<span>${label.innerHTML}</span></span></li>`;
-                let itemContent = '';
-                if (link) {
-                    link.innerHTML=`${svg.outerHTML}<span>${label.innerHTML}</span>`;
-                    itemContent = link.outerHTML;
-                }
-                menuContent += `<li role="menuitem"><span class="menu__content js-menu__content">${itemContent}</span></li>`;
-            }
+        if (!this.moreItemsTrigger) return;
 
-            this.moreItemsTrigger.setAttribute('role', 'button');
-            this.moreItemsTrigger.setAttribute('aria-expanded', 'false');
-            this.moreItemsTrigger.setAttribute('aria-controls', this.menuControlId);
-            this.moreItemsTrigger.setAttribute('aria-haspopup', 'true');
+        let menuContent = '';
+        this.menuControlId = 'submenu-bar-' + Date.now();
 
-            const menu = document.createElement('menu');
-            const menuClass = this.element.getAttribute('data-menu-class') || '';
-            menu.setAttribute('id', this.menuControlId);
-            menu.setAttribute('class', `menu js-menu ${menuClass}`);
-            menu.innerHTML = menuContent;
-            document.body.appendChild(menu);
+        for (let i = 0; i < this.mobHideItems.length; i++) {
+            const clone = this.mobHideItems[i].cloneNode(true);
+            const link = clone.querySelector('a, button') || document.createElement('span');
+            const svg = clone.querySelector('svg');
+            const label = clone.querySelector('.menu-bar__label');
 
-            this.subMenu = menu || false;
-            this.subItems = menu.getElementsByTagName('li');
-            this.menuInstance = new Menu(this.subMenu);
+            // ✅ Protegeix si falta algun element
+            const svgHTML = svg ? svg.outerHTML : '';
+            const labelHTML = label ? label.innerHTML : clone.textContent.trim();
+
+            link.innerHTML = `${svgHTML}<span>${labelHTML}</span>`;
+
+            // Classes accessibles i coherents
+            link.classList.add('menu__content', 'js-menu__content');
+
+            menuContent += `<li role="menuitem">${link.outerHTML}</li>`;
         }
+
+        this.moreItemsTrigger.setAttribute('role', 'button');
+        this.moreItemsTrigger.setAttribute('aria-expanded', 'false');
+        this.moreItemsTrigger.setAttribute('aria-controls', this.menuControlId);
+        this.moreItemsTrigger.setAttribute('aria-haspopup', 'true');
+
+        const menu = document.createElement('menu');
+        const menuClass = this.element.getAttribute('data-menu-class') || '';
+        menu.id = this.menuControlId;
+        menu.className = `menu js-menu ${menuClass}`;
+        menu.innerHTML = menuContent;
+        document.body.appendChild(menu);
+
+        this.subMenu = menu;
+        this.subItems = menu.querySelectorAll('li');
+        this.menuInstance = new Menu(this.subMenu);
     }
 
     updateMenuBar() {
@@ -161,7 +160,9 @@ class MenuBar extends Menu {
     navigateItems(event, direction, index) {
         event.preventDefault();
         let currentIndex =
-            index !== undefined ? index : Array.prototype.indexOf.call(this.menuItems, event.target);
+            index !== undefined
+                ? index
+                : Array.prototype.indexOf.call(this.menuItems, event.target);
         let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
 
         if (newIndex < 0) {
@@ -194,18 +195,5 @@ function initMenuBar(context = document) {
         }
     });
 }
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const menuBars = Array.from(document.getElementsByClassName('js-menu-bar'));
-//     if(menuBars.length > 0) {
-//         menuBars.forEach( element => {
-//             //new MenuBar(element);
-//             const content = getComputedStyle(element, ':before').getPropertyValue('content');
-//             if (content && content !== '' && content !== 'none') {
-//                 new MenuBar(element);
-//             }
-//         });
-//     }
-// });
 
 export { MenuBar, initMenuBar };

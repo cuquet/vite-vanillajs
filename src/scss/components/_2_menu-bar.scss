@@ -42,6 +42,12 @@ _1_menu
         &.menu-control--active {
             background-color:hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.1);
         }
+        &--close {
+            display: none;
+        }
+        &--trigger.menu-control--active ~ &--close {
+            display: flex;
+        }
     }
     &__item:hover > &__icon, 
     &__item.menu-control--active > &__icon {
@@ -69,12 +75,16 @@ _1_menu
         &--trigger {
             display:none;
         }
+        .icon{
+            margin-right:0;  
+        } 
     }
     &__icon {
         display: block;
         color: var(--color-contrast-high);
         font-size: var(--menu-bar-icon-size);
         transition:color .2s;
+        margin-right: var(--space-2xs);
     }
     &__label {
         position: absolute;
@@ -98,7 +108,8 @@ _1_menu
         -webkit-user-select: none;
         user-select:none;
     }
-    &--collapsed &__item--hide {
+    &--collapsed &__item--hide,
+    &--collapsed &__item--close {
         display:none;
     }
     &--collapsed &__item--trigger {

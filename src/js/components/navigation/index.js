@@ -2,6 +2,7 @@
 export * from './accordion';
 export * from './header';
 export * from './menu';
+export * from './side-navigation';
 export * from './sub-navigation';
 export * from './tabs';
-import './side-navigation';
+
