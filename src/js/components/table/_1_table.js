@@ -10,69 +10,63 @@ Usage: https://codyhouse.co/ds/components/info/table
 //import { tools as Util } from '@modules';
 
 class Table {
-    constructor(element) {
-        this.table = element;
-        this.tableExpandedLayoutClass = 'table--expanded';
-        this.init();
-    }
+	constructor(element) {
+		this.table = element;
+		this.expandedClass = 'table--expanded';
+		this.loadedClass = 'table--loaded';
+		this.init();
+	}
 
-    init() {
-        this.checkTableLayout(); // switch from a collapsed to an expanded layout
-        this.table.classList.add('table--loaded'); // show table
+	init() {
+		this.updateLayout();
+		this.table.classList.add(this.loadedClass);
+		this.observeResize();
+	}
 
-        // custom event emitted when window is resized
-        this.table.addEventListener('update-table', () => {
-            this.checkTableLayout();
-        });
-    }
+	updateLayout() {
+		const content = getComputedStyle(this.table, ':before')
+			.getPropertyValue('content')
+			.replace(/['"]/g, '');
+		const isExpanded = content !== 'collapsed';
 
-    checkTableLayout() {
-        const layout = getComputedStyle(this.table, ':before')
-            .getPropertyValue('content')
-            .replace(/\\'|"/g, '');
-        this.table.classList.toggle(this.tableExpandedLayoutClass, layout != 'collapsed');
-    }
+		// Només aplica el canvi si cal (evita reentrades innecessàries)
+		if (this.table.classList.contains(this.expandedClass) !== isExpanded) {
+			this.table.classList.toggle(this.expandedClass, isExpanded);
+		}
+	}
 
-    static initAll() {
-        const tables = document.getElementsByClassName('js-table');
-        if (tables.length > 0) {
-            let j = 0;
-            for (let i = 0; i < tables.length; i++) {
-                const beforeContent = getComputedStyle(tables[i], ':before').getPropertyValue(
-                    'content',
-                );
-                if (beforeContent && beforeContent != '' && beforeContent != 'none') {
-                    new Table(tables[i]);
-                    j++;
-                } else {
-                    tables[i].classList.add('table--loaded');
-                }
-            }
+	observeResize() {
+		if ('ResizeObserver' in window) {
+			this.resizeObserver = new ResizeObserver(() => {
+				// 👇 Evita el warning "ResizeObserver loop completed..."
+				requestAnimationFrame(() => this.updateLayout());
+			});
+			this.resizeObserver.observe(this.table);
+		} else {
+			// Fallback: escolta esdeveniments de resize globals
+			window.addEventListener('resize', this.updateLayout.bind(this));
+		}
+	}
 
-            if (j > 0) {
-                let resizingId = false;
-                const customEvent = new CustomEvent('update-table');
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizingId);
-                    resizingId = setTimeout(() => Table.doneResizing(tables, customEvent), 300);
-                });
-                window.requestAnimationFrame
-                    ? window.requestAnimationFrame(() => Table.doneResizing(tables, customEvent))
-                    : Table.doneResizing(tables, customEvent);
-            }
-        }
-    }
-
-    static doneResizing(tables, customEvent) {
-        for (let i = 0; i < tables.length; i++) {
-            tables[i].dispatchEvent(customEvent);
-        }
-    }
+	dispose() {
+		if (this.resizeObserver) this.resizeObserver.disconnect();
+		window.removeEventListener('resize', this.updateLayout);
+	}
 }
 
-export default Table;
+function initTable(context = document) {
+	const tables = Array.from(context.querySelectorAll('.js-table'));
+	tables.forEach((tableEl) => {
+		// Evita reinicialitzar
+		if (tableEl.dataset.tableInitialized) return;
+		const beforeContent = getComputedStyle(tableEl, ':before').getPropertyValue('content');
+		if (beforeContent && beforeContent !== '' && beforeContent !== 'none') {
+			new Table(tableEl);
+			tableEl.dataset.tableInitialized = 'true';
+		} else {
+			tableEl.classList.add('table--loaded');
+		}
+	});
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-    Table.initAll();
-});
-
+export { Table, initTable };

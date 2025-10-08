@@ -92,10 +92,14 @@ class ExpandableTable {
     }
 }
 
-export default ExpandableTable;
+function initExpandableTable(context = document) {
+    const elements = context.querySelectorAll('.js-ex-table');
+    elements.forEach(el => {
+        if (!el.dataset.expandableTableInitialized) {
+            new ExpandableTable(el);
+            el.dataset.expandableTableInitialized = 'true';
+        }
+    });
+}
 
-// Inicialitzar totes les taules expandibles a la pàgina
-document.addEventListener('DOMContentLoaded', () => {
-    const tablesEx = Array.from(document.getElementsByClassName('js-ex-table'));
-    tablesEx.forEach((table) => { new ExpandableTable(table) });
-});
+export { ExpandableTable, initExpandableTable };

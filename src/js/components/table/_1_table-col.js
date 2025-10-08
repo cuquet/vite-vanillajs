@@ -79,9 +79,14 @@ class TableColumn {
     }
 }
 
-export default TableColumn;
+function initTableColumn(context = document) {
+    const elements = context.querySelectorAll('.js-cl-table');
+    elements.forEach(el => {
+        if (!el.dataset.tableColumnInitialized) {
+            new TableColumn(el);
+            el.dataset.tableColumnInitialized = 'true';
+        }
+    });
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-    const tablesCol = Array.from(document.getElementsByClassName('js-cl-table'));
-    tablesCol.forEach((table) => { new TableColumn(table) });
-});
+export { TableColumn, initTableColumn };

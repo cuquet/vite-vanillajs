@@ -4,6 +4,7 @@ import * as Controls from '@components/controls';
 import * as Forms from '@components/forms';
 import * as Overlays from '@components/overlays';
 import * as Navigation from '@components/navigation';
+import * as Table from '@components/table'
 
 /**
  * Inicialitza components segons el DOM i la configuració INIT_ENTRIES
@@ -25,6 +26,8 @@ export async function initComponents(context = document, entries = []) {
             module = Navigation;
         } else if (component.startsWith('@components/forms')) {
             module = Forms;
+        } else if (component.startsWith('@components/table')) {
+            module = Table;
         } else if (component.startsWith('@components/overlays')) {
             module = Overlays;
         } else {

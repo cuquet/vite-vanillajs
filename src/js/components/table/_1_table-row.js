@@ -64,9 +64,15 @@ class TableRow {
         }
     }
 }
-export default TableRow; 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const tablesRow = Array.from(document.getElementsByClassName('js-row-table'));
-    tablesRow.forEach((table) => { new TableRow(table) });
-});
+function initTableRow(context = document) {
+    const elements = context.querySelectorAll('.js-row-table');
+    elements.forEach(el => {
+        if (!el.dataset.tableRowInitialized) {
+            new TableRow(el);
+            el.dataset.tableRowInitialized = 'true';
+        }
+    });
+}
+
+export { TableRow, initTableRow }; 
