@@ -34,14 +34,11 @@ class MdEditor extends Tooltip {
 
         // Crea el preview lateral
         this.previewContainer = document.createElement('div');
-        this.previewContainer.className = 'md-preview-content';
+        this.previewContainer.className = 'md-preview-content border radius-md bg-contrast-lower padding-sm';
         Object.assign(this.previewContainer.style, {
             flex: '1',
             height: '300px',
             overflowY: 'auto',
-            border: '1px solid #ddd',
-            padding: '1rem',
-            background: '#fafafa',
         });
 
         // Shadow DOM sense reset: deixa que el navegador decideixi
@@ -50,7 +47,7 @@ class MdEditor extends Tooltip {
 
         // Crea un wrapper flex que conté textarea i preview
         this.wrapper = document.createElement('div');
-        this.wrapper.className = 'md-editor__wrapper grid grid-gap-2';
+        this.wrapper.className = 'md-editor__wrapper grid gap-xs';
         this.wrapper.style.display = 'flex';
         Util.addClass(this.textarea, "col")
         this.wrapper.appendChild(this.textarea);
