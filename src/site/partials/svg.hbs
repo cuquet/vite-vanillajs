@@ -522,50 +522,51 @@
             stroke-linecap="round" stroke-linejoin="round" />
     </symbol>
     <symbol id="q-virus" viewBox="0 0 640 640">
-        <!-- Virus Font Awesome reduït i desplaçat -->
-        <g fill="currentColor" opacity="0.5" transform="translate(-32,32) scale(0.9)">
+        <defs>
+            <mask id="slash-mask-virus">
+            <rect width="640" height="640" fill="white"/>
+            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" fill="black"/>
+            </mask>
+        </defs>
+
+        <g fill="currentColor" opacity="0.5" transform="translate(-32,32) scale(0.9)" mask="url(#slash-mask-virus)">
             <path d="M360 104C360 81.9 342.1 64 320 64C297.9 64 280 81.9 280 104C280 148.1 226.7 170.1 195.5 139C179.9 123.4 154.6 123.4 138.9 139C123.2 154.6 123.3 179.9 138.9 195.6C170.1 226.8 148 280.1 103.9 280.1C81.8 280.1 63.9 298 63.9 320.1C63.9 342.2 81.8 360.1 103.9 360.1C148 360.1 170 413.4 138.9 444.6C123.3 460.2 123.3 485.5 138.9 501.2C154.5 516.9 179.8 516.8 195.5 501.2C226.7 470 280 492.1 280 536.2C280 558.3 297.9 576.2 320 576.2C342.1 576.2 360 558.3 360 536.2C360 492.1 413.3 470.1 444.5 501.2C460.1 516.8 485.4 516.8 501.1 501.2C516.8 485.6 516.7 460.3 501.1 444.6C469.9 413.4 492 360.1 536.1 360.1C558.2 360.1 576.1 342.2 576.1 320.1C576.1 298 558.2 280.1 536.1 280.1C492 280.1 470 226.8 501.1 195.6C516.7 180 516.7 154.7 501.1 139C485.5 123.3 460.2 123.4 444.5 139C413.3 170.1 360 148.1 360 104zM224 288C224 270.3 238.3 256 256 256C273.7 256 288 270.3 288 288C288 305.7 273.7 320 256 320C238.3 320 224 305.7 224 288zM384 320C401.7 320 416 334.3 416 352C416 369.7 401.7 384 384 384C366.3 384 352 369.7 352 352C352 334.3 366.3 320 384 320z"/>
         </g>
 
-        <!-- Slash visual -->
         <g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
             <line x1="64" y1="64" x2="576" y2="576" />
-        </g>
-
-        <!-- Slash substractiu (simula tall), desfasat cap avall -->
-        <g fill="white" opacity="1">
-            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" />
         </g>
     </symbol>
     <symbol id="q-span" viewBox="0 0 640 640">
-        <!-- Safata d’entrada -->
-        <g fill="currentColor"  opacity="0.5" >
+        <defs>
+            <mask id="slash-mask-span">
+            <rect width="640" height="640" fill="white"/>
+            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" fill="black"/>
+            </mask>
+        </defs>
+
+        <g fill="currentColor" opacity="0.5" mask="url(#slash-mask-span)">
             <path d="M155.8 96C123.9 96 96.9 119.4 92.4 150.9L64.6 345.2C64.2 348.2 64 351.2 64 354.3L64 480C64 515.3 92.7 544 128 544L512 544C547.3 544 576 515.3 576 480L576 354.3C576 351.3 575.8 348.2 575.4 345.2L547.6 150.9C543.1 119.4 516.1 96 484.2 96L155.8 96zM155.8 160L484.3 160L511.7 352L451.8 352C439.7 352 428.6 358.8 423.2 369.7L408.9 398.3C403.5 409.1 392.4 416 380.3 416L259.9 416C247.8 416 236.7 409.2 231.3 398.3L217 369.7C211.6 358.9 200.5 352 188.4 352L128.3 352L155.8 160z"/>
         </g>
-        <!-- Slash visual -->
+
         <g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
             <line x1="64" y1="64" x2="576" y2="576" />
-        </g>
-
-        <!-- Slash substractiu (simula tall), desfasat cap avall -->
-        <g fill="white" opacity="1">
-            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" />
         </g>
     </symbol>
     <symbol id="q-badheader" viewBox="0 0 640 640">
-        <!-- Estructura Font Awesome amb opacitat -->
-        <g fill="currentColor"  opacity="0.5" >
+        <defs>
+            <mask id="slash-mask-badheader">
+            <rect width="640" height="640" fill="white"/>
+            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" fill="black"/>
+            </mask>
+        </defs>
+
+        <g fill="currentColor" opacity="0.5" mask="url(#slash-mask-badheader)">
             <path d="M96 128C96 110.3 110.3 96 128 96L224 96C241.7 96 256 110.3 256 128C256 145.7 241.7 160 224 160L208 160L208 272L432 272L432 160L416 160C398.3 160 384 145.7 384 128C384 110.3 398.3 96 416 96L512 96C529.7 96 544 110.3 544 128C544 145.7 529.7 160 512 160L496 160L496 480L512 480C529.7 480 544 494.3 544 512C544 529.7 529.7 544 512 544L416 544C398.3 544 384 529.7 384 512C384 494.3 398.3 480 416 480L432 480L432 336L208 336L208 480L224 480C241.7 480 256 494.3 256 512C256 529.7 241.7 544 224 544L128 544C110.3 544 96 529.7 96 512C96 494.3 110.3 480 128 480L144 480L144 160L128 160C110.3 160 96 145.7 96 128z"/>
         </g>
 
-        <!-- Slash visual -->
         <g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
             <line x1="64" y1="64" x2="576" y2="576" />
-        </g>
-
-        <!-- Slash substractiu (simula tall), desfasat cap avall -->
-        <g fill="white" opacity="1">
-            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" />
         </g>
     </symbol>
     <symbol id="q-banned" viewBox="0 0 640 640">
@@ -574,35 +575,43 @@
         </g>
     </symbol>
     <symbol id="q-generic" viewBox="0 0 640 640">
-        <!-- Sobre Font Awesome reduït i desplaçat a l’esquerra -->
-        <g fill="currentColor" opacity="0.5" transform="translate(-32,32) scale(0.9)">
+        <defs>
+            <!-- Màscara: blanc = visible, negre = retallat -->
+            <mask id="slash-mask-generic">
+                <rect width="640" height="640" fill="white"/>
+                <!-- Slash que retalla la icona -->
+                <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" fill="black"/>
+            </mask>
+        </defs>
+
+        <!-- Icona amb opacitat i transformació, amb màscara aplicada -->
+        <g fill="currentColor" opacity="0.5" transform="translate(-32,32) scale(0.9)" mask="url(#slash-mask-generic)">
             <path d="M112 128C85.5 128 64 149.5 64 176C64 191.1 71.1 205.3 83.2 214.4L291.2 370.4C308.3 383.2 331.7 383.2 348.8 370.4L556.8 214.4C568.9 205.3 576 191.1 576 176C576 149.5 554.5 128 528 128L112 128zM64 260L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 260L377.6 408.8C343.5 434.4 296.5 434.4 262.4 408.8L64 260z"/>
         </g>
 
-        <!-- Slash visual -->
+        <!-- Slash visual sobreposat -->
         <g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
             <line x1="64" y1="64" x2="576" y2="576" />
-        </g>
-
-        <!-- Slash substractiu (simula tall), desfasat cap avall -->
-        <g fill="white" opacity="1">
-            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" />
         </g>
     </symbol>
     <symbol id="q-unknown" viewBox="0 0 640 640">
-        <!-- Interrogant Font Awesome amb opacitat i desplaçament vertical -->
-        <g fill="currentColor" opacity="0.5" transform="translate(0,64)">
+        <defs>
+            <!-- Màscara: tot el que és blanc es mostra, el negre es retalla -->
+            <mask id="slash-mask">
+            <rect width="640" height="640" fill="white"/>
+            <!-- El slash que retalla -->
+            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" fill="black"/>
+            </mask>
+        </defs>
+
+        <!-- Interrogant amb opacitat i desplaçament -->
+        <g fill="currentColor" opacity="0.5" transform="translate(0,64)" mask="url(#slash-mask)">
             <path d="M224 224C224 171 267 128 320 128C373 128 416 171 416 224C416 266.7 388.1 302.9 349.5 315.4C321.1 324.6 288 350.7 288 392L288 416C288 433.7 302.3 448 320 448C337.7 448 352 433.7 352 416L352 392C352 390.3 352.6 387.9 355.5 384.7C358.5 381.4 363.4 378.2 369.2 376.3C433.5 355.6 480 295.3 480 224C480 135.6 408.4 64 320 64C231.6 64 160 135.6 160 224C160 241.7 174.3 256 192 256C209.7 256 224 241.7 224 224zM320 576C342.1 576 360 558.1 360 536C360 513.9 342.1 496 320 496C297.9 496 280 513.9 280 536C280 558.1 297.9 576 320 576z"/>
         </g>
 
-        <!-- Slash visual -->
+        <!-- Slash visual sobreposat -->
         <g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round">
             <line x1="64" y1="64" x2="576" y2="576" />
-        </g>
-
-        <!-- Slash substractiu (simula tall), desfasat cap avall -->
-        <g fill="white" opacity="1">
-            <rect x="64" y="96" width="676" height="48" transform="rotate(45 64 96)" />
         </g>
     </symbol>
     <symbol id="search" viewBox="0 0 640 640">

@@ -1,8 +1,5 @@
 // src/js/main.js
-import './components/navigation';
 import './components/plugins';
-import './components/table';
-
 
 import { setupCounter } from '@components/counter.js';
 if (document.querySelector('#counter')) {
@@ -27,10 +24,13 @@ const INIT_ENTRIES = [
     //navigation
     { selector: '.js-accordion', component: '@components/navigation', init: 'initAccordion' },
     { selector: '.js-f-header', component: '@components/navigation', init: 'initFlexiHeader' },
-    { selector: '.js-menu', component: '@components/navigation', init: 'initMenu' },
+    { selector: '.js-menu', component: '@components/navigation', init: 'initMenu', expose: 'Menu' },
     { selector: '.js-menu-bar', component: '@components/navigation', init: 'initMenuBar' },
     { selector: '.js-tabs', component: '@components/navigation', init: 'initTab', expose: 'Tab' },
+    { selector: '.js-sidebar', component: '@components/navigation', init: 'initSidebar', expose: 'Sidebar' },
+    { selector: '.js-sidenav', component: '@components/navigation', init: 'initSidenav' },
     { selector: '.js-subnav', component: '@components/navigation', init: 'initSubNavigation' },
+    { selector: '.js-exsidenav', component: '@components/navigation', init: 'initExpandableSideNav' },
     
     // Forms
     { selector: '.js-choice-tag', component: '@components/forms', init: 'initChoiceTags' },
@@ -50,6 +50,13 @@ const INIT_ENTRIES = [
     { selector: '.js-expandable-search', component: '@components/forms', init: 'initExpandableSearch' },
     // language picker export (no init function; expose class)
     { selector: '.js-language-picker', component: '@components/forms', expose: 'LanguagePicker' },
+
+    // Tables
+    { selector: '.js-table', component: '@components/table', init: 'initTable' },
+    { selector: '.js-cl-table', component: '@components/table', init: 'initTableColumn' },
+    { selector: '.js-row-table', component: '@components/table', init: 'initTableRow' },
+    { selector: '.js-ex-table', component: '@components/table', init: 'initExpandableTable' },
+    { selector: '.js-int-table', component: '@components/table', init: 'initInteractiveTables' },
 
     // Overlays
     { selector: '.js-flash-message', component: '@components/overlays', init: 'initFlashMessage' },
