@@ -2,68 +2,153 @@
 
 File#: markdown-editor
 Title: Markdown Editor
-Descr: A minimal editor to create markdown content.
+Descr: Un editor minimalista per crear contingut Markdown.
 Usage: https://codyhouse.co/ds/components/info/markdown-editor
-Dependencies
+Dependencies:
     _1_tooltip
+    marked: npm install marked
+
 -------------------------------- */
-
-
+import { tools as Util } from '@modules';
 import { Tooltip } from '@/js/components/controls';
+import { marked } from 'marked';
+
+marked.setOptions({
+    gfm: true,       // habilita GitHub Flavored Markdown
+    breaks: true,    // salta línies amb Enter
+    headerIds: true,
+    mangle: false,
+    smartLists: true,
+    smartypants: false,
+});
 
 class MdEditor extends Tooltip {
-    constructor(element, opts=[]) {
+    constructor(element, opts = []) {
         super(element);
-        this.actions = opts.length > 0 ? opts : MdEditor.defaults;
         this.element = element;
-        this.textarea = this.element.getElementsByClassName('js-md-editor__content')[0];
-        this.actionsWrapper = this.element.getElementsByClassName('js-md-editor__actions')[0];
-        this.hideTooltip();
-        if (this.textarea && this.actionsWrapper) {
+        this.actions = opts.length > 0 ? opts : MdEditor.defaults;
+
+        // Troba el textarea i el wrapper d'accions
+        this.textarea = this.element.querySelector('.js-md-editor__content');
+        this.actionsWrapper = this.element.querySelector('.js-md-editor__actions');
+
+        // Crea el preview lateral
+        this.previewContainer = document.createElement('div');
+        this.previewContainer.className = 'md-preview-content';
+        Object.assign(this.previewContainer.style, {
+            flex: '1',
+            height: '300px',
+            overflowY: 'auto',
+            border: '1px solid #ddd',
+            padding: '1rem',
+            background: '#fafafa',
+        });
+
+        // Shadow DOM sense reset: deixa que el navegador decideixi
+        this.shadow = this.previewContainer.attachShadow({ mode: 'open' });
+        this.shadow.innerHTML = `<div class="md-preview-content"></div>`;
+
+        // Crea un wrapper flex que conté textarea i preview
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'md-editor__wrapper grid grid-gap-2';
+        this.wrapper.style.display = 'flex';
+        Util.addClass(this.textarea, "col")
+        this.wrapper.appendChild(this.textarea);
+        this.wrapper.appendChild(this.previewContainer);
+        this.element.appendChild(this.wrapper);
+
+        // Event listeners
+        this.textarea.addEventListener('input', () => this.updatePreview());
+        this.textarea.addEventListener('scroll', () => this.syncScroll());
+        if (this.actionsWrapper) {
             this.actionsWrapper.addEventListener('click', this.handleAction.bind(this));
+        }
+        // Observador de resize per ajustar alçada del preview
+        this.resizeObserver = new ResizeObserver(() => {
+            this.previewContainer.style.height = `${this.textarea.scrollHeight}px`;
+        });
+        this.resizeObserver.observe(this.textarea);
+        this.tooltipContent = this.tooltip?.innerHTML || 'Tria una acció…';
+        // Inicialitza preview i tooltip
+        this.updatePreview();
+        this.hideTooltip();
+    }
+
+    // -------------------------
+    // Actualitza preview amb HTML
+    // -------------------------
+    updatePreview() {
+        this.shadow.querySelector('.md-preview-content').innerHTML = marked.parse(this.textarea.value || '');
+        this.previewContainer.style.height = `${this.textarea.scrollHeight}px`;
+    }
+
+    // -------------------------
+    // Sincronitza scroll entre textarea i preview
+    // -------------------------
+    syncScroll() {
+        const scrollHeight = this.textarea.scrollHeight - this.textarea.clientHeight;
+        if (scrollHeight > 0) {
+            const ratio = this.textarea.scrollTop / scrollHeight;
+            this.previewContainer.scrollTop = ratio * (this.previewContainer.scrollHeight - this.previewContainer.clientHeight);
         }
     }
 
+    // -------------------------
+    // Gestiona accions (bold, heading, llistes...)
+    // -------------------------
     handleAction(event) {
         const actionElement = event.target.closest('[data-md-action]');
         if (!actionElement) return;
 
         const action = actionElement.getAttribute('data-md-action');
-        
-        const actionDetails = this.getActionDetails(action);
+        const actionDetails = this.actions.find((a) => a.action === action);
         if (!actionDetails) return;
 
         const { selectionStart, selectionEnd, selectionContent } = this.getSelectionDetails();
-        const newText = this.getNewText(actionDetails, selectionContent);
+        const newText = selectionContent
+            ? this.getNewText(actionDetails, selectionContent)
+            : actionDetails.content;
 
         this.updateTextarea(newText, selectionStart, selectionEnd, actionDetails.content);
+
+        // Actualitza preview després de modificar el textarea
+        this.updatePreview();
     }
 
-    getActionDetails(action) {
-        return this.actions.find((a) => a.action === action);
-    }
-
+    // -------------------------
+    // Dades de selecció actual
+    // -------------------------
     getSelectionDetails() {
         const selectionStart = this.textarea.selectionStart;
         const selectionEnd = this.textarea.selectionEnd;
         const selectionContent = this.textarea.value.slice(selectionStart, selectionEnd);
-
         return { selectionStart, selectionEnd, selectionContent };
     }
 
+    // -------------------------
+    // Text nou segons l'acció
+    // -------------------------
     getNewText(actionDetails, selectionContent) {
         let content = actionDetails.content.replace('content', selectionContent);
         if (actionDetails.newLine && this.shouldAddNewLine()) {
             content = '\n' + content;
         }
+        // Accions que necessiten línia nova després
+        const actionsNeedingExtraLine = ['blockquote', 'uList', 'oList', 'tList'];
+        if (actionsNeedingExtraLine.includes(actionDetails.action)) {
+            content += '\n'; // afegeix línia buida després
+        }
         return content;
     }
 
     shouldAddNewLine() {
-        const charBeforeSelection = this.textarea.value[this.textarea.selectionStart - 1];
-        return charBeforeSelection && !charBeforeSelection.match(/\n/);
+        const charBefore = this.textarea.value[this.textarea.selectionStart - 1];
+        return charBefore && !charBefore.match(/\n/);
     }
 
+    // -------------------------
+    // Actualitza textarea
+    // -------------------------
     updateTextarea(newText, selectionStart, selectionEnd, actionContent) {
         const textBefore = this.textarea.value.slice(0, selectionStart);
         const textAfter = this.textarea.value.slice(selectionEnd);
@@ -74,10 +159,52 @@ class MdEditor extends Tooltip {
         this.textarea.selectionStart =
             this.textarea.selectionEnd - (actionContent.length - 'content'.length);
     }
+
+    // -------------------------
+    // Inicialització estàtica
+    // -------------------------
+    static initMdEditor() {
+        const mdEditors = document.querySelectorAll('.md-editor');
+        mdEditors.forEach((el) => {
+            if (!el.dataset.mdEditorInitialized) {
+                el.dataset.mdEditorInitialized = 'true';
+                new MdEditor(el);
+            }
+        });
+    }
+
+    // -------------------------
+    // Inicialització lazy amb IntersectionObserver
+    // -------------------------
+    static initMdEditorLazy() {
+        const mdEditors = document.querySelectorAll('.md-editor');
+        if (mdEditors.length === 0) return;
+
+        const observer = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        if (!el.dataset.mdEditorInitialized) {
+                            el.dataset.mdEditorInitialized = 'true';
+                            new MdEditor(el);
+                        }
+                        observer.unobserve(el);
+                    }
+                });
+            },
+            { rootMargin: '100px' }
+        );
+
+        mdEditors.forEach((el) => observer.observe(el));
+    }
 }
 
+// -------------------------
+// Accions Markdown per defecte
+// -------------------------
 MdEditor.defaults = [
-    { action: 'heading', content: '###content', newLine: false },
+    { action: 'heading', content: '### content', newLine: false },
     { action: 'code', content: '`content`', newLine: false },
     { action: 'link', content: '[content](url)', newLine: false },
     { action: 'blockquote', content: '> content', newLine: true },
@@ -88,11 +215,18 @@ MdEditor.defaults = [
     { action: 'tList', content: '- [ ] Item 1\n- [x] Item 2\n- [ ] Item 3', newLine: true },
 ];
 
-window.MdEditor = MdEditor;
-export default MdEditor;
+export { MdEditor };
+export function initMdEditorLazy() {
+    MdEditor.initMdEditorLazy();
+}
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const mdEditors= Array.from(document.getElementsByClassName('md-editor'));
-    mdEditors.forEach(element => new MdEditor(element));   
-});
+// /* --------------------------------
+//     🚀 Auto-inicialització
+// -------------------------------- */
+// // Pots triar una de les dues opcions segons la teva app:
+// document.addEventListener('DOMContentLoaded', () => {
+// 	// Inicialitza de manera immediata
+// 	// MdEditor.initMdEditor();
+// 	// O bé, inicialitza amb lazy loading (millor rendiment)
+// 	MdEditor.initMdEditorLazy();
+// });

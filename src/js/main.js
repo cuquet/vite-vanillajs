@@ -79,6 +79,12 @@ const INIT_ENTRIES = [
         component: '@components/overlays',
         init: 'initFullModalSearch',
     },
+
+    // Plugins
+    { selector: '.js-copy-to-clip', component: '@components/plugins', init: 'initCopyClipboard', expose: 'CopyClipboard' },
+    { selector: '.js-sticky-sharebar', component: '@components/plugins', init: 'initStickySharebars' },
+    { selector: '.js-social-share', component: '@components/plugins', init: 'initSocialShare' },
+    { selector: '.md-editor', component: '@components/plugins', init: 'initMdEditorLazy',  expose: 'MdEditor' },
 ];
 
 import { initComponents } from '@modules/initComponents';

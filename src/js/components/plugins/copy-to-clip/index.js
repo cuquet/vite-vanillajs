@@ -1,2 +1,2 @@
-import CopyClipboard from "./_2_copy-to-clip";
-export default CopyClipboard;
+// src/js/components/plugins/copy-to-clip/index.js
+export * from "./_2_copy-to-clip";

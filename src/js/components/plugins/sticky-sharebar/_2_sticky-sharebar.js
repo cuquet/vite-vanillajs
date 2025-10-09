@@ -63,17 +63,6 @@ class StickySharebar {
     }
 }
 
-// Inicialitza totes les barres de compartir
-document.addEventListener('DOMContentLoaded', () => {
-    const sharebars = Array.from(document.getElementsByClassName('js-sticky-sharebar'));
-    if (sharebars.length > 0) {
-        sharebars.forEach((sharebar) => {
-            new StickySharebar(sharebar);
-        });
-    }
-});
-
-// Classe per gestionar la compartició social
 class SocialShare {
     constructor(element) {
         this.element = element;
@@ -128,10 +117,30 @@ class SocialShare {
     }
 }
 
-// Inicialitza tots els botons de compartir social
-document.addEventListener('DOMContentLoaded', () => {
-    const socialButtons = Array.from(document.getElementsByClassName('js-social-share'));
-    socialButtons.forEach((element) => { new SocialShare(element) });
-});
+// Inicialitza totes les StickySharebar
+function initStickySharebars() {
+    const sharebars = document.querySelectorAll('.js-sticky-sharebar');
+    if (!sharebars.length) return;
 
-export { SocialShare, StickySharebar };
+    sharebars.forEach((sharebar) => {
+        if (!sharebar.dataset.stickySharebarInitialized) {
+            sharebar.dataset.stickySharebarInitialized = 'true';
+            new StickySharebar(sharebar);
+        }
+    });
+}
+
+// Inicialitza tots els botons de compartir social
+function initSocialShare() {
+    const socialButtons = document.querySelectorAll('.js-social-share');
+    if (!socialButtons.length) return;
+
+    socialButtons.forEach((button) => {
+        if (!button.dataset.socialShareInitialized) {
+            button.dataset.socialShareInitialized = 'true';
+            new SocialShare(button);
+        }
+    });
+}
+
+export { SocialShare, StickySharebar, initStickySharebars, initSocialShare };

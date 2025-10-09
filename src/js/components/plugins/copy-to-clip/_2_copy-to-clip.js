@@ -11,7 +11,6 @@ Usage: https://codyhouse.co/ds/components/info/copy-to-clipboard
 
 import { tools as Util } from '@modules';
 
-
 class CopyClipboard {
     constructor() {
         this.copyTargetClass = 'js-copy-to-clip';
@@ -111,10 +110,22 @@ class CopyClipboard {
     }
 }
 
-window.CopyClipboard = CopyClipboard;
-export default CopyClipboard;
+// Funció d’inicialització modular per CopyClipboard
+function initCopyClipboard() {
+    // Selecciona tots els elements amb la classe js-copy-to-clip
+    const copyTargets = document.querySelectorAll('.js-copy-to-clip');
 
-document.addEventListener('DOMContentLoaded', () => {
-    const copytoclips =  document.getElementsByClassName('js-copy-to-clip');
-    Array.from(copytoclips).map(() => new CopyClipboard());
-});
+    // Si no hi ha cap element, no cal fer res
+    if (!copyTargets.length) return;
+
+    // Lazy init: només crear una instància si encara no s’ha inicialitzat
+    copyTargets.forEach((el) => {
+        if (!el.dataset.copyClipboardInitialized) {
+            el.dataset.copyClipboardInitialized = 'true';
+            new CopyClipboard();
+        }
+    });
+}
+
+export  { CopyClipboard, initCopyClipboard };
+
