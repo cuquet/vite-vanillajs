@@ -114,11 +114,22 @@ class Repeater {
             idElement.setAttribute('id', id.replace(oldName, newName));
         });
     }
+    static initRepeater() {
+        const repeaters = document.querySelectorAll('.js-repeater');
+        repeaters.forEach((el) => {
+            if (!el.dataset.repeaterInitialized) {
+                el.dataset.repeaterInitialized = 'true';
+                new Repeater(el);
+            }
+        });
+    }
+
 }
 
-export default Repeater;
+// document.addEventListener('DOMContentLoaded', () => {
+//     const repeaters = Array.from(document.getElementsByClassName('js-repeater'));
+//     repeaters.forEach((element) => { new Repeater(element) });
+// });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const repeaters = Array.from(document.getElementsByClassName('js-repeater'));
-    repeaters.forEach((element) => { new Repeater(element) });
-});
+export { Repeater };
+export function initRepeater(){ Repeater.initRepeater()}

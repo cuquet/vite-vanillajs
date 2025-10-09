@@ -1,2 +1,2 @@
-import NewsInput from './_1_newsletter-input';
-export default NewsInput;
+// src/js/components/plugins/newsletter-input/index.js
+export * from './_1_newsletter-input';

@@ -13,10 +13,25 @@ class NewsInput {
     constructor(options) {
         this.options = Util.extend(NewsInput.defaults, options);
         this.element = this.options.element;
+        if (!this.element || !(this.element instanceof HTMLElement)) {
+            console.warn('❌ NewsInput: element no vàlid o inexistent');
+            return;
+        }
+
         this.input = this.element.getElementsByClassName('js-news-form__input');
         this.button = this.element.getElementsByClassName('js-news-form__btn');
+
+        if (!this.input.length || !this.button.length) {
+            console.warn('⚠️ NewsInput: no s’han trobat camps dins el formulari');
+            return;
+        }
         this.submitting = false;
         this.init();
+    }
+
+    static defaults = {
+        element: '',
+        submit: false,
     }
 
     init() {
@@ -74,15 +89,4 @@ class NewsInput {
     }
 }
 
-NewsInput.defaults = {
-    element: '',
-    submit: false,
-};
-
-window.NewsInput = NewsInput;
-export default NewsInput;
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const news = Array.from(document.getElementsByClassName('js-news-form'));
-//     //import('../_1_input-newsletter.scss');
-// });
+export { NewsInput };
