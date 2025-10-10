@@ -87,7 +87,7 @@ export class MultipleCustomSelect {
                 : ' aria-selected="false"';
             const disabled = options[i].hasAttribute('disabled') ? 'disabled' : '';
             const checked = options[i].hasAttribute('selected') ? 'checked' : '';
-            optionsHTML += `<li class="js-multi-select__option" role="option" data-value="${options[i].value}"${ariaSelected} data-label="${options[i].text}" data-index="${this.optionIndex}"><input aria-hidden="true" class="checkbox js-multi-select__checkbox" type="checkbox" name="${this.selectName}" id="${this.selectId}-${options[i].value}-${this.optionIndex}" ${checked} ${disabled}><label class="multi-select__item multi-select__item--option" aria-hidden="true" for="${this.selectId}-${options[i].value}-${this.optionIndex}"><span>${options[i].text}</span></label></li>`;
+            optionsHTML += `<li class="js-multi-select__option" role="option" data-value="${options[i].value}"${ariaSelected} data-label="${options[i].text}" data-index="${this.optionIndex}"><input class="checkbox js-multi-select__checkbox" type="checkbox" name="${this.selectName}" id="${this.selectId}-${options[i].value}-${this.optionIndex}" ${checked} ${disabled}><label class="multi-select__item multi-select__item--option" aria-hidden="true" for="${this.selectId}-${options[i].value}-${this.optionIndex}"><span>${options[i].text}</span></label></li>`;
             this.optionIndex++;
         }
         return optionsHTML;
