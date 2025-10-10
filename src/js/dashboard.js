@@ -1,45 +1,96 @@
-import './components/controls/popover';
-import './components/controls/tooltip';
-import './components/controls/anim-menu-btn/_1_anim-menu-btn';
-import './components/controls/back-to-top';
-import './components/forms/input-password';
-import './components/forms/select-custom';
-import './components/navigation/tabs';
-import './components/navigation/accordion';
-import './components/controls/light-dark-switch';
-import './components/controls/progress-bar';
-import './components/overlays/dialog';
-import './components/overlays/modal';
-import './components/overlays/toast';
-import './components/forms/expandable-search';
-//import './components/controls/dropdown/_1_diagonal-movement.js'
-import './components/controls/dropdown';
-import './components/navigation/sub-navigation';
-import './components/navigation/menu';
-//import './components/navigation/_1_side-navigation';
-//import './components/navigation/_1_expandable-side-navigation';
-import './components/navigation/side-navigation/_1_responsive-sidebar';
-//import './components/navigation/_2_side-navigation-v4';
-import './components/navigation/_3_dashboard-navigation';
-import './components/table';
-import {
-    //ToC,
-    //MdEditor,
-    NewsInput,
-    CopyClipboard,
-    //SocialShare,
-    //StickySharebar,
-    Repeater,
-} from './components/plugins';
+// src/js/main.js
 
-/* import { LanguagePicker } from '@components/forms/picker-language';
-const languagePickerElements = Array.from(document.getElementsByClassName('js-language-picker'));
-if (languagePickerElements.length > 0) {
-    languagePickerElements.forEach((element) => {
-        new LanguagePicker(element, {
-            onGetLangUrl: (option) => {
-                return `#${option.value}`;
-            },
-        });
-    });
-} */
+import { setupCounter } from '@components/counter.js';
+if (document.querySelector('#counter')) {
+    setupCounter(document.querySelector('#counter'));
+}
+
+const INIT_ENTRIES = [
+    // Controls
+    //{ selector: '.js-alert', component: '@components/controls', init: 'initAlert' },
+    { selector: '.js-anim-menu-btn', component: '@components/controls', init: 'initAnimMenuBtn' },
+    { selector: '.js-back-to-top', component: '@components/controls', init: 'initBack2Top' },
+    { selector: '.js-collapse', component: '@components/controls', init: 'initCollapse' },
+    { selector: '.js-dropdown', component: '@components/controls', init: 'initDropdown' },
+    { selector: '.js-tooltip-trigger', component: '@components/controls', init: 'initTooltip' },
+    { selector: '.js-popover', component: '@components/controls', init: 'initPopover' },
+    { selector: '.js-progress-bar', component: '@components/controls', init: 'initProgressBar' },
+    { selector: '.js-c-progress-bar', component: '@components/controls', init: 'initCProgressBar' },
+    { selector: '.js-smooth-scroll', component: '@components/controls', init: 'initSmoothScroll' },
+    { selector: '.js-ld-switch', component: '@components/controls', init: 'initLdSwitch' },
+    { selector: '.js-fullscreen-btn', component: '@components/controls', init: 'initFullscreenBtn' },
+
+    //navigation
+    { selector: '.js-accordion', component: '@components/navigation', init: 'initAccordion' },
+    //{ selector: '.js-f-header', component: '@components/navigation', init: 'initFlexiHeader' },
+    { selector: '.js-menu', component: '@components/navigation', init: 'initMenu', expose: 'Menu' },
+    { selector: '.js-menu-bar', component: '@components/navigation', init: 'initMenuBar' },
+    { selector: '.js-tabs', component: '@components/navigation', init: 'initTab', expose: 'Tab' },
+    { selector: '.js-sidebar', component: '@components/navigation', init: 'initSidebar', expose: 'Sidebar' },
+    // { selector: '.js-sidenav', component: '@components/navigation', init: 'initSidenav' },
+    { selector: '.js-subnav', component: '@components/navigation', init: 'initSubNavigation' },
+    { selector: '.js-exsidenav', component: '@components/navigation', init: 'initExpandableSideNav' },
+    
+    // Forms
+    { selector: '.js-choice-tag', component: '@components/forms', init: 'initChoiceTags' },
+    { selector: '.js-number-input', component: '@components/forms', init: 'initNumberInput', expose: 'NumberInput'},
+    { selector: '.js-list-filter', component: '@components/forms', init: 'initListFilter' },
+    { selector: '.js-select', component: '@components/forms', init: 'initCustomSelect', expose: 'CustomSelect'},
+    { selector: '.js-multi-select', component: '@components/forms', init: 'initMultipleCustomSelect', expose: 'MultipleCustomSelect'},
+    { selector: '.js-multi-select-v2', component: '@components/forms', init: 'initMultipleCustomSelectV2', expose: 'MultipleCustomSelectV2'},
+    { selector: '.js-adv-select', component: '@components/forms', init: 'initAdvSelect', expose: 'AdvSelect'},
+    { selector: '.js-password', component: '@components/forms', init: 'initPasswordVisibility', expose: 'PasswordVisibility'},
+    { selector: '.js-password-strength', component: '@components/forms', init: 'initPasswordStrength' },
+    //{ selector: '.js-date-picker', component: '@components/forms', init: 'initDatePicker', expose: 'DatePicker'  },
+    //{ selector: '.js-date-range', component: '@components/forms', init: 'initDatePickerRange', expose: 'DatePickerRange' },
+    //{ selector: '.js-time-picker', component: '@components/forms', init: 'initTimePicker' },
+    { selector: '.js-slider', component: '@components/forms', init: 'initSlider' },
+    { selector: '.slider--multi-value.js-slider', component: '@components/forms', init: 'initSliderRange' },
+    { selector: '.js-expandable-search', component: '@components/forms', init: 'initExpandableSearch' },
+    // language picker export (no init function; expose class)
+    { selector: '.js-language-picker', component: '@components/forms', expose: 'LanguagePicker' },
+
+    // Tables
+    { selector: '.js-table', component: '@components/table', init: 'initTable' },
+    { selector: '.js-cl-table', component: '@components/table', init: 'initTableColumn' },
+    { selector: '.js-row-table', component: '@components/table', init: 'initTableRow' },
+    { selector: '.js-ex-table', component: '@components/table', init: 'initExpandableTable' },
+    { selector: '.js-int-table', component: '@components/table', init: 'initInteractiveTables' },
+
+    // Overlays
+    //{ selector: '.js-flash-message', component: '@components/overlays', init: 'initFlashMessage' },
+    { selector: '.js-toast', component: '@components/overlays', init: 'initToasts', expose: 'Toasts' },
+    // dialog: expose class (no init function executed here)
+    { selector: '.js-dialog', component: '@components/overlays', expose: 'Dialog' },
+    //{ selector: '.js-slideshow', component: '@components/overlays', init: 'initSlideshow' },
+    //{ selector: '.js-lightbox', component: '@components/overlays', init: 'initLightbox' },
+    // modal: initModal + expose Modal
+    { selector: '.js-modal', component: '@components/overlays/modal', init: 'initModal', expose: 'Modal' },
+    // modal video: init helper + expose ModalVideo (component components/overlays/modal exports both)
+    // {
+    //     selector: '.js-modal-video__media',
+    //     component: '@components/overlays/modal',
+    //     init: 'initModalVideo',
+    //     expose: 'ModalVideo',
+    // },
+    {
+        selector: '.js-modal-search',
+        component: '@components/overlays',
+        init: 'initFullModalSearch',
+    },
+
+    // Plugins
+    { selector: '.js-copy-to-clip', component: '@components/plugins', init: 'initCopyClipboard', expose: 'CopyClipboard' },
+    //{ selector: '.js-sticky-sharebar', component: '@components/plugins', init: 'initStickySharebars' },
+    //{ selector: '.js-social-share', component: '@components/plugins', init: 'initSocialShare' },
+    //{ selector: '.md-editor', component: '@components/plugins', init: 'initMdEditorLazy',  expose: 'MdEditor' },
+    { selector: '.js-repeater', component: '@components/plugins', init: 'initRepeater', expose: 'Repeater' },
+    { selector: '.js-news-form', component: '@components/plugins', expose: 'NewsInput' },
+    //{ selector: '.js-toc', component: '@components/plugins', init: 'initToC', expose: 'ToC' },
+];
+
+import { initComponents } from '@modules/initComponents';
+// 🚀 Inicialització global
+document.addEventListener('DOMContentLoaded', () => {
+    initComponents(document, INIT_ENTRIES);
+});

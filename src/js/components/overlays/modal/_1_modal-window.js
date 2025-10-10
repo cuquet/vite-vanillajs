@@ -16,6 +16,11 @@ class DynamicModal {
     isDynamic;
     mimeType;
     modal;
+    // refs used when moving DOM nodes into the modal
+    _movedNode;
+    _movedFrom;
+    _movedWrapper;
+
     constructor(element, opts) {
         Object.assign(this, Util.extend(DynamicModal.defaults, opts));
         this.element = element;
@@ -73,7 +78,6 @@ class DynamicModal {
             this.title = this.element.hasAttribute('data-title') ? this.element.dataset.title : null;
             this.modal = this.#renderDynamicModal;
             document.body.appendChild(this.modal);
-            
         } else {
             this.modal = this.element;
         }
@@ -189,7 +193,7 @@ class DynamicModal {
                 onClick: () => {
                     this.isFullscreen = !this.isFullscreen;
                     Util.toggleClass(this.modal, 'fullscreen', this.isFullscreen);
-                    if(this.isFullscreen){
+                    if (this.isFullscreen) {
                         this.modal.querySelector('.modal__content').removeAttribute('style');
                     }
                     if (this.onFullscreen) {
@@ -230,14 +234,29 @@ class DynamicModal {
     get renderDynamicContent() {
         let modalContent;
         switch (this.mimeType) {
-            case 'dom':
-                if (document.querySelector(this.dataOrigin)) {
+            case 'dom': {
+                const source = document.querySelector(this.dataOrigin);
+                if (source) {
+                    // Creem un wrapper amb la classe de body i movem l'element original dins d'aquest wrapper.
+                    // Això evita duplicar (no fem innerHTML) i preserva formularis amb ids i listeners.
                     modalContent = document.createElement('div');
                     Util.addClass(modalContent, this.bodyClass);
-                    modalContent.innerHTML = document.querySelector(this.dataOrigin).innerHTML;
-                    document.querySelector(this.dataOrigin).remove();
+
+                    // Guardem informació per poder retornar el node en tancar
+                    this._movedNode = source;
+                    this._movedFrom = {
+                        parent: source.parentNode,
+                        nextSibling: source.nextSibling,
+                    };
+
+                    // guardem el wrapper per poder eliminar-lo posteriorment
+                    this._movedWrapper = modalContent;
+                    Util.removeClass(this._movedNode, "hide");
+                    // mou l'element original dins del wrapper (efecte appendChild = move)
+                    modalContent.appendChild(this._movedNode);
                 }
                 break;
+            }
             case 'html':
                 modalContent = document.createElement('div');
                 Util.addClass(modalContent, this.bodyClass);
@@ -387,7 +406,6 @@ class Modal extends DynamicModal {
         this.modalFocus = this.modal.dataset.modalFirstFocus ? this.modal.querySelector(this.modal.dataset.modalFirstFocus) : null;
         this.scrollbarWidth = Util.getScrollbarWidth();
 
-        // Bound handlers stored so we can remove them later
         this._onOpen = this.handleOpen.bind(this);
         this._onClose = this.handleClose.bind(this);
         this._onKeydown = this.handleKeyDown.bind(this);
@@ -501,10 +519,26 @@ class Modal extends DynamicModal {
             this.preventScrollEl.style.marginRight = `${this.scrollbarWidth}px`;
         }
 
-        this.modal.addEventListener('loadedModal', () => {
+        this.modal.addEventListener('loadedModal', async () => {
             Util.removeClass(this.modal, this.loadingClass);
             document.querySelectorAll('.modal__loader').forEach((el) => el.remove());
             this.modal.dispatchEvent(new CustomEvent('openModal'));
+
+            // // 🧩 Evita reinicialitzacions duplicades
+            // if (!initializedModals.has(this.modal)) {
+            //     try {
+            //         const module = await import('@modules/initComponents');
+            //         if (module?.initComponents) {
+            //             await module.initComponents(this.modal, window.INIT_ENTRIES || []);
+            //             initializedModals.add(this.modal);
+            //             console.debug(`🧩 initComponents() fet dins ${this.modal.id}`);
+            //         }
+            //     } catch (err) {
+            //         console.warn('initComponents no disponible per al modal:', err);
+            //     }
+            // } else {
+            //     console.debug(`🧩 ja inicialitzat: ${this.modal.id}`);
+            // }
         });
 
         this.modal.style.visibility = 'visible';
@@ -527,7 +561,7 @@ class Modal extends DynamicModal {
                     if (this.footerActions.length > 0 && !content.getElementsByTagName('footer')[0]) {
                         content.appendChild(this.renderDynamicFooter);
                     }
-                    header.parentNode.insertBefore(this.renderDynamicContent, header.nextSibling);
+                    if (header) header.parentNode.insertBefore(this.renderDynamicContent, header.nextSibling);
                     break;
                 case 'video':
                 case 'vimeo':
@@ -564,15 +598,6 @@ class Modal extends DynamicModal {
         this.modal.dispatchEvent(new CustomEvent('modalIsOpen', { detail: this.selectedTrigger }));
 
         if (this.onOpen) this.onOpen();
-
-        // 👇 inicialitza tots els mòduls dins del diàleg -> import dinàmic per evitar circular imports
-        try {
-            const module = await import('@modules/initComponents');
-            if (module && module.initComponents) module.initComponents(this.modal);
-        } catch (err) {
-            // si hi ha problemes, no fallem l'obertura, només loguem
-            console.warn('initComponents no disponibles per al modal:', err);
-        }
 
         this.modal.removeEventListener('openModal', this._onOpen);
     }
@@ -648,6 +673,25 @@ class Modal extends DynamicModal {
         Util.removeClass(this.modal, this.showClass);
         await Util.transitionend(this.modal);
 
+        // Si vam moure un node "dom" dins del modal, retornem-lo al seu lloc original
+        if (this._movedNode && this._movedFrom && this._movedFrom.parent) {
+            Util.addClass(this._movedNode, "hide");
+            try {
+                this._movedFrom.parent.insertBefore(this._movedNode, this._movedFrom.nextSibling || null);
+            } catch (err) {
+                console.warn('No s ha pogut reposar el node mogut dins del modal:', err);
+            }
+            // eliminem el wrapper si encara existeix i està buit
+            if (this._movedWrapper && this._movedWrapper.parentNode) {
+                this._movedWrapper.parentNode.removeChild(this._movedWrapper);
+            }
+
+            // netegem refs
+            this._movedNode = null;
+            this._movedFrom = null;
+            this._movedWrapper = null;
+        }
+
         if (this.isDynamic && !['video', 'vimeo', 'youtube', 'dom'].includes(this.mimeType)) {
             const content = this.modal.querySelector('.modal__content');
             if (content) content.innerHTML = '';
@@ -674,38 +718,14 @@ function initModal(context = document) {
     const modals = context.querySelectorAll('.js-modal.modal');
     console.log('initModal: trobades', modals.length, 'modals'); // debug: quantes modals detecta
     modals.forEach((element) => {
-        if (element.dataset.modalInitialized) {
-            //console.log('initModal: ja inicialitzada', element.id);
-            return;
+        if (!element.dataset.modalInitialized) {
+            new Modal(element, {
+                fullscreen: element.dataset.fullscreen === 'off' ? false : true,
+                confirmClose: element.dataset.confirmClose === 'on' ? true : false,
+            });
+            element.dataset.modalInitialized = 'true';
         }
-        //console.log('initModal: inicialitzant modal', element.id);
-        new Modal(element, {
-            fullscreen: element.dataset.fullscreen === 'off' ? false : true,
-            confirmClose: element.dataset.confirmClose === 'on' ? true : false,
-        });
-        element.dataset.modalInitialized = 'true';
     });
 }
 
-export { Modal, initModal};
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const modals = Array.from(document.querySelectorAll('.js-modal.modal'));
-//     modals.forEach((element) => {
-//         new Modal(element,
-//             {
-//                 fullscreen: (element.getAttribute('data-fullscreen') && element.dataset.fullscreen == 'off') ? false : true,
-//                 confirmClose: (element.getAttribute('data-confirm-close') && element.dataset.confirmClose == 'on') ? true : false,
-//                 // onOpen: () => {
-//                 //     console.log('Obrir');
-//                 // },
-//                 // onClose: () => {
-//                 //     console.log('Tancar');
-//                 // },
-//                 // onFullscreen: (isFullscreen) => {
-//                 //     console.log(`Pantalla Complerta: ${isFullscreen}`);
-//                 // },
-//             }
-//         );
-//     });
-// });
+export { Modal, initModal };
