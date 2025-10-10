@@ -8,7 +8,6 @@ Usage: https://codyhouse.co/ds/components/info/dialog
 -------------------------------- */
 import Button from '@components/button';
 import { tools as Util } from '@modules';
-import { initComponents } from '@modules/initComponents';
 
 
 class DynamicDialog {
@@ -230,8 +229,6 @@ class Dialog extends DynamicDialog {
         }
         Util.addClass(this.dialog, this.visibleClass);
         await Util.transitionend(this.dialog);
-        // 👇 inicialitza tots els mòduls dins del diàleg
-        initComponents(this.dialog);
     }
     async close() {
         document.removeEventListener('closeDialog', this.handleClose.bind(this));

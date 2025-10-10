@@ -67,7 +67,6 @@ if (typeof window !== 'undefined') {
     window.ModalVideo = ModalVideo;
 }
 
-// ✅ inicialitzador usable per `initComponents`
 function initModalVideo(context = document) {
     const videoModals = context.querySelectorAll('.js-modal-video__media');
     videoModals.forEach((mediaEl) => {

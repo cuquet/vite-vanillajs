@@ -523,22 +523,6 @@ class Modal extends DynamicModal {
             Util.removeClass(this.modal, this.loadingClass);
             document.querySelectorAll('.modal__loader').forEach((el) => el.remove());
             this.modal.dispatchEvent(new CustomEvent('openModal'));
-
-            // // 🧩 Evita reinicialitzacions duplicades
-            // if (!initializedModals.has(this.modal)) {
-            //     try {
-            //         const module = await import('@modules/initComponents');
-            //         if (module?.initComponents) {
-            //             await module.initComponents(this.modal, window.INIT_ENTRIES || []);
-            //             initializedModals.add(this.modal);
-            //             console.debug(`🧩 initComponents() fet dins ${this.modal.id}`);
-            //         }
-            //     } catch (err) {
-            //         console.warn('initComponents no disponible per al modal:', err);
-            //     }
-            // } else {
-            //     console.debug(`🧩 ja inicialitzat: ${this.modal.id}`);
-            // }
         });
 
         this.modal.style.visibility = 'visible';
