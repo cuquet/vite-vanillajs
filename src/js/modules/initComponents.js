@@ -7,13 +7,23 @@ import * as Navigation from '@components/navigation';
 import * as Table from '@components/table';
 import * as Plugins from '@components/plugins';
 
-const modulesMap = {
+const modulesStatic = {
     '@components/controls': Controls,
     '@components/forms': Forms,
     '@components/overlays': Overlays,
     '@components/navigation': Navigation,
     '@components/table': Table,
     '@components/plugins': Plugins,
+};
+
+// Lazy dynamic imports (només per Dev)
+const modulesLazy = {
+    '@components/controls': () => import('@components/controls'),
+    '@components/forms': () => import('@components/forms'),
+    '@components/overlays': () => import('@components/overlays'),
+    '@components/navigation': () => import('@components/navigation'),
+    '@components/table': () => import('@components/table'),
+    '@components/plugins': () => import('@components/plugins'),
 };
 
 /**
@@ -29,12 +39,6 @@ export async function initComponents(context = document, entries = []) {
     // --- 🧩 DEBUG ---
     const ctxName = context === document ? 'document' : context.id || context.className || 'context';
     console.groupCollapsed(`🧩 initComponents dins «${ctxName}»`);
-    console.groupCollapsed(`🧩 initComponents dins «${ctxName}»`);
-    entries.forEach(({ selector }) => {
-        const found = context.querySelectorAll(selector);
-        if (found.length > 0) console.log(`✅ TROBAT ${found.length} × ${selector} dins ${ctxName}`);
-    });
-    console.groupEnd();
 
     // --- 🧭 Helper: resol dependències
     const sortedEntries = sortByDependencies(entries);
@@ -42,33 +46,43 @@ export async function initComponents(context = document, entries = []) {
     for (const entry of sortedEntries) {
         const { selector, component, init, expose } = entry;
 
-        const module = modulesMap[component];
-        if (!module) continue;
+        let module;
+        try {
+            module = isProd ? modulesStatic[component] : await modulesLazy[component]();
+        } catch (err) {
+            console.warn(`⚠️ No s'ha pogut importar ${component}`, err);
+            continue
+        }
 
         const nodes = [...context.querySelectorAll(selector)];
-        //if (!nodes.length) continue;
-        const hasNodes = nodes.length > 0;
+        if (!nodes.length && !expose) continue;
+        
+        console.groupCollapsed(`🧩 Tenim ${nodes.length} × "${selector}" dins «${ctxName}»`);
+        
+        let initializedThis = false;
         if (expose && typeof window !== 'undefined' && !window[expose] && module[expose]) {
             window[expose] = module[expose];
-            //console.debug(`🧩 expose global creat: window.${expose}`);
+            console.log(`🌐 expose global creat: window.${expose}`);
+            initializedThis = true;
         }
-        if (!hasNodes) continue;
-
-        if (isProd) {
-            // PROD: assumeix que el bundle ja té tot importat
-            if (init && typeof module[init] === 'function') {
-                module[init](context);
-                initializedCount++;
-            };
-
-        } else {
-            // DEV: lazy load, però només cridem funció ja importada
-            if (init && typeof module[init] === 'function') {
-                const lazy = module[init](context);
-                lazyLoaders.push(lazy);
-                initializedCount++;
+        if (init && typeof module[init] === 'function') {
+            try {
+                if (isProd) {
+                    // PROD: assumeix que el bundle ja té tot importat
+                    module[init](context);
+                } else {
+                    // DEV: lazy load, però només cridem funció ja importada
+                    const lazy = module[init](context);
+                    lazyLoaders.push(lazy);
+                }
+                initializedThis = true;
+                console.log(`🧪 Component ${init} iniciat a «${ctxName}»`);
+            } catch (err) {
+                console.error(`❌ Error inicialitzant ${component}.${init}`, err);
             }
         }
+        if (initializedThis) initializedCount++;
+        console.groupEnd();
     }
 
     // --- ✅ Emet esdeveniment global ---
@@ -102,7 +116,3 @@ function sortByDependencies(entries) {
     return result;
 }
 
-/*
-Vols que et mostri una versió millorada d’aquest initComponents() amb suport de logs de diagnòstic, auto-lazy imports i sincronització amb MutationObserver (per quan apareguin nous nodes dinàmicament, sense recarregar)?
-Et permetria fer que qualsevol component inserit via AJAX o SSR parcial s’inicialitzi sol.
-*/
