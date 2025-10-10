@@ -6,80 +6,43 @@
 
 import { tools as Util } from '@modules';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // escolta el desplaçament de la finestra -> restableix la propietat clickScrolling
-    var scrollId = false;
-    var resizeId = false;
-    const tocs = document.getElementsByClassName('js-toc');
-    const tocsArray = [];
-    if (tocs.length > 0) {
-        for (let i = 0; i < tocs.length; i += 1) {
-            (function() {
-                tocsArray.push(new ToC(tocs[i])); //,{ isSticky: false})
-            }(i));
-        }
-        window.addEventListener('scroll', function() {
-            clearTimeout(scrollId);
-            scrollId = setTimeout(doneScrolling(), 100);
-        });
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeId);
-            scrollId = setTimeout(doneResizing(), 100);
-        });
-    }
-    function doneScrolling() {
-        var scrollEvent = new CustomEvent('toc-scroll');
-        for (let i = 0; i < tocsArray.length; i += 1) {
-            (function() {
-                tocsArray[i].element.dispatchEvent(scrollEvent);
-            }(i));
-        }
-    }
-
-    function doneResizing() {
-        var resizeEvent = new CustomEvent('toc-resize');
-        for (let i = 0; i < tocsArray.length; i += 1) {
-            (function() {
-                tocsArray[i].element.dispatchEvent(resizeEvent);
-            }(i));
-        }
-    }
-});
-
 class DynamicToC {
-    constructor ( element, opts) {
+    constructor(element, opts) {
         Object.assign(this, Util.extend(DynamicToC.defaults, opts));
         this.element = element;
-        this.element.innerHTML=this.mobileBtnToC;
-        this.container = document.querySelector('.'.concat(this.containerClass));
-        this.output = this.element.querySelector('.'.concat(this.outputClass));
-        this.toc = '';
+        this.element.innerHTML = this.mobileBtnToC;
+        this.container = document.querySelector(".".concat(this.containerClass));
+        this.output = this.element.querySelector(".".concat(this.outputClass));
+        this.toc = "";
         this.renderTocList();
     }
-    get getHeadings () {
-        const headingsraw = this.container.querySelectorAll('h1, h2, h3, h4, h5');
+
+    get getHeadings() {
+        const headingsraw = this.container.querySelectorAll("h1, h2, h3, h4, h5");
         const headings = Array.prototype.slice.call(headingsraw, 0).filter(function(el) {
-            return !(el.classList.contains('toc-skip'));
+            return !(el.classList.contains("toc-skip"));
         });
         return headings;
     }
-    get mobileBtnToC () {
-        const renderToc = `<button class="toc__control padding-sm js-toc__control" aria-controls="toc">
-                    <span class="toc__control-text">
-                        <i class="js-toc__control-label">${this.btnText}<span class="sr-only">${this.btn_sronly}</span></i>
-                        <i aria-hidden="true">${this.btnHead}</i>
-                    </span>
-                    <svg class="toc__icon-arrow icon icon--xs margin-left-3xs" viewBox="0 0 16 16" aria-hidden="true">
-                        <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                            <path d="M3 3l10 10"></path>
-                            <path d="M13 3L3 13"></path>
-                        </g>
-                    </svg>
-                </button>
-                <nav class="${this.outputClass}"></nav>`;
-        return renderToc;
+
+    get mobileBtnToC() {
+        return `
+        <button class="toc__control padding-sm js-toc__control" aria-controls="toc">
+            <span class="toc__control-text">
+                <i class="js-toc__control-label">${this.btnText}<span class="sr-only">${this.btn_sronly}</span></i>
+                <i aria-hidden="true">${this.btnHead}</i>
+            </span>
+            <svg class="toc__icon-arrow icon icon--xs margin-left-3xs" viewBox="0 0 16 16" aria-hidden="true">
+                <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M3 3l10 10"></path>
+                    <path d="M13 3L3 13"></path>
+                </g>
+            </svg>
+        </button>
+        <nav class="${this.outputClass}"></nav>`;
     }
-    renderTocList () {
+
+    renderTocList() {
         if (this.container) {
             const headings = this.getHeadings;
             let level = 0;
@@ -101,8 +64,9 @@ class DynamicToC {
                     // eslint-disable-next-line no-useless-escape
                     const titleText = headings[i].innerHTML.replace(/<([\w\-/]+)( +[\w\-]+(=(('[^']*')|("[^"]*")))?)* *>/g, '');
                     // Estableix l'ID de la capçalera amb el seu text en minúscules amb guionets en comptes d'espais.
-                    headings[i].setAttribute('id', id); 
-                    headings[i].classList.add('toc-content__target');
+                    headings[i].setAttribute("id", id);
+                    headings[i].classList.add("toc-content__target");
+
                     if (prevlevel > 0 && level > prevlevel) {
                         this.toc += (new Array(level - prevlevel + 1)).join('<ul class="toc__list">');
                     } else if (level < prevlevel) {
@@ -126,12 +90,12 @@ DynamicToC.defaults = {
     outputClass: 'toc__nav',
     btnText: 'En aquest article',
     btnHead: 'Selecciona',
-    btn_sronly: '- press button to select new section.'
-}
+    btn_sronly: '- press button to select new section.',
+};
 
 class ToC extends DynamicToC {
-    constructor ( element, opts  = {} ) {
-        super( element, Util.extend(ToC.defaults, opts));
+    constructor(element, opts = {}) {
+        super(element, Util.extend(ToC.defaults, opts));
         this.list = this.element.querySelector('.js-toc__list') || false;
         this.sections = this.getSections;
         this.controller = this.element.getElementsByClassName('js-toc__control');
@@ -142,19 +106,21 @@ class ToC extends DynamicToC {
         this.layout = 'static';
         this.init();
     }
-    get getSections () {
-        this.links = [...this.list.querySelectorAll('a[href^="#"]')]
+
+    get getSections() {
+        this.links = [...this.list.querySelectorAll('a[href^="#"]')];
         return this.links.map(link => {
             let id = link.getAttribute('href');
             return document.querySelector(id)
         });
     }
-    get getTocContent () {
+
+    get getTocContent() {
         if (!this.sections) return false;
-        const content = this.sections[0].closest('.js-toc-content');
-        return content;
+        return this.sections[0].closest('.js-toc-content');
     }
-    init () {
+
+    init() {
         var intersectionObserverSupported;
         var observer;
         // switch between mobile and desktop layout
@@ -172,19 +138,17 @@ class ToC extends DynamicToC {
                             if (entry.isIntersecting && entry.intersectionRatio === 1) {
                                 link.classList.add('is-visible');
                                 this.previousSection = entry.target.getAttribute('id');
-                            } else { 
+                            } else {
                                 link.classList.remove('is-visible');
                             }
                             this.highlightFirstActive();
                         }
                     });
-                },
-                {
-                    rootMargin: '0px',
-                    threshold: 1
-                    //threshold: [0, 0.5],
-                    //rootMargin: '0px 0px -70% 0px'
-                });
+                }, { rootMargin: '0px 0px -40% 0px', threshold: [0.3, 0.6] });
+                // {
+                //     rootMargin: '0px',
+                //     threshold: 1
+                // });
                 this.sections.forEach(section => observer.observe(section));
             }
             // detecta el final del desplaçament -> reactiva IntersectionObserver en desplaçament
@@ -199,78 +163,115 @@ class ToC extends DynamicToC {
         // tanca la versió ampliada amb esc
         this.element.addEventListener('keydown', this.handleBtnKeydown.bind(this));
     }
+
     highlightFirstActive() {
         let firstVisibleLink = this.list.querySelector('.is-visible');
-        
-        this.links.forEach(link => {
-            link.classList.remove('toc__link--selected');
-        })
-    
-        if (firstVisibleLink) {
-            firstVisibleLink.classList.add('toc__link--selected');
-        }
-        
+        this.links.forEach(link => link.classList.remove('toc__link--selected'));
+        if (firstVisibleLink) firstVisibleLink.classList.add('toc__link--selected');
         if (!firstVisibleLink && this.previousSection) {
             this.list.querySelector(`a[href="#${this.previousSection}"]`).classList.add('toc__link--selected');
         }
     }
-    checkTocLayout () {
+
+    checkTocLayout() {
         if (this.isStatic) return;
+
         // eslint-disable-next-line no-useless-escape
         this.layout = getComputedStyle(this.element, ':before').getPropertyValue('content').replace(/\'|"/g, '');
         Util.toggleClass(this.element, this.staticLayoutClass, this.layout === 'static');
         if (this.content) Util.toggleClass(this.content, this.contentStaticLayoutClass, this.layout === 'static');
         Util.toggleClass(this.element, 'position-sticky@md', this.isSticky);
+        //console.debug('ToC layout changed ->', this.layout, ' element classes: ', this.element.className);
     }
-    toggleToc (bool) {
+
+    toggleToc(bool) {
         // només versió col·lapsada (mòbil)
         if (this.controller.length < 1) return;
         // alterna la versió mòbil
         Util.toggleClass(this.element, this.expandedClass, !bool);
         bool ? this.controller[0].removeAttribute('aria-expanded') : this.controller[0].setAttribute('aria-expanded', 'true');
-        if (!bool && this.links.length > 0) {
-            this.links[0].focus();
-        }
+        if (!bool && this.links.length > 0) this.links[0].focus();
     }
-    handleAnchorClick (e) {
-        var anchor = e.target.closest('a[href^="#"]');
+
+    handleAnchorClick(e) {
+        const anchor = e.target.closest('a[href^="#"]');
         if (!anchor) return;
         this.clickScrolling = true;
-        /*this.links.forEach(link => {
-            link.classList.remove('toc__link--selected');
-        })
-        anchor.classList.add('toc__link--selected');*/
         this.toggleToc(true);
     }
-    handleBtnClick (e) {
+
+    handleBtnClick(e) {
         e.preventDefault();
-        var isOpen = Util.hasClass(this.element, this.expandedClass);
+        const isOpen = Util.hasClass(this.element, this.expandedClass);
         this.toggleToc(isOpen);
     }
-    handleBtnKeydown (e) {
+
+    handleBtnKeydown(e) {
         if (this.layout === 'static') return;
         if ((e.keyCode && e.keyCode === 27) || (e.key && e.key.toLowerCase() === 'escape')) {
             this.toggleToc(true);
             this.controller[0].focus();
         }
     }
-    handleTocScroll () {
-        // e.preventDefault();
+
+    handleTocScroll() {
         this.clickScrolling = false;
     }
-    handleTocResize () {
-        //e.preventDefault();
+
+    handleTocResize() {
         this.checkTocLayout();
     }
 
+    static initToCLazy() {
+            // escolta el desplaçament de la finestra -> restableix la propietat clickScrolling
+        var scrollId = false;
+        var resizeId = false;
+        const tocs = document.querySelectorAll('.js-toc');
+        const tocsArray = [];
+        if (!tocs.length) return;
+
+        Array.from(tocs).forEach(toc => {
+            if (!toc.dataset.tocInitialized) {
+                toc.dataset.tocInitialized = 'true';
+                tocsArray.push(new ToC(toc));
+                window.addEventListener('scroll', function() {
+                    clearTimeout(scrollId);
+                    scrollId = setTimeout(doneScrolling(), 100);
+                });
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeId);
+                    scrollId = setTimeout(doneResizing(), 100);
+                });
+            }
+        });
+        function doneScrolling() {
+            var scrollEvent = new CustomEvent('toc-scroll');
+            for (let i = 0; i < tocsArray.length; i += 1) {
+                (function() {
+                    tocsArray[i].element.dispatchEvent(scrollEvent);
+                }(i));
+            }
+        }
+        function doneResizing() {
+            var resizeEvent = new CustomEvent('toc-resize');
+            for (let i = 0; i < tocsArray.length; i += 1) {
+                (function() {
+                    tocsArray[i].element.dispatchEvent(resizeEvent);
+                }(i));
+            }
+        }
+    }
 }
 
 ToC.defaults = {
-    staticLayoutClass : 'toc--static',
-    contentStaticLayoutClass : 'toc-content--toc-static',
-    expandedClass : 'toc--expanded',
-    skipClass : 'toc-skip',
-    isSticky: true
-}
+    staticLayoutClass: 'toc--static',
+    contentStaticLayoutClass: 'toc-content--toc-static',
+    expandedClass: 'toc--expanded',
+    skipClass: 'toc-skip',
+    isSticky: true,
+};
 
-export default ToC;
+export { ToC };
+export function initToC() {
+    ToC.initToCLazy();
+}

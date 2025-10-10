@@ -8,7 +8,6 @@ Dependencies
     _1_popover
 -------------------------------- */
 import { tools as Util } from '@modules';
-//import { Popover } from '@/js/components/controls';
 
 export class AdvSelect {
     constructor(element) {
@@ -209,8 +208,6 @@ export class AdvSelect {
         if (dropdownOption) Util.moveFocus(dropdownOption);
     }
 }
-
-window.AdvSelect = AdvSelect;
 
 export function initAdvSelect(context = document) {
     const elements = context.querySelectorAll('.js-adv-select');
