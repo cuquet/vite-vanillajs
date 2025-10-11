@@ -700,7 +700,11 @@ if (typeof window !== 'undefined') {
 
 function initModal(context = document) {
     const modals = context.querySelectorAll('.js-modal.modal');
-    console.log('initModal: trobades', modals.length, 'modals'); // debug: quantes modals detecta
+    // console.groupCollapsed(`🖥️ initModal: trobades ${modals.length} modals`);
+    // [...modals].forEach((m, i) => {
+    //     console.log(`#${i}:`, m.id || '(sense id)', m);
+    // });
+    // console.groupEnd();
     modals.forEach((element) => {
         if (!element.dataset.modalInitialized) {
             new Modal(element, {

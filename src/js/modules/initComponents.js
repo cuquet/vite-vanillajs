@@ -44,7 +44,7 @@ export async function initComponents(context = document, entries = []) {
     const sortedEntries = sortByDependencies(entries);
 
     for (const entry of sortedEntries) {
-        const { selector, component, init, expose } = entry;
+        const { selector, component, init, expose, depends } = entry;
 
         let module;
         try {
@@ -58,6 +58,8 @@ export async function initComponents(context = document, entries = []) {
         if (!nodes.length && !expose) continue;
         
         console.groupCollapsed(`🧩 Tenim ${nodes.length} × "${selector}" dins «${ctxName}»`);
+        
+        if (depends) {console.log(`🔗 Depen de [${depends}]`);}
         
         let initializedThis = false;
         if (expose && typeof window !== 'undefined' && !window[expose] && module[expose]) {
@@ -94,25 +96,34 @@ export async function initComponents(context = document, entries = []) {
 
 /**
  * Ordena els components segons el seu camp `depends`
- * (ex: AdvSelect depèn de Popover)
+ * Admet dependències tant per `init` com per `expose`
+ * Exemple: Modal depèn de Dialog (que només té expose)
  */
 function sortByDependencies(entries) {
     const map = new Map();
-    entries.forEach((e) => map.set(e.init, e));
+    for (const e of entries) {
+        if (e.init) map.set(e.init, e);
+        if (e.expose) map.set(e.expose, e);
+    }
 
     const visited = new Set();
     const result = [];
 
     function visit(entry) {
-        if (!entry || visited.has(entry.init)) return;
-        visited.add(entry.init);
-        if (entry.depends) {
-            for (const dep of entry.depends) visit(map.get(dep));
+        if (!entry || visited.has(entry.init || entry.expose)) return;
+        visited.add(entry.init || entry.expose);
+
+        if (entry.depends && Array.isArray(entry.depends)) {
+            for (const dep of entry.depends) {
+                const depEntry = map.get(dep);
+                if (depEntry) visit(depEntry);
+                else console.warn(`⚠️ Dependència no trobada: "${dep}"`);
+            }
         }
+
         result.push(entry);
     }
 
     for (const entry of entries) visit(entry);
     return result;
 }
-
