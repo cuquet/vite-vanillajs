@@ -17,6 +17,14 @@ class DynamicToC {
         this.renderTocList();
     }
 
+    static defaults = {
+        containerClass: 'toc-content',
+        outputClass: 'toc__nav',
+        btnText: 'En aquest article',
+        btnHead: 'Selecciona',
+        btn_sronly: '- press button to select new section.',
+    };
+
     get getHeadings() {
         const headingsraw = this.container.querySelectorAll("h1, h2, h3, h4, h5");
         const headings = Array.prototype.slice.call(headingsraw, 0).filter(function(el) {
@@ -85,14 +93,6 @@ class DynamicToC {
     }
 }
 
-DynamicToC.defaults = {
-    containerClass: 'toc-content',
-    outputClass: 'toc__nav',
-    btnText: 'En aquest article',
-    btnHead: 'Selecciona',
-    btn_sronly: '- press button to select new section.',
-};
-
 class ToC extends DynamicToC {
     constructor(element, opts = {}) {
         super(element, Util.extend(ToC.defaults, opts));
@@ -106,6 +106,14 @@ class ToC extends DynamicToC {
         this.layout = 'static';
         this.init();
     }
+
+    static defaults = {
+        staticLayoutClass: 'toc--static',
+        contentStaticLayoutClass: 'toc-content--toc-static',
+        expandedClass: 'toc--expanded',
+        skipClass: 'toc-skip',
+        isSticky: true,
+    };
 
     get getSections() {
         this.links = [...this.list.querySelectorAll('a[href^="#"]')];
@@ -222,7 +230,7 @@ class ToC extends DynamicToC {
         this.checkTocLayout();
     }
 
-    static initToCLazy() {
+    static initLazyToC() {
             // escolta el desplaçament de la finestra -> restableix la propietat clickScrolling
         var scrollId = false;
         var resizeId = false;
@@ -263,15 +271,11 @@ class ToC extends DynamicToC {
     }
 }
 
-ToC.defaults = {
-    staticLayoutClass: 'toc--static',
-    contentStaticLayoutClass: 'toc-content--toc-static',
-    expandedClass: 'toc--expanded',
-    skipClass: 'toc-skip',
-    isSticky: true,
-};
+if (typeof window !== 'undefined') {
+    if (!window.ToC) window.ToC = ToC;
+}
 
 export { ToC };
 export function initToC() {
-    ToC.initToCLazy();
+    ToC.initLazyToC();
 }
