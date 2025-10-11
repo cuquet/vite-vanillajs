@@ -176,7 +176,7 @@ export class Toasts {
 }
 
 if (typeof window !== 'undefined') {
-    window.Dialog = Toasts;
+    if (!window.Toasts) window.Toasts = Toasts;
 }
 
 export function initToasts(context = document) {

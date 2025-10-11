@@ -63,10 +63,6 @@ class ModalVideo {
     }
 }
 
-if (typeof window !== 'undefined') {
-    window.ModalVideo = ModalVideo;
-}
-
 function initModalVideo(context = document) {
     const videoModals = context.querySelectorAll('.js-modal-video__media');
     videoModals.forEach((mediaEl) => {

@@ -432,6 +432,10 @@ class Sidebar extends SideNav {
     }
 }
 
+if (typeof window !== 'undefined') {
+    if (!window.Sidebar) window.Sidebar = Sidebar;
+}
+
 function initSidebar(context = document) {
     const sidebarEls = Array.from(context.querySelectorAll('.js-sidebar'));
     sidebarEls.forEach((el) => {

@@ -89,4 +89,8 @@ class NewsInput {
     }
 }
 
+if (typeof window !== 'undefined') {
+    if (!window.NewsInput) window.NewsInput = NewsInput;
+}
+
 export { NewsInput };

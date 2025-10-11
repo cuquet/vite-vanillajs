@@ -28,6 +28,24 @@
     </form>
 </div>
 <script type="module" >
+    /*
+        Casos d'ús de LanguagePicker:
+
+        1️⃣ HTML estàtic que carrega /js/components/forms/picker-language/index.js amb <script type="module" src="...">
+        → No cal import.
+        → El mòdul ja exposa window.LanguagePicker.
+
+        2️⃣ Codi que usa Vite + initComponents.js amb import() dinàmic
+        → No cal import.
+        → El lazy loader ja importa i exposa LanguagePicker.
+
+        3️⃣ Codi JS independent (per exemple, una demo sense haver carregat el mòdul) com és *.hbs
+        → Sí cal import.
+        → Només si el mòdul no s’ha carregat abans.
+    */
+    import { LanguagePicker } from '@components/forms/picker-language';
+    if (typeof window !== 'undefined') window.LanguagePicker = LanguagePicker;
+    
     const pickers = document.querySelectorAll('.js-language-picker');
     pickers.forEach((el) => {
         new LanguagePicker(el, {

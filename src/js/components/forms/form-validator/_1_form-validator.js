@@ -99,6 +99,6 @@ export class FormValidator {
 
 // expose to global scope (optional)
 if (typeof window !== 'undefined') {
-    window.FormValidator = FormValidator;
+    if (!window.FormValidator) window.FormValidator = FormValidator;
 }
 

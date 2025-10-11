@@ -219,7 +219,7 @@ class Lightbox {
     }
 }
 if (typeof window !== 'undefined') {
-    window.Lightbox = Lightbox;
+    if (!window.Lightbox) window.Lightbox = Lightbox;
 }
 
 

@@ -500,7 +500,7 @@ function initSlideshow(context = document) {
 }
 
 if (typeof window !== 'undefined') {
-    window.Slideshow = Slideshow;
+    if (!window.Slideshow) window.Slideshow = Slideshow;
 }
 export {Slideshow, initSlideshow};
 

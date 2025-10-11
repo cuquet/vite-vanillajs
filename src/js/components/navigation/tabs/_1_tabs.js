@@ -121,7 +121,9 @@ class Tab {
     }
 }
 
-window.Tab = Tab;
+if (typeof window !== 'undefined') {
+    if (!window.Tab) window.Tab = Tab;
+}
 
 function initTab(context = document) {
     const elements = context.querySelectorAll('.js-tabs');

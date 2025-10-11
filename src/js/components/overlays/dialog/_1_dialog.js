@@ -248,8 +248,9 @@ class Dialog extends DynamicDialog {
         }
     }
 }
+
 if (typeof window !== 'undefined') {
-    window.Dialog = Dialog;
+    if (!window.Dialog) window.Dialog = Dialog;
 }
 
 export { Dialog };

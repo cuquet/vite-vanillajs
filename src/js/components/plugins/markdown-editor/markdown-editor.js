@@ -9,7 +9,7 @@ Dependencies:
     marked: npm install marked
 
 -------------------------------- */
-import { tools as Util } from '@modules';
+
 import { Tooltip } from '@/js/components/controls';
 import { marked } from 'marked';
 
@@ -49,7 +49,7 @@ class MdEditor extends Tooltip {
         this.wrapper = document.createElement('div');
         this.wrapper.className = 'md-editor__wrapper grid gap-xs';
         this.wrapper.style.display = 'flex';
-        Util.addClass(this.textarea, "col")
+        this.textarea.classList.add("col");
         this.wrapper.appendChild(this.textarea);
         this.wrapper.appendChild(this.previewContainer);
         this.element.appendChild(this.wrapper);
@@ -173,7 +173,7 @@ class MdEditor extends Tooltip {
     // -------------------------
     // Inicialització lazy amb IntersectionObserver
     // -------------------------
-    static initMdEditorLazy() {
+    static initLazyMdEditor() {
         const mdEditors = document.querySelectorAll('.md-editor');
         if (mdEditors.length === 0) return;
 
@@ -212,9 +212,14 @@ MdEditor.defaults = [
     { action: 'tList', content: '- [ ] Item 1\n- [x] Item 2\n- [ ] Item 3', newLine: true },
 ];
 
+
+if (typeof window !== 'undefined') {
+    if (!window.MdEditor) window.MdEditor = MdEditor;
+}
+
 export { MdEditor };
 export function initMdEditorLazy() {
-    MdEditor.initMdEditorLazy();
+    MdEditor.initLazyMdEditor();
 }
 
 // /* --------------------------------

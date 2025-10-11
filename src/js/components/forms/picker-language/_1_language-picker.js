@@ -200,4 +200,8 @@ class LanguagePicker {
     }
 }
 
+if (typeof window !== 'undefined') {
+    if (!window.LanguagePicker) window.LanguagePicker = LanguagePicker;
+}
+
 export { LanguagePicker };

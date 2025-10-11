@@ -166,6 +166,10 @@ export default defineConfig(({ command }) => {
                     manualChunks: undefined, // 💥 força un sol chunk per bundle
                 },
             },
+            minify: 'esbuild',
+            esbuild: {
+                drop: ['console', 'debugger'],
+            },
         },
     };
 });

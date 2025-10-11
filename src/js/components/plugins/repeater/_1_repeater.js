@@ -114,7 +114,7 @@ class Repeater {
             idElement.setAttribute('id', id.replace(oldName, newName));
         });
     }
-    static initRepeater() {
+    static initLazyRepeater() {
         const repeaters = document.querySelectorAll('.js-repeater');
         repeaters.forEach((el) => {
             if (!el.dataset.repeaterInitialized) {
@@ -126,10 +126,5 @@ class Repeater {
 
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const repeaters = Array.from(document.getElementsByClassName('js-repeater'));
-//     repeaters.forEach((element) => { new Repeater(element) });
-// });
-
 export { Repeater };
-export function initRepeater(){ Repeater.initRepeater()}
+export function initRepeater(){ Repeater.initLazyRepeater()}
