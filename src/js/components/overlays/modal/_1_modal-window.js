@@ -41,15 +41,6 @@ class DynamicModal {
 
     static defaults = {
         animateClass: 'modal--animate-scale',
-        //   'modal--animate-scale' default when is empty
-        //   'modal--animate-translate-up'
-        //   'modal--animate-translate-down'
-        //   'modal--animate-translate-right'
-        //   'modal--animate-translate-left'
-        //   'modal--animate-slide-up'
-        //   'modal--animate-slide-down'
-        //   'modal--animate-slide-right'
-        //   'modal--animate-slide-left'
         modalClass: 'modal flex flex-center flex-wrap bg-black bg-opacity-90% padding-md js-modal',
         contentClass: 'modal__content',
         contentClassDefault:
@@ -427,6 +418,12 @@ class Modal extends DynamicModal {
         focusableElString: Util.focusableElString(),
         fullscreen: true,
         confirmClose: false,
+        dialogDefaults: {
+            title: 'Estàs segur que vols tancar finestra?',
+            description: "Les dades que no s'hagin guardat es perdran.",
+            accept: 'Tancar',
+            cancel: 'Cancel·lar',
+        },
     };
 
     get renderLoader() {
@@ -595,11 +592,12 @@ class Modal extends DynamicModal {
         }
 
         if (this.confirmClose) {
+            const { title, description, accept, cancel } = this.dialogDefaults || Modal.defaults.dialogDefaults;
             const confirm = new Dialog({
-                title: 'Estàs segur que vols tancar finestra?',
-                description: "Les dades que no s'hagin guardat es perdran.",
-                accept: 'Tancar',
-                cancel: 'Cancel·lar',
+                title,
+                description,
+                accept,
+                cancel,
                 scrollbarWidth: this.scrollbarWidth,
                 isDynamic: this.isDynamic,
             });
