@@ -36,7 +36,7 @@ const INIT_ENTRIES = [
     { selector: '.js-number-input', component: '@components/forms', init: 'initNumberInput'},
     { selector: '.js-list-filter', component: '@components/forms', init: 'initListFilter' },
     { selector: '.js-select', component: '@components/forms', init: 'initCustomSelect', depends: ['initPopover'] },
-    { selector: '.js-multi-select', component: '@components/forms', init: 'initMultipleCustomSelect', },
+    { selector: '.js-multi-select', component: '@components/forms', init: 'initMultipleCustomSelect' },
     { selector: '.js-multi-select-v2', component: '@components/forms', init: 'initMultipleCustomSelectV2', depends: ['initListFilter'] },
     { selector: '.js-adv-select', component: '@components/forms', init: 'initAdvSelect', depends: ['initPopover'] },
     { selector: '.js-password', component: '@components/forms', init: 'initPasswordVisibility' },
@@ -64,7 +64,7 @@ const INIT_ENTRIES = [
     { selector: '.js-dialog', component: '@components/overlays', expose: 'Dialog' },
     { selector: '.js-slideshow', component: '@components/overlays', init: 'initSlideshow' },
     { selector: '.js-lightbox', component: '@components/overlays', init: 'initLightbox' },
-    { selector: '.js-modal', component: '@components/overlays', init: 'initModal', expose: 'Modal', depends: ['Dialog']},
+    { selector: '.js-modal', component: '@components/overlays', init: 'initModal', expose: 'Modal', depends: ['Dialog'] },
     // modal video: init helper + expose ModalVideo (component components/overlays/modal exports both)
     {
         selector: '.js-modal-video__media',
@@ -86,7 +86,7 @@ const INIT_ENTRIES = [
     { selector: '.md-editor', component: '@components/plugins', init: 'initMdEditorLazy', expose: 'MdEditor', depends: ['initTooltip'] },
     { selector: '.js-repeater', component: '@components/plugins', init: 'initRepeater' },
     { selector: '.js-news-form', component: '@components/plugins', expose: 'NewsInput' },
-    { selector: '.js-toc', component: '@components/plugins', init: 'initToC' },
+    { selector: '.js-toc', component: '@components/plugins', init: 'initToC', expose: 'ToC' },
 ];
 
 import { initComponents } from '@modules/initComponents';
