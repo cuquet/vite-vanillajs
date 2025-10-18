@@ -6,9 +6,6 @@
         <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
         <link rel="stylesheet" href="/scss/dashboard.scss" />
         <title>Vite App</title>
-        <style>
-            /*$langs: bg, cs, ca, da, de, en, es, fi, fr, hu, it, ja, ko, lv, nl, pl, pt, ro, ru, sl, sv, zh;*/
-        </style>
     </head>
 
     <body>
@@ -87,13 +84,8 @@
                         </form>
                     </div>
                     <div class="flex gap-4xs">
-                        <!--{{> switchlanguage mod="hide-label" }}  mod="flags"  mod="hide-label" classes="app-ui__btn-lang"-->
-
                         <a class="app-ui__btn-header js-app-ui__btn-fullscreen" href="#0">
-                            <span
-                                class="tooltip-trigger js-tooltip-trigger"
-                                data-tooltip-title="Expand/Compress"
-                            >
+                            <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Expand/Compress">
                                 <svg class="icon fill-current color-primary-subtle">
                                     <use href="#expand"></use>
                                 </svg>
@@ -191,7 +183,7 @@
                             </div>
                         </div>
 
-                        <!-- {{> switchlanguage }} mod="flags"  mod="hide-label" classes="app-ui__btn-lang"-->
+                        <!-- {{> switchlanguage-nojs }} mod="flags"  mod="hide-label" classes="app-ui__btn-lang"-->
                     </div>
                 </div>
             </header>
@@ -497,7 +489,8 @@
                 <main class="app-ui__body sidebar-loaded:show">
                     <!-- start main content position-relative z-index-1 flex-grow height-100vh -->
                     <!-- #{> dashboard-home }} #{> dashboard-domains-list }} #{> dashboard-users-profile }} dashboard-users-list dashboard-system-throttle  dashboard-system-wblist -->
-                    {{> dashboard-users-profile }} {{> footer }}
+                    {{> dashboard-users-profile }}
+                    {{> footer }}
                 </main>
                 {{> totop }}
             </section>
@@ -505,8 +498,7 @@
         {{> svg }}
     </body>
     <script type="module" src="/js/dashboard.js"></script>
-    <script type="module">
-        //inicialitza el Modal dinàmics
+    <script>// inicialitza el Modal dinàmics
         document.addEventListener('DOMContentLoaded', () => {
             const modalButtons = Array.from(document.querySelectorAll('.js-modal:not(.modal)'));
             if (modalButtons.length > 0) {
@@ -561,8 +553,7 @@
             }
         });
     </script>
-    <script type="module">
-        //inicialitza el menú de llengües
+    <script>// inicialitza el menú de llengües
         document.addEventListener('DOMContentLoaded', () => {
             const languagePickerElements = Array.from(
                 document.getElementsByClassName('js-language-picker'),
@@ -579,9 +570,8 @@
             });
         });
     </script>
-    <script type="module">
+    <script>// Show options if account is marked as normal admin in user profile page.
         // @TODO
-        // Show options if account is marked as normal admin in user profile page.
         document.addEventListener('DOMContentLoaded', function () {
             const o = document.getElementById('domainadmin');
             const d = document.getElementsByClassName('normal-admin-options');

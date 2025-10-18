@@ -60,8 +60,7 @@
         {{> svg }}
     </body>
     <script type="module" src="/js/dashboard.js"></script>
-    <script type="module">
-        //inicialitza el Modal dinàmics
+    <script>// inicialitza el Modal dinàmics
         document.addEventListener('DOMContentLoaded', () => {
             const modalButtons = Array.from(document.querySelectorAll('.js-modal:not(.modal)'));
             if (modalButtons.length > 0) {
@@ -85,8 +84,7 @@
             }
         });
     </script>
-    <script type="module">
-        //inicialitza el menú de llengües
+    <script>// inicialitza el menú de llengües
         document.addEventListener('DOMContentLoaded', () => {
             const languagePickerElements = Array.from(
                 document.getElementsByClassName('js-language-picker'),
@@ -102,8 +100,7 @@
             }
         });
     </script>
-    <script type="module">
-        // Creació d'un toast al vol
+    <script>// Creació d'un toast al vol
         const toastIcon = `<div class="toast__icon-wrapper margin-right-2xs"><svg class="icon"><title>error</title><use href="#error"></use></svg></div>`;
         const toastContent = `<div class="text-component text-sm">
         <h1 class="toast__title text-md
@@ -120,9 +117,8 @@
             toast.dispatchEvent(new CustomEvent('openToast'));
         });
     </script>
-    <script type="module">
+    <script>// Show options if account is marked as normal admin in user profile page.
         // @TODO
-        // Show options if account is marked as normal admin in user profile page.
         document.addEventListener('DOMContentLoaded', function () {
             const o = document.getElementById('domainadmin');
             const d = document.getElementsByClassName('normal-admin-options');

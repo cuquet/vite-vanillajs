@@ -7,6 +7,7 @@ import * as Navigation from '@components/navigation';
 import * as Table from '@components/table';
 import * as Plugins from '@components/plugins';
 
+// --- 🧩 Imports estàtics (producció)
 const modulesStatic = {
     '@components/controls': Controls,
     '@components/forms': Forms,
@@ -16,7 +17,7 @@ const modulesStatic = {
     '@components/plugins': Plugins,
 };
 
-// Lazy dynamic imports (només per Dev)
+// --- 🧩 Imports dinàmics (només en mode Dev)
 const modulesLazy = {
     '@components/controls': () => import('@components/controls'),
     '@components/forms': () => import('@components/forms'),
@@ -24,6 +25,16 @@ const modulesLazy = {
     '@components/navigation': () => import('@components/navigation'),
     '@components/table': () => import('@components/table'),
     '@components/plugins': () => import('@components/plugins'),
+};
+
+// --- 🧠 Helper dev logger (silenciat en Prod)
+const devLog = {
+    log: (...a) => import.meta.env.DEV && console.log(...a),
+    info: (...a) => import.meta.env.DEV && console.info(...a),
+    warn: (...a) => import.meta.env.DEV && console.warn(...a),
+    error: (...a) => import.meta.env.DEV && console.error(...a),
+    group: (...a) => import.meta.env.DEV && console.groupCollapsed(...a),
+    end: () => import.meta.env.DEV && console.groupEnd(),
 };
 
 /**
@@ -36,11 +47,9 @@ export async function initComponents(context = document, entries = []) {
     const lazyLoaders = [];
     let initializedCount = 0;
 
-    // --- 🧩 DEBUG ---
     const ctxName = context === document ? 'document' : context.id || context.className || 'context';
-    console.groupCollapsed(`🧩 initComponents dins «${ctxName}»`);
+    devLog.group(`🧩 initComponents dins «${ctxName}»`);
 
-    // --- 🧭 Helper: resol dependències
     const sortedEntries = sortByDependencies(entries);
 
     for (const entry of sortedEntries) {
@@ -50,23 +59,27 @@ export async function initComponents(context = document, entries = []) {
         try {
             module = isProd ? modulesStatic[component] : await modulesLazy[component]();
         } catch (err) {
-            console.warn(`⚠️ No s'ha pogut importar ${component}`, err);
-            continue
+            devLog.warn(`⚠️ No s'ha pogut importar ${component}`, err);
+            continue;
         }
 
         const nodes = [...context.querySelectorAll(selector)];
         if (!nodes.length && !expose) continue;
-        
-        console.groupCollapsed(`🧩 Tenim ${nodes.length} × "${selector}" dins «${ctxName}»`);
-        
-        if (depends) {console.log(`🔗 Depen de [${depends}]`);}
-        
+
+        devLog.group(`🧩 ${component}`);
+        devLog.info(`🔎 Trobat ${nodes.length} × "${selector}" dins «${ctxName}»`);
+        if (depends) devLog.log(`🔗 Depèn de [${depends.join(', ')}]`);
+
         let initializedThis = false;
+
+        // Expose global
         if (expose && typeof window !== 'undefined' && !window[expose] && module[expose]) {
             window[expose] = module[expose];
-            console.log(`🌐 expose global creat: window.${expose}`);
+            devLog.info(`🌐 expose global creat: window.${expose}`);
             initializedThis = true;
         }
+
+        // Inici del component
         if (init && typeof module[init] === 'function') {
             try {
                 if (isProd) {
@@ -77,21 +90,23 @@ export async function initComponents(context = document, entries = []) {
                     const lazy = module[init](context);
                     lazyLoaders.push(lazy);
                 }
+                devLog.log(`🧪 Component ${init} iniciat a «${ctxName}»`);
                 initializedThis = true;
-                console.log(`🧪 Component ${init} iniciat a «${ctxName}»`);
             } catch (err) {
-                console.error(`❌ Error inicialitzant ${component}.${init}`, err);
+                devLog.error(`❌ Error inicialitzant ${component}.${init}`, err);
             }
         }
+
         if (initializedThis) initializedCount++;
-        console.groupEnd();
+        devLog.end();
     }
 
     // --- ✅ Emet esdeveniment global ---
-    const event = new CustomEvent('componentsReady', { detail: { count: initializedCount, context }, });
+    const event = new CustomEvent('componentsReady', { detail: { count: initializedCount, context } });
     window.dispatchEvent(event);
-    console.info(`🧩 componentsReady emès (${initializedCount} components inicialitzats) dins «${ctxName}»`);
-    console.groupEnd();
+
+    devLog.info(`🧩 componentsReady emès (${initializedCount} components inicialitzats) dins «${ctxName}»`);
+    devLog.end();
 }
 
 /**
@@ -117,7 +132,7 @@ function sortByDependencies(entries) {
             for (const dep of entry.depends) {
                 const depEntry = map.get(dep);
                 if (depEntry) visit(depEntry);
-                else console.warn(`⚠️ Dependència no trobada: "${dep}"`);
+                else devLog.warn(`⚠️ Dependència no trobada: "${dep}"`);
             }
         }
 
