@@ -9,6 +9,11 @@ import { tools as Util } from '@modules';
 export class LdSwitch {
     constructor(element) {
         this.element = element;
+        // 🆔 Genera un id únic si no en té
+        if (!this.element.hasAttribute('id')) {
+            this.element.setAttribute('id', 'ld-switch-' + Util.getNewId(8));
+        }
+        this.switchId = this.element.getAttribute('id');
         this.icons = this.element.getElementsByClassName('js-ld-switch-icon');
         this.selectedIcon = 0;
         this.isSystem = false;
@@ -32,7 +37,16 @@ export class LdSwitch {
     }
 
     init() {
-        this.setStartIcon();
+        const savedTheme = localStorage.getItem('ldSwitch');
+        const themeIndex = this.themes.indexOf(savedTheme);
+
+        if (themeIndex !== -1) {
+            this.setTheme(themeIndex, true);
+            this.element.querySelector('select').selectedIndex = themeIndex;
+        } else {
+            this.setStartIcon();
+        }
+        
         this.element.addEventListener('change', (event) => {
             this.setTheme(event.target.value);
         });
@@ -48,6 +62,15 @@ export class LdSwitch {
         let theme = this.themes[0];
         let iconIndex = value;
         localStorage.setItem('ldSwitch', this.themes[value]);
+
+        // ✅ sincronitza el select real
+        const selectEl = this.element.querySelector('select');
+        if (selectEl && selectEl.selectedIndex !== value) {
+            selectEl.selectedIndex = value;
+
+            // si fas servir adv-select, llança també l’esdeveniment per a que actualitzi la UI
+            selectEl.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+        }
 
         if (value == 1) {
             theme = this.themes[1];

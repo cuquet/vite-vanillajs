@@ -74,6 +74,9 @@ export class AdvSelect {
                 this.triggerSelection(document.activeElement);
             }
         });
+        // --> escoltem canvis del select natiu perquè altres scripts (p.ex. LdSwitch) puguin
+        // actualitzar-lo i el custom select hagi de reflectir-ho.
+        this.select.addEventListener('change', this.onNativeSelectChange.bind(this));
     }
 
     createAdvStructure() {
@@ -190,6 +193,28 @@ export class AdvSelect {
         const selectedOption = this.select.querySelector(`[value="${selectedValue}"]`);
         this.select.selectedIndex = Util.getIndexInArray(this.options, selectedOption);
         this.select.dispatchEvent(new CustomEvent('change', { bubbles: true })); // trigger change event
+    }
+    
+    onNativeSelectChange() {
+        // troba l'opció seleccionada al select natiu
+        const nativeSelected = this.select.options[this.select.selectedIndex];
+        if (!nativeSelected) return;
+
+        const selectedValue = nativeSelected.value;
+        // desempallegar l'opció actual marcada al dropdown
+        const current = this.dropdown.querySelector('[aria-selected="true"]');
+        if (current) {
+            current.removeAttribute('aria-selected');
+            current.removeAttribute('tabindex');
+        }
+        // trobar l'opció corresponent al dropdown i marcar-la
+        const dropdownOption = this.dropdown.querySelector(`[data-value="${selectedValue}"]`);
+        if (dropdownOption) {
+            dropdownOption.setAttribute('aria-selected', 'true');
+            dropdownOption.setAttribute('tabindex', '0');
+            // actualitza el text/imatge del trigger
+            this.updateTriggerLabel();
+        }
     }
 
     keyboardCustomSelect(direction) {
