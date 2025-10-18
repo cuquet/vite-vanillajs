@@ -78,6 +78,7 @@ class SideNav {
                 ITEM_CLASS: 'sidenav__item',
                 LINK_CLASS: 'sidenav__link',
                 LABEL_CLASS: 'sidenav__label',
+                LABEL_CLASS_SUB: 'sidenav__label font-italic',
                 DIVIDER_CLASS: 'sidenav__divider',
                 TEXT_CLASS: 'sidenav__text',
                 TEXT_CLASS_SUB: 'dropdown__text',
@@ -88,8 +89,8 @@ class SideNav {
             },
             static: {
                 ITEM_CLASS: 'sidenav__item',
-                ITEM_CLASS_xSUB: 'sidenav__item dropdown__wrapper',
                 LINK_CLASS: 'sidenav__link',
+                ITEM_CLASS_xSUB: 'sidenav__item dropdown__wrapper',
                 LINK_CLASS_xSUB: 'sidenav__link dropdown__trigger js-dropdown__trigger',
                 ITEM_CLASS_SUB_xSUB: 'dropdown__sub-wrapper js-dropdown__sub-wrapper',
                 LINK_CLASS_SUB_xSUB: 'dropdown__item',
