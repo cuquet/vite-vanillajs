@@ -90,7 +90,7 @@ export class SmoothScroll {
 }
 
 export function initSmoothScroll(context = document) {
-	const elements = context.querySelectorAll('.js-select');
+	const elements = context.querySelectorAll('.js-smooth-scroll');
 	elements.forEach(el => {
 		if (!Util.cssSupports('scroll-behavior', 'smooth') && window.requestAnimationFrame) {
 			if (!el.dataset.smooothScrollInitialized) {

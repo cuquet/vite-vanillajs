@@ -17,7 +17,7 @@ class Tooltip {
         this.tooltipContent = this.element.getAttribute('title');
         this.tooltipPosition = this.element.getAttribute('data-tooltip-position') || 'top';
         this.tooltipClasses = this.element.getAttribute('data-tooltip-class') || false;
-        this.tooltipId = 'js-tooltip-element'; 
+        this.tooltipId = `tooltip-${Util.getNewId(6)}`; 
         // id de l'element tooltip -> el trigger tindrà el mateix atribut aria-describedby
         // hi ha casos on només necessites l'atribut aria-label -> els lectors de pantalla no necessiten llegir el contingut del tooltip (per exemple, notes a peu de pàgina)
         
