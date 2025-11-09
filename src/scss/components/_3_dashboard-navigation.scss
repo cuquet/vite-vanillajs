@@ -115,6 +115,10 @@ Usage: https://codyhouse.co/ds/components/info/dashboard-navigation
         }
         .sidenav {
             padding: var(--sidenav-list-item-padding-y) var(--sidenav-list-item-padding-x);
+            a[aria-current='location'] {
+                //color: var(--color-primary);
+                background-color: hsla(var(--color-contrast-higher-h), var(--color-contrast-higher-s), var(--color-contrast-higher-l), 0.075);
+            }
             &__item {
                 display: block;
                 position: relative;
@@ -367,14 +371,15 @@ Usage: https://codyhouse.co/ds/components/info/dashboard-navigation
                 &:hover, &.hover {
                     background-color: alpha(var(--color-contrast-higher), 0.05);
                 }
-                &[aria-expanded="true"] {
-                    color: var(--color-primary);
-                    background-color: alpha(var(--color-contrast-higher), 0.05);
-                    .dropdown__trigger-icon { transform: rotate(0deg); }
-                }
                 &[aria-current='page'] {
                     background-color: alpha(var(--color-primary), 0.1);
                     color: var(--color-primary);
+                }
+            }
+            &__item:hover {
+                color: var(--color-primary);
+                .dropdown__trigger-icon { 
+                    transform: rotate(0deg); 
                 }
             }
             &__icon {

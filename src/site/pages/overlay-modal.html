@@ -100,55 +100,60 @@
                                     <button class="btn btn--primary js-modal" data-content="#div-pel-dialog"
                                         data-title="Això és el títol">Open modal 2</button>
                                     <div id="div-pel-dialog" class="hide">
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias dignissimos
-                                            ratione ducimus dolor illo itaque eveniet soluta, beatae, asperiores magnam
-                                            quaerat cumque, distinctio error voluptatum quidem cum numquam voluptate
-                                            commodi.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis vel
-                                            animi laborum nobis aut rerum voluptas quam ipsa soluta.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet accusantium
-                                            provident nulla minus velit, voluptas voluptatem in libero hic quaerat saepe
-                                            quae, labore, qui illo eum ullam ea. Repudiandae excepturi aut earum ipsa vitae
-                                            modi, non eos hic? Atque fugit ullam est ab nam numquam id pariatur, esse
-                                            voluptates, ipsa aperiam consequatur laboriosam perspiciatis. Nemo culpa
-                                            reprehenderit tenetur alias dolor veritatis ducimus, numquam ipsa incidunt harum
-                                            dolorem quod perspiciatis autem quis soluta, nobis assumenda aliquam perferendis
-                                            ut commodi inventore sunt.</p>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias dignissimos
-                                            ratione ducimus dolor illo itaque eveniet soluta, beatae, asperiores magnam
-                                            quaerat cumque, distinctio error voluptatum quidem cum numquam voluptate
-                                            commodi.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis vel
-                                            animi laborum nobis aut rerum voluptas quam ipsa soluta.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet accusantium
-                                            provident nulla minus velit, voluptas voluptatem in libero hic quaerat saepe
-                                            quae, labore, qui illo eum ullam ea. Repudiandae excepturi aut earum ipsa vitae
-                                            modi, non eos hic? Atque fugit ullam est ab nam numquam id pariatur, esse
-                                            voluptates, ipsa aperiam consequatur laboriosam perspiciatis. Nemo culpa
-                                            reprehenderit tenetur alias dolor veritatis ducimus, numquam ipsa incidunt harum
-                                            dolorem quod perspiciatis autem quis soluta, nobis assumenda aliquam perferendis
-                                            ut commodi inventore sunt.</p>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias dignissimos
-                                            ratione ducimus dolor illo itaque eveniet soluta, beatae, asperiores magnam
-                                            quaerat cumque, distinctio error voluptatum quidem cum numquam voluptate
-                                            commodi.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint perferendis vel
-                                            animi laborum nobis aut rerum voluptas quam ipsa soluta.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet accusantium
-                                            provident nulla minus velit, voluptas voluptatem in libero hic quaerat saepe
-                                            quae, labore, qui illo eum ullam ea. Repudiandae excepturi aut earum ipsa vitae
-                                            modi, non eos hic? Atque fugit ullam est ab nam numquam id pariatur, esse
-                                            voluptates, ipsa aperiam consequatur laboriosam perspiciatis. Nemo culpa
-                                            reprehenderit tenetur alias dolor veritatis ducimus, numquam ipsa incidunt harum
-                                            dolorem quod perspiciatis autem quis soluta, nobis assumenda aliquam perferendis
-                                            ut commodi inventore sunt.</p>
+                                        <article class="text-component text-component--relaxed">
+                                            <h3 class="toc-skip">✅ Comportament</h3>
+                                            <ul class="list list--ul">
+                                                <li>
+                                                    <p>🔹 Si <code>fullscreen=true</code>
+                                                        → Ocupa tota la pantalla, sense límits
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>🔹 Si NO és fullscreen
+                                                        → maxWidth i maxHeight = (viewport − marge 5%)
+                                                        → Es poden sobreescriure amb <code>data-max-width</code> i <code>data-max-height</code>
+                                                        → Mínims per defecte (300 × 200) i configurables via <pre>data-min-*</pre>
+                                                    </p>
+                                                </li>
+                                                <li><p>🔹 Resize queda limitat automàticament a aquests valors</p></li>
+                                            </ul>
+                                            <h3 class="toc-skip">✅ Exemple d’ús</h3>
+                                            <p>HTML sense cap atribut → mides automàtiques basades en viewport:</p>
+                                            <pre class="code-snippet">
+                                                <code>&lt;button data-url="/help.html"&gt;Ajuda&lt;/button&gt;</code>
+                                            </pre>
+
+                                            <p>Amb mínims custom:</p>
+                                            <pre class="code-snippet">
+                                                <code>&lt;button data-url="/help.html" data-min-width="600" data-min-height="400"&gt; Ajuda &lt;/button&gt;</code>
+                                            </pre>
+
+                                            <p>Amb màxims custom:</p>
+                                            <pre class="code-snippet">
+                                                <code>&lt;button data-url="/help.html" data-max-width="800" data-max-height="600"&gt; Ajuda&lt;/button&gt;</code>
+                                            </pre>
+
+                                            <h3 class="toc-skip"> <a href="https://getlorem.com/es?count=5&units=1&lang=es" _target="blank">Generador lipsum</a></h3>
+                                            <p class="drop-cap text-sm">
+                                                Lorem ipsum dolor sit amet consectetur adipiscing elit euismod laoreet quam nunc, suscipit aptent tristique pellentesque erat porttitor volutpat maecenas habitasse rutrum sagittis, commodo nascetur habitant himenaeos sapien mollis fermentum natoque parturient curae. Rhoncus pellentesque maecenas dictumst ligula sapien platea porttitor tortor, integer aenean mattis elementum molestie ut etiam, diam fusce nascetur hac venenatis ultricies commodo. Penatibus torquent sagittis nam vulputate mus mollis tellus nulla magna aptent ut placerat porttitor sed auctor, integer imperdiet tristique tempus mi feugiat ligula ultricies lacus purus dictumst rhoncus suscipit. Urna ridiculus egestas dignissim venenatis dapibus eget metus, curabitur feugiat et magnis viverra diam senectus lacinia, nisl conubia cubilia enim nascetur felis.
+                                            </p>
+                                            <p class="drop-cap text-sm">
+                                                Velit per praesent felis ante eu taciti id sodales tortor quam, erat consequat est tristique eget libero natoque eleifend aliquam, habitasse auctor condimentum egestas curae cubilia inceptos curabitur cras. Leo nam ante est habitant faucibus primis eleifend iaculis ut, nibh morbi quis nisi hac massa torquent pharetra natoque dis, neque mollis a arcu nec et tortor augue. Augue eu euismod turpis vitae penatibus iaculis suspendisse lobortis, neque lectus ac arcu per pretium. Platea eros enim pellentesque hac cras malesuada convallis inceptos fames in, orci sem augue dictum cubilia eleifend morbi nascetur lobortis, viverra suscipit natoque duis sociosqu fermentum volutpat aptent leo.
+                                            </p>
+                                            <p class="drop-cap text-sm">
+                                                Morbi per vulputate urna ornare tempor bibendum mauris, aenean blandit dapibus suspendisse vitae dignissim, velit nulla commodo facilisi pellentesque egestas. Et lectus dignissim vel nunc vehicula quis leo, pulvinar sociosqu tincidunt vitae vivamus blandit parturient, facilisis diam viverra rhoncus sem tempus. Rutrum in scelerisque gravida ac duis ante varius sed faucibus, eros etiam netus natoque rhoncus erat vestibulum dictumst, malesuada diam lacinia molestie lobortis torquent parturient congue. Vulputate nibh pharetra montes libero sociosqu auctor pretium, ligula suscipit sem sociis magnis litora purus felis, vehicula lacinia duis eleifend suspendisse condimentum.
+                                            </p>
+                                            <p class="drop-cap text-sm">
+                                                Sem donec mattis lacinia imperdiet pulvinar est fusce libero, at ornare eleifend eros id ridiculus rhoncus, porttitor mi arcu maecenas vulputate netus bibendum. Nisl turpis ad platea odio pulvinar quisque dui ornare sem duis non, bibendum ullamcorper tincidunt neque ridiculus tempus donec himenaeos dapibus. Tellus massa iaculis vulputate elementum ullamcorper himenaeos magna penatibus, ultricies primis consequat dignissim pellentesque nullam torquent. Vel cubilia malesuada habitant nullam fames vitae, maecenas ullamcorper donec duis metus, felis egestas tempor quisque lacus.
+                                            </p>
+                                        </article>
                                     </div>
                                 </div>
                             </section>
                             <section class="padding-y-md">
                                 <h2 class="padding-bottom-md">Contingut HTML</h2>
                                 <div class="container max-width-3xs padding-y-xs ">
-                                    <a class="js-modal" data-content="<p>Hola món</p>" data-title="Title">
+                                    <a class="js-modal" data-content="<p>Hola món. <br/> té: data-min-width='600' data-min-height='400'</p>" data-title="Title"  data-min-width="600" data-min-height="400">
                                         <svg class="icon icon--xs pe-none" viewBox="0 0 16 16" aria-hidden="true">
                                             <g fill="currentColor">
                                                 <path fill="none" stroke="currentColor" stroke-linecap="round"

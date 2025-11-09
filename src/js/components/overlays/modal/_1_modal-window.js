@@ -24,6 +24,11 @@ class DynamicModal {
     constructor(element, opts) {
         Object.assign(this, Util.extend(DynamicModal.defaults, opts));
         this.element = element;
+        const d = element.dataset;
+        ["minWidth","minHeight","maxWidth","maxHeight"].forEach(p => {
+            const k = p.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+            if (d[k]) this[p] = parseInt(d[k], 10);
+        });
         this.dataOrigin = element.dataset.url || element.dataset.content;
         this.mimeType = this.setMimeType(this.dataOrigin);
         this.isDynamic =
@@ -58,6 +63,10 @@ class DynamicModal {
         headerActions: [],
         footerActions: [],
         loadingButtons: [],
+        minWidth: 300,
+        minHeight: 200,
+        maxWidth: null,   // si null, es calcula automàticament
+        maxHeight: null,  // si null, es calcula automàticament
     };
 
     buildModal() {
@@ -332,23 +341,44 @@ class DynamicModal {
                         content.removeAttribute('style');
                     } else {
                         modal.classList.remove('fullscreen');
-                        content.style.maxWidth = this.maxWidth + 'px';
-                        content.style.maxHeight = this.maxHeight + 'px';
+                        // Derivem màxims equivalents a fullscreen:
+                        const viewportW = window.innerWidth;
+                        const viewportH = window.innerHeight;
+                        
+                        const maxW = this.maxWidth ?? viewportW * 0.95;
+                        const maxH = this.maxHeight ?? viewportH * 0.95;
+                        
+                        content.style.maxWidth = maxW + "px";
+                        content.style.maxHeight = maxH + "px";
+                        
+                        // Aplicar mínims si existeixen
+                        if (this.minWidth)  content.style.minWidth  = this.minWidth  + "px";
+                        if (this.minHeight) content.style.minHeight = this.minHeight + "px";
                     }
+                    const viewportW = window.innerWidth;
+                    const viewportH = window.innerHeight;
 
+                    const maxW = this.maxWidth ?? viewportW * 0.95;
+                    const maxH = this.maxHeight ?? viewportH * 0.95;
+                    
                     resize = new Resize({
                         el: modal,
-                        maxWidth: this.maxWidth,
+                        maxWidth: maxW,
+                        maxHeight: maxH,
                         onResize: (isResize) => {
+                            this.isFullscreen = false;
                             drag.isResize = isResize;
+                            this.isResize = isResize;
                         },
                     });
                     drag = new Drag({
                         el: modal,
-                        maxWidth: this.maxWidth,
+                        maxWidth: maxW,
+                        maxHeight: maxH,
                         onDrag: (isDrag) => {
                             this.isFullscreen = false;
                             resize.isDrag = isDrag;
+                            this.isDrag = isDrag;
                         },
                     });
                 }
@@ -584,6 +614,7 @@ class Modal extends DynamicModal {
     }
 
     async handleClose(e) {
+        if (this.isResize || this.isDrag) return;
         if (e !== undefined) {
             e.preventDefault();
             if (e.target.classList && e.target.classList.contains(this.closeClass)) {
@@ -614,6 +645,7 @@ class Modal extends DynamicModal {
     }
 
     handleKeyDown(e) {
+        if (this.isResize || this.isDrag) return;
         if ((e.code && e.code == 9) || (e.key && e.key == 'Tab')) {
             // Manté el focus dins del modal
             if (this.firstFocusable == document.activeElement && e.shiftKey) {
@@ -635,6 +667,7 @@ class Modal extends DynamicModal {
     }
 
     handleClick(e) {
+        if (this.isResize || this.isDrag) return;
         if (!e.target.closest('.' + this.closeClass) && !e.target.classList.contains('js-modal')) return;
         e.preventDefault();
         this.close();
