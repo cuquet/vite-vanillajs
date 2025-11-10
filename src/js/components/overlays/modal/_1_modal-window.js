@@ -27,7 +27,9 @@ class DynamicModal {
         const d = element.dataset;
         ["minWidth","minHeight","maxWidth","maxHeight"].forEach(p => {
             const k = p.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
-            if (d[k]) this[p] = parseInt(d[k], 10);
+            // llegim primer dataset (camelCase), si no existeix, llegim attribute "data-min-width"
+            const val = d[p] ?? element.getAttribute("data-" + k);
+            if (val) this[p] = parseInt(val, 10);
         });
         this.dataOrigin = element.dataset.url || element.dataset.content;
         this.mimeType = this.setMimeType(this.dataOrigin);
@@ -196,6 +198,11 @@ class DynamicModal {
                     if (this.isFullscreen) {
                         this.modal.querySelector('.modal__content').removeAttribute('style');
                     }
+                    this.modal.dispatchEvent(
+                        new CustomEvent("modal:fullscreen", {
+                            detail: { fullscreen: this.isFullscreen }
+                        })
+                    );
                     if (this.onFullscreen) {
                         this.onFullscreen(this.isFullscreen);
                     }
@@ -307,7 +314,6 @@ class DynamicModal {
     }
 
     get #renderDynamicModal() {
-        let resize, drag;
 
         const modal = document.createElement('div');
         Util.addClass(modal, this.modalClass);
@@ -361,25 +367,37 @@ class DynamicModal {
                     const maxW = this.maxWidth ?? viewportW * 0.95;
                     const maxH = this.maxHeight ?? viewportH * 0.95;
                     
-                    resize = new Resize({
+                    new Resize({
                         el: modal,
                         maxWidth: maxW,
                         maxHeight: maxH,
-                        onResize: (isResize) => {
-                            this.isFullscreen = false;
-                            drag.isResize = isResize;
-                            this.isResize = isResize;
+                        onResizeStart: () => {
+                            modal.dispatchEvent(new CustomEvent("modal:resizestart"));
                         },
+                        onResize: (detail) => {
+                            modal.dispatchEvent(
+                                new CustomEvent("modal:resize", { detail })
+                            );
+                        },
+                        onResizeEnd: () => {
+                            modal.dispatchEvent(new CustomEvent("modal:resizeend"));
+                        }
                     });
-                    drag = new Drag({
+                    new Drag({
                         el: modal,
                         maxWidth: maxW,
                         maxHeight: maxH,
-                        onDrag: (isDrag) => {
-                            this.isFullscreen = false;
-                            resize.isDrag = isDrag;
-                            this.isDrag = isDrag;
+                        onDragStart: () => {
+                            modal.dispatchEvent(new CustomEvent("modal:dragstart"));
                         },
+                        onDrag: (detail) => {
+                            modal.dispatchEvent(
+                                new CustomEvent("modal:drag", { detail })
+                            );
+                        },
+                        onDragEnd: () => {
+                            modal.dispatchEvent(new CustomEvent("modal:dragend"));
+                        }
                     });
                 }
 
@@ -538,6 +556,39 @@ class Modal extends DynamicModal {
         this.modal.addEventListener('keydown', this._onKeydown);
         this.modal.addEventListener('click', this._onClick);
         window.addEventListener('keydown', this._onWindowKeydown);
+
+        //const log = this.logModalEvent.bind(this);
+        this.modal.addEventListener("modal:resizestart", (e) => {
+            //log("modal:resizestart", e.detail);
+            this.isResize = e.detail.isResize;
+            if (this.isFullscreen) {
+                this.isFullscreen = false;
+                this.modal.classList.remove("fullscreen");
+            }
+        });
+        // this.modal.addEventListener("modal:resize", (e) => {
+        //     log("modal:resize", e.detail);
+        // });
+        this.modal.addEventListener("modal:resizeend", (e) => {
+            //log("modal:resizeend", e.detail);
+            this.isResize = e.detail.isResize;
+        });
+        
+        this.modal.addEventListener("modal:dragstart", (e) => {
+            //log("modal:dragstart", e.detail);
+            this.isDrag=e.detail.isDrag;
+            if (this.isFullscreen) {
+                this.isFullscreen = false;
+                this.modal.classList.remove("fullscreen");
+            }
+        });
+        // this.modal.addEventListener("modal:drag", (e) => {
+        //     log("modal:drag", e.detail);
+        // });
+        this.modal.addEventListener("modal:dragend", (e) => {
+            //log("modal:dragend", e.detail);
+            this.isDrag=e.detail.isDrag;
+        });
     }
 
     loading() {
@@ -723,6 +774,14 @@ class Modal extends DynamicModal {
 
         // do not `delete this;` — letting GC handle it
     }
+    // logModalEvent(type, detail) {
+    //     console.log(
+    //         `%c[MODAL EVENT] %c${type}`,
+    //         "color:#09f; font-weight:bold;",
+    //         "color:#0a0; font-weight:bold;",
+    //         detail ? detail : ""
+    //     );
+    // }
 }
 
 if (typeof window !== 'undefined') {

@@ -59,8 +59,8 @@ class DashboardNavigation {
 
         window.addEventListener('keyup', this.handleKeyUp.bind(this));
 
-        document.querySelector(".js-app-ui")
-            .addEventListener("sidebar:minify", e => console.log("EVENT minify:", e.detail));
+        // document.querySelector(".js-app-ui")
+        //     .addEventListener("sidebar:minify", e => console.log("EVENT minify:", e.detail));
     }
 
     initMenuBtnAnimation() {

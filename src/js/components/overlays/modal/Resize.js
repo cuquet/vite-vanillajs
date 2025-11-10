@@ -134,6 +134,10 @@ export class Resize {
         this.resize = this.handleResize.bind(this);
         this.end = this.handleEnd.bind(this);
 
+        this.el.dispatchEvent(new CustomEvent("modal:resizestart", {
+            detail: { width: this.start.width, height: this.start.height, isResize: this.isResize }
+        }));
+
         document.addEventListener("mousemove", this.resize);
         document.addEventListener("touchmove", this.resize, { passive: true });
         document.addEventListener("mouseup", this.end);
@@ -204,6 +208,9 @@ export class Resize {
         this.el.firstChild.style.left = this.style.left + "px";
         this.el.firstChild.style.height = this.style.height + "px";
         this.el.firstChild.style.width = this.style.width + "px";
+        this.el.dispatchEvent(new CustomEvent("modal:resize", {
+            detail: { width: this.style.width, height: this.style.height }
+        }));
     }
 
     top() {
@@ -278,6 +285,8 @@ export class Resize {
         this.isStart = false;
         this.isResize = false;
         this.onResize(this.isResize);
+
+        this.el.dispatchEvent(new CustomEvent("modal:resizeend", {detail:{ isResize: this.isResize}}));
 
         document.removeEventListener("mousemove", this.resize);
         document.removeEventListener("touchmove", this.resize);

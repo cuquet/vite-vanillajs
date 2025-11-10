@@ -76,6 +76,9 @@ export class Drag {
         this.drag = this.handleDrag.bind(this);
         this.end = this.handleEnd.bind(this);
 
+        this.el.dispatchEvent(new CustomEvent("modal:dragstart", {
+            detail: { left: this.el.offsetLeft, top: this.el.offsetTop, isDrag:this.isDrag }
+        }));
         document.addEventListener('mousemove', this.drag);
         document.addEventListener('touchmove', this.drag, { passive: true });
         document.addEventListener('mouseup', this.end);
@@ -94,12 +97,17 @@ export class Drag {
 
         const rect = this.el.firstChild.getBoundingClientRect();
 
-        this.style.top = rect.top + this.curr.y;
-        this.style.left = rect.left + this.curr.x;
+        let _top = rect.top + this.curr.y;
+        let _left =  rect.left + this.curr.x;
+        this.style.top = _top;
+        this.style.left = _left;
 
         this.el.firstChild.style.top = this.style.top + 'px';
         this.el.firstChild.style.left = this.style.left + 'px';
         this.el.firstChild.style.position = 'absolute';
+        this.el.dispatchEvent(new CustomEvent("modal:drag", {
+            detail: { _left , _top }
+        }));
     }
 
     handleEnd() {
@@ -107,6 +115,8 @@ export class Drag {
         this.isDrag = false;
         this.onDrag(this.isDrag);
 
+        this.el.dispatchEvent(new CustomEvent("modal:dragend", {detail:{isDrag: this.isDrag}}));
+        
         document.removeEventListener('mousemove', this.drag);
         document.removeEventListener('touchmove', this.drag, { passive: true });
         document.removeEventListener('mouseup', this.end);
