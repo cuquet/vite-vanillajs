@@ -2,7 +2,6 @@ import { tools as Util } from '@modules';
 
 class DashboardNavigation {
     constructor() {
-        //super();
         // Selecciona l'element principal de la UI de l'aplicació
         this.appUi = document.querySelector('.js-app-ui');
         if (!this.appUi) return;
@@ -15,11 +14,9 @@ class DashboardNavigation {
 
         // Botó per minimitzar la barra lateral
         this.btnMin = this.appUi.querySelector('.js-app-ui__btn-mim');
-        //if (!this.btnMin) return;
 
         // Botó per passar a pantalla complerta
         this.btnFullScreen = this.appUi.querySelector('.js-app-ui__btn-fullscreen');
-        //if (!this.btnFullScreen) return;
 
         // Classes CSS
         this.NAV_STATIC_CLASS = 'app-ui--static';
@@ -38,6 +35,7 @@ class DashboardNavigation {
         this.initMenuBtnAnimation();
 
         this.initEvents();
+        this.restoreMinState();
         this.checkSidebarLayout();
     }
 
@@ -46,7 +44,7 @@ class DashboardNavigation {
         if (this.Sidebar) {
             this.Sidebar.addEventListener('sidebar-layout-changed', (e) => {
                 this.layout = e.detail.layout;
-                console.log('sidebar-layout-changed=>', this.layout);
+                //console.log('sidebar-layout-changed=>', this.layout);
                 this.checkSidebarLayout();
             });
         }
@@ -60,6 +58,9 @@ class DashboardNavigation {
         }
 
         window.addEventListener('keyup', this.handleKeyUp.bind(this));
+
+        document.querySelector(".js-app-ui")
+            .addEventListener("sidebar:minify", e => console.log("EVENT minify:", e.detail));
     }
 
     initMenuBtnAnimation() {
@@ -126,22 +127,18 @@ class DashboardNavigation {
         const shouldExpand = !this.appUi.classList.contains(this.NAV_EXPANDED_CLASS);
         this.appUi.classList.toggle(this.NAV_EXPANDED_CLASS, shouldExpand);
         this.menuBtnNav.setAttribute('aria-expanded', shouldExpand);
-        // if (shouldExpand) {
-        //     //this.firstFocusableNavEl = this.getFirstFocusableInNav();
-        //     //if (this.firstFocusableNavEl) this.firstFocusableNavEl.focus();
-        // } else if (this.lastFocusedBtn) {
-        //     this.lastFocusedBtn.focus();
-        //     this.lastFocusedBtn = null;
-        // }
     }
 
     handleMinBtnClick(event) {
         event.preventDefault();
         const entering = !this.btnMin.classList.contains('min-btn--state-b');
         this.btnMin.classList.toggle('min-btn--state-b', entering);
-        const icon = this.btnMin.querySelector('svg');
-        icon.classList.toggle('flip-x', entering);
+        this.updateMinIcon(entering);
         this.appUi.classList.toggle(this.NAV_MINIMIZED_CLASS, entering);
+        this.persist("dashboard.sidebar.min", entering ? "1" : "0");
+        this.appUi.dispatchEvent(new CustomEvent("sidebar:minify", {
+            detail: { entering }
+        }));
     }
 
     handleFullBtnClick(event) {
@@ -151,6 +148,10 @@ class DashboardNavigation {
         const icon = this.btnFullScreen.querySelector('use');
         if (icon) icon.setAttribute('href', `#${entering ? 'compress' : 'expand'}`);
         DashboardNavigation.toggleFullscreen(entering);
+        this.persist("dashboard.fullscreen", entering ? "1" : "0");
+        this.appUi.dispatchEvent(new CustomEvent("sidebar:fullscreen", {
+            detail: { entering }
+        }));
     }
 
     handleKeyUp(event) {
@@ -173,6 +174,58 @@ class DashboardNavigation {
             this.menuBtnNav.click();
         }
     }
+    updateMinIcon(isMin) {
+        if (!this.btnMin) return;
+        const icon = this.btnMin.querySelector('svg');
+        if (icon) icon.classList.toggle('flip-x', isMin);
+    }
+    restoreMinState() {
+        const saved = this.retrieve("dashboard.sidebar.min", "0") === "1";
+        //console.log("restoreMinState:", saved);
+        if (saved) {
+            this.appUi.classList.add(this.NAV_MINIMIZED_CLASS);
+            if (this.btnMin) {
+                this.btnMin.classList.add('min-btn--state-b');
+                this.updateMinIcon(true);
+            }
+            this.appUi.dispatchEvent(new CustomEvent("sidebar:minify", {
+                detail: { entering: true }
+            }));
+        }
+    }
+    restoreFullscreen() {
+        const saved = this.retrieve("dashboard.fullscreen", "0") === "1";
+        //console.log("restoreFullscreen:", saved);
+
+        if (!saved) return;
+
+        // Actualitza botó + icona
+        this.btnFullScreen?.classList.add("fullscreen-btn--state-b");
+        this.btnFullScreen
+            ?.querySelector("use")
+            ?.setAttribute("href", "#compress");
+
+        // Entra realment en fullscreen navegador
+        DashboardNavigation.toggleFullscreen(true);
+
+        // Notifica
+        this.appUi.dispatchEvent(new CustomEvent("sidebar:fullscreen", {
+            detail: { entering: true }
+        }));
+    }
+    persist(key, value) {
+        try { localStorage.setItem(key, value); } catch {}
+    }
+
+    retrieve(key, fallback = null) {
+        try {
+            const v = localStorage.getItem(key);
+            return v !== null ? v : fallback;
+        } catch {
+            return fallback;
+        }
+    }
+
 }
 window.DashboardNavigation = DashboardNavigation;
 export default DashboardNavigation;
