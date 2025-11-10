@@ -214,7 +214,7 @@ class DashboardNavigation {
         }));
     }
     persist(key, value) {
-        try { localStorage.setItem(key, value); } catch {}
+        try { localStorage.setItem(key, value); } catch { /* noop */ }
     }
 
     retrieve(key, fallback = null) {
