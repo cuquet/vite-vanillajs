@@ -1,7 +1,10 @@
 <!-- This is a comment and will not be displayed -->
+<<<<<<< HEAD
 
 **Sample Readme edit for your project**
 
+=======
+>>>>>>> f41af38 (Update .gitignore to exclude dashboard-related files; remove README_template and favicon.ico)
 ![Vite](src/assets/vite.svg)
 ![Javascript](src/assets/javascript.svg)
 
