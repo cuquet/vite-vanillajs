@@ -40,3 +40,6 @@ vite.entries.json
 *.sln
 *.sw?
 *OFF.*
+*dashboard*.*
+src/**/*dashboard*.*
+**/*dashboard*
