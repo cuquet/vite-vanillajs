@@ -65,8 +65,8 @@ class DynamicModal {
         headerActions: [],
         footerActions: [],
         loadingButtons: [],
-        minWidth: 300,
-        minHeight: 200,
+        minWidth: null,
+        minHeight: null,
         maxWidth: null,   // si null, es calcula automàticament
         maxHeight: null,  // si null, es calcula automàticament
     };
@@ -366,7 +366,41 @@ class DynamicModal {
 
                     const maxW = this.maxWidth ?? viewportW * 0.95;
                     const maxH = this.maxHeight ?? viewportH * 0.95;
-                    
+
+                    // --- AUTOFULLSCREEN LOGIC ---
+                    /*
+                    Mesura el modal generat
+                    getBoundingClientRect() després de renderitzar (per això fem requestAnimationFrame).
+                    ✔️ Compara amb el viewport
+                    Si el contingut ocupa gairebé tota la pantalla (>= 98%):
+                    Activa .fullscreen
+                    Elimina límits de mida (content.removeAttribute('style'))
+                    Envia l’event modal:fullscreen
+                    Executa callbacks si existeixen
+                    */
+                    requestAnimationFrame(() => {
+                        const rect = content.getBoundingClientRect();
+
+                        const viewportW = window.innerWidth;
+                        const viewportH = window.innerHeight;
+
+                        const exceedsW = rect.width  >= viewportW * 0.98;
+                        const exceedsH = rect.height >= viewportH * 0.98;
+
+                        if (exceedsW || exceedsH) {
+                            this.isFullscreen = true;
+                            modal.classList.add("fullscreen");
+                            content.removeAttribute("style");
+
+                            // Notifiquem event com si hagués clicat el botó fullscreen
+                            modal.dispatchEvent(new CustomEvent("modal:fullscreen", {
+                                detail: { fullscreen: true }
+                            }));
+
+                            if (this.onFullscreen) this.onFullscreen(true);
+                        }
+                    });
+
                     new Resize({
                         el: modal,
                         maxWidth: maxW,

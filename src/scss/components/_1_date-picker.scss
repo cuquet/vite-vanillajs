@@ -44,9 +44,13 @@ Dependencies:
             width: var(--date-picker-icon-size);
             height: var(--date-picker-icon-size);
             margin:auto;
+            color: var(--color-contrast-medium);
         }
         &:hover {
             color:var(--color-primary);
+            .icon {
+                color: var(--color-primary);
+            }
         }
         &:active {
             transform:translateY(2px);

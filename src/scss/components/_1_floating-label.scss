@@ -29,6 +29,15 @@ Usage: https://codyhouse.co/ds/components/info/floating-label
     clip: auto;
     clip-path: none;
     &-control {
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+            -webkit-text-fill-color: inherit !important;
+            transition: background-color 10000s ease-in-out 0s !important;
+            /*box-shadow: 0 0 0px 1000px transparent inset !important;*/
+            background-color: transparent !important;
+        }
         background-color: var(--color-bg);
         padding: var(--space-xs) calc(var(--space-sm) + 24px) var(--space-xs) var(--space-sm); /* 24px → icon size */
         &:placeholder-shown { /* input with no content - placeholder is visible */

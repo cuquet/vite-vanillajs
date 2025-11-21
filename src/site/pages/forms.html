@@ -855,14 +855,20 @@
                             </section>
                             <section class="padding-y-xs"><h2>Control Calendari</h2>
                                 <div class="container max-width-2xs padding-y-xs ">
-                                    <div class="date-input js-date-input">
+                                    <div class="date-input js-date-input"
+                                        data-months="Gener,Febrer,Març,Abril,Maig,Juny,Juliol,Agost,Setembre,Octubre,Novembre,Desembre"
+                                        data-weekdays="Dilluns,Dimarts,Dimecres,Dijous,Divendres,Dissabte,Diumenge"
+                                        data-weekdays-short="Dl,Dt,Dc,Dj,Dv,Ds,Dg"
+                                        data-week-start="1"
+                                        data-date-format="y-m-d"
+                                        data-date-separator="-"
+                                        data-btn-today="Avui"
+                                        data-btn-clear="Esborrar">
                                         <label for="date-input-1" class="form-label margin-bottom-2xs">
-                                            Select date
-                                            <i class="sr-only">, format is dd/mm/yyyy</i>
-                                            :
+                                            Select date<i class="sr-only">, format is yyyy/mm/dd</i>:
                                         </label>
                                         <div class="date-input__wrapper">
-                                            <input type="text" class="form-control width-100% date-input__text js-date-input__text" placeholder="dd/mm/yyyy" autocomplete="off" id="date-input-1">
+                                            <input type="text" class="form-control width-100% date-input__text js-date-input__text" autocomplete="off" id="date-input-1">
                                             <button class="date-input__trigger js-date-input__trigger" aria-label="Select date using calendar widget" type="button">
                                                 <svg class="icon" aria-hidden="true" viewBox="0 0 20 20">
                                                     <g fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2">
@@ -874,82 +880,37 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                        <div class="date-picker js-date-picker" role="dialog" aria-labelledby="calendar-label-1">
-                                            <header class="date-picker__header">
-                                                <div class="date-picker__month">
-                                                    <span class="date-picker__month-label js-date-picker__month-label" id="calendar-label-1"></span>
-                                                    <nav>
-                                                        <ul class="date-picker__month-nav js-date-picker__month-nav">
-                                                            <li>
-                                                                <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--prev" type="button">
-                                                                    <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                        <title>Previous month</title>
-                                                                        <polyline points="10 2 4 8 10 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                    </svg>
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--next" type="button">
-                                                                    <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                        <title>Next month</title>
-                                                                        <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                    </svg>
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                                <ol class="date-picker__week">
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            M
-                                                            <span class="sr-only">onday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            T
-                                                            <span class="sr-only">uesday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            W
-                                                            <span class="sr-only">ednesday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            T
-                                                            <span class="sr-only">hursday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            F
-                                                            <span class="sr-only">riday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            S
-                                                            <span class="sr-only">aturday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            S
-                                                            <span class="sr-only">unday</span>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </header>
-                                            <ol class="date-picker__dates js-date-picker__dates" aria-labelledby="calendar-label-1"></ol>
+                                        <div class="date-picker js-date-picker" role="dialog">
+                                            <ol class="date-picker__dates js-date-picker__dates"></ol>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="container max-width-2xs padding-y-xs ">
-
+                                    <div class="date-input js-date-input">
+                                        <label for="date-input-2" class="form-label margin-bottom-2xs">
+                                            Select date
+                                            <i class="sr-only">, format is dd/mm/yyyy</i>
+                                            :
+                                        </label>
+                                        <div class="date-input__wrapper">
+                                            <input type="text" class="form-control width-100% date-input__text js-date-input__text" placeholder="dd/mm/yyyy" autocomplete="off" id="date-input-2">
+                                            <button class="date-input__trigger js-date-input__trigger" aria-label="Select date using calendar widget" type="button">
+                                                <svg class="icon" aria-hidden="true" viewBox="0 0 20 20">
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2">
+                                                        <rect x="1" y="4" width="18" height="14" rx="1"/>
+                                                        <line x1="5" y1="1" x2="5" y2="4"/>
+                                                        <line x1="15" y1="1" x2="15" y2="4"/>
+                                                        <line x1="1" y1="9" x2="19" y2="9"/>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="date-picker js-date-picker" role="dialog">
+                                            <ol class="date-picker__dates js-date-picker__dates"></ol>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container max-width-2xs padding-y-xs ">
                                     <div class="date-input inline-block js-date-input">
                                         <label for="date-input-11" class="sr-only">Select date, format is dd/mm/yyyy:</label>
                                         <div class="date-input__wrapper">
@@ -966,87 +927,55 @@
                                                 <span class="js-date-input__value" aria-hidden="true">Select date</span>
                                             </button>
                                         </div>
-                                        <div class="date-picker js-date-picker" role="dialog" aria-labelledby="calendar-label-1">
-                                            <header class="date-picker__header">
-                                                <div class="date-picker__month">
-                                                    <span class="date-picker__month-label js-date-picker__month-label" id="calendar-label-1"></span>
-                                                    <nav>
-                                                        <ul class="date-picker__month-nav js-date-picker__month-nav">
-                                                            <li>
-                                                                <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--prev" type="button">
-                                                                    <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                        <title>Previous month</title>
-                                                                        <polyline points="10 2 4 8 10 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                    </svg>
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--next" type="button">
-                                                                    <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                        <title>Next month</title>
-                                                                        <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                    </svg>
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                                <ol class="date-picker__week">
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            M
-                                                            <span class="sr-only">onday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            T
-                                                            <span class="sr-only">uesday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            W
-                                                            <span class="sr-only">ednesday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            T
-                                                            <span class="sr-only">hursday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            F
-                                                            <span class="sr-only">riday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            S
-                                                            <span class="sr-only">aturday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            S
-                                                            <span class="sr-only">unday</span>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </header>
-                                            <ol class="date-picker__dates js-date-picker__dates" aria-labelledby="calendar-label-1"></ol>
+                                        <div class="date-picker js-date-picker" role="dialog">
+                                            <ol class="date-picker__dates js-date-picker__dates"></ol>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="container max-width-2xs padding-y-xs ">
+                                    <div class="date-range js-date-range"
+                                        data-months="Gener,Febrer,Març,Abril,Maig,Juny,Juliol,Agost,Setembre,Octubre,Novembre,Desembre"
+                                        data-weekdays="Dilluns,Dimarts,Dimecres,Dijous,Divendres,Dissabte,Diumenge"
+                                        data-weekdays-short="Dl,Dt,Dc,Dj,Dv,Ds,Dg"
+                                        data-week-start="1"
+                                        data-date-format="d-m-y"
+                                        data-date-separator="-"
+                                        data-btn-today="Avui"
+                                        data-btn-clear="Esborrar">
+                                        <div class="date-range__input js-date-range__input">
+                                            <input type="text" class="js-date-range__text js-date-range__text--start">
+                                        </div>
+                                        <div class="date-range__input js-date-range__input">
+                                            <input type="text" class="js-date-range__text js-date-range__text--end" >
+                                        </div>
+                                        <button class="btn btn--subtle height-100% js-date-range__trigger">
+                                            <svg class="icon margin-right-2xs" aria-hidden="true" viewBox="0 0 20 20">
+                                                <g fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2">
+                                                    <rect x="1" y="4" width="18" height="14" rx="1"/>
+                                                    <line x1="5" y1="1" x2="5" y2="4"/>
+                                                    <line x1="15" y1="1" x2="15" y2="4"/>
+                                                    <line x1="1" y1="9" x2="19" y2="9"/>
+                                                </g>
+                                            </svg>
+                                            <span class="js-date-range__trigger-label" aria-hidden="true">
+                                                <span>Seleccio les dates</span>
+                                                <span class="hide">
+                                                    <i class="js-date-range__value js-date-range__value--start">Check in</i>
+                                                    - 
+                                                    <i class="js-date-range__value js-date-range__value--end">Check out</i>
+                                                </span>
+                                            </span>
+                                        </button>
+                                        <div class="date-picker js-date-picker" role="dialog" ><ol class="date-picker__dates js-date-picker__dates"></ol></div>
                                     </div>
                                 </div>
                                 <div class="container max-width-2xs padding-y-xs ">
                                     <div class="date-range js-date-range">
                                         <div class="date-range__input js-date-range__input">
-                                            <input type="text" class="js-date-range__text js-date-range__text--start" aria-label="Select start date, format is dd/mm/yyyy">
+                                            <input type="text" class="js-date-range__text js-date-range__text--start">
                                         </div>
                                         <div class="date-range__input js-date-range__input">
-                                            <input type="text" class="js-date-range__text js-date-range__text--end" aria-label="Select end date, format is dd/mm/yyyy">
+                                            <input type="text" class="js-date-range__text js-date-range__text--end">
                                         </div>
                                         <button class="btn btn--subtle height-100% js-date-range__trigger" aria-label="Select start and end dates using the calendar widget">
                                             <svg class="icon margin-right-2xs" aria-hidden="true" viewBox="0 0 20 20">
@@ -1066,77 +995,8 @@
                                                 </span>
                                             </span>
                                         </button>
-                                        <div class="date-picker js-date-picker" role="dialog" aria-labelledby="calendar-label-1">
-                                            <header class="date-picker__header">
-                                                <div class="date-picker__month">
-                                                    <span class="date-picker__month-label js-date-picker__month-label" id="calendar-label-1"></span>
-                                                    <nav>
-                                                        <ul class="date-picker__month-nav js-date-picker__month-nav">
-                                                            <li>
-                                                                <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--prev">
-                                                                    <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                        <title>Previous month</title>
-                                                                        <polyline points="10 2 4 8 10 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                    </svg>
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--next">
-                                                                    <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                        <title>Next month</title>
-                                                                        <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                    </svg>
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                                <ol class="date-picker__week">
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            M
-                                                            <span class="sr-only">onday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            T
-                                                            <span class="sr-only">uesday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            W
-                                                            <span class="sr-only">ednesday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            T
-                                                            <span class="sr-only">hursday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            F
-                                                            <span class="sr-only">riday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            S
-                                                            <span class="sr-only">aturday</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date-picker__day">
-                                                            S
-                                                            <span class="sr-only">unday</span>
-                                                        </div>
-                                                    </li>
-                                                </ol>
-                                            </header>
-                                            <ol class="date-picker__dates js-date-picker__dates" aria-labelledby="calendar-label-1"></ol>
+                                        <div class="date-picker js-date-picker" role="dialog">
+                                            <ol class="date-picker__dates js-date-picker__dates"></ol>
                                         </div>
                                     </div>
                                 </div>
@@ -1172,77 +1032,8 @@
                                                     </span>
                                                 </span>
                                             </button>
-                                            <div class="date-picker js-date-picker" role="dialog" aria-labelledby="calendar-label-1">
-                                                <header class="date-picker__header">
-                                                    <div class="date-picker__month">
-                                                        <span class="date-picker__month-label js-date-picker__month-label" id="calendar-label-1"></span>
-                                                        <nav>
-                                                            <ul class="date-picker__month-nav js-date-picker__month-nav">
-                                                                <li>
-                                                                    <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--prev">
-                                                                        <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                            <title>Previous month</title>
-                                                                            <polyline points="10 2 4 8 10 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                        </svg>
-                                                                    </button>
-                                                                </li>
-                                                                <li>
-                                                                    <button class="date-picker__month-nav-btn js-date-picker__month-nav-btn js-date-picker__month-nav-btn--next">
-                                                                        <svg class="icon icon--xs" viewBox="0 0 16 16">
-                                                                            <title>Next month</title>
-                                                                            <polyline points="6 2 12 8 6 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                                                                        </svg>
-                                                                    </button>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
-                                                    </div>
-                                                    <ol class="date-picker__week">
-                                                        <li>
-                                                            <div class="date-picker__day">
-                                                                M
-                                                                <span class="sr-only">onday</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date-picker__day">
-                                                                T
-                                                                <span class="sr-only">uesday</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date-picker__day">
-                                                                W
-                                                                <span class="sr-only">ednesday</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date-picker__day">
-                                                                T
-                                                                <span class="sr-only">hursday</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date-picker__day">
-                                                                F
-                                                                <span class="sr-only">riday</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date-picker__day">
-                                                                S
-                                                                <span class="sr-only">aturday</span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date-picker__day">
-                                                                S
-                                                                <span class="sr-only">unday</span>
-                                                            </div>
-                                                        </li>
-                                                    </ol>
-                                                </header>
-                                                <ol class="date-picker__dates js-date-picker__dates" aria-labelledby="calendar-label-1"></ol>
+                                            <div class="date-picker js-date-picker" role="dialog">
+                                                <ol class="date-picker__dates js-date-picker__dates"></ol>
                                             </div>
                                         </div>
                                     </div>

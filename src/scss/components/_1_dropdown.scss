@@ -66,6 +66,11 @@ Dependencies
             color: var(--color-contrast-medium);
             padding:var(--space-2xs) var(--space-sm);
         }
+        &[aria-current='page'] {
+            background-color: hsla(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.12);
+            color: var(--color-primary);
+            font-weight: 600;
+        }
     }
     &__item:hover, 
     &__item.dropdown__item--hover {
