@@ -7,3 +7,4 @@ export * from './modal';
 export * from './modal';
 export * from './slideshow';
 export * from './toast';
+export * from './command-palette';

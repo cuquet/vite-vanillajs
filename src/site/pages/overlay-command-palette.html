@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon_meu.ico" />
+        <link rel="stylesheet" href="/scss/style.scss" />
+        <title>Dialog | CodyFrame</title>
+    </head>
+    <body>
+        {{> header activepage='overlay-command-palette'}}
+        <main class="main-el position-relative z-index-1 bg-dark padding-y-lg">
+            <div class="container max-width-adaptive-xl">
+                <div class="grid gap-md flex-row-reverse@md">
+                    <div class="col-3@md">
+                        <div class="toc toc--static@md js-toc"></div>
+                    </div>
+                    <div class="col-9@md bg padding-md">
+                        <article class="padding-x-lg@md padding-y-lg@md toc-content js-toc-content toc-content--toc-static">
+                            <div class="text-divider">
+                                <span><h1>Command Palette</h1></span>
+                            </div>
+                            <section class="border-top padding-y-md">
+                                <h2 class="padding-bottom-md">Per defecte</h2>
+                                <span class="tooltip-trigger js-tooltip-trigger" data-tooltip-title="Search (Ctrl/Cmd + K)">
+                                    <a class="btn btn--primary" aria-controls="cmd-1" data-cmd-palette-toggle>
+                                        <svg class="icon fill-current color-primary-subtle">
+                                            <use href="#command"></use>
+                                        </svg>
+                                        <span>Open Command Palette</span>
+                                    </a>                                    
+                                </span>
+                                <div id="cmdPalette" class="cmd-palette-overlay" hidden aria-hidden="true">
+                                    <button type="button" class="cmd-palette-backdrop" data-cmd-palette-close aria-label="Close command palette"></button>
+                                    <div class="cmd-palette-shell" role="dialog" aria-modal="true" aria-labelledby="cmdPaletteTitle">
+                                        <div class="cmd-palette-input-row">
+                                            <svg class="icon"><use href="#search"></use></svg>
+                                            <label class="sr-only" for="cmdInput">Search command</label>
+                                            <input type="text" id="cmdInput" placeholder="Type an action, domain or user..." autocomplete="off" />
+                                            <button type="button" class="cmd-palette-esc-btn" data-cmd-palette-close aria-label="Close command palette">ESC</button>
+                                        </div>
+                                        <div class="sr-only" id="cmdPaletteTitle">Command palette</div>
+                                        <div class="cmd-palette-results" data-cmd-results></div>
+                                    </div>
+                                </div>
+                                <script>
+                                    window.CMD_PALETTE_OPTIONS = {
+                                        messages: {
+                                            noResultsTemplate: "No results. Enter runs: {label}",
+                                            shortcutTitleTemplate: "Search ({shortcut})"
+                                        }
+                                    };
+                                    window.CMD_PALETTE_ITEMS = [
+                                        {
+                                            "id": "quick-search",
+                                            "group": "Accions",
+                                            "label": "Cercar",
+                                            "icon": '<svg class="icon"><use href="#search"></use></svg>',
+                                            "shortcut": "F",
+                                            "keywords": ["search", "cerca", "buscar", "find"],
+                                            "href": "/search",
+                                            "mode": "search",
+                                            "queryParam": "q",
+                                            "isDefault": true
+                                        },
+                                        {
+                                            "id": "create-domain",
+                                            "group": "Accions",
+                                            "label": "Crear nou domini",
+                                            "icon": '<svg class="icon"><use href="#group"></use></svg>',
+                                            "shortcut": "D",
+                                            "keywords": ["domini", "crear", "alta", "domain"],
+                                            "href": "/"
+                                        },
+                                        {
+                                            "id": "create-user",
+                                            "group": "Accions",
+                                            "label": "Crear nou usuari",
+                                            "icon": '<svg class="icon"><use href="#people-group"></use></svg>',
+                                            "shortcut": "U",
+                                            "keywords": ["usuari", "crear", "alta", "user"],
+                                            "href": "/"
+                                        },
+                                        {
+                                            "id": "open-security",
+                                            "group": "Accions",
+                                            "label": "Obrir polítiques de seguretat",
+                                            "icon": '<svg class="icon"><use href="#shield-halved"></use></svg>',
+                                            "shortcut": "S",
+                                            "keywords": ["seguretat", "throttle", "wblist", "spampolicy"],
+                                            "href": "/"
+                                        }
+                                    ];
+                                </script>
+                            </section>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {{> totop }}
+        {{> footer }}
+        {{> svg }}
+    </body>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module">
+        import { Dialog } from '@components/overlays';
+        
+    </script>
+</html>

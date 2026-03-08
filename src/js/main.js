@@ -78,6 +78,7 @@ const INIT_ENTRIES = [
         init: 'initFullModalSearch',
         depends: ['initModal']
     },
+    { selector: '#cmdPalette', component: '@components/overlays', init: 'initCommandPalette' },
 
     // Plugins
     { selector: '.js-copy-to-clip', component: '@components/plugins', init: 'initCopyClipboard', depends: ['initTooltip'] },
